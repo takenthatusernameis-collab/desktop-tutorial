@@ -481,3 +481,22 @@ The repository now provisions a blind, disposable security-research benchmark on
 **UNVERIFIED:** first end-to-end GitHub Actions activation; empirical difficulty calibration; whether generated variants remain sufficiently diverse under long-run history.
 
 **NEXT:** execute a manual workflow activation and inspect benchmark self-test, target readiness, Kilo execution, evidence replay, aggregate report, cleanup, and persistence outcomes.
+
+
+## 2026-10-04T22:53:39Z — Endless Benchmark Repair Activation
+
+### CHANGED
+- Repaired the mutation comparator so security-relevant CORS response headers participate in behavioral-difference detection.
+- Added explicit CORS vulnerable-versus-secure assertions to the deterministic benchmark self-test.
+- Hardened workflow path handling so cleanup, merge, evaluation, and artifacts do not depend on skipped-step `GITHUB_ENV` writes.
+- Removed invalid `runner.*` references from job-level `env`; only contexts permitted at that workflow key are used there.
+
+### VERIFIED
+- The previous live failure was independently inspected from GitHub Actions logs and reproduced as a CORS mutation-contract failure.
+- The previous cascading `LAB_SECRET_DIR` / `EHB_WORKER_DIR` failures were confirmed from the same run.
+
+### UNVERIFIED
+- Post-repair benchmark self-test and end-to-end workflow execution remain unverified until a new GitHub Actions activation runs from this repaired commit.
+
+### NEXT
+- Use the post-repair GitHub Actions activation as the runtime verification gate; inspect self-test, target startup, worker, hidden evaluation, cleanup, and persistence before declaring the benchmark operational.
