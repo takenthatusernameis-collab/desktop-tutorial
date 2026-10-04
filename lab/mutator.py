@@ -90,8 +90,22 @@ def challenge_for_request(method: str, path: str) -> list[dict[str, Any]]:
     return matches
 
 
+SECURITY_HEADERS = (
+    "Location",
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Credentials",
+    "Access-Control-Allow-Methods",
+    "Access-Control-Allow-Headers",
+)
+
+
 def semantic_diff(vuln: tuple[int, dict[str, str], bytes], secure: tuple[int, dict[str, str], bytes]) -> bool:
-    return vuln[0] != secure[0] or vuln[1].get("Location") != secure[1].get("Location") or vuln[2] != secure[2]
+    if vuln[0] != secure[0]:
+        return True
+    for header in SECURITY_HEADERS:
+        if vuln[1].get(header) != secure[1].get(header):
+            return True
+    return vuln[2] != secure[2]
 
 
 def apply_idor(ch: dict[str, Any], method: str, path: str, headers: dict[str, str], mutate: bool) -> tuple[int, dict[str, str], bytes]:
