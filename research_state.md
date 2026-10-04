@@ -514,7 +514,7 @@ The repository now provisions a blind, disposable security-research benchmark on
 
 ### VERIFIED
 - Run 23 reached benchmark self-test, model discovery, Kilo configuration, worker-image build, and hidden benchmark generation successfully.
-- Run 23 failed at target startup because Docker reported `manifest for bkimminich/juice-shop:20.2.0 not found`.
+- Run 23 failed at target startup because Docker reported `manifest for bkimminich/juice-shop:20.2.0 not found`; its resulting empty evaluation was identified as invalid runtime data and removed from adaptive benchmark history.
 - Current Docker Hub evidence confirms v20.2.0 and identifies immutable index digest `sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b`.
 
 ### UNVERIFIED
