@@ -6,7 +6,9 @@ This is the executable form of research_state.md Section 10 (prioritization
 rubric) and Section 11 (decision-quality checklist). It converts the documented
 capability into something that can be run, audited, and reused across
 activations — directly addressing F3 (task-selection capability is the current
-bottleneck).
+bottleneck) and F5 (the decision-quality checklist existed only as documentation).
+The false-positive checklist is now evaluated automatically per candidate and can
+override an otherwise acceptable rubric decision to "defer".
 
 Usage:
     # Triage candidate tasks recorded in research_state.md frontmatter:
@@ -22,7 +24,10 @@ Exit codes:
 
 Hard constraints enforced (never scored away):
     - Authorization gate: a candidate is rejected (not scored) unless
-      auth_verified_by is populated. Out-of-scope targets are never scored.
+      auth_verified_by is populated.
+    - Out-of-scope or unverified targets are never scored.
+    - A candidate with an incomplete decision-quality checklist (< {CHECKLIST_THRESHOLD}
+      of {len(CHECKLIST_ITEMS)} items) is deferred regardless of rubric score.
     - Only candidates with intake_status "awaiting_triage" are scored; others
       are reported in summary form.
 """
@@ -76,6 +81,94 @@ CHECKLIST_ITEMS = [
     "A null result (hypothesis refuted) is acceptable and recorded if that is the outcome — negative results reduce uncertainty and are preserved.",
     "The finding status is chosen from: verified / unverified / rejected / false-positive, never 'confirmed' without the above checks.",
 ]
+
+# ---------------------------------------------------------------------------
+# False-positive checklist evaluator (triage-time decision-quality check)
+# ---------------------------------------------------------------------------
+# This implements research_state.md Section 11 as an automated content
+# evaluator: for each candidate, it checks whether the record contains the
+# decision-quality content required for a safe, falsifiable investigation, and
+# returns per-item results (done/partial/missing) plus a completeness score.
+# A low checklist score overrides an otherwise acceptable rubric decision to
+# "defer", because a high-scoring hypothesis that lacks decision-quality
+# preparation is a deferral case, not a research case.
+
+# checklist item index -> (required_fields, optional_partial_fields)
+# An item is 'done' if any required field is non-empty.
+CHECKLIST_EVIDENCE = [
+    ({"hypothesis"}, {"authorized_target", "scope_boundary"}),            # 1
+    ({"scope_boundary"}, set()),                                          # 2
+    ({"success_criteria"}, set()),                                        # 3
+    ({"rejected_false_positives"}, set()),                                # 4
+    ({"safe_interaction"}, set()),                                        # 5
+    ({"reproduction_conditions"}, set()),                                 # 6
+    ({"evidence_quality"}, set()),                                        # 7
+    ({"accept_null_result"}, set()),                                      # 8
+    ({"triage_decision"}, set()),                                         # 9
+]
+
+CHECKLIST_THRESHOLD = DEFER_THRESHOLD  # minimum completed items (of 9) before research is permitted
+
+
+def evaluate_checklist(task: dict) -> dict:
+    """Evaluate a candidate record against the Section 11 checklist.
+
+    Returns {"items": [...], "score": float, "n": int} where each item has
+    {"item": int, "text": str, "status": "done"/"partial"/"missing", "reason": str}.
+    score is the number of completed items (done=1, partial=0.5, missing=0).
+    """
+    flat = {k: str(v or "").strip().lower() for k, v in task.items()}
+    results: list[dict] = []
+    total = 0.0
+    for idx, (required, partials) in enumerate(CHECKLIST_EVIDENCE):
+        text = CHECKLIST_ITEMS[idx]
+        present = [f for f in required if flat.get(f)]
+        if present:
+            status, reason, score = "done", f"present: {', '.join(present)}", 1.0
+        else:
+            pv = " ".join(flat.get(f, "") for f in partials)
+            if "false positive" in pv or "false-positive" in pv:
+                status, reason, score = (
+                    "partial",
+                    "related content present but no explicit ruling-out field",
+                    0.5,
+                )
+            elif "null" in pv or "refut" in pv or "expected" in pv:
+                status, reason, score = (
+                    "partial",
+                    "related content present but no explicit decision-quality field",
+                    0.5,
+                )
+            else:
+                status, reason, score = (
+                    "missing",
+                    f"field(s) required: {', '.join(required)}",
+                    0.0,
+                )
+        total += score
+        results.append({"item": idx + 1, "text": text, "status": status, "reason": reason})
+    return {"items": results, "score": total, "n": len(CHECKLIST_ITEMS)}
+
+
+def finalize_decision(rubric_decision: str, checklist: dict) -> tuple[str, str | None]:
+    """Return the final triage decision after considering checklist completeness.
+
+    A checklist score below CHECKLIST_THRESHOLD overrides the rubric decision
+    to "defer" only when the rubric decision was "research"; a research-worthy
+    hypothesis with incomplete decision-quality prep is a deferral case, not
+    a reject case. Otherwise returns the rubric decision unchanged.
+    """
+    if checklist["score"] < CHECKLIST_THRESHOLD and rubric_decision == "research":
+        return (
+            "defer",
+            (
+                f"Rubric decision '{rubric_decision}' overridden: decision-quality "
+                f"checklist only {checklist['score']:.1f}/{checklist['n']} items "
+                f"complete (< {CHECKLIST_THRESHOLD} required for research)."
+            ),
+        )
+    return rubric_decision, None
+
 
 # ---------------------------------------------------------------------------
 # Scoring
@@ -167,7 +260,11 @@ def triage_task(task: dict) -> dict:
         "priority_total": None,
         "decision": None,
         "reason": None,
+        "rubric_decision": None,
+        "rubric_reason": None,
         "checklist": [],
+        "checklist_score": None,
+        "checklist_n": None,
         "errors": [],
     }
 
@@ -190,20 +287,26 @@ def triage_task(task: dict) -> dict:
     # 3. Rubric scoring
     scores = score_rubric(task)
     if scores is None:
-        result["decision"], result["reason"] = decide(
-            0, True
-        ), "Unrecognised rubric criterion value; candidate rejected pending intake correction."
+        result["decision"], result["reason"] = (
+            "reject",
+            "Unrecognised rubric criterion value; candidate rejected pending intake correction.",
+        )
         return result
     result["rubric_scores"] = scores
     result["priority_total"] = sum(scores.values())
 
-    # 4. Decision
-    decision, reason = decide(result["priority_total"], True)
+    # 4. Decision, adjusted by decision-quality checklist
+    rubric_decision, rubric_reason = decide(result["priority_total"], True)
+    checklist = evaluate_checklist(task)
+    decision, reason = finalize_decision(rubric_decision, checklist)
     result["decision"] = decision
     result["reason"] = reason
-
-    # 5. Checklist template (completed during research, not at triage time)
-    result["checklist"] = [{"item": i, "done": False} for i in CHECKLIST_ITEMS]
+    result["rubric_decision"] = rubric_decision
+    result["rubric_reason"] = rubric_reason
+    result["checklist"] = checklist["items"]
+    result["checklist_score"] = checklist["score"]
+    result["checklist_n"] = checklist["n"]
+    result["checklist_threshold"] = CHECKLIST_THRESHOLD
 
     return result
 
@@ -260,6 +363,8 @@ def run_triage(tasks: list[dict], source_path: Path) -> dict:
         "validation_errors": statuses["errors"],
         "ranking": triaged_sorted,
         "decisions": decisions,
+        "checklist_threshold": CHECKLIST_THRESHOLD,
+        "checklist_n": len(CHECKLIST_ITEMS),
     }
 
 
@@ -316,7 +421,7 @@ def build_report(data: dict) -> str:
     lines.append("# Candidate Task Triage Report")
     lines.append("")
     lines.append(f"- **Report generated:** {data['generated_at']}")
-    lines.append(f"- **Tool:** scripts/triage_tasks.py v0.1.0 (dependency-light; mirrors research_state.md Sections 10-11)")
+    lines.append(f"- **Tool:** scripts/triage_tasks.py v0.2.0 (dependency-light; mirrors research_state.md Sections 10-11)")
     lines.append(f"- **Source document:** {data['source_path']}")
     lines.append(f"- **Scoring thresholds:** research >= {ACCEPT_THRESHOLD}, defer {DEFER_THRESHOLD}-{ACCEPT_THRESHOLD - 1}, reject < {DEFER_THRESHOLD} (priority total out of {MAX_RUBRIC_SCORE})")
     lines.append("")
@@ -387,18 +492,36 @@ def build_report(data: dict) -> str:
             val = ss.get(key)
             label_text = ", ".join(k for k, v in mapping.items() if v == val)
             lines.append(f"- {label}: {label_text} ({val} pts)")
+        lines.append("**False-positive checklist results (Section 11, triage-time content evaluation):**")
         lines.append("")
-        lines.append("**False-positive checklist (complete during research; triage emits the template only):**")
+        lines.append(f"- Score: {result['checklist_score']:.1f}/{result['checklist_n']} items complete "
+                      f"(threshold for research >= {result['checklist_threshold']})")
+        lines.append("")
+        lines.append("| item | status |")
+        lines.append("|---|---|")
         for item in result["checklist"]:
-            lines.append(f"- [ ] {item['item']}")
+            lines.append(f"| {item['item']} | {item['status']} |")
         lines.append("")
-        lines.append("")
+        done_items = [i["item"] for i in result["checklist"] if i["status"] == "done"]
+        missing_items = [i["item"] for i in result["checklist"] if i["status"] == "missing"]
+        partial_items = [i["item"] for i in result["checklist"] if i["status"] == "partial"]
+        lines.append(f"- Completed: {', '.join(str(i) for i in done_items)} | "
+                     f"partial: {', '.join(str(i) for i in partial_items)} | "
+                     f"missing: {', '.join(str(i) for i in missing_items)}.")
+        if result.get("rubric_decision") and result["rubric_decision"] != result["decision"]:
+            lines.append(
+                f"**Decision override:** rubric decision was '{result['rubric_decision']}' "
+                f"but the decision-quality checklist is incomplete; final decision is "
+                f"'{result['decision']}'."
+            )
+            lines.append("")
     lines.append("## 6. Method notes")
     lines.append("")
     lines.append("- The rubric criteria and their point scales mirror research_state.md Section 10.")
-    lines.append("- The checklist mirrors research_state.md Section 11 (decision-quality checklist).")
+    lines.append("- The checklist mirrors research_state.md Section 11 (decision-quality checklist) and is now "
+                  "evaluated automatically; completeness can override an otherwise acceptable rubric decision to 'defer'.")
     lines.append("- Authorization clarity is a hard gate, not a scoreable dimension; a candidate that fails it is rejected regardless of rubric score.")
-    lines.append("- This tool never scores, accepts, or rejects any real target: all candidates must pass the authorization gate in D4 before research begins.")
+    lines.append("- This tool never scores, accepts, or rejects any unauthorized target: all candidates must pass the authorization gate in D4 before research begins.")
     lines.append("")
     return "\n".join(lines)
 
