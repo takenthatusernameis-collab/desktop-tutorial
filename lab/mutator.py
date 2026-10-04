@@ -318,91 +318,10 @@ class WorkerHandler(BaseHTTPRequestHandler):
         return
 
 
-class EvaluatorHandler(BaseHTTPRequestHandler):
-    server_version = "EHBHiddenEvaluator/1.0"
-
-    def _json_response(self, status: int, payload: Any) -> None:
-        raw = json_bytes(payload)
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Cache-Control", "no-store")
-        self.send_header("Content-Length", str(len(raw)))
-        self.end_headers()
-        self.wfile.write(raw)
-
-    def do_GET(self) -> None:
-        if self.path == "/__lab__/health":
-            self._json_response(200, {"status": "evaluator-ready"})
-        else:
-            self._json_response(404, {"error": "not-found"})
-
-    def do_POST(self) -> None:
-        if self.path != "/__evaluator__/verify":
-            self._json_response(404, {"error": "not-found"})
-            return
-        raw = request_body(self)
-        try:
-            payload = json.loads(raw.decode("utf-8"))
-        except (UnicodeDecodeError, json.JSONDecodeError):
-            self._json_response(400, {"error": "invalid-json"})
-            return
-        if not isinstance(payload, dict):
-            self._json_response(400, {"error": "request-must-be-object"})
-            return
-
-        method = str(payload.get("method", "GET")).upper()
-        url = str(payload.get("url", ""))
-        headers = {
-            str(k): str(v)
-            for k, v in (payload.get("headers") or {}).items()
-        }
-        body = payload.get("body") or {}
-        if not isinstance(body, dict):
-            body = {}
-
-        parsed = urlsplit(url)
-        path = parsed.path or "/"
-        if parsed.query:
-            path += "?" + parsed.query
-
-        challenges = challenge_for_request(method, parsed.path or "/")
-        matches: list[dict[str, Any]] = []
-
-        for ch in challenges:
-            vuln = local_handle(method, path, headers, body, [ch], mutate=ch.get("mode") != "secure_decoy")
-            secure = local_handle(method, path, headers, body, [ch], mutate=False)
-            if vuln is None or secure is None:
-                continue
-            differs = semantic_diff(vuln, secure)
-            if ch.get("mode") == "vulnerable" and differs:
-                matches.append(
-                    {
-                        "challenge_id": ch["id"],
-                        "family": ch["family"],
-                        "vulnerable_status": vuln[0],
-                        "secure_status": secure[0],
-                        "behavioral_difference": True,
-                    }
-                )
-
-        self._json_response(
-            200,
-            {
-                "valid_target": parsed.hostname == "lab-mutator",
-                "matches": matches,
-                "ground_truth_not_exposed": True,
-            },
-        )
-
-    def log_message(self, format: str, *args: Any) -> None:
-        return
-
-
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--spec", required=True)
     parser.add_argument("--worker-port", type=int, default=3000)
-    parser.add_argument("--eval-port", type=int, default=9000)
     parser.add_argument("--upstream-host", default="juice-shop")
     parser.add_argument("--upstream-port", type=int, default=3000)
     args = parser.parse_args()
@@ -422,7 +341,6 @@ def main() -> int:
                 "benchmark_id": SPEC["benchmark_id"],
                 "difficulty": SPEC["difficulty"],
                 "worker_port": args.worker_port,
-                "evaluator_port": None,
             },
             sort_keys=True,
         ),
