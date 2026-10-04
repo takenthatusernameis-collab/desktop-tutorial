@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
+  push:
+    paths:
+      - "lab/kilo_gateway_proxy.py"
 
 concurrency:
   group: bug-bounty-research-enterprise
