@@ -253,10 +253,25 @@ jobs:
             sleep 1
           done
 
-          echo "Checking fixed Kilo egress path..."
-          docker run --rm --network ehb-worker-net \
+          echo "Checking direct Kilo connectivity from the isolated egress network..."
+          docker run --rm --network ehb-egress-net \
             "$EHB_KILO_IMAGE" \
-            bash -lc 'curl --fail --silent --show-error https://api.kilo.ai/api/gateway/models >/dev/null && echo "Kilo gateway network path is ready."'
+            bash -lc 'curl --fail --silent --show-error --connect-timeout 10 --max-time 20 https://api.kilo.ai/api/gateway/models >/dev/null && echo "Direct Kilo connectivity is ready."'
+
+          echo "Checking fixed Kilo egress relay path..."
+          for attempt in $(seq 1 8); do
+            if docker run --rm --network ehb-worker-net \
+              "$EHB_KILO_IMAGE" \
+              bash -lc 'curl --fail --silent --show-error --connect-timeout 10 --max-time 20 https://api.kilo.ai/api/gateway/models >/dev/null'; then
+              echo "Kilo gateway network path is ready."
+              break
+            fi
+            if [ "$attempt" -eq 8 ]; then
+              echo "Kilo gateway relay did not become usable after 8 attempts."
+              exit 1
+            fi
+            sleep 2
+          done
 
       - name: Prepare blind worker workspace
         run: |
