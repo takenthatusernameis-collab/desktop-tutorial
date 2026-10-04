@@ -154,7 +154,7 @@ def append_history(path: Path, public: dict[str, Any], score: dict[str, Any]) ->
         "overall_score": score["overall_score"],
         "discovery_rate": score["discovery_rate"],
         "reproduction_rate": score["reproduction_rate"],
-        "false_positive_component": score["false_positive_component"],
+        "precision_component": score["precision_component"],
     }
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(row, sort_keys=True) + "\n")
