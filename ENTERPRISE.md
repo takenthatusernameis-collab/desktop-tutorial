@@ -90,3 +90,9 @@ A new finding is not automatically success. A strong negative result or repaired
 What action, at whatever level of the system is currently most consequential, would most improve our ability to learn what is genuinely worth knowing about authorized security-research opportunities—and to become better at learning it thereafter?
 
 Never optimize for activity, number of scans, number of findings, number of files, or apparent busyness.
+
+## Active endless benchmark
+
+The repository now includes an always-available local research benchmark built on a pinned OWASP Juice Shop base image. Each activation generates a fresh hidden variant, applies it through an isolated mutation gateway, gives the worker only the worker-facing target, and evaluates submitted evidence independently on a separate evaluator network.
+
+The benchmark is not treated as ground truth for real-world bug-bounty performance. Its purpose is controlled measurement of black-box discovery, validation, false-positive resistance, evidence quality, and learning velocity. Exact mutation specifications remain outside the worker-visible workspace, while a cryptographic commitment and aggregate results provide durable auditability.
