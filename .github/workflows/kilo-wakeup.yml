@@ -18,12 +18,29 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 355
 
+
+    services:
+      juice-shop:
+        image: bkimminich/juice-shop:20.2.0
+        ports:
+          - 3000:3000
+
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
+
+      - name: Verify authorized Juice Shop target
+        env:
+          SECURITY_RESEARCH_TARGET: http://127.0.0.1:3000
+        run: |
+          set -euo pipefail
+          echo "Authorized training target: $SECURITY_RESEARCH_TARGET/*"
+          curl --fail --silent --show-error --retry 30 --retry-delay 2 --retry-connrefused "$SECURITY_RESEARCH_TARGET/" >/dev/null
+          echo "Juice Shop target is reachable and ready."
 
       - name: Install Kilo Code CLI
         run: npm install -g @kilocode/cli
