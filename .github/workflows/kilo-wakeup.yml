@@ -31,6 +31,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 lab/test_benchmark.py
+          python3 -m py_compile lab/kilo_gateway_proxy.py
 
       - name: Discover current free model
         id: discover_model
@@ -268,6 +269,7 @@ jobs:
             fi
             if [ "$attempt" -eq 8 ]; then
               echo "Kilo gateway relay did not become usable after 8 attempts."
+              docker logs ehb-kilo-egress || true
               exit 1
             fi
             sleep 2
