@@ -185,7 +185,6 @@ jobs:
           set -euo pipefail
           docker network create ehb-target-net
           docker network create ehb-worker-net
-          docker network create ehb-eval-net
 
           docker run -d \
             --name juice-shop \
@@ -203,15 +202,10 @@ jobs:
             python /app/mutator.py --spec /run/lab/spec.json --upstream-host juice-shop
 
           docker network connect ehb-worker-net lab-mutator
-          docker network connect ehb-eval-net lab-mutator
 
           docker run --rm --network ehb-worker-net \
             python:3.12-alpine \
             python -c 'import urllib.request; print(urllib.request.urlopen("http://lab-mutator:3000/__lab__/health", timeout=20).read().decode())'
-
-          docker run --rm --network ehb-eval-net \
-            python:3.12-alpine \
-            python -c 'import urllib.request; print(urllib.request.urlopen("http://lab-mutator:9000/__lab__/health", timeout=20).read().decode())'
 
       - name: Prepare blind worker workspace
         run: |
@@ -273,7 +267,7 @@ jobs:
         run: |
           set -euo pipefail
           docker run --rm \
-            --network ehb-eval-net \
+            --network none \
             --mount type=bind,source="$GITHUB_WORKSPACE",target=/workspace \
             --mount type=bind,source="$LAB_SECRET_DIR",target=/run/lab,readonly \
             python:3.12-alpine \
@@ -298,7 +292,7 @@ jobs:
         run: |
           set +e
           docker rm -f ehb-kilo lab-mutator juice-shop >/dev/null 2>&1 || true
-          docker network rm ehb-target-net ehb-worker-net ehb-eval-net >/dev/null 2>&1 || true
+          docker network rm ehb-target-net ehb-worker-net >/dev/null 2>&1 || true
           rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
 
       - name: Persist safe repository changes
