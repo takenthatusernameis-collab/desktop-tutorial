@@ -458,3 +458,26 @@ Apply this checklist to every candidate record before research begins, and recor
 ## 13. Authorized Training Target
 
 The repository now provisions an ephemeral, repository-controlled OWASP Juice Shop service for autonomous security research activations. The authoritative scope record is `AUTHORIZED_TARGET.md`. The workflow pins `bkimminich/juice-shop:20.2.0` and exposes only `http://127.0.0.1:3000/*` for the duration of the job. The worker must not substitute public demo infrastructure or any unrelated external target.
+
+
+## 13. Endless Hardcore Benchmark
+
+The repository now provisions a blind, disposable security-research benchmark on every activation.
+
+**Architecture:** a pinned OWASP Juice Shop 20.2.0 base is wrapped by a per-activation mutation gateway. A hidden cryptographic seed/spec selects randomized vulnerability families, routes, parameters, state, and secure decoys. The worker receives only the worker-facing target and a blind workspace. The exact mutation spec and benchmark harness are excluded from that workspace.
+
+**Isolation:** target and worker use internal Docker networks. The worker has no Docker socket and no direct Internet/GitHub route. Kilo API access passes through a fixed-destination raw TLS gateway to `api.kilo.ai:443`. The evaluator is completely offline on `--network none`.
+
+**Evaluation:** worker submissions are replayed against hidden ground truth. The evaluator verifies the hidden-spec cryptographic commitment before scoring. Aggregate metrics include discovery rate, reproduction rate, precision, evidence quality, and an overall score. Scheduled runs persist public commitment + aggregate history; manual dispatch retains short-lived forensic artifacts.
+
+**Evolution:** recent benchmark performance influences difficulty and recent-shape avoidance. Exact target instances remain fresh and hidden rather than becoming a static challenge list.
+
+**Current bottleneck:** runtime validation and calibration. The architecture is implemented in repository control-plane state, but a live GitHub Actions activation still needs to execute successfully before runtime claims are verified.
+
+**CHANGED:** endless benchmark generator, mutation gateway, offline evaluator, deterministic harness self-test, isolated Kilo worker image, fixed Kilo egress gateway, workflow orchestration, worker prompt, authorization boundary, enterprise/evolution documentation.
+
+**VERIFIED:** source-level control-plane inspection confirms the benchmark components exist, worker/evaluator separation is encoded, protected paths include the benchmark harness, and the evaluator performs commitment verification.
+
+**UNVERIFIED:** first end-to-end GitHub Actions activation; empirical difficulty calibration; whether generated variants remain sufficiently diverse under long-run history.
+
+**NEXT:** execute a manual workflow activation and inspect benchmark self-test, target readiness, Kilo execution, evidence replay, aggregate report, cleanup, and persistence outcomes.
