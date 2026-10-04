@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/desktop-tutorial/desktop-tutorial/blob/main/research_state_schema.json",
+  "title": "Research State",
+  "description": "Schema for the frontmatter of RESEARCH_STATE.md in the bug-bounty research enterprise repository.",
+  "type": "object",
+  "required": ["enterprise", "state_schema_version", "last_updated"],
+  "additionalProperties": true,
+  "properties": {
+    "enterprise": {
+      "type": "string",
+      "description": "Human-readable enterprise name.",
+      "minLength": 1
+    },
+    "state_schema_version": {
+      "type": "string",
+      "description": "Version of this schema; bump when the research state format changes incompatibly.",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "last_updated": {
+      "type": "string",
+      "description": "UTC ISO 8601 timestamp of the last modification to this document (observed, not backfilled).",
+      "format": "date-time"
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "primary_objective": {"type": "string"},
+        "phase": {
+          "type": "string",
+          "enum": ["observe", "scope", "understand", "prioritize", "hypothesize", "research", "validate", "inspect", "adapt", "verify", "persist", "hand-off"]
+        }
+      }
+    },
+    "hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "statement", "status"],
+        "additionalProperties": true,
+        "properties": {
+          "id": {"type": "string"},
+          "parent_id": {"type": ["string", "null"]},
+          "statement": {"type": "string", "description": "Falsifiable hypothesis statement."},
+          "success_criteria": {"type": "string"},
+          "status": {
+            "type": "string",
+            "enum": ["pending", "testing", "confirmed", "rejected", "inconclusive"]
+          },
+          "created": {"type": "string", "format": "date-time"},
+          "evaluated_at": {"type": "string", "format": "date-time"},
+          "conclusion": {"type": "string"},
+          "linked_evidence": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "description"],
+        "additionalProperties": true,
+        "properties": {
+          "id": {"type": "string"},
+          "type": {"type": "string"},
+          "description": {"type": "string"},
+          "path": {"type": "string"},
+          "observed_at": {"type": "string", "format": "date-time"},
+          "quality": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "status"],
+        "additionalProperties": true,
+        "properties": {
+          "id": {"type": "string"},
+          "title": {"type": "string"},
+          "target": {"type": "string"},
+          "severity": {"type": "string"},
+          "status": {
+            "type": "string",
+            "enum": ["verified", "unverified", "rejected", "false-positive"]
+          },
+          "observation": {"type": "string"},
+          "inference": {"type": "string"},
+          "conclusion": {"type": "string"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}},
+          "false_positive_checks": {"type": "array", "items": {"type": "string"}},
+          "decided_at": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "activation_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "timestamp", "objective"],
+        "additionalProperties": true,
+        "properties": {
+          "id": {"type": "string"},
+          "timestamp": {"type": "string", "format": "date-time"},
+          "objective": {"type": "string"},
+          "scope_determination": {"type": "string"},
+          "hypothesis": {"type": "string"},
+          "actions": {"type": "array", "items": {"type": "string"}},
+          "result": {"type": "string"},
+          "artifacts_created": {"type": "array", "items": {"type": "string"}},
+          "decisions": {"type": "array", "items": {"type": "string"}},
+          "next": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["timestamp", "decision", "rationale"],
+        "additionalProperties": true
+      }
+    },
+    "unresolved_questions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "next_actions": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}
