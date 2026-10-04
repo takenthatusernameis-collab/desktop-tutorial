@@ -308,7 +308,7 @@ jobs:
             --network ehb-worker-net \
             --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
             --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
-            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/root/.config/kilo/kilo.json,readonly \
+            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
             -e HOME=/root \
             -e KILO_DISABLE_EXTERNAL_SKILLS=true \
             -e BENCHMARK_ID="$BENCHMARK_ID" \
@@ -317,6 +317,9 @@ jobs:
             bash -lc '
               set -euo pipefail
               cd /workspace
+              mkdir -p /root/.config/kilo
+              cp /tmp/kilo.json /root/.config/kilo/kilo.json
+              chmod 600 /root/.config/kilo/kilo.json
               kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)"
             '
 
