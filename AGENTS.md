@@ -175,6 +175,8 @@ The autonomous worker must not modify:
 - lab/mutator.py
 - lab/evaluate_benchmark.py
 - lab/test_benchmark.py
+- lab/kilo-worker.Dockerfile
+- lab/kilo_gateway_proxy.py
 - lab/README.md
 
 The trusted workflow supplies the worker with a blind workspace that intentionally excludes the benchmark implementation and hidden ground-truth files.
