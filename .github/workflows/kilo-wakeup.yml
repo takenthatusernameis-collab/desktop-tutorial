@@ -26,6 +26,11 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Self-test benchmark harness
+        run: |
+          set -euo pipefail
+          python3 lab/test_benchmark.py
+
       - name: Discover current free model
         id: discover_model
         run: |
@@ -293,8 +298,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/README.md 2>/dev/null || true
-          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/README.md 2>/dev/null || true
+          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/README.md 2>/dev/null || true
+          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/README.md 2>/dev/null || true
 
           git add -A
 
