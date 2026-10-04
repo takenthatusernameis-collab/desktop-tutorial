@@ -205,9 +205,8 @@ jobs:
           docker run -d \
             --name ehb-kilo-egress \
             --network ehb-egress-net \
-            --mount type=bind,source="$GITHUB_WORKSPACE/lab/kilo_gateway_proxy.py",target=/app/proxy.py,readonly \
-            python:3.12-alpine \
-            python /app/proxy.py
+            alpine:3.22 \
+            sh -lc 'apk add --no-cache socat >/dev/null && exec socat -d -d TCP-LISTEN:443,reuseaddr,fork,bind=0.0.0.0 TCP4:api.kilo.ai:443'
 
           docker network connect --alias api.kilo.ai ehb-worker-net ehb-kilo-egress
           docker run -d \
