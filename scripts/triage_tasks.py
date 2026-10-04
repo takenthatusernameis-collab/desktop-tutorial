@@ -40,10 +40,14 @@ import sys
 from pathlib import Path
 
 try:
-    import yaml
+    import yaml_minimal as _yaml
 except ImportError:
-    print("pyyaml not available; install with 'pip install pyyaml'")
-    sys.exit(2)
+    try:
+        import yaml as _yaml
+    except ImportError:
+        print("yaml (yaml_minimal or pyyaml) not available; install with 'pip install pyyaml'")
+        sys.exit(2)
+yaml = _yaml
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_DIR = SCRIPT_DIR.parent

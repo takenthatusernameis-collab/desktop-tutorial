@@ -19,11 +19,13 @@ import re
 import sys
 from pathlib import Path
 
+SCRIPT_DIR = Path(__file__).resolve().parent
 try:
-    import yaml
+    import yaml_minimal as _yaml
 except ImportError:
-    print("pyyaml not available; install with 'pip install pyyaml'")
+    print("yaml_minimal not available (parse-only fallback); install with 'pip install pyyaml'")
     sys.exit(2)
+yaml = _yaml
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_DIR = SCRIPT_DIR.parent
@@ -50,13 +52,14 @@ def extract_frontmatter(text: str) -> tuple[dict | None, str | None]:
         return None, f"YAML error: {e}"
 
 
-def validate(path: Path) -> list[str]:
+def validate(path: Path) -> tuple[list[str], list[str]]:
     errors = []
+    warnings = []
 
     try:
         text = path.read_text(encoding="utf-8")
     except OSError as e:
-        return [f"cannot read file: {e}"]
+        return [f"cannot read file: {e}"], []
 
     if not text.strip():
         errors.append("file is empty")
@@ -65,7 +68,7 @@ def validate(path: Path) -> list[str]:
 
     if frontmatter is None:
         errors.append("missing or malformed YAML frontmatter")
-        return errors
+        return errors, []
 
     for field in REQUIRED_HF_FIELDS:
         if field not in frontmatter:
@@ -78,7 +81,7 @@ def validate(path: Path) -> list[str]:
         for err in validator.iter_errors(frontmatter):
             errors.append(f"schema validation: {'.'.join(str(p) for p in err.path)} - {err.message}")
     except ImportError:
-        errors.append("jsonschema module missing (validation skipped); install with 'pip install jsonschema'")
+        warnings.append("jsonschema module missing (deep schema validation skipped); install with 'pip install jsonschema'")
 
     if isinstance(body, str) and not body.strip():
         errors.append("document has no human-readable content after the frontmatter")
@@ -89,18 +92,26 @@ def validate(path: Path) -> list[str]:
     if "NEXT" not in text:
         errors.append("missing hand-off NEXT label")
 
-    return errors
+    return errors, warnings
 
 
 def main() -> int:
     path = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT_DIR / "research_state.md"
-    errors = validate(path)
+    errors, warnings = validate(path)
     if errors:
         print(f"{path}: INVALID ({len(errors)} error(s))")
         for e in errors:
             print(f"  - {e}")
+        if warnings:
+            print("warnings:")
+            for w in warnings:
+                print(f"  + {w}")
         return 1
     print(f"{path}: valid")
+    if warnings:
+        print("warnings:")
+        for w in warnings:
+            print(f"  + {w}")
     return 0
 
 

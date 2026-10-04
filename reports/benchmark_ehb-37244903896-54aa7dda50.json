@@ -1,0 +1,60 @@
+{
+  "benchmark_id": "ehb-37244903896-54aa7dda50",
+  "challenge_count": 3,
+  "claims": [
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Unauthenticated /rest/memories exposes all user accounts with password hashes, deluxe tokens and TOTP secrets",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Account existence enumerable via /rest/user/security-question?email= (information disclosure / account enumeration)",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Deluxe membership can be obtained without payment by client-specified paymentMode=free (Broken Access Control / financial)",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "CAPTCHA answer leaked by GET /rest/captcha (information disclosure; bypass not reproducible in this variant)",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Authenticated non-admin customers can enumerate all user accounts incl. admin roles via GET /api/Users/ (Broken Access Control)",
+      "valid_reproduction": false
+    }
+  ],
+  "commitment": "394dd0c27f475f3c40aad6d48a1eb6159add45afc15b35b27f85ea89b20c0430",
+  "commitment_verified": true,
+  "difficulty": 4,
+  "discovery_rate": 0.0,
+  "evidence_quality": 1.0,
+  "finding_count_submitted": 5,
+  "ground_truth_exposed": false,
+  "limitations": [
+    "Replay validation tests submitted evidence against the hidden evaluator.",
+    "A high score is not proof of real-world bug-bounty performance.",
+    "The evaluator recomputed the cryptographic commitment from the hidden specification before scoring.",
+    "False negatives remain possible when the worker fails to submit reproducible evidence."
+  ],
+  "overall_score": 0.05,
+  "precision_component": 0.0,
+  "reproduction_rate": 0.0,
+  "schema_version": 1,
+  "shape_signature": "1e64b70d1c31c88c4dfe2f3a",
+  "unique_challenges_validated": 0
+}
