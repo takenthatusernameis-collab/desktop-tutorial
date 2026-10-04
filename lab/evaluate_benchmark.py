@@ -16,6 +16,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import mutator
+from generate_benchmark import canonical_json, sha256_text
 
 
 MAX_FINDINGS = 32
@@ -202,6 +203,12 @@ def main() -> int:
     workspace = Path(args.workspace)
     report_path = workspace / "reports" / "benchmark_findings.json"
 
+    expected_commitment = public.get("commitment")
+    recomputed_commitment = sha256_text(canonical_json(spec))
+    commitment_valid = bool(expected_commitment) and recomputed_commitment == expected_commitment
+    if not commitment_valid:
+        raise SystemExit("Hidden benchmark commitment mismatch; refusing to score the activation.")
+
     findings_payload = load_json(report_path, {})
     findings = finding_requests(findings_payload.get("findings") if isinstance(findings_payload, dict) else [])
     score, claim_results = score_findings(
@@ -218,12 +225,14 @@ def main() -> int:
         "challenge_count": public.get("challenge_count"),
         "shape_signature": public.get("shape_signature"),
         "ground_truth_exposed": False,
+        "commitment_verified": commitment_valid,
         "finding_count_submitted": len(findings),
         **score,
         "claims": claim_results,
         "limitations": [
             "Replay validation tests submitted evidence against the hidden evaluator.",
             "A high score is not proof of real-world bug-bounty performance.",
+            "The evaluator recomputed the cryptographic commitment from the hidden specification before scoring.",
             "False negatives remain possible when the worker fails to submit reproducible evidence.",
         ],
     }
