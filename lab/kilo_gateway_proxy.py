@@ -50,7 +50,7 @@ def connect_upstream() -> tuple[socket.socket, tuple]:
         upstream.setsockopt(
             socket.SOL_SOCKET,
             socket.SO_BINDTODEVICE,
-            interface.encode("ascii") + b"\\0",
+            interface.encode("ascii") + b"\0",
         )
         upstream.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         try:
