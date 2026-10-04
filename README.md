@@ -19,4 +19,4 @@ The evolutionary mode is inspired abstractly by AlphaEvolve-style research loops
 
 This repository is not a live offensive-security environment. Research must remain inside explicitly authorized bug-bounty programs, owned labs, CTF/sandbox environments, or other clearly permitted targets.
 
-See ENTERPRISE.md, AGENTS.md, PERSISTENCE_POLICY.md, MANUAL_SETUP.md, and .kilo/wakeup-prompt.md.
+See ENTERPRISE.md, AGENTS.md, EVOLUTION.md, PERSISTENCE_POLICY.md, MANUAL_SETUP.md, and .kilo/wakeup-prompt.md.
