@@ -19,8 +19,14 @@ The autonomous worker must not modify or persist changes to:
 - ENTERPRISE.md
 - MANUAL_SETUP.md
 - PERSISTENCE_POLICY.md
+- AUTHORIZED_TARGET.md
+- HARDCORE_BENCHMARK.md
+- lab/generate_benchmark.py
+- lab/mutator.py
+- lab/evaluate_benchmark.py
+- lab/README.md
 
-The trusted workflow restores these paths before persistence.
+The trusted workflow restores these paths before persistence. The benchmark history file and evaluator-generated aggregate reports are durable evidence and may persist.
 
 ## Never persist
 
