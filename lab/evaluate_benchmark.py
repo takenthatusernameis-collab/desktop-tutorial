@@ -133,7 +133,7 @@ def score_findings(
         {
             "discovery_rate": round(discovery, 4),
             "reproduction_rate": round(reproduced, 4),
-            "false_positive_component": round(false_positive, 4),
+            "precision_component": round(false_positive, 4),
             "evidence_quality": round(evidence, 4),
             "overall_score": round(overall, 4),
             "unique_challenges_validated": len(unique_matches),
