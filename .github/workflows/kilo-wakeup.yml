@@ -308,7 +308,58 @@ jobs:
             ":(glob)**/*.pyc" \
             ":(glob)**/*.py.c" 2>/dev/null || true
 
-          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|README\.md)            echo "Protected paths unexpectedly staged:"
+          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|README\.md)            cat /tmp/protected
+            exit 1
+          fi
+
+          if git diff --cached --name-only | grep -E '(^|/)(\.env(\..*)?|id_rsa|id_dsa|id_ecdsa|id_ed25519|credentials\.(json|ya?ml|toml)|secrets\.(json|ya?ml|toml))$|\.(pem|key)$' >/tmp/credential_paths; then
+            echo "Credential-like paths are not allowed to persist:"
+            cat /tmp/credential_paths
+            exit 1
+          fi
+
+          if git diff --cached --summary | grep -E "^ create mode 120000 " >/tmp/symlinks; then
+            echo "Symbolic links are not allowed to persist:"
+            cat /tmp/symlinks
+            exit 1
+          fi
+
+          if git diff --cached --binary | grep -E -n "BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|kilo_[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9_-]{20,}" >/tmp/secrets; then
+            echo "Potential credential material detected:"
+            cat /tmp/secrets
+            exit 1
+          fi
+
+          if git diff --cached --quiet; then
+            echo "No safe repository changes to persist."
+            exit 0
+          fi
+
+          git config user.name "security-research-enterprise"
+          git config user.email "security-research-enterprise@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+          git commit -m "Persist security research activation"
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+          echo "Worker activation outcome: $KILO_OUTCOME"
+
+      - name: Report worker outcome
+        if: always()
+        env:
+          KILO_OUTCOME: ${{ steps.kilo.outcome }}
+        run: |
+          if [ "$KILO_OUTCOME" = "success" ]; then
+            echo "Worker activation completed successfully."
+          elif [ "$KILO_OUTCOME" = "skipped" ]; then
+            echo "Worker activation was skipped."
+          else
+            echo "Worker activation ended with outcome: $KILO_OUTCOME"
+            exit 1
+          fi
+ >/tmp/protected; then
+            echo "Protected paths unexpectedly staged:"
             cat /tmp/protected
             exit 1
           fi
