@@ -164,16 +164,16 @@ jobs:
           chmod 700 "$LAB_SECRET_DIR"
           python3 lab/generate_benchmark.py --secret-dir "$LAB_SECRET_DIR" --history "lab/benchmark_history.jsonl"
           python3 - <<'PY' >> "$GITHUB_ENV"
-import json, os
-from pathlib import Path
-data = json.loads(Path(os.environ["LAB_SECRET_DIR"], "public.json").read_text(encoding="utf-8"))
-print(f"BENCHMARK_ID={data['benchmark_id']}")
-print(f"BENCHMARK_COMMITMENT={data['commitment']}")
-print(f"BENCHMARK_DIFFICULTY={data['difficulty']}")
-print("SECURITY_RESEARCH_TARGET=http://lab-mutator:3000")
-print(f"LAB_SECRET_DIR={os.environ['LAB_SECRET_DIR']}")
-print(f"EHB_WORKER_DIR={os.environ['EHB_WORKER_DIR']}")
-PY
+          import json, os
+          from pathlib import Path
+          data = json.loads(Path(os.environ["LAB_SECRET_DIR"], "public.json").read_text(encoding="utf-8"))
+          print(f"BENCHMARK_ID={data['benchmark_id']}")
+          print(f"BENCHMARK_COMMITMENT={data['commitment']}")
+          print(f"BENCHMARK_DIFFICULTY={data['difficulty']}")
+          print("SECURITY_RESEARCH_TARGET=http://lab-mutator:3000")
+          print(f"LAB_SECRET_DIR={os.environ['LAB_SECRET_DIR']}")
+          print(f"EHB_WORKER_DIR={os.environ['EHB_WORKER_DIR']}")
+          PY
 
       - name: Start isolated benchmark environment
         run: |
@@ -284,6 +284,7 @@ PY
           docker rm -f ehb-kilo lab-mutator juice-shop >/dev/null 2>&1 || true
           docker network rm ehb-target-net ehb-worker-net ehb-eval-net >/dev/null 2>&1 || true
           rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
+
       - name: Persist safe repository changes
         if: always()
         env:
