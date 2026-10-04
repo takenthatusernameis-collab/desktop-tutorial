@@ -245,6 +245,7 @@ jobs:
           echo "Waiting for mutation gateway readiness..."
           for attempt in $(seq 1 20); do
             if docker run --rm --network ehb-worker-net \
+              --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
               "$EHB_KILO_IMAGE" \
               bash -lc 'curl --fail --silent --show-error http://lab-mutator:3000/__lab__/health >/dev/null'; then
               echo "Mutation gateway is ready."
