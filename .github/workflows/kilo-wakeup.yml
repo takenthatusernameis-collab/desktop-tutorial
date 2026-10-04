@@ -209,7 +209,11 @@ jobs:
             alpine:3.22 \
             sh -lc 'apk add --no-cache socat >/dev/null && exec socat -d -d TCP-LISTEN:443,reuseaddr,fork,bind=0.0.0.0 TCP4:api.kilo.ai:443'
 
-          docker network connect --alias api.kilo.ai --alias kilo-gateway ehb-worker-net ehb-kilo-egress
+          docker network connect --alias kilo-gateway ehb-worker-net ehb-kilo-egress
+          KILO_RELAY_IP="$(docker inspect -f '{{(index .NetworkSettings.Networks "ehb-worker-net").IPAddress}}' ehb-kilo-egress)"
+          test -n "$KILO_RELAY_IP"
+          echo "KILO_RELAY_IP=$KILO_RELAY_IP" >> "$GITHUB_ENV"
+          echo "Kilo relay worker-network address: $KILO_RELAY_IP"
           docker run -d \
             --name juice-shop \
             --network ehb-target-net \
@@ -245,7 +249,6 @@ jobs:
           echo "Waiting for mutation gateway readiness..."
           for attempt in $(seq 1 20); do
             if docker run --rm --network ehb-worker-net \
-              --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
               "$EHB_KILO_IMAGE" \
               bash -lc 'curl --fail --silent --show-error http://lab-mutator:3000/__lab__/health >/dev/null'; then
               echo "Mutation gateway is ready."
@@ -266,6 +269,7 @@ jobs:
           echo "Checking fixed Kilo egress relay path..."
           for attempt in $(seq 1 8); do
             if docker run --rm --network ehb-worker-net \
+              --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
               "$EHB_KILO_IMAGE" \
               bash -lc 'curl --fail --silent --show-error --connect-timeout 10 --max-time 20 https://api.kilo.ai/api/gateway/models >/dev/null'; then
               echo "Kilo gateway network path is ready."
