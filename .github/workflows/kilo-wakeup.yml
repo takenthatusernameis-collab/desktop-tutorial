@@ -159,6 +159,12 @@ jobs:
           print("Trusted Kilo configuration validated.")
           '
 
+      - name: Build isolated Kilo worker image
+        run: |
+          set -euo pipefail
+          export EHB_KILO_IMAGE="ehb-kilo:${GITHUB_RUN_ID}"
+          docker build --pull -t "$EHB_KILO_IMAGE" -f lab/kilo-worker.Dockerfile lab
+          echo "EHB_KILO_IMAGE=$EHB_KILO_IMAGE" >> "$GITHUB_ENV"
       - name: Generate fresh hidden benchmark
         id: benchmark
         run: |
@@ -183,9 +189,18 @@ jobs:
       - name: Start isolated benchmark environment
         run: |
           set -euo pipefail
-          docker network create ehb-target-net
-          docker network create ehb-worker-net
+          docker network create --internal ehb-target-net
+          docker network create --internal ehb-worker-net
+          docker network create ehb-egress-net
 
+          docker run -d \
+            --name ehb-kilo-egress \
+            --network ehb-egress-net \
+            --mount type=bind,source="$GITHUB_WORKSPACE/lab/kilo_gateway_proxy.py",target=/app/proxy.py,readonly \
+            python:3.12-alpine \
+            python /app/proxy.py
+
+          docker network connect --alias api.kilo.ai ehb-worker-net ehb-kilo-egress
           docker run -d \
             --name juice-shop \
             --network ehb-target-net \
@@ -204,8 +219,12 @@ jobs:
           docker network connect ehb-worker-net lab-mutator
 
           docker run --rm --network ehb-worker-net \
-            python:3.12-alpine \
-            python -c 'import urllib.request; print(urllib.request.urlopen("http://lab-mutator:3000/__lab__/health", timeout=20).read().decode())'
+            "$EHB_KILO_IMAGE" \
+            bash -lc 'curl --fail --silent --show-error https://api.kilo.ai/api/gateway/models >/dev/null && echo "Kilo gateway network path is ready."'
+
+          docker run --rm --network ehb-worker-net \
+            "$EHB_KILO_IMAGE" \
+            python3 -c 'import urllib.request; print(urllib.request.urlopen("http://lab-mutator:3000/__lab__/health", timeout=20).read().decode())'
 
       - name: Prepare blind worker workspace
         run: |
@@ -236,13 +255,9 @@ jobs:
             -e KILO_DISABLE_EXTERNAL_SKILLS=true \
             -e BENCHMARK_ID="$BENCHMARK_ID" \
             -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
-            node:22-bookworm \
+            "$EHB_KILO_IMAGE" \
             bash -lc '
               set -euo pipefail
-              apt-get update -qq
-              DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends git curl python3 ca-certificates rsync
-              npm install -g @kilocode/cli
-              kilo --version
               cd /workspace
               kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)"
             '
@@ -291,8 +306,9 @@ jobs:
         if: always()
         run: |
           set +e
-          docker rm -f ehb-kilo lab-mutator juice-shop >/dev/null 2>&1 || true
-          docker network rm ehb-target-net ehb-worker-net >/dev/null 2>&1 || true
+          docker rm -f ehb-kilo ehb-kilo-egress lab-mutator juice-shop >/dev/null 2>&1 || true
+          docker network rm ehb-target-net ehb-worker-net ehb-egress-net >/dev/null 2>&1 || true
+          docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
           rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
 
       - name: Persist safe repository changes
@@ -303,7 +319,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/README.md 2>/dev/null || true
+          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/kilo-worker.Dockerfile lab/kilo_gateway_proxy.py lab/README.md 2>/dev/null || true
           git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/README.md 2>/dev/null || true
 
           git add -A
@@ -313,7 +329,7 @@ jobs:
             ":(glob)**/*.pyc" \
             ":(glob)**/*.py.c" 2>/dev/null || true
 
-          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|README\.md)$' >/tmp/protected; then
+          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|kilo-worker\.Dockerfile|kilo_gateway_proxy\.py|README\.md)$' >/tmp/protected; then
             echo "Protected paths unexpectedly staged:"
             cat /tmp/protected
             exit 1
