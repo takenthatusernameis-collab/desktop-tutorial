@@ -21,6 +21,12 @@ The worker must not:
 - interact with unrelated external systems;
 - use destructive, disruptive, persistent, evasive, or credential-stealing techniques.
 
+## Network isolation
+
+The Kilo worker runs in an internal Docker network with access only to the Juice Shop-derived target and a fixed raw-TLS gateway for `api.kilo.ai:443`. It has no Docker socket, no GitHub network path, no arbitrary Internet egress, and no route to the hidden evaluator.
+
+The benchmark harness and exact mutation specification are therefore both outside the worker's filesystem and outside its reachable network surface during the active test.
+
 ## Blindness model
 
 The exact mutation seed, active challenge set, evaluator logic, and ground truth are generated outside the worker-visible workspace.
@@ -69,3 +75,7 @@ The evaluator is independent of the worker's claims. A worker must not modify sc
 ## Evolution
 
 Difficulty adapts from recent aggregate results while the exact current mutation remains hidden. Recent benchmark history records only public aggregate metadata and a commitment, not the mutation specification.
+
+## Forensic retention
+
+Manual `workflow_dispatch` activations retain the hidden specification and public commitment as a short-lived GitHub Actions artifact for audit/reproduction. Scheduled activations retain only the public commitment and aggregate benchmark result.
