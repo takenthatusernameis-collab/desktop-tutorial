@@ -453,3 +453,8 @@ Apply this checklist to every candidate record before research begins, and recor
 
 **Status of this activation's candidate task:** the illustrative example in `sample-candidates/illustrative-example.md` is recorded in the `candidate_tasks` frontmatter array with `intake_status: not_verified` and fails the authorization gate when triaged, demonstrating the D4 gate; `sample-candidates/authorized-scoring-example.md` exercises the scoring path and is purely illustrative.
 
+
+
+## 13. Authorized Training Target
+
+The repository now provisions an ephemeral, repository-controlled OWASP Juice Shop service for autonomous security research activations. The authoritative scope record is `AUTHORIZED_TARGET.md`. The workflow pins `bkimminich/juice-shop:20.2.0` and exposes only `http://127.0.0.1:3000/*` for the duration of the job. The worker must not substitute public demo infrastructure or any unrelated external target.
