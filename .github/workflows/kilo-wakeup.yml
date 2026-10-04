@@ -17,7 +17,10 @@ jobs:
     name: Autonomous security-research activation
     runs-on: ubuntu-24.04
     timeout-minutes: 355
-
+    env:
+      LAB_SECRET_DIR: ${{ runner.temp }}/ehb-secret
+      EHB_WORKER_DIR: ${{ runner.temp }}/ehb-worker
+      EHB_KILO_IMAGE: ehb-kilo-${{ github.run_id }}
 
     steps:
       - name: Checkout repository
@@ -162,15 +165,11 @@ jobs:
       - name: Build isolated Kilo worker image
         run: |
           set -euo pipefail
-          export EHB_KILO_IMAGE="ehb-kilo:${GITHUB_RUN_ID}"
           docker build --pull -t "$EHB_KILO_IMAGE" -f lab/kilo-worker.Dockerfile lab
-          echo "EHB_KILO_IMAGE=$EHB_KILO_IMAGE" >> "$GITHUB_ENV"
       - name: Generate fresh hidden benchmark
         id: benchmark
         run: |
           set -euo pipefail
-          export LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
-          export EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
           mkdir -p "$LAB_SECRET_DIR"
           chmod 700 "$LAB_SECRET_DIR"
           python3 lab/generate_benchmark.py --secret-dir "$LAB_SECRET_DIR" --history "lab/benchmark_history.jsonl"
@@ -266,6 +265,10 @@ jobs:
         if: always()
         run: |
           set -euo pipefail
+          if [ ! -d "$EHB_WORKER_DIR" ]; then
+            echo "Worker workspace was not created; preserving original failure."
+            exit 0
+          fi
           rsync -a \
             --exclude=".git/" \
             --exclude=".github/" \
@@ -277,7 +280,7 @@ jobs:
 
       - name: Evaluate hidden benchmark independently
         id: evaluate
-        if: always()
+        if: always() && steps.benchmark.outcome == 'success'
         continue-on-error: true
         run: |
           set -euo pipefail
@@ -295,21 +298,22 @@ jobs:
         if: always() && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.BENCHMARK_ID }}-hidden-benchmark
+          name: benchmark-${{ github.run_id }}
           retention-days: 7
           if-no-files-found: warn
           path: |
-            ${{ env.LAB_SECRET_DIR }}/spec.json
-            ${{ env.LAB_SECRET_DIR }}/public.json
-            reports/benchmark_${{ env.BENCHMARK_ID }}.json
+            ${{ runner.temp }}/ehb-secret/**
+            reports/benchmark_*.json
       - name: Cleanup isolated benchmark environment
         if: always()
         run: |
           set +e
           docker rm -f ehb-kilo ehb-kilo-egress lab-mutator juice-shop >/dev/null 2>&1 || true
           docker network rm ehb-target-net ehb-worker-net ehb-egress-net >/dev/null 2>&1 || true
-          docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
-          rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
+          if [ -n "${EHB_KILO_IMAGE:-}" ]; then
+            docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
+          fi
+          rm -rf "${LAB_SECRET_DIR:-}" "${EHB_WORKER_DIR:-}"
 
       - name: Persist safe repository changes
         if: always()
