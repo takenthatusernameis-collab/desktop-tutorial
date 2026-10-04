@@ -18,8 +18,6 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 355
     env:
-      LAB_SECRET_DIR: ${{ runner.temp }}/ehb-secret
-      EHB_WORKER_DIR: ${{ runner.temp }}/ehb-worker
       EHB_KILO_IMAGE: ehb-kilo-${{ github.run_id }}
 
     steps:
@@ -170,8 +168,13 @@ jobs:
         id: benchmark
         run: |
           set -euo pipefail
-          mkdir -p "$LAB_SECRET_DIR"
+          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+          mkdir -p "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
           chmod 700 "$LAB_SECRET_DIR"
+          export LAB_SECRET_DIR EHB_WORKER_DIR
+          echo "LAB_SECRET_DIR=$LAB_SECRET_DIR" >> "$GITHUB_ENV"
+          echo "EHB_WORKER_DIR=$EHB_WORKER_DIR" >> "$GITHUB_ENV"
           python3 lab/generate_benchmark.py --secret-dir "$LAB_SECRET_DIR" --history "lab/benchmark_history.jsonl"
           python3 - <<'PY' >> "$GITHUB_ENV"
           import json, os
@@ -188,6 +191,8 @@ jobs:
       - name: Start isolated benchmark environment
         run: |
           set -euo pipefail
+          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
           docker network create --internal ehb-target-net
           docker network create --internal ehb-worker-net
           docker network create ehb-egress-net
@@ -265,6 +270,7 @@ jobs:
         if: always()
         run: |
           set -euo pipefail
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
           if [ ! -d "$EHB_WORKER_DIR" ]; then
             echo "Worker workspace was not created; preserving original failure."
             exit 0
@@ -284,6 +290,7 @@ jobs:
         continue-on-error: true
         run: |
           set -euo pipefail
+          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
           docker run --rm \
             --network none \
             --mount type=bind,source="$GITHUB_WORKSPACE",target=/workspace \
@@ -308,12 +315,14 @@ jobs:
         if: always()
         run: |
           set +e
+          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
           docker rm -f ehb-kilo ehb-kilo-egress lab-mutator juice-shop >/dev/null 2>&1 || true
           docker network rm ehb-target-net ehb-worker-net ehb-egress-net >/dev/null 2>&1 || true
           if [ -n "${EHB_KILO_IMAGE:-}" ]; then
             docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
           fi
-          rm -rf "${LAB_SECRET_DIR:-}" "${EHB_WORKER_DIR:-}"
+          rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
 
       - name: Persist safe repository changes
         if: always()
