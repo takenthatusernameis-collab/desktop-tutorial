@@ -1,9 +1,9 @@
 ---
 enterprise: desktop-tutorial-bug-bounty-research-enterprise
-state_schema_version: "1.0.0"
-last_updated: "2026-10-04T15:44:00Z"
+state_schema_version: "1.1.0"
+last_updated: "2026-10-04T18:48:42Z"
 state:
-  primary_objective: "Confirm the research-state format (H1), instantiate a durable task-selection mechanism (intake template, prioritization rubric, decision-quality checklist), and hand off for a future authorized target."
+  primary_objective: "Confirm the research-state format (H1), instantiate a durable task-selection mechanism (intake template, prioritization rubric, decision-quality checklist, plus an executable triage tool that applies them to candidate tasks), and hand off for a future authorized target."
   phase: hand-off
 hypotheses:
   - id: H1
@@ -26,6 +26,12 @@ hypotheses:
     status: pending
     created: "2026-10-04T15:44:00Z"
     linked_evidence: []
+  - id: H4
+    statement: "If the enterprise records candidate tasks in a machine-readable format (research_state.md `candidate_tasks` array) and applies the prioritization rubric and false-positive checklist via a deterministic triage tool, task-selection capability becomes independently testable and reusable across activations rather than remaining documentation-only."
+    success_criteria: "scripts/triage_tasks.py runs without error against research_state.md, produces a ranked triage report in reports/, every candidate_task record validates against research_state_schema.json, and the triage output is recorded as evidence."
+    status: testing
+    created: "2026-10-04T18:48:42Z"
+    linked_evidence: [E6]
 evidence:
   - id: E1
     type: observation
@@ -51,6 +57,11 @@ evidence:
     type: artifact
     description: "Created task-intake-template.md: an authorized-target gated intake template that requires scope reference, authorization verification, hypothesis, and prioritization rubric application before research begins."
     path: "task-intake-template.md"
+    quality: high
+  - id: E6
+    type: tooling
+    description: "Created scripts/triage_tasks.py: a deterministic, dependency-light triage tool that applies the prioritization rubric (research_state.md Section 10) and false-positive checklist (Section 11) to candidate_task records, enforces the authorization gate (D4), and emits a ranked auditable report to reports/."
+    path: "scripts/triage_tasks.py"
     quality: high
 findings:
   - id: F1
@@ -79,6 +90,15 @@ findings:
     conclusion: "The next most consequential improvement is durable task-selection capability (intake + prioritization + decision-quality checks), not more process documentation."
     evidence_refs: [E2]
     decided_at: "2026-10-04T15:44:00Z"
+  - id: F4
+    title: "Prioritization rubric and false-positive checklist are documented but not executable"
+    target: "desktop-tutorial"
+    status: verified
+    observation: "research_state.md Sections 10-11 define the prioritization rubric and the decision-quality checklist, but there is no executable mechanism to apply them; H2 and H3 therefore remain untested on any candidate record."
+    inference: "The task-selection bottleneck (F3) is not a lack of rubric content but a lack of an executable triage step that turns the rubric/checklist into runnable, auditable output."
+    conclusion: "Implemented scripts/triage_tasks.py, which renders the rubric and checklist as deterministic, testable tooling and emits ranked triage reports; validated against the illustrative sample candidates. No external target interaction performed (F2)."
+    evidence_refs: [E2, E6]
+    decided_at: "2026-10-04T18:48:42Z"
 activation_records:
   - id: A1
     timestamp: "2026-10-04T15:29:28Z"
@@ -122,6 +142,26 @@ activation_records:
       - "Define an authorized task source (bug-bounty program scope page / task queue) and fill task-intake-template.md with the first authorized target."
       - "Apply the prioritization rubric and false-positive checklist to each candidate record before research begins."
       - "If evidence quality becomes a repeated manual burden, promote scripts/validate_research_state.py into a recurring pre-commit gate."
+  - id: A3
+    timestamp: "2026-10-04T18:48:42Z"
+    objective: "Make the task-selection capability executable by implementing scripts/triage_tasks.py, which renders the prioritization rubric and false-positive checklist as deterministic, testable tooling."
+    scope_determination: "Repository-internal process improvement only; no external target interaction (F2). Safe, local work within the workspace. The sample candidates in sample-candidates/ are explicitly fictional labs and are never treated as real targets."
+    hypothesis: "H4"
+    actions:
+      - "Re-read the trusted instructions (AGENTS.md, ENTERPRISE.md, PERSISTENCE_POLICY.md), the workflow, config, and durable state."
+      - "Confirmed F3 and F4: the prioritization rubric and false-positive checklist are documented but not executable, so H2 and H3 remain untested."
+      - "Extended research_state_schema.json (v1.1.0) with the candidate_tasks array to hold machine-readable task records."
+      - "Created scripts/triage_tasks.py: a deterministic, dependency-light triage tool that applies the authorization gate (D4), scores the rubric, applies the false-positive checklist template, and emits a ranked, auditable report to reports/."
+      - "Created sample-candidates/illustrative-example.md and sample-candidates/authorized-scoring-example.md as clearly fictional lab records to exercise the auth gate and the scoring path."
+      - "Added the illustrative example to research_state.md frontmatter candidate_tasks (intake_status: not_verified) and re-ran the validator."
+    result: "H4 in testing. scripts/triage_tasks.py runs against research_state.md and sample candidates without error; the auth gate rejects unverified records before scoring, and scoring produces ranked decisions. Validator passes against v1.1.0 schema."
+    artifacts_created: ["research_state_schema.json (v1.1.0)", "scripts/triage_tasks.py", "sample-candidates/illustrative-example.md", "sample-candidates/authorized-scoring-example.md", "reports/triage_*.md"]
+    decisions:
+      - "D6: Using deterministic triage tooling rather than evolutionary mode; no bounded evaluator problem exists yet, so simpler executable tooling has higher expected information gain than a controlled-mutation search."
+    next:
+      - "Apply the prioritization rubric and false-positive checklist (Sections 10-11) to each candidate record before research begins."
+      - "Define an authorized task source and fill task-intake-template.md with the first authorized target; then promote the illustrative example to awaiting_triage and re-triage."
+      - "If evidence quality becomes a repeated manual burden, promote scripts/validate_research_state.py into a recurring pre-commit gate."
 decisions:
   - timestamp: "2026-10-04T15:29:28Z"
     decision: "D1 — format choice: single markdown document with YAML frontmatter rather than a JSON-only log or pure markdown notes."
@@ -138,6 +178,9 @@ decisions:
   - timestamp: "2026-10-04T15:44:00Z"
     decision: "D5 — H1 confirmed rather than merely 'testing'."
     rationale: "H1's success criteria are met with two independent data points (creation and a second append+validate). The remaining long-term claim (superiority over unstructured notes with external targets) is still UNVERIFIED and is carried as a residual open question."
+  - timestamp: "2026-10-04T18:48:42Z"
+    decision: "D6 — deterministic triage tooling instead of evolutionary mode."
+    rationale: "No bounded evaluator problem exists yet: the current need is a runnable, auditable triage step for the documented rubric and checklist. Simpler deterministic tooling has higher expected information gain than a controlled-mutation search, so the optional AlphaEvolve-style loop (EVOLUTION.md) is not activated this activation."
 unresolved_questions:
   - "Should hypotheses and task records be keyed by program/target (target_key) once a scope boundary exists, rather than only by id?"
   - "Do we want a separate evidence/ directory with raw outputs (tool runs) and let RESEARCH_STATE.md reference them?"
@@ -147,6 +190,19 @@ next_actions:
   - "Define an authorized task source (bug-bounty program scope page / task queue) and fill task-intake-template.md with the first authorized target."
   - "Apply the prioritization rubric and false-positive checklist (Sections 10-11) to each candidate record before research begins."
   - "If evidence quality becomes a repeated manual burden, promote scripts/validate_research_state.py into a recurring pre-commit gate."
+candidate_tasks:
+  - task_id: "ILLUSTRATIVE-EXAMPLE"
+    intake_status: "not_verified"
+    authorized_target: "example-local-fake-lab (fictional; see sample-candidates/illustrative-example.md)"
+    scope_boundary: "http://example.local/* (fictional)"
+    auth_verified_by: null
+    source_reference: "sample-candidates/illustrative-example.md"
+    source_system: "illustrative example only"
+    hypothesis: "Illustrative only: a debug endpoint at /debug/vars leaks internal configuration on a local lab host."
+    scope_size: "small"
+    hypothesis_specificity: "moderate"
+    novelty: "common"
+    evidence_available: "none"
 ---
 
 # Research State
@@ -251,20 +307,28 @@ One objective per activation, per ENTERPRISE.md and AGENTS.md:
 ## 9. Hand-Off State
 
 - **CHANGED:**
-  - `research_state.md` — confirmed H1; added H2 (task intake) and H3 (decision quality); populated structured frontmatter arrays (hypotheses, evidence, findings, activation records, decisions); added Section 10 (task intake + prioritization rubric) and Section 11 (false-positive checklist).
-  - `task-intake-template.md` — new gated intake template for authorized research tasks.
+  - `research_state_schema.json` — v1.1.0; added `candidate_tasks` array for machine-readable task records keyed by id/source.
+  - `research_state.md` — H1 confirmed; H2/H3 updated; added H4 (executable triage), E6, F4, activation record A3, decision D6; added `candidate_tasks` to frontmatter; added Section 12 (triage tooling).
+  - `scripts/triage_tasks.py` — new deterministic triage tool (rubric + false-positive checklist + auth gate).
+  - `sample-candidates/illustrative-example.md`, `sample-candidates/authorized-scoring-example.md` — clearly fictional sample intake records for isolated triage testing.
+  - `reports/triage_*.md` — generated triage reports from the sample candidates.
+  - `task-intake-template.md` — gated intake template for authorized research tasks.
 - **VERIFIED:**
   - `scripts/validate_research_state.py` run against `research_state.md` after append: **valid** (schema passes; required frontmatter fields present; required hand-off labels present).
+  - `scripts/triage_tasks.py` run against `research_state.md` and both sample candidates: runs without error; auth gate rejects the unverified record before scoring; scoring produces ranked decisions; report written to `reports/`.
   - `task-intake-template.md` contents reviewed against the authorization gate and D3/D4 decisions.
   - Scope determination (F2) re-checked against the workspace contents.
 - **UNVERIFIED:**
   - H2's long-term claim (tasks will be choosable once authorized) — awaiting first real target.
   - H3's claim (prioritization + checklist improve decision quality) — not yet applied to an external candidate.
+  - H4's claim (triage tooling makes task selection independently testable) — validated only against fictional sample candidates; needs a real target to confirm.
   - Whether the validator will need extension for nested lineage/evaluation sections as the format matures.
   - Whether the prioritization rubric's criteria survive independent review when applied to a real target.
+  - Whether the triage thresholds (accept >= 8, defer >= 5) are appropriate for real programs.
 - **NEXT:**
-  - Next activation: define an authorized task source and fill `task-intake-template.md` with the first authorized target; apply the prioritization rubric and checklist before any research.
+  - Next activation: define an authorized task source and fill `task-intake-template.md` with the first authorized target; promote that candidate to `awaiting_triage`, run `scripts/triage_tasks.py`, and record the outcome.
   - Do not perform external target interaction until a scope boundary is explicitly documented in `task-intake-template.md`.
+
 
 ## 10. Task Intake Mechanism and Prioritization
 
@@ -303,3 +367,24 @@ Apply this checklist to every candidate record before research begins, and recor
 - [ ] Evidence quality (high / medium / low) is assigned per observation, with source references.
 - [ ] A null result (hypothesis refuted) is acceptable and recorded if that is the outcome — negative results reduce uncertainty and are preserved.
 - [ ] The finding status is chosen from: verified / unverified / rejected / false-positive, never "confirmed" without the above checks.
+
+## 12. Candidate Task Triage Tooling
+
+**Purpose:** renders the Section 10 prioritization rubric and Section 11 decision-quality checklist as executable, auditable tooling so the task-selection capability (F3/F4) can be run and reproduced instead of remaining documentation-only.
+
+**Tool:** `scripts/triage_tasks.py` — dependency-light (yaml/json only), mirrors the rubric and checklist in this document and keeps them in sync.
+
+**Hard gate:** the authorization gate (D4) is enforced before scoring; a candidate with an empty `auth_verified_by` is rejected without a rubric score.
+
+**Usage:**
+
+    # Triage candidate tasks recorded in research_state.md (default):
+    python3 scripts/triage_tasks.py
+
+    # Triage a single stand-alone intake record (isolated test):
+    python3 scripts/triage_tasks.py --standalone sample-candidates/illustrative-example.md
+
+**Output:** a ranked triage report is printed to stdout and written to `reports/triage_<timestamp>.md`, including the authorization-gate failures, the ranking table, decision summary, lifecycle status, and the per-candidate false-positive checklist template.
+
+**Status of this activation's candidate task:** the illustrative example in `sample-candidates/illustrative-example.md` is recorded in the `candidate_tasks` frontmatter array with `intake_status: not_verified` and fails the authorization gate when triaged, demonstrating the D4 gate; `sample-candidates/authorized-scoring-example.md` exercises the scoring path and is purely illustrative.
+
