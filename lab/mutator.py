@@ -413,19 +413,16 @@ def main() -> int:
     UPSTREAM_PORT = args.upstream_port
 
     worker_server = ThreadingHTTPServer(("0.0.0.0", args.worker_port), WorkerHandler)
-    eval_server = ThreadingHTTPServer(("0.0.0.0", args.eval_port), EvaluatorHandler)
 
     worker_thread = threading.Thread(target=worker_server.serve_forever, daemon=True)
-    eval_thread = threading.Thread(target=eval_server.serve_forever, daemon=True)
     worker_thread.start()
-    eval_thread.start()
     print(
         json.dumps(
             {
                 "benchmark_id": SPEC["benchmark_id"],
                 "difficulty": SPEC["difficulty"],
                 "worker_port": args.worker_port,
-                "evaluator_port": args.eval_port,
+                "evaluator_port": None,
             },
             sort_keys=True,
         ),
@@ -436,7 +433,6 @@ def main() -> int:
         worker_thread.join()
     finally:
         worker_server.shutdown()
-        eval_server.shutdown()
     return 0
 
 
