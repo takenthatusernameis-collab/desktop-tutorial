@@ -24,6 +24,7 @@ The autonomous worker must not modify or persist changes to:
 - lab/generate_benchmark.py
 - lab/mutator.py
 - lab/evaluate_benchmark.py
+- lab/test_benchmark.py
 - lab/README.md
 
 The trusted workflow restores these paths before persistence. The benchmark history file and evaluator-generated aggregate reports are durable evidence and may persist.
