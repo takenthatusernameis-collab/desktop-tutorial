@@ -19,34 +19,12 @@ jobs:
     timeout-minutes: 355
 
 
-    services:
-      juice-shop:
-        image: bkimminich/juice-shop:20.2.0
-        ports:
-          - 3000:3000
-
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
-
-      - name: Verify authorized Juice Shop target
-        env:
-          SECURITY_RESEARCH_TARGET: http://127.0.0.1:3000
-        run: |
-          set -euo pipefail
-          echo "Authorized training target: $SECURITY_RESEARCH_TARGET/*"
-          curl --fail --silent --show-error --retry 30 --retry-delay 2 --retry-connrefused "$SECURITY_RESEARCH_TARGET/" >/dev/null
-          echo "Juice Shop target is reachable and ready."
-
-      - name: Install Kilo Code CLI
-        run: npm install -g @kilocode/cli
-
-      - name: Verify Kilo installation
-        run: kilo --version
 
       - name: Discover current free model
         id: discover_model
@@ -176,16 +154,136 @@ jobs:
           print("Trusted Kilo configuration validated.")
           '
 
-      - name: Run Kilo worker
+      - name: Generate fresh hidden benchmark
+        id: benchmark
+        run: |
+          set -euo pipefail
+          export LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
+          export EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+          mkdir -p "$LAB_SECRET_DIR"
+          chmod 700 "$LAB_SECRET_DIR"
+          python3 lab/generate_benchmark.py --secret-dir "$LAB_SECRET_DIR" --history "lab/benchmark_history.jsonl"
+          python3 - <<'PY' >> "$GITHUB_ENV"
+import json, os
+from pathlib import Path
+data = json.loads(Path(os.environ["LAB_SECRET_DIR"], "public.json").read_text(encoding="utf-8"))
+print(f"BENCHMARK_ID={data['benchmark_id']}")
+print(f"BENCHMARK_COMMITMENT={data['commitment']}")
+print(f"BENCHMARK_DIFFICULTY={data['difficulty']}")
+print("SECURITY_RESEARCH_TARGET=http://lab-mutator:3000")
+print(f"LAB_SECRET_DIR={os.environ['LAB_SECRET_DIR']}")
+print(f"EHB_WORKER_DIR={os.environ['EHB_WORKER_DIR']}")
+PY
+
+      - name: Start isolated benchmark environment
+        run: |
+          set -euo pipefail
+          docker network create ehb-target-net
+          docker network create ehb-worker-net
+          docker network create ehb-eval-net
+
+          docker run -d \
+            --name juice-shop \
+            --network ehb-target-net \
+            bkimminich/juice-shop:20.2.0
+
+          docker run -d \
+            --name lab-mutator \
+            --network ehb-target-net \
+            --read-only \
+            --tmpfs /tmp \
+            --mount type=bind,source="$LAB_SECRET_DIR",target=/run/lab,readonly \
+            --mount type=bind,source="$GITHUB_WORKSPACE/lab",target=/app,readonly \
+            python:3.12-alpine \
+            python /app/mutator.py --spec /run/lab/spec.json --upstream-host juice-shop
+
+          docker network connect ehb-worker-net lab-mutator
+          docker network connect ehb-eval-net lab-mutator
+
+          docker run --rm --network ehb-worker-net \
+            python:3.12-alpine \
+            python -c 'import urllib.request; print(urllib.request.urlopen("http://lab-mutator:3000/__lab__/health", timeout=20).read().decode())'
+
+          docker run --rm --network ehb-eval-net \
+            python:3.12-alpine \
+            python -c 'import urllib.request; print(urllib.request.urlopen("http://lab-mutator:9000/__lab__/health", timeout=20).read().decode())'
+
+      - name: Prepare blind worker workspace
+        run: |
+          set -euo pipefail
+          rm -rf "$EHB_WORKER_DIR"
+          mkdir -p "$EHB_WORKER_DIR"
+          rsync -a \
+            --exclude=".git/" \
+            --exclude=".github/" \
+            --exclude="lab/" \
+            --exclude="reports/benchmark_*.json" \
+            "$GITHUB_WORKSPACE/" "$EHB_WORKER_DIR/"
+
+      - name: Run isolated Kilo worker
         id: kilo
         continue-on-error: true
-        timeout-minutes: 340
+        timeout-minutes: 315
         env:
           KILO_DISABLE_EXTERNAL_SKILLS: "true"
         run: |
           set -euo pipefail
-          kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)"
+          docker run --rm \
+            --name ehb-kilo \
+            --network ehb-worker-net \
+            --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
+            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/root/.config/kilo/kilo.json,readonly \
+            -e HOME=/root \
+            -e KILO_DISABLE_EXTERNAL_SKILLS=true \
+            -e BENCHMARK_ID="$BENCHMARK_ID" \
+            -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
+            node:22-bookworm \
+            bash -lc '
+              set -euo pipefail
+              apt-get update -qq
+              DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends git curl python3 ca-certificates rsync
+              npm install -g @kilocode/cli
+              kilo --version
+              cd /workspace
+              kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)"
+            '
 
+      - name: Merge safe worker results back
+        if: always()
+        run: |
+          set -euo pipefail
+          rsync -a \
+            --exclude=".git/" \
+            --exclude=".github/" \
+            --exclude=".kilo/" \
+            --exclude="lab/" \
+            --exclude="AUTHORIZED_TARGET.md" \
+            --exclude="HARDCORE_BENCHMARK.md" \
+            "$EHB_WORKER_DIR/" "$GITHUB_WORKSPACE/"
+
+      - name: Evaluate hidden benchmark independently
+        id: evaluate
+        if: always()
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          docker run --rm \
+            --network ehb-eval-net \
+            --mount type=bind,source="$GITHUB_WORKSPACE",target=/workspace \
+            --mount type=bind,source="$LAB_SECRET_DIR",target=/run/lab,readonly \
+            python:3.12-alpine \
+            python /workspace/lab/evaluate_benchmark.py \
+              --spec /run/lab/spec.json \
+              --public /run/lab/public.json \
+              --workspace /workspace
+
+      - name: Cleanup isolated benchmark environment
+        if: always()
+        run: |
+          set +e
+          docker rm -f ehb-kilo lab-mutator juice-shop >/dev/null 2>&1 || true
+          docker network rm ehb-target-net ehb-worker-net ehb-eval-net >/dev/null 2>&1 || true
+          rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
       - name: Persist safe repository changes
         if: always()
         env:
@@ -194,8 +292,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md 2>/dev/null || true
-          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md 2>/dev/null || true
+          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/README.md 2>/dev/null || true
+          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/README.md 2>/dev/null || true
 
           git add -A
 
@@ -204,7 +302,59 @@ jobs:
             ":(glob)**/*.pyc" \
             ":(glob)**/*.py.c" 2>/dev/null || true
 
-          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md)$' >/tmp/protected; then
+          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|README\.md)
+            echo "Protected paths unexpectedly staged:"
+            cat /tmp/protected
+            exit 1
+          fi
+
+          if git diff --cached --name-only | grep -E '(^|/)(\.env(\..*)?|id_rsa|id_dsa|id_ecdsa|id_ed25519|credentials\.(json|ya?ml|toml)|secrets\.(json|ya?ml|toml))$|\.(pem|key)$' >/tmp/credential_paths; then
+            echo "Credential-like paths are not allowed to persist:"
+            cat /tmp/credential_paths
+            exit 1
+          fi
+
+          if git diff --cached --summary | grep -E "^ create mode 120000 " >/tmp/symlinks; then
+            echo "Symbolic links are not allowed to persist:"
+            cat /tmp/symlinks
+            exit 1
+          fi
+
+          if git diff --cached --binary | grep -E -n "BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|kilo_[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9_-]{20,}" >/tmp/secrets; then
+            echo "Potential credential material detected:"
+            cat /tmp/secrets
+            exit 1
+          fi
+
+          if git diff --cached --quiet; then
+            echo "No safe repository changes to persist."
+            exit 0
+          fi
+
+          git config user.name "security-research-enterprise"
+          git config user.email "security-research-enterprise@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+          git commit -m "Persist security research activation"
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+          echo "Worker activation outcome: $KILO_OUTCOME"
+
+      - name: Report worker outcome
+        if: always()
+        env:
+          KILO_OUTCOME: ${{ steps.kilo.outcome }}
+        run: |
+          if [ "$KILO_OUTCOME" = "success" ]; then
+            echo "Worker activation completed successfully."
+          elif [ "$KILO_OUTCOME" = "skipped" ]; then
+            echo "Worker activation was skipped."
+          else
+            echo "Worker activation ended with outcome: $KILO_OUTCOME"
+            exit 1
+          fi
+ >/tmp/protected; then
             echo "Protected paths unexpectedly staged:"
             cat /tmp/protected
             exit 1
