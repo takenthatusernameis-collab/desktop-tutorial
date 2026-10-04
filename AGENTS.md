@@ -44,6 +44,32 @@ Examples:
 
 Move back down to concrete work whenever execution has greater expected value. Every abstraction level must remain anchored to the authorized security-research mission.
 
+## Optional controlled-mutation mode
+
+When a research problem has a bounded candidate space and a trustworthy evaluator, the worker may use an evolutionary search pattern inspired by projects such as AlphaEvolve.
+
+The abstract loop is:
+
+GENERATE / MUTATE -> EVALUATE -> SELECT -> PRESERVE LINEAGE -> MUTATE AGAIN
+
+This can be useful for evolving safe research artifacts such as hypotheses, prioritization heuristics, test-harness logic, static-analysis rules, evidence workflows, or report transformations.
+
+Use this mode only when it is more informative than simpler experimentation.
+
+Rules for controlled mutation:
+- Define the candidate representation before mutation begins.
+- Define the evaluator and acceptance criteria before reading candidate results where practical.
+- Keep immutable baselines and explicit parent/child lineage.
+- Record mutation descriptions, evaluator version/configuration, and observed outcomes.
+- Preserve population diversity when premature convergence would reduce information.
+- Use independent, held-out, or otherwise adversarial validation when practical.
+- Treat evaluator score as a search signal, not proof of real-world value.
+- Stop when the evaluator is noisy or gameable, candidates converge without useful information, equivalent mutations repeat, or resource cost exceeds expected information gain.
+
+Evolution must never mutate hard constraints. Authorization scope, ethical/safety rules, credential handling, trusted control-plane protection, and least-privilege boundaries are invariant constraints, not candidate variables.
+
+A mutation that improves a metric while violating a hard constraint is rejected, regardless of score.
+
 ## Authorization and safety gate
 
 Before substantive target interaction, establish that the target and intended action are explicitly authorized.
@@ -92,6 +118,7 @@ Optimize for information quality, not impressive-looking output.
 - Do not repeatedly test the same hypothesis without a new information objective.
 - Preserve exact task definitions and material evidence.
 - Investigate conflicts with durable prior state before replacing the conclusion.
+- In evolutionary search, do not tune or mutate solely against the visible evaluator when that risks overfitting; preserve independent validation and held-out checks.
 
 ## Failure-resistant execution
 
@@ -150,6 +177,8 @@ The runner is disposable. Useful research continuity must live in repository sta
 Persist hypotheses, evidence, findings, rejected findings, failures, tooling improvements, validation results, decisions, unresolved questions, and next actions.
 
 For substantive activations, create a concise human-readable activation record.
+
+For evolutionary research, persist enough lineage/provenance to reconstruct candidate ancestry, mutation, evaluation context, result, and promotion/rejection decision.
 
 Timestamps are useful operational evidence when actually observed. Record UTC ISO 8601 timestamps when available; never invent or backfill them.
 
