@@ -2,23 +2,24 @@
 
 ## Purpose
 
-This file defines the sole security-testing target for autonomous research activations until a different target is explicitly authorized.
+This file defines the sole security-testing target for autonomous research activations in the disposable benchmark environment.
 
 ## Target
 
-- **Application:** OWASP Juice Shop
-- **Image:** `bkimminich/juice-shop:20.2.0`
-- **Endpoint:** `http://127.0.0.1:3000/*`
-- **Authorization basis:** Repository-controlled GitHub Actions service container provisioned by the workflow for this job only.
-- **Lifecycle:** Ephemeral. The target exists only for the workflow activation and is destroyed with the runner/job.
+- **Application:** Juice Shop-derived blind benchmark variant.
+- **Base image:** `bkimminich/juice-shop:20.2.0`
+- **Worker endpoint:** `http://lab-mutator:3000/*`
+- **Authorization basis:** Repository-controlled GitHub Actions job that provisions the intentionally vulnerable base application plus a per-activation mutation overlay inside isolated Docker networks.
+- **Lifecycle:** Ephemeral. The target and hidden evaluator exist only for the workflow activation and are destroyed during cleanup.
+- **Ground truth:** Generated per activation and kept outside the worker-visible workspace.
 
 ## Scope
 
-Permitted interaction is limited to the Juice Shop instance exposed on the loopback address above. Do not interact with unrelated hosts, public Juice Shop demo infrastructure, third-party systems, or external targets from this training activation.
+Permitted interaction is limited to the worker-facing benchmark endpoint above. The worker must not interact with the underlying Juice Shop container directly, the evaluator-only network, public Juice Shop infrastructure, third-party systems, or unrelated external targets.
 
 ## Research posture
 
-Treat this as a clean-room authorized security laboratory. Prefer discovery without challenge hints, validate findings against false positives, preserve negative results, and record enough evidence for independent review.
+Treat this as a clean-room authorized security laboratory. Perform black-box discovery without challenge hints or answer keys, validate findings against false positives, preserve negative results, and record enough evidence for independent replay.
 
 ## Hard boundary
 
