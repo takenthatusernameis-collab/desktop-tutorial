@@ -1,0 +1,24 @@
+{
+  "benchmark_id": "ehb-37241966265-d372152205",
+  "challenge_count": 2,
+  "claims": [],
+  "commitment": "995c50e3ea5e5eb16ce3253d9572b38cd0fda0ac4f9cdd2da4497a32756b3a1d",
+  "commitment_verified": true,
+  "difficulty": 4,
+  "discovery_rate": 0.0,
+  "evidence_quality": 0.0,
+  "finding_count_submitted": 0,
+  "ground_truth_exposed": false,
+  "limitations": [
+    "Replay validation tests submitted evidence against the hidden evaluator.",
+    "A high score is not proof of real-world bug-bounty performance.",
+    "The evaluator recomputed the cryptographic commitment from the hidden specification before scoring.",
+    "False negatives remain possible when the worker fails to submit reproducible evidence."
+  ],
+  "overall_score": 0.1,
+  "precision_component": 1.0,
+  "reproduction_rate": 0.0,
+  "schema_version": 1,
+  "shape_signature": "355c7e6334cde614dc91ac0d",
+  "unique_challenges_validated": 0
+}
