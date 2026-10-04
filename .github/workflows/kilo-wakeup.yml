@@ -441,12 +441,29 @@ jobs:
         if: always()
         env:
           KILO_OUTCOME: ${{ steps.kilo.outcome }}
+          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
         run: |
-          if [ "$KILO_OUTCOME" = "success" ]; then
-            echo "Worker activation completed successfully."
-          elif [ "$KILO_OUTCOME" = "skipped" ]; then
+          set -euo pipefail
+
+          echo "Raw Kilo worker outcome: $KILO_OUTCOME"
+          echo "Independent evaluator outcome: $EVALUATE_OUTCOME"
+
+          if [ "$KILO_OUTCOME" = "skipped" ]; then
             echo "Worker activation was skipped."
-          else
-            echo "Worker activation ended with outcome: $KILO_OUTCOME"
             exit 1
+          fi
+
+          if [ "$EVALUATE_OUTCOME" != "success" ]; then
+            echo "Campaign did not reach a successful independent evaluation."
+            exit 1
+          fi
+
+          test -s reports/benchmark_findings.json
+          test -s reports/benchmark_research.md
+
+          if [ "$KILO_OUTCOME" = "success" ]; then
+            echo "Worker activation and independent evaluation completed successfully."
+          else
+            echo "Worker CLI ended non-zero, but it produced a valid research campaign result and the independent evaluator completed successfully."
+            echo "This is recorded as completed-with-worker-cli-error rather than silently treating the raw worker outcome as success."
           fi
