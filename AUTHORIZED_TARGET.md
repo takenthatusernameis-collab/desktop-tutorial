@@ -7,7 +7,7 @@ This file defines the sole security-testing target for autonomous research activ
 ## Target
 
 - **Application:** Juice Shop-derived blind benchmark variant.
-- **Base image:** `bkimminich/juice-shop:20.2.0`
+- **Base image:** `bkimminich/juice-shop@sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b (v20.2.0)`
 - **Worker endpoint:** `http://lab-mutator:3000/*`
 - **Authorization basis:** Repository-controlled GitHub Actions job that provisions the intentionally vulnerable base application plus a per-activation mutation overlay inside isolated Docker networks.
 - **Lifecycle:** Ephemeral. The target and hidden evaluator exist only for the workflow activation and are destroyed during cleanup.

@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Any
 
 
-BASE_IMAGE = "bkimminich/juice-shop:20.2.0"
+BASE_IMAGE = "bkimminich/juice-shop@sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b"  # v20.2.0
 FAMILIES = (
     "idor",
     "mass_assignment",
@@ -99,7 +99,7 @@ def choose_difficulty(history: list[dict[str, Any]]) -> int:
 
 
 def make_shape(rng: random.Random, difficulty: int) -> list[str]:
-    count = 2 if difficulty == 4 else 3
+    count = 3 if difficulty == 4 else 4
     families = list(rng.sample(FAMILIES, count))
     families.sort()
     return families

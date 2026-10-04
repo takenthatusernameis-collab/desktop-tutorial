@@ -189,6 +189,7 @@ jobs:
           PY
 
       - name: Start isolated benchmark environment
+        id: start_benchmark
         run: |
           set -euo pipefail
           LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
@@ -208,7 +209,7 @@ jobs:
           docker run -d \
             --name juice-shop \
             --network ehb-target-net \
-            bkimminich/juice-shop:20.2.0
+            bkimminich/juice-shop@sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b
 
           docker run -d \
             --name lab-mutator \
@@ -220,15 +221,42 @@ jobs:
             python:3.12-alpine \
             python /app/mutator.py --spec /run/lab/spec.json --upstream-host juice-shop
 
+          echo "Waiting for pinned Juice Shop target readiness..."
+          for attempt in $(seq 1 30); do
+            if docker run --rm --network ehb-target-net \
+              "$EHB_KILO_IMAGE" \
+              bash -lc 'curl --fail --silent --show-error http://juice-shop:3000/ >/dev/null'; then
+              echo "Juice Shop target is ready."
+              break
+            fi
+            if [ "$attempt" -eq 30 ]; then
+              echo "Juice Shop target did not become ready."
+              exit 1
+            fi
+            sleep 2
+          done
+
           docker network connect ehb-worker-net lab-mutator
 
+          echo "Waiting for mutation gateway readiness..."
+          for attempt in $(seq 1 20); do
+            if docker run --rm --network ehb-worker-net \
+              "$EHB_KILO_IMAGE" \
+              bash -lc 'curl --fail --silent --show-error http://lab-mutator:3000/__lab__/health >/dev/null'; then
+              echo "Mutation gateway is ready."
+              break
+            fi
+            if [ "$attempt" -eq 20 ]; then
+              echo "Mutation gateway did not become ready."
+              exit 1
+            fi
+            sleep 1
+          done
+
+          echo "Checking fixed Kilo egress path..."
           docker run --rm --network ehb-worker-net \
             "$EHB_KILO_IMAGE" \
             bash -lc 'curl --fail --silent --show-error https://api.kilo.ai/api/gateway/models >/dev/null && echo "Kilo gateway network path is ready."'
-
-          docker run --rm --network ehb-worker-net \
-            "$EHB_KILO_IMAGE" \
-            python3 -c 'import urllib.request; print(urllib.request.urlopen("http://lab-mutator:3000/__lab__/health", timeout=20).read().decode())'
 
       - name: Prepare blind worker workspace
         run: |
@@ -286,8 +314,7 @@ jobs:
 
       - name: Evaluate hidden benchmark independently
         id: evaluate
-        if: always() && steps.benchmark.outcome == 'success'
-        continue-on-error: true
+        if: always() && steps.benchmark.outcome == 'success' && steps.start_benchmark.outcome == 'success' && steps.kilo.outcome != 'skipped'
         run: |
           set -euo pipefail
           LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"

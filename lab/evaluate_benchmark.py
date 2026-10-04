@@ -69,7 +69,10 @@ def verify_request(spec: dict[str, Any], request: dict[str, Any]) -> dict[str, A
         body = {}
 
     challenges = mutator.challenge_for_request(method, parsed.path or "/")
+    valid_target = parsed.hostname == "lab-mutator"
     matches: list[dict[str, Any]] = []
+    if not valid_target:
+        return {"valid_target": False, "matches": []}
     for ch in challenges:
         vulnerable = mutator.local_handle(
             method, path, headers, body, [ch], mutate=ch.get("mode") != "secure_decoy"
@@ -138,10 +141,10 @@ def score_findings(
         1.0
         - (
             sum(1 for row in claim_results if row["matched_count"] == 0)
-            / max(1, len(claim_results))
+            / len(claim_results)
         )
         if claim_results
-        else 1.0
+        else 0.0
     )
     evidence = (
         sum(

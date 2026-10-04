@@ -457,7 +457,7 @@ Apply this checklist to every candidate record before research begins, and recor
 
 ## 13. Authorized Training Target
 
-The repository now provisions an ephemeral, repository-controlled OWASP Juice Shop service for autonomous security research activations. The authoritative scope record is `AUTHORIZED_TARGET.md`. The workflow pins `bkimminich/juice-shop:20.2.0` and exposes only `http://127.0.0.1:3000/*` for the duration of the job. The worker must not substitute public demo infrastructure or any unrelated external target.
+The repository now provisions an ephemeral, repository-controlled OWASP Juice Shop service for autonomous security research activations. The authoritative scope record is `AUTHORIZED_TARGET.md`. The workflow pins `bkimminich/juice-shop@sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b (v20.2.0)` and exposes only `http://127.0.0.1:3000/*` for the duration of the job. The worker must not substitute public demo infrastructure or any unrelated external target.
 
 
 ## 13. Endless Hardcore Benchmark
@@ -500,3 +500,25 @@ The repository now provisions a blind, disposable security-research benchmark on
 
 ### NEXT
 - Use the post-repair GitHub Actions activation as the runtime verification gate; inspect self-test, target startup, worker, hidden evaluation, cleanup, and persistence before declaring the benchmark operational.
+
+
+## 2026-10-04T22:58:08Z — Hardcore benchmark runtime inspection
+
+### CHANGED
+- Identified the concrete runtime blocker in workflow run 23: the repository referenced the nonexistent Docker tag `bkimminich/juice-shop:20.2.0`. The published v20.2.0 image is now referenced by its immutable multi-platform index digest.
+- Strengthened target startup with explicit readiness polling for the pinned Juice Shop instance and mutation gateway.
+- Prevented benchmark evaluation/history updates when target startup failed or the Kilo worker was never launched.
+- Tightened evaluator target validation so out-of-scope hostnames cannot receive hidden-ground-truth credit.
+- Removed the empty-submission precision floor that previously produced a positive 0.1 score for a run with no worker execution.
+- Expanded the worker into a multi-pass deep-grinding campaign with mapping, hypothesis generation, differential testing, independent reproduction, negative-space search, and final falsification.
+
+### VERIFIED
+- Run 23 reached benchmark self-test, model discovery, Kilo configuration, worker-image build, and hidden benchmark generation successfully.
+- Run 23 failed at target startup because Docker reported `manifest for bkimminich/juice-shop:20.2.0 not found`.
+- Current Docker Hub evidence confirms v20.2.0 and identifies immutable index digest `sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b`.
+
+### UNVERIFIED
+- The repaired target startup, blind Kilo research campaign, hidden evaluation, and end-to-end persistence remain unverified until a subsequent activation completes them.
+
+### NEXT
+- Execute the repaired benchmark activation and inspect the complete ladder: target readiness, blind worker execution, evidence quality, independent replay, aggregate history, cleanup, and persistence.

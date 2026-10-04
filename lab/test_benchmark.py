@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 import generate_benchmark as generator
+import evaluate_benchmark as evaluator
 import mutator
 
 
@@ -96,6 +97,33 @@ def main() -> int:
         )
 
     assert len({row["shape_signature"] for row in history}) >= 2
+
+    # Evaluator integrity regressions: out-of-scope hosts must never receive
+    # credit, and an empty/negative research submission must not earn a
+    # positive benchmark score merely from the precision component.
+    sample = generator.build_spec("evaluator-integrity-seed", history)
+    challenge = next(ch for ch in sample["challenges"] if ch.get("mode") == "vulnerable")
+    method, path, headers, body = make_request(challenge)
+    invalid = evaluator.verify_request(
+        sample,
+        {
+            "method": method,
+            "url": "http://evil.invalid" + path,
+            "headers": headers,
+            "body": body,
+        },
+    )
+    assert invalid["valid_target"] is False
+    assert invalid["matches"] == []
+
+    empty_score, empty_claims = evaluator.score_findings(
+        sample,
+        [],
+        hidden_count=len(sample["families"]),
+    )
+    assert empty_claims == []
+    assert empty_score["overall_score"] == 0.0
+    assert empty_score["precision_component"] == 0.0
     print("benchmark harness self-test: PASS")
     print(json.dumps({"variants": len(history), "unique_commitments": len(seen)}, sort_keys=True))
     return 0
