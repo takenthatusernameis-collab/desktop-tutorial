@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - ".github/workflows/kilo-wakeup.yml"
       - "lab/kilo_gateway_proxy.py"
 
 concurrency:
