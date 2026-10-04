@@ -72,3 +72,7 @@ Evolution may not alter authorization scope, safety policy, credential rules, le
 ## Inspiration
 
 The protocol is conceptually inspired by AlphaEvolve's combination of LLM-generated candidates, automated evaluation, and evolutionary selection, while intentionally adapting the idea to a safety-constrained security-research process.
+
+## Active benchmark implementation
+
+The Desktop Tutorial workflow now uses this protocol for a concrete safe target-generation loop. Each activation creates a fresh hidden mutation specification, evaluates black-box worker evidence independently, persists a public commitment and aggregate result, and adapts future difficulty/shape selection from recent results. The hidden exact specification is intentionally ephemeral for scheduled runs; manual-dispatch runs may retain short-lived forensic artifacts without exposing them during the active worker phase.
