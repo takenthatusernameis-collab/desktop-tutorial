@@ -9,12 +9,13 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
+import sys
 import time
-import urllib.error
-import urllib.request
 from pathlib import Path
 from typing import Any
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import mutator
 
 
 MAX_FINDINGS = 32
@@ -25,18 +26,6 @@ def load_json(path: Path, default: Any) -> Any:
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return default
-
-
-def post_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
-    body = json.dumps(payload).encode("utf-8")
-    request = urllib.request.Request(
-        url,
-        data=body,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    with urllib.request.urlopen(request, timeout=15) as response:
-        return json.loads(response.read().decode("utf-8"))
 
 
 def finding_requests(findings: Any) -> list[dict[str, Any]]:
@@ -60,18 +49,59 @@ def finding_requests(findings: Any) -> list[dict[str, Any]]:
     return out
 
 
+def verify_request(spec: dict[str, Any], request: dict[str, Any]) -> dict[str, Any]:
+    mutator.SPEC = spec
+    mutator.STATE = {"business_used": set(), "method_deleted": set()}
+
+    method = str(request.get("method", "GET")).upper()
+    url = str(request.get("url", ""))
+    parsed = mutator.urlsplit(url)
+    path = parsed.path or "/"
+    if parsed.query:
+        path += "?" + parsed.query
+    headers = {
+        str(k): str(v)
+        for k, v in (request.get("headers") or {}).items()
+    }
+    body = request.get("body") or {}
+    if not isinstance(body, dict):
+        body = {}
+
+    challenges = mutator.challenge_for_request(method, parsed.path or "/")
+    matches: list[dict[str, Any]] = []
+    for ch in challenges:
+        vulnerable = mutator.local_handle(
+            method, path, headers, body, [ch], mutate=ch.get("mode") != "secure_decoy"
+        )
+        secure = mutator.local_handle(
+            method, path, headers, body, [ch], mutate=False
+        )
+        if vulnerable is None or secure is None:
+            continue
+        if ch.get("mode") == "vulnerable" and mutator.semantic_diff(vulnerable, secure):
+            matches.append(
+                {
+                    "challenge_id": ch["id"],
+                    "family": ch["family"],
+                    "vulnerable_status": vulnerable[0],
+                    "secure_status": secure[0],
+                    "behavioral_difference": True,
+                }
+            )
+    return {"valid_target": parsed.hostname in {"lab-mutator", "127.0.0.1", None}, "matches": matches}
+
+
 def score_findings(
-    evaluator_url: str,
+    spec: dict[str, Any],
     findings: list[dict[str, Any]],
     hidden_count: int,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     unique_matches: set[str] = set()
     claim_results: list[dict[str, Any]] = []
     for finding in findings:
-        request = finding["request"]
         try:
-            result = post_json(evaluator_url, request)
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+            result = verify_request(spec, finding["request"])
+        except Exception as exc:
             claim_results.append(
                 {
                     "title": finding["title"],
@@ -103,7 +133,7 @@ def score_findings(
         sum(1 for row in claim_results if row["valid_reproduction"])
         / max(1, len(claim_results))
     )
-    false_positive = (
+    precision = (
         1.0
         - (
             sum(1 for row in claim_results if row["matched_count"] == 0)
@@ -126,14 +156,14 @@ def score_findings(
         1.0,
         0.60 * discovery
         + 0.25 * reproduced
-        + 0.10 * false_positive
+        + 0.10 * precision
         + 0.05 * evidence,
     )
     return (
         {
             "discovery_rate": round(discovery, 4),
             "reproduction_rate": round(reproduced, 4),
-            "precision_component": round(false_positive, 4),
+            "precision_component": round(precision, 4),
             "evidence_quality": round(evidence, 4),
             "overall_score": round(overall, 4),
             "unique_challenges_validated": len(unique_matches),
@@ -165,7 +195,6 @@ def main() -> int:
     parser.add_argument("--spec", required=True)
     parser.add_argument("--public", required=True)
     parser.add_argument("--workspace", required=True)
-    parser.add_argument("--evaluator-url", default="http://lab-mutator:9000/__evaluator__/verify")
     args = parser.parse_args()
 
     spec = load_json(Path(args.spec), {})
@@ -176,7 +205,7 @@ def main() -> int:
     findings_payload = load_json(report_path, {})
     findings = finding_requests(findings_payload.get("findings") if isinstance(findings_payload, dict) else [])
     score, claim_results = score_findings(
-        args.evaluator_url,
+        spec,
         findings,
         hidden_count=len(spec.get("families", [])),
     )
