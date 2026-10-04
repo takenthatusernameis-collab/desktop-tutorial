@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Fixed-destination raw-TLS gateway for the isolated Kilo worker.
 
+Relay changes are automatically exercised by the repository workflow.
+
 The worker resolves api.kilo.ai to this container. The gateway forwards raw
 TLS bytes only to an IPv4 address for api.kilo.ai:443 and nowhere else.
 """
