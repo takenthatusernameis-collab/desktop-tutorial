@@ -18,6 +18,17 @@ DESTINATION_PORT = 443
 CONNECT_TIMEOUT = 20
 
 
+def default_route_interface() -> str:
+    """Return the interface carrying the container's default IPv4 route."""
+    with open("/proc/net/route", "r", encoding="ascii") as handle:
+        next(handle, None)
+        for line in handle:
+            fields = line.split()
+            if len(fields) >= 4 and fields[1] == "00000000" and int(fields[3], 16) & 0x2:
+                return fields[0]
+    raise OSError("no IPv4 default route found")
+
+
 def resolve_ipv4() -> list[tuple]:
     infos = socket.getaddrinfo(
         DESTINATION_HOST,
@@ -35,6 +46,12 @@ def connect_upstream() -> tuple[socket.socket, tuple]:
     for sockaddr in resolve_ipv4():
         upstream = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         upstream.settimeout(CONNECT_TIMEOUT)
+        interface = default_route_interface()
+        upstream.setsockopt(
+            socket.SOL_SOCKET,
+            socket.SO_BINDTODEVICE,
+            interface.encode("ascii") + b"\\0",
+        )
         upstream.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         try:
             upstream.connect(sockaddr)
