@@ -25,6 +25,8 @@ The autonomous worker must not modify or persist changes to:
 - lab/mutator.py
 - lab/evaluate_benchmark.py
 - lab/test_benchmark.py
+- lab/kilo-worker.Dockerfile
+- lab/kilo_gateway_proxy.py
 - lab/README.md
 
 The trusted workflow restores these paths before persistence. The benchmark history file and evaluator-generated aggregate reports are durable evidence and may persist.
