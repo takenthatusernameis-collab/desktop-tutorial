@@ -179,7 +179,7 @@ def apply_cors(ch: dict[str, Any], method: str, headers: dict[str, str], mutate:
     if method == "OPTIONS":
         out_headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
         out_headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-        return response(204, {}, out_headers)
+        return 204, out_headers, b""
     return response(200, {"account": "redacted-training-account"}, out_headers)
 
 
@@ -217,23 +217,24 @@ def local_handle(
     mutate: bool,
 ) -> tuple[int, dict[str, str], bytes] | None:
     for ch in challenges:
+        effective_mutate = mutate and ch.get("mode") != "secure_decoy"
         family = ch["family"]
         if family == "idor":
-            return apply_idor(ch, method, path, headers, mutate)
+            return apply_idor(ch, method, path, headers, effective_mutate)
         if family == "mass_assignment":
-            return apply_mass_assignment(ch, body, mutate)
+            return apply_mass_assignment(ch, body, effective_mutate)
         if family == "ssrf":
-            return apply_ssrf(ch, body, mutate)
+            return apply_ssrf(ch, body, effective_mutate)
         if family == "path_traversal":
-            return apply_path_traversal(ch, path, mutate)
+            return apply_path_traversal(ch, path, effective_mutate)
         if family == "open_redirect":
-            return apply_redirect(ch, path, mutate)
+            return apply_redirect(ch, path, effective_mutate)
         if family == "cors":
-            return apply_cors(ch, method, headers, mutate)
+            return apply_cors(ch, method, headers, effective_mutate)
         if family == "business_logic":
-            return apply_business_logic(ch, body, mutate)
+            return apply_business_logic(ch, body, effective_mutate)
         if family == "method_override":
-            return apply_method_override(ch, method, path, headers, body, mutate)
+            return apply_method_override(ch, method, path, headers, body, effective_mutate)
     return None
 
 
