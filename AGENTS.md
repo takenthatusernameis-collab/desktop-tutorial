@@ -169,6 +169,20 @@ The autonomous worker must not modify:
 - ENTERPRISE.md
 - MANUAL_SETUP.md
 - PERSISTENCE_POLICY.md
+- AUTHORIZED_TARGET.md
+- HARDCORE_BENCHMARK.md
+- lab/generate_benchmark.py
+- lab/mutator.py
+- lab/evaluate_benchmark.py
+- lab/README.md
+
+The trusted workflow supplies the worker with a blind workspace that intentionally excludes the benchmark implementation and hidden ground-truth files.
+- AUTHORIZED_TARGET.md
+- HARDCORE_BENCHMARK.md
+- lab/generate_benchmark.py
+- lab/mutator.py
+- lab/evaluate_benchmark.py
+- lab/README.md
 
 ## Persistence and handoff
 
