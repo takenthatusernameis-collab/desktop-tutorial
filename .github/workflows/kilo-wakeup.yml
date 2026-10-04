@@ -282,6 +282,17 @@ jobs:
               --public /run/lab/public.json \
               --workspace /workspace
 
+      - name: Preserve manual-dispatch forensic benchmark
+        if: always() && github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BENCHMARK_ID }}-hidden-benchmark
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ env.LAB_SECRET_DIR }}/spec.json
+            ${{ env.LAB_SECRET_DIR }}/public.json
+            reports/benchmark_${{ env.BENCHMARK_ID }}.json
       - name: Cleanup isolated benchmark environment
         if: always()
         run: |
