@@ -76,6 +76,13 @@ def main() -> int:
             secure = mutator.local_handle(method, path, headers, body, [ch], False)
             assert vulnerable is not None
             assert secure is not None
+
+            if ch["family"] == "cors":
+                assert vulnerable[1].get("Access-Control-Allow-Origin") == ch["probe_origin"]
+                assert secure[1].get("Access-Control-Allow-Origin") != ch["probe_origin"]
+                assert vulnerable[1].get("Access-Control-Allow-Credentials") == "true"
+                assert secure[1].get("Access-Control-Allow-Credentials") == "false"
+
             assert mutator.semantic_diff(vulnerable, secure), (
                 "mutation did not create a behavioral difference",
                 ch["family"],
