@@ -9,6 +9,9 @@ on:
       - ".github/workflows/kilo-wakeup.yml"
       - "lab/kilo_gateway_proxy.py"
       - "lab/benchmark_campaign.py"
+      - "lab/research_program.py"
+      - "lab/test_research_program.py"
+      - ".github/scripts/research_portfolio_runner.py"
 
 concurrency:
   group: bug-bounty-research-enterprise
@@ -493,7 +496,7 @@ jobs:
 
       - name: Validate Kilo research program and controller-owned evidence
         id: research_validate
-        if: always()
+        if: always() && steps.research_portfolio.outcome == 'success'
         continue-on-error: true
         run: |
           set -euo pipefail
