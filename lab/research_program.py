@@ -1039,12 +1039,37 @@ def update_runtime(state_dir: Path, program: dict[str, Any], results: list[dict[
 
 def materialize_registries(state_dir: Path, program: dict[str, Any], runtime: dict[str, Any]) -> None:
     surfaces = []
+    counter_keys = (
+        "generations",
+        "candidate_requests",
+        "behavioral_differences",
+        "repeat_reproductions",
+        "families_executed",
+    )
     for surface in program["surfaces"]:
         sid = surface["surface_id"]
         sr = (runtime.get("surfaces") or {}).get(sid, {})
-        effort = dict(surface.get("reasonable_effort_evidence") or {})
-        for key in ("generations", "candidate_requests", "behavioral_differences", "repeat_reproductions", "families_executed"):
-            effort[key] = int(effort.get(key, 0)) + int(sr.get(key, 0))
+        raw_effort = surface.get("reasonable_effort_evidence")
+        if isinstance(raw_effort, dict):
+            effort = dict(raw_effort)
+        elif raw_effort is None:
+            effort = {}
+        else:
+            # Worker prose is evidence, not a schema violation. Preserve it
+            # explicitly while keeping controller counters machine-readable.
+            effort = {"evidence": raw_effort}
+        for key in counter_keys:
+            raw_base = effort.get(key, 0)
+            raw_runtime = sr.get(key, 0)
+            try:
+                base_value = int(raw_base)
+            except (TypeError, ValueError):
+                base_value = 0
+            try:
+                runtime_value = int(raw_runtime)
+            except (TypeError, ValueError):
+                runtime_value = 0
+            effort[key] = base_value + runtime_value
         surfaces.append({**surface, "runtime": sr, "reasonable_effort_evidence": effort})
 
     families = []
