@@ -7,49 +7,49 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Raw, non-graceful, inconsistent unauthenticated error responses (id=27 / errorHandlingChallenge)",
+      "title": "Raw, inconsistent error responses on unauthenticated error routes (errorHandlingChallenge)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated exposure of Prometheus observability and AI/LLM usage telemetry (id=97 / exposedMetricsChallenge)",
+      "title": "Unauthenticated Prometheus-format telemetry exposure including LLM usage gauges (exposedMetricsChallenge)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Excessive unauthenticated user-object exposure via /rest/memories (id=23)",
+      "title": "Unauthenticated full user-object exposure on /rest/memories with invalid authorization tokens accepted",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated write gap on /api/SecurityAnswers/ - writes accepted with no credentials (id=24)",
+      "title": "Unauthenticated write gap on /api/SecurityAnswers/: read gated, create accepted",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated mass-assignment on PUT /api/Products/{id} with cross-request persistence (id=6)",
+      "title": "Unauthenticated PUT mass assignment on /api/Products/{id} with cross-request persistence",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "CAPTCHA cleartext answer leak via GET /rest/captcha (id=7)",
+      "title": "Cleartext CAPTCHA answer returned by /rest/captcha endpoint",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Account existence enumeration via GET /rest/user/security-question?email= (id=5)",
+      "title": "Account enumeration via structured JSON differential on /rest/user/security-question",
       "valid_reproduction": false
     }
   ],

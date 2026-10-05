@@ -1,6 +1,6 @@
 {
   "benchmark_id": "ehb-37260280180-eddbb902f2",
-  "generated_at": "2026-10-05T10:43:21Z",
+  "generated_at": "2026-10-05T10:58:34Z",
   "open_world": true,
   "schema_version": "1.0.0",
   "surface_map_exhaustive": false,
@@ -17,7 +17,8 @@
         "A16 reproduced 3 byte-stable raw-error triggers; password-hash trigger mutated away",
         "A17-A22 corroborated raw WHERE on POST /api/Feedbacks/ and malformed-JSON SyntaxError; benign 201 control established",
         "A23 full 500 raw stack captured via Sequelize (SQLiteQueryGenerator.whereItemQuery / captcha.js:33:25) with md5 byte-stability verified; GET no-param trigger byte-stable this boot",
-        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): triggers A/B + Accept-header body variant reproduced with sha256 signatures; inconsistency proven representation-dependently; benign controls pass."
+        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): triggers A/B + Accept-header body variant reproduced with sha256 signatures; inconsistency proven representation-dependently; benign controls pass.",
+        "2026-10-05T10:46-10:48Z A27 byte-stable triggers re-verified on a fresh boot: GET no-param -> 500/2946 B sha256 0b84d83c08cc, GET /redirect?continue= -> 500/2531 B sha256 020023ff4f9a; solved:[27,97] stable. Benign control: valid POST /api/Feedbacks/ -> 401 'Wrong answer' (graceful, not raw)."
       ],
       "known_anomalies": [
         "/rest/user/password-hash stack-trace trigger mutated away (Unexpected path 500) between A15 and A16 boots"
@@ -29,12 +30,12 @@
         "raw-error discovery across /api/* write routes via method/path/encoding variants"
       ],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 46,
-        "candidate_requests": 180,
-        "evidence": "4 raw-error triggers byte-stable across fresh requests with benign controls: GET /rest/user/security-question (no param) -> 500/2946 B raw Sequelize WHERE + full stack (md5 2aa969a19d722117bd9b4ce8f4b6ed8e, byte-stable across this boot); GET /redirect?continue=... -> 500/2531 B TypeError (md5 39ea1953ca299a8bebf46f05ffceeba0); POST /api/Feedbacks/ (text/plain) -> 500 raw Sequelize WHERE; POST /api/Feedbacks/ (malformed JSON) -> 500 SyntaxError; benign controls: valid POST /api/Feedbacks/ (rating+answer) -> 201; wrong-but-valid-answer POST -> 401 'Wrong answer' (graceful, not raw); graceful 500 'Unexpected path' wrappers elsewhere A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): triggers A/B + Accept-header body variant reproduced with sha256 signatures; inconsistency proven representation-dependently; benign controls pass.",
-        "families_executed": 15,
-        "generations": 15,
-        "repeat_reproductions": 46
+        "behavioral_differences": 52,
+        "candidate_requests": 204,
+        "evidence": "4 raw-error triggers byte-stable across fresh requests with benign controls: GET /rest/user/security-question (no param) -> 500/2946 B raw Sequelize WHERE + full stack (md5 2aa969a19d722117bd9b4ce8f4b6ed8e, byte-stable across this boot); GET /redirect?continue=... -> 500/2531 B TypeError (md5 39ea1953ca299a8bebf46f05ffceeba0); POST /api/Feedbacks/ (text/plain) -> 500 raw Sequelize WHERE; POST /api/Feedbacks/ (malformed JSON) -> 500 SyntaxError; benign controls: valid POST /api/Feedbacks/ (rating+answer) -> 201; wrong-but-valid-answer POST -> 401 'Wrong answer' (graceful, not raw); graceful 500 'Unexpected path' wrappers elsewhere A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): triggers A/B + Accept-header body variant reproduced with sha256 signatures; inconsistency proven representation-dependently; benign controls pass.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 17,
+        "generations": 17,
+        "repeat_reproductions": 52
       },
       "related_surfaces": [
         "surf_97_metrics",
@@ -47,12 +48,12 @@
         "new variant boot"
       ],
       "runtime": {
-        "behavioral_differences": 46,
-        "candidate_requests": 180,
-        "families_executed": 15,
-        "generations": 15,
-        "last_execution": "2026-10-05T10:43:21Z",
-        "repeat_reproductions": 46
+        "behavioral_differences": 52,
+        "candidate_requests": 204,
+        "families_executed": 17,
+        "generations": 17,
+        "last_execution": "2026-10-05T10:58:34Z",
+        "repeat_reproductions": 52
       },
       "status": "VERIFIED",
       "surface_id": "surf_27_error_handling",
@@ -67,7 +68,9 @@
       ],
       "history": [
         "/metrics verified 200 with llm_* gauges on every boot A9-A23; found to be unauthenticated",
-        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): metrics reproduced fresh (200/26166 B), llm_* gauges, secrets-clean."
+        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): metrics reproduced fresh (200/26166 B), llm_* gauges, secrets-clean.",
+        "2026-10-05T10:46-10:48Z A27 GET /metrics -> 200/26128 B sha256 e8ecd22d6663; juiceshop_llm_input_tokens_total / _output_tokens_total / _tool_calls_total gauges present plus http_requests_count; secrets-clean scan (only generic HELP-text 'token').",
+        "2026-10-05T10:51Z A27b nuance: the /metrics byte body is not stable across calls (http_requests_count, juiceshop_llm_* counters increment); a fresh call after capture showed ~26132 B vs the captured 26128 B. The claim rests on the consistent presence of the juiceshop_llm_* gauges and http_requests_count structure, not byte identity."
       ],
       "known_anomalies": [
         "app solved flag for id=97 fluctuates (dynamic auto-solve state)"
@@ -77,11 +80,11 @@
       "priority": "HIGH",
       "promising_branches": [],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 18,
-        "candidate_requests": 18,
-        "evidence": "GET /metrics -> 200 text/plain (~26136 B) unauthenticated; http_requests_count (2XX/3XX/5XX), process_*, nodejs_version_info, juiceshop_version_info, juiceshop_llm_* gauges; secrets scan clean (0 secret lines) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): metrics reproduced fresh (200/26166 B), llm_* gauges, secrets-clean.",
-        "families_executed": 18,
-        "generations": 18,
+        "behavioral_differences": 21,
+        "candidate_requests": 21,
+        "evidence": "GET /metrics -> 200 text/plain (~26136 B) unauthenticated; http_requests_count (2XX/3XX/5XX), process_*, nodejs_version_info, juiceshop_version_info, juiceshop_llm_* gauges; secrets scan clean (0 secret lines) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): metrics reproduced fresh (200/26166 B), llm_* gauges, secrets-clean.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:51Z A27b: /metrics byte body not stable across calls (counters increment) - claim rests on consistent juiceshop_llm_* gauge presence.",
+        "families_executed": 21,
+        "generations": 21,
         "repeat_reproductions": 0
       },
       "related_surfaces": [
@@ -92,11 +95,11 @@
         "LLM gauges absent from /metrics"
       ],
       "runtime": {
-        "behavioral_differences": 18,
-        "candidate_requests": 18,
-        "families_executed": 18,
-        "generations": 18,
-        "last_execution": "2026-10-05T10:43:21Z",
+        "behavioral_differences": 21,
+        "candidate_requests": 21,
+        "families_executed": 21,
+        "generations": 21,
+        "last_execution": "2026-10-05T10:58:34Z",
         "repeat_reproductions": 0
       },
       "status": "VERIFIED",
@@ -112,7 +115,8 @@
       ],
       "history": [
         "F1 verified A12-A22 on prior boots; deliberately not submitted (non-counted); re-verified byte-stable A23",
-        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): overexposure reproduced (200/6183 B, 10 full user objects); bogus Bearer byte-identical; no Set-Cookie."
+        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): overexposure reproduced (200/6183 B, 10 full user objects); bogus Bearer byte-identical; no Set-Cookie.",
+        "2026-10-05T10:46-10:48Z A27 GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 with full nested User objects; bogus Bearer returns a byte-identical 200 response; no Set-Cookie set on any request - read authorization wholly absent."
       ],
       "known_anomalies": [
         "deluxeToken present but not a valid signed JWT"
@@ -124,12 +128,12 @@
         "test other /rest/* user-bearing endpoints for similar over-exposure"
       ],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 50,
-        "candidate_requests": 88,
-        "evidence": "GET /rest/memories -> 200/6183 B, 10 records with full User objects (md5 c8dfac941edb2ff7501f400a7dae588a); bogus Bearer returns byte-identical 200 (proves no auth enforcement); controls (basket, wallet) return 401; deluxeToken verified not a valid signed JWT (hijack value limited but hash+TOTP exposure material) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): overexposure reproduced (200/6183 B, 10 full user objects); bogus Bearer byte-identical; no Set-Cookie.",
-        "families_executed": 10,
-        "generations": 10,
-        "repeat_reproductions": 50
+        "behavioral_differences": 65,
+        "candidate_requests": 112,
+        "evidence": "GET /rest/memories -> 200/6183 B, 10 records with full User objects (md5 c8dfac941edb2ff7501f400a7dae588a); bogus Bearer returns byte-identical 200 (proves no auth enforcement); controls (basket, wallet) return 401; deluxeToken verified not a valid signed JWT (hijack value limited but hash+TOTP exposure material) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): overexposure reproduced (200/6183 B, 10 full user objects); bogus Bearer byte-identical; no Set-Cookie.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 12,
+        "generations": 12,
+        "repeat_reproductions": 65
       },
       "related_surfaces": [
         "surf_24_securityanswers_write",
@@ -140,12 +144,12 @@
         "a /rest/* endpoint is confirmed solvable"
       ],
       "runtime": {
-        "behavioral_differences": 50,
-        "candidate_requests": 88,
-        "families_executed": 10,
-        "generations": 10,
-        "last_execution": "2026-10-05T10:43:21Z",
-        "repeat_reproductions": 50
+        "behavioral_differences": 65,
+        "candidate_requests": 112,
+        "families_executed": 12,
+        "generations": 12,
+        "last_execution": "2026-10-05T10:58:34Z",
+        "repeat_reproductions": 65
       },
       "status": "VERIFIED",
       "surface_id": "surf_23_memories",
@@ -160,7 +164,8 @@
       ],
       "history": [
         "F2 verified A12-A22 across boots; not submitted (non-counted); id increment re-verified x3 this boot",
-        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): empty-body POST -> 201 id:35 UserId:null; read 401 -- gap confirmed."
+        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): empty-body POST -> 201 id:35 UserId:null; read 401 -- gap confirmed.",
+        "2026-10-05T10:46-10:48Z A27 POST /api/SecurityAnswers/ with empty body -> 201 with a server-issued id (resets per boot; id:25 this boot), UserId:null; the same-route GET -> 401 'UnauthorizedError' (no credentials); populated POST -> 201 with hashed answer. Method-level read-gated/write-open gap confirmed on this boot."
       ],
       "known_anomalies": [
         "write path accepts null UserId - no ownership binding"
@@ -172,12 +177,12 @@
         "sweep other /api/* write namespaces for write-open/read-gated gaps"
       ],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 20,
-        "candidate_requests": 98,
-        "evidence": "POST unauth {} -> 201 with fresh server id (sequence observed 26->27->28 this boot), UserId=null, SecurityQuestionId=null, answer=null; GET -> 401 'UnauthorizedError: No Authorization header was found' A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): empty-body POST -> 201 id:35 UserId:null; read 401 -- gap confirmed.",
-        "families_executed": 10,
-        "generations": 10,
-        "repeat_reproductions": 20
+        "behavioral_differences": 24,
+        "candidate_requests": 120,
+        "evidence": "POST unauth {} -> 201 with fresh server id (sequence observed 26->27->28 this boot), UserId=null, SecurityQuestionId=null, answer=null; GET -> 401 'UnauthorizedError: No Authorization header was found' A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): empty-body POST -> 201 id:35 UserId:null; read 401 -- gap confirmed.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 12,
+        "generations": 12,
+        "repeat_reproductions": 24
       },
       "related_surfaces": [
         "surf_23_memories"
@@ -186,12 +191,12 @@
         "new /api/* write route with a write-open/read-gated gap"
       ],
       "runtime": {
-        "behavioral_differences": 20,
-        "candidate_requests": 98,
-        "families_executed": 10,
-        "generations": 10,
-        "last_execution": "2026-10-05T10:43:21Z",
-        "repeat_reproductions": 20
+        "behavioral_differences": 24,
+        "candidate_requests": 120,
+        "families_executed": 12,
+        "generations": 12,
+        "last_execution": "2026-10-05T10:58:34Z",
+        "repeat_reproductions": 24
       },
       "status": "VERIFIED",
       "surface_id": "surf_24_securityanswers_write",
@@ -206,7 +211,8 @@
       ],
       "history": [
         "F5 verified 200 A12/A14; negated 500 A9/A10/A13; re-verified 200 differential A23",
-        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): binary differential reproduced; duplicate-param -> {} captured (parser behavior)."
+        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): binary differential reproduced; duplicate-param -> {} captured (parser behavior).",
+        "2026-10-05T10:46-10:48Z A27 GET ?email=bjoern@owasp.org -> 200/139 B sha256 519b1bda6e1b question JSON {id:7 'Name of your favorite pet?'}; ?email=nonexistent@user.com -> 200/2 B sha256 44136fa355b3 {}; deterministic JSON differential, not a status artifact."
       ],
       "known_anomalies": [
         "mutation-fragile 200<->500 across boots (no-param raw-500 vs param 200 observed simultaneously)"
@@ -218,12 +224,12 @@
         "sweep /rest/user/* for similar gated-read/open-write pairs"
       ],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 78,
-        "candidate_requests": 120,
-        "evidence": "existing configured user bjoern@owasp.org -> 200 + {question:{id:7, question:'Name of your favorite pet?', createdAt, updatedAt}} (md5 2aa969a19d722117bd9b4ce8f4b6ed8e class); nonexistent/missing-question -> 200/2 B {} (deterministic differential); neighbors gated (authentication-details 401, other /rest/user/* 500) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): binary differential reproduced; duplicate-param -> {} captured (parser behavior).",
-        "families_executed": 10,
-        "generations": 10,
-        "repeat_reproductions": 78
+        "behavioral_differences": 98,
+        "candidate_requests": 144,
+        "evidence": "existing configured user bjoern@owasp.org -> 200 + {question:{id:7, question:'Name of your favorite pet?', createdAt, updatedAt}} (md5 2aa969a19d722117bd9b4ce8f4b6ed8e class); nonexistent/missing-question -> 200/2 B {} (deterministic differential); neighbors gated (authentication-details 401, other /rest/user/* 500) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): binary differential reproduced; duplicate-param -> {} captured (parser behavior).\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 12,
+        "generations": 12,
+        "repeat_reproductions": 98
       },
       "related_surfaces": [
         "surf_23_memories",
@@ -233,12 +239,12 @@
         "route returns 200 again"
       ],
       "runtime": {
-        "behavioral_differences": 78,
-        "candidate_requests": 120,
-        "families_executed": 10,
-        "generations": 10,
-        "last_execution": "2026-10-05T10:43:21Z",
-        "repeat_reproductions": 78
+        "behavioral_differences": 98,
+        "candidate_requests": 144,
+        "families_executed": 12,
+        "generations": 12,
+        "last_execution": "2026-10-05T10:58:33Z",
+        "repeat_reproductions": 98
       },
       "status": "VERIFIED",
       "surface_id": "surf_5_security_question",
@@ -253,7 +259,8 @@
       ],
       "history": [
         "F7 answer-leak verified A11-A22; bypass path broken this mutation; re-verified A23",
-        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): answer leak reproduced (arithmetic verified); bypass path broken in mutation."
+        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): answer leak reproduced (arithmetic verified); bypass path broken in mutation.",
+        "2026-10-05T10:46-10:48Z A27 GET /rest/captcha -> arithmetic independently verified (8*2*8=128; 10-5*7=-25) and captchaId increments per request; POST /api/Feedbacks/ with the correct answer -> 401 'Wrong answer' (full bypass dead, leak vector retained)."
       ],
       "known_anomalies": [
         "submission path broken; bypass not reproducible"
@@ -265,11 +272,11 @@
         "re-test POST feedback path each boot"
       ],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 10,
-        "candidate_requests": 10,
-        "evidence": "GET /rest/captcha -> {captchaId, captcha: <expr>, answer: <val>}; answer verified correct (arithmetic checks e.g. 3+9-6=6); POST /api/Feedbacks/ with the correct answer -> 401 'Wrong answer to CAPTCHA'; POST with wrong answer -> 401; POST /api/Feedbacks/ malformed -> 500 raw WHERE (unrelated error exposure) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): answer leak reproduced (arithmetic verified); bypass path broken in mutation.",
-        "families_executed": 10,
-        "generations": 10,
+        "behavioral_differences": 12,
+        "candidate_requests": 12,
+        "evidence": "GET /rest/captcha -> {captchaId, captcha: <expr>, answer: <val>}; answer verified correct (arithmetic checks e.g. 3+9-6=6); POST /api/Feedbacks/ with the correct answer -> 401 'Wrong answer to CAPTCHA'; POST with wrong answer -> 401; POST /api/Feedbacks/ malformed -> 500 raw WHERE (unrelated error exposure) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): answer leak reproduced (arithmetic verified); bypass path broken in mutation.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 12,
+        "generations": 12,
         "repeat_reproductions": 0
       },
       "related_surfaces": [],
@@ -277,11 +284,11 @@
         "POST /api/Feedbacks/ accepts a correct answer (200/201)"
       ],
       "runtime": {
-        "behavioral_differences": 10,
-        "candidate_requests": 10,
-        "families_executed": 10,
-        "generations": 10,
-        "last_execution": "2026-10-05T10:43:21Z",
+        "behavioral_differences": 12,
+        "candidate_requests": 12,
+        "families_executed": 12,
+        "generations": 12,
+        "last_execution": "2026-10-05T10:58:34Z",
         "repeat_reproductions": 0
       },
       "status": "VERIFIED",
@@ -297,7 +304,8 @@
       ],
       "history": [
         "F6 verified A14-A22; not submitted (non-counted); POST gating drift documented A23",
-        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): PUT mutates cross-request; POST/DELETE blocked; PUT-specific gap verified."
+        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): PUT mutates cross-request; POST/DELETE blocked; PUT-specific gap verified.",
+        "2026-10-05T10:46-10:48Z A27 PUT /api/Products/1 {name/description/price} (no auth) -> 200 'success'; a separate fresh GET confirms the modification persisted cross-request; POST/DELETE on the same route -> 401. Test mutation was ephemeral and values restored to benign."
       ],
       "known_anomalies": [
         "inconsistent authorization on the PUT method"
@@ -309,24 +317,24 @@
         "sweep POST/PUT/PATCH/DELETE on remaining /api/* write namespaces"
       ],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 61,
-        "candidate_requests": 106,
-        "evidence": "PUT unauth {name, price} -> 200 success echoing the modified entity; fresh GET confirms persisted modification; POST -> 401; DELETE -> 401 (method-level authorization gap); values restored after verification; note POST /api/Products/ now 401 (mutated this boot) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): PUT mutates cross-request; POST/DELETE blocked; PUT-specific gap verified.",
-        "families_executed": 10,
-        "generations": 10,
-        "repeat_reproductions": 61
+        "behavioral_differences": 75,
+        "candidate_requests": 130,
+        "evidence": "PUT unauth {name, price} -> 200 success echoing the modified entity; fresh GET confirms persisted modification; POST -> 401; DELETE -> 401 (method-level authorization gap); values restored after verification; note POST /api/Products/ now 401 (mutated this boot) A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): PUT mutates cross-request; POST/DELETE blocked; PUT-specific gap verified.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 12,
+        "generations": 12,
+        "repeat_reproductions": 75
       },
       "related_surfaces": [],
       "reopen_triggers": [
         "new /api/* write route with PUT/DELETE acceptance"
       ],
       "runtime": {
-        "behavioral_differences": 61,
-        "candidate_requests": 106,
-        "families_executed": 10,
-        "generations": 10,
-        "last_execution": "2026-10-05T10:43:21Z",
-        "repeat_reproductions": 61
+        "behavioral_differences": 75,
+        "candidate_requests": 130,
+        "families_executed": 12,
+        "generations": 12,
+        "last_execution": "2026-10-05T10:58:34Z",
+        "repeat_reproductions": 75
       },
       "status": "VERIFIED",
       "surface_id": "surf_6_put_tamper",
@@ -340,7 +348,8 @@
         "fam_blocked_auth_sweep"
       ],
       "history": [
-        "blocked A9-A22; auth routes mutation-fragile (401<->500); removed (500) A23"
+        "blocked A9-A22; auth routes mutation-fragile (401<->500); removed (500) A23",
+        "2026-10-05T10:46-10:48Z A27 re-probe: POST /rest/user/login -> 401/26 B identical for every input; POST /rest/user/register -> 500 'Unexpected path'; no credential source on the public surface - BLOCKED unchanged."
       ],
       "known_anomalies": [
         "login 401 <-> 500 wrapped mutation-fragile across boots; auth routes now 500 (removed) this boot",
@@ -351,12 +360,12 @@
       "priority": "LOW",
       "promising_branches": [],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 10,
-        "candidate_requests": 10,
-        "evidence": "POST /rest/user/login -> 401 'Invalid email or password.' for all inputs (empty, known emails, only-email); register/reset/order-history/2fa -> 500 wrapped across prior boots; whoami -> {user:{}}; full auth namespace removed (500) this boot",
-        "families_executed": 5,
-        "generations": 5,
-        "repeat_reproductions": 10
+        "behavioral_differences": 12,
+        "candidate_requests": 12,
+        "evidence": "POST /rest/user/login -> 401 'Invalid email or password.' for all inputs (empty, known emails, only-email); register/reset/order-history/2fa -> 500 wrapped across prior boots; whoami -> {user:{}}; full auth namespace removed (500) this boot\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 6,
+        "generations": 6,
+        "repeat_reproductions": 12
       },
       "related_surfaces": [],
       "reopen_triggers": [
@@ -365,12 +374,12 @@
         "a static asset leaking credentials appears"
       ],
       "runtime": {
-        "behavioral_differences": 10,
-        "candidate_requests": 10,
-        "families_executed": 5,
-        "generations": 5,
-        "last_execution": "2026-10-05T10:43:20Z",
-        "repeat_reproductions": 10
+        "behavioral_differences": 12,
+        "candidate_requests": 12,
+        "families_executed": 6,
+        "generations": 6,
+        "last_execution": "2026-10-05T10:58:33Z",
+        "repeat_reproductions": 12
       },
       "status": "DEPRIORITIZED",
       "surface_id": "surf_blocked_auth",
@@ -384,7 +393,8 @@
         "fam_non_viable_500_monitor"
       ],
       "history": [
-        "routes removed across A9-A22 boots; low yield, preserve for provenance; A23 full sweep completed"
+        "routes removed across A9-A22 boots; low yield, preserve for provenance; A23 full sweep completed",
+        "2026-10-05T10:46-10:48Z A27 re-scan: 144+ routes still wrap as 500 'Unexpected path'; no new raw-error exposure discovered; continue monitoring for mutations."
       ],
       "known_anomalies": [
         "1 route out of ~130 is functional (the SPA shell proxies)",
@@ -395,12 +405,12 @@
       "priority": "LOW",
       "promising_branches": [],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 16,
-        "candidate_requests": 38,
-        "evidence": "~120 of ~130 REST+API routes return 500 Unexpected path (e.g. /rest/user/password-hash, /rest/user/emails, /rest/db/schema, /rest/access-log, /rest/continue-code/apply/*, /rest/2fa/*, /rest/chat, /rest/nft/*, /api/Carts/, /api/Orders/, /api/Reviews/, /api/Questions/, /api/Coupons/, /api/Wallets/, /api/Memberships/, /rest/user/register, /rest/user/login, /api/Auth/*). Full 98-route GET sweep at A23: 14 routes returned 200, 4 returned 401, 80 returned 500",
-        "families_executed": 5,
-        "generations": 5,
-        "repeat_reproductions": 16
+        "behavioral_differences": 20,
+        "candidate_requests": 50,
+        "evidence": "~120 of ~130 REST+API routes return 500 Unexpected path (e.g. /rest/user/password-hash, /rest/user/emails, /rest/db/schema, /rest/access-log, /rest/continue-code/apply/*, /rest/2fa/*, /rest/chat, /rest/nft/*, /api/Carts/, /api/Orders/, /api/Reviews/, /api/Questions/, /api/Coupons/, /api/Wallets/, /api/Memberships/, /rest/user/register, /rest/user/login, /api/Auth/*). Full 98-route GET sweep at A23: 14 routes returned 200, 4 returned 401, 80 returned 500\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 6,
+        "generations": 6,
+        "repeat_reproductions": 20
       },
       "related_surfaces": [
         "surf_27_error_handling"
@@ -410,19 +420,19 @@
         "new variant boot"
       ],
       "runtime": {
-        "behavioral_differences": 16,
-        "candidate_requests": 38,
-        "families_executed": 5,
-        "generations": 5,
-        "last_execution": "2026-10-05T10:43:20Z",
-        "repeat_reproductions": 16
+        "behavioral_differences": 20,
+        "candidate_requests": 50,
+        "families_executed": 6,
+        "generations": 6,
+        "last_execution": "2026-10-05T10:58:33Z",
+        "repeat_reproductions": 20
       },
       "status": "EXHAUSTED_FOR_NOW",
       "surface_id": "surf_non_viable_500",
       "uncertainty": "routes are removed by the mutation; probing them yields no behavioral difference\nconfirmed: 44+ probe routes return graceful 'Unexpected path' 500 wrappers this boot; these are baseline mutation behavior, not raw-error findings; EXHAUSTED_FOR_NOW retains full history"
     },
     {
-      "coverage_estimate": "high - route verified with fresh requests; server-side solved state reproduced",
+      "coverage_estimate": "route reachable (200/9393 B text/html) but solve-not-reproducible; the hypothesis that accessing the route solves id=76 (securityPolicyChallenge) is disproven on the current variant",
       "current_intensity": "full",
       "description": "GET /security-policy -> 200 serving the Angular application's security-policy route; the server-side challenge state marks id=76 (securityPolicyChallenge, 'Behave like any white-hat should before getting into the action') solved after access. No authentication, headers, or special representation required.",
       "evolutionary_families": [
@@ -430,7 +440,8 @@
       ],
       "history": [
         "A25 fresh black-box map: /security-policy -> 200/9393 B (previously unclaimed; /robots.txt and /.well-known/security.txt were noted as baseline on A12-A24)",
-        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): route + server-tracked solved state reproduced; solved:[27,76,97] after fresh access."
+        "A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): route + server-tracked solved state reproduced; solved:[27,76,97] after fresh access.",
+        "2026-10-05T10:46-10:48Z A27 route re-probed on fresh independent request: /security-policy -> 200/9393 B (sha256 aa972290..., text/html). GET /api/Challenges/ shows solved:[27,97]; id=76 solved:false both before AND after 5 consecutive visits within a cookie session and after 2 additional independent fresh reads. The served shell (9393 B) contains no 'securityPolicy' references and no client-side solve logic. The A25/A26 record claiming server-tracked solved state [27,76,97] after route access could not be reproduced on this target and is retracted. Route remains reachable; marked NEGATED with reopen trigger on variant change."
       ],
       "known_anomalies": [],
       "name": "Unauthenticated security policy page route (white-hat engagement terms, id=76)",
@@ -439,27 +450,29 @@
       "promising_branches": [],
       "reasonable_effort_evidence": {
         "behavioral_differences": 0,
-        "candidate_requests": 2,
-        "evidence": "GET /security-policy -> 200/9393 B text/html (Angular shell hosting the security-policy route) x3, sha256 aa972290...; GET /api/Challenges/ -> solved:true ids [27, 76, 97] after fresh access; all other probe routes (/admin, /info, /debug, /api/security-policy) either serve the shell without solving id=76 or return 500 'Unexpected path' A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): route + server-tracked solved state reproduced; solved:[27,76,97] after fresh access.",
-        "families_executed": 2,
-        "generations": 2,
+        "candidate_requests": 4,
+        "evidence": "GET /security-policy -> 200/9393 B text/html (Angular shell hosting the security-policy route) x3, sha256 aa972290...; GET /api/Challenges/ -> solved:true ids [27, 76, 97] after fresh access; all other probe routes (/admin, /info, /debug, /api/security-policy) either serve the shell without solving id=76 or return 500 'Unexpected path' A26 (2026-10-05T10:37Z): fresh boot (2026-10-05T10:37Z): route + server-tracked solved state reproduced; solved:[27,76,97] after fresh access.\nA27 fresh verification (2026-10-05T10:46Z): GET /security-policy -> 200/9393 B text/html (sha256 aa97229042ec); GET /api/Challenges/ solved:[27,97], id=76 solved:false; 5 consecutive cookie-session visits to /security-policy then re-read -> solved still [27,97]; 2 further independent reads -> solved still [27,97]; shell grep 'securityPolicy' = 0 matches; no client-side solve logic present.\nA27 fresh verification (2026-10-05T10:46Z): GET /security-policy -> 200/9393 B text/html (sha256 aa97229042ec); GET /api/Challenges/ solved:[27,97], id=76 solved:false; 5 consecutive cookie-session visits to /security-policy then re-read -> solved still [27,97]; 2 further independent reads -> solved still [27,97]; shell grep 'securityPolicy' = 0 matches; no client-side solve logic present.",
+        "families_executed": 4,
+        "generations": 4,
         "repeat_reproductions": 0
       },
       "related_surfaces": [
         "surf_29_extra_language"
       ],
       "reopen_triggers": [
-        "none required - surface verified and reproducible"
+        "none required - surface verified and reproducible",
+        "variant change where GET /security-policy flips id=76 to solved:true; prior solve record retracted after fresh multi-read verification",
+        "variant change where GET /security-policy flips id=76 to solved:true; prior solve record retracted after fresh multi-read verification"
       ],
       "runtime": {
         "behavioral_differences": 0,
-        "candidate_requests": 2,
-        "families_executed": 2,
-        "generations": 2,
-        "last_execution": "2026-10-05T10:43:21Z",
+        "candidate_requests": 4,
+        "families_executed": 4,
+        "generations": 4,
+        "last_execution": "2026-10-05T10:58:34Z",
         "repeat_reproductions": 0
       },
-      "status": "VERIFIED",
+      "status": "NEGATED",
       "surface_id": "surf_76_security_policy",
       "uncertainty": "server-side solve state persists after fresh request; the policy content itself is served client-side by the Angular shell (SPA) so the page text is not directly fetchable as a separate resource; the exposed-behavior claim rests on the accessible route + solved-state confirmation"
     },
@@ -471,7 +484,8 @@
         "fam_41_continue_code"
       ],
       "history": [
-        "generation works, consumption broken - not claimed"
+        "generation works, consumption broken - not claimed",
+        "2026-10-05T10:46-10:48Z A27 re-probed: status remains NEGATED, no change."
       ],
       "known_anomalies": [],
       "name": "Continue-code generation endpoint (negative - not a vulnerability)",
@@ -480,10 +494,10 @@
       "promising_branches": [],
       "reasonable_effort_evidence": {
         "behavioral_differences": 0,
-        "candidate_requests": 5,
-        "evidence": "GET /rest/continue-code -> 200/79 B {continueCode: <token>}; POST /rest/continue-code/apply and GET /rest/continue-code/apply/<code> -> 500 Unexpected path; the token is unusable (consumption path removed)",
-        "families_executed": 5,
-        "generations": 5,
+        "candidate_requests": 6,
+        "evidence": "GET /rest/continue-code -> 200/79 B {continueCode: <token>}; POST /rest/continue-code/apply and GET /rest/continue-code/apply/<code> -> 500 Unexpected path; the token is unusable (consumption path removed)\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 6,
+        "generations": 6,
         "repeat_reproductions": 0
       },
       "related_surfaces": [],
@@ -492,10 +506,10 @@
       ],
       "runtime": {
         "behavioral_differences": 0,
-        "candidate_requests": 5,
-        "families_executed": 5,
-        "generations": 5,
-        "last_execution": "2026-10-05T10:43:20Z",
+        "candidate_requests": 6,
+        "families_executed": 6,
+        "generations": 6,
+        "last_execution": "2026-10-05T10:58:33Z",
         "repeat_reproductions": 0
       },
       "status": "NEGATED",
@@ -510,7 +524,8 @@
         "fam_9_web3_nft"
       ],
       "history": [
-        "nftUnlocked -> {status:false}; no private key surfaced"
+        "nftUnlocked -> {status:false}; no private key surfaced",
+        "2026-10-05T10:46-10:48Z A27 re-probed: status remains NEGATED, no change."
       ],
       "known_anomalies": [],
       "name": "Web3/NFT wallet unlock (rejected)",
@@ -519,10 +534,10 @@
       "promising_branches": [],
       "reasonable_effort_evidence": {
         "behavioral_differences": 0,
-        "candidate_requests": 5,
-        "evidence": "GET /rest/web3/nftUnlocked -> 200 {status:false}; other /rest/web3/* -> 500 Unexpected path; non-eth key -> 401",
-        "families_executed": 5,
-        "generations": 5,
+        "candidate_requests": 6,
+        "evidence": "GET /rest/web3/nftUnlocked -> 200 {status:false}; other /rest/web3/* -> 500 Unexpected path; non-eth key -> 401\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 6,
+        "generations": 6,
         "repeat_reproductions": 0
       },
       "related_surfaces": [],
@@ -532,10 +547,10 @@
       ],
       "runtime": {
         "behavioral_differences": 0,
-        "candidate_requests": 5,
-        "families_executed": 5,
-        "generations": 5,
-        "last_execution": "2026-10-05T10:43:20Z",
+        "candidate_requests": 6,
+        "families_executed": 6,
+        "generations": 6,
+        "last_execution": "2026-10-05T10:58:33Z",
         "repeat_reproductions": 0
       },
       "status": "NEGATED",
@@ -550,7 +565,8 @@
         "fam_29_extra_language"
       ],
       "history": [
-        "all assets shell; no extraLanguageChallenge material"
+        "all assets shell; no extraLanguageChallenge material",
+        "2026-10-05T10:46-10:48Z A27 re-probed: status remains NEGATED, no change."
       ],
       "known_anomalies": [
         "robots.txt and /.well-known/security.txt are real files (baseline behavior)"
@@ -561,10 +577,10 @@
       "promising_branches": [],
       "reasonable_effort_evidence": {
         "behavioral_differences": 0,
-        "candidate_requests": 5,
-        "evidence": "main.js, i18n/*.json, package.json, package-lock.json, config.json, /data, /db, /.sql, /backups, /.env, /.git all return 9393 B shell; /rest/languages -> 200/4215 B language list (percentage/gauge fields, baseline); no secret/token/key lines found in any reachable response",
-        "families_executed": 5,
-        "generations": 5,
+        "candidate_requests": 6,
+        "evidence": "main.js, i18n/*.json, package.json, package-lock.json, config.json, /data, /db, /.sql, /backups, /.env, /.git all return 9393 B shell; /rest/languages -> 200/4215 B language list (percentage/gauge fields, baseline); no secret/token/key lines found in any reachable response\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 6,
+        "generations": 6,
         "repeat_reproductions": 0
       },
       "related_surfaces": [],
@@ -574,10 +590,10 @@
       ],
       "runtime": {
         "behavioral_differences": 0,
-        "candidate_requests": 5,
-        "families_executed": 5,
-        "generations": 5,
-        "last_execution": "2026-10-05T10:43:20Z",
+        "candidate_requests": 6,
+        "families_executed": 6,
+        "generations": 6,
+        "last_execution": "2026-10-05T10:58:33Z",
         "repeat_reproductions": 0
       },
       "status": "NEGATED",
@@ -592,7 +608,8 @@
         "fam_redirect_ssrf_monitor"
       ],
       "history": [
-        "no SSRF; raw TypeError exposed"
+        "no SSRF; raw TypeError exposed",
+        "2026-10-05T10:46-10:48Z A27 GET /redirect?continue=x -> 500/2531 B TypeError (sha256 020023ff4f9a), the same error class as id=27 raw errors; no SSRF / internal resource reached - NEGATED confirmed."
       ],
       "known_anomalies": [
         "TypeError is a raw error (relates to surf_27_error_handling)"
@@ -602,12 +619,12 @@
       "priority": "LOW",
       "promising_branches": [],
       "reasonable_effort_evidence": {
-        "behavioral_differences": 6,
-        "candidate_requests": 42,
-        "evidence": "GET /redirect?continue=... -> 500 TypeError 'Cannot read properties of undefined (reading includes)' for all scheme variants (http/https/file/gopher/data/javascript, 127.0.0.1 ports, localhost) and host-injection headers (X-Forwarded-Host, Host, Forwarded, X-Forwarded-For); internal hosts unreachable via the TypeError path",
-        "families_executed": 5,
-        "generations": 5,
-        "repeat_reproductions": 6
+        "behavioral_differences": 8,
+        "candidate_requests": 48,
+        "evidence": "GET /redirect?continue=... -> 500 TypeError 'Cannot read properties of undefined (reading includes)' for all scheme variants (http/https/file/gopher/data/javascript, 127.0.0.1 ports, localhost) and host-injection headers (X-Forwarded-Host, Host, Forwarded, X-Forwarded-For); internal hosts unreachable via the TypeError path\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 6,
+        "generations": 6,
+        "repeat_reproductions": 8
       },
       "related_surfaces": [
         "surf_27_error_handling"
@@ -616,12 +633,12 @@
         "redirect parameter reaches an internal resource"
       ],
       "runtime": {
-        "behavioral_differences": 6,
-        "candidate_requests": 42,
-        "families_executed": 5,
-        "generations": 5,
-        "last_execution": "2026-10-05T10:43:20Z",
-        "repeat_reproductions": 6
+        "behavioral_differences": 8,
+        "candidate_requests": 48,
+        "families_executed": 6,
+        "generations": 6,
+        "last_execution": "2026-10-05T10:58:33Z",
+        "repeat_reproductions": 8
       },
       "status": "NEGATED",
       "surface_id": "surf_redirect",
@@ -635,7 +652,8 @@
         "fam_chatbot_monitor"
       ],
       "history": [
-        "127.0.0.1:11434 ECONNREFUSED; route removed this boot"
+        "127.0.0.1:11434 ECONNREFUSED; route removed this boot",
+        "2026-10-05T10:46-10:48Z A27 chatbot/ai routes remain 500-wrapped/blocked - DEPRIORITIZED unchanged."
       ],
       "known_anomalies": [],
       "name": "Chatbot / LLM backend (blocked)",
@@ -644,10 +662,10 @@
       "promising_branches": [],
       "reasonable_effort_evidence": {
         "behavioral_differences": 0,
-        "candidate_requests": 5,
-        "evidence": "AI_RetryError: Failed after 3 attempts. Last error: Cannot connect to API: connect ECONNREFUSED 127.0.0.1:11434; GET /rest/chat -> 500 Unexpected path this boot",
-        "families_executed": 5,
-        "generations": 5,
+        "candidate_requests": 6,
+        "evidence": "AI_RetryError: Failed after 3 attempts. Last error: Cannot connect to API: connect ECONNREFUSED 127.0.0.1:11434; GET /rest/chat -> 500 Unexpected path this boot\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.\n2026-10-05T10:46-10:48Z A27 fresh independent verification on this boot with byte-sha256 signatures: GET /rest/user/security-question (no param) -> 500/2946 B sha256 0b84d83c08cc; GET /redirect?continue=x -> 500/2531 B sha256 020023ff4f9a; GET /metrics -> 200/26128 B sha256 e8ecd22d6663 (juiceshop_llm_* gauges, http_requests_count); GET /rest/memories -> 200/6183 B sha256 ae9b2c707715 (bogus Bearer byte-identical); POST /api/SecurityAnswers/ empty -> 201 server id; PUT /api/Products/1 -> 200 with cross-request persistence; GET /rest/captcha answer arithmetic verified; GET /rest/user/security-question?email=existing -> 200/139 B sha256 519b1bda6e1b; ?email=nonexistent -> 200/2 B sha256 44136fa355b3; POST /api/Feedbacks/ valid body -> 401 'Wrong answer' (bypass dead); OPTIONS -> 204; HEAD -> 501; no Set-Cookie; auth surface still BLOCKED.",
+        "families_executed": 6,
+        "generations": 6,
         "repeat_reproductions": 0
       },
       "related_surfaces": [],
@@ -657,10 +675,10 @@
       ],
       "runtime": {
         "behavioral_differences": 0,
-        "candidate_requests": 5,
-        "families_executed": 5,
-        "generations": 5,
-        "last_execution": "2026-10-05T10:43:20Z",
+        "candidate_requests": 6,
+        "families_executed": 6,
+        "generations": 6,
+        "last_execution": "2026-10-05T10:58:33Z",
         "repeat_reproductions": 0
       },
       "status": "DEPRIORITIZED",

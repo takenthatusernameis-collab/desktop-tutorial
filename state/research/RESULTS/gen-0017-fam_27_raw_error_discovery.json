@@ -1,0 +1,101 @@
+{
+  "behavioral_differences": 6,
+  "candidate_count": 12,
+  "family_id": "fam_27_raw_error_discovery",
+  "generation": 17,
+  "generation_id": "gen-0017-fam_27_raw_error_discovery",
+  "information_gain": 0.5,
+  "observed_at": "2026-10-05T10:58:34Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-c3ab8fbb52e18b5345eb",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/redirect/.",
+        "query": {
+          "continue": [
+            "http://example.com"
+          ]
+        }
+      },
+      "response_signature": [
+        200,
+        "aa97229042ece5a31ad318e31c256a15ec51a5005a5295580af6bcf6bdf36783",
+        "text/html; charset=UTF-8",
+        9393,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-681c0e38fc4588a686c0",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/user/security-question",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-5ec525f8e2a40fc2d586",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "644baf6d8ed5b62f924263b45c7cbc772126482aaae429330887beef4f6499f2",
+        "text/html; charset=utf-8",
+        2460,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-51602cc3d9c474c42399",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/user/security-question",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 6,
+  "surface_id": "surf_27_error_handling"
+}
