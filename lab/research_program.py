@@ -418,6 +418,7 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
             raise ProgramError(f"surface {sid} must retain a history list")
         _surface_score_value(surface.get("priority"), f"{sid}.priority", 0.5)
         _surface_score_value(surface.get("uncertainty"), f"{sid}.uncertainty", 0.5)
+        _surface_intensity_value(surface.get("current_intensity"), f"{sid}.current_intensity", 1)
         if status == "ARCHIVED" and not surface.get("archive_reason"):
             raise ProgramError(f"archived surface {sid} requires archive_reason")
         reject_forbidden(surface, f"surface {sid}")
@@ -590,6 +591,36 @@ def _surface_score_value(value: Any, field: str, default: float) -> float:
     return score
 
 
+def _surface_intensity_value(value: Any, field: str, default: int = 1) -> int:
+    """Convert numeric or qualitative worker intensity values to 1..4."""
+    if isinstance(value, bool):
+        raise ProgramError(f"surface {field} must not be boolean")
+    if isinstance(value, (int, float)):
+        intensity = int(value)
+    elif isinstance(value, str):
+        raw = value.strip()
+        if not raw:
+            intensity = default
+        else:
+            try:
+                intensity = int(float(raw))
+            except ValueError:
+                label = raw.lower()
+                intensity = {
+                    "minimal": 1,
+                    "low": 2,
+                    "medium": 3,
+                    "moderate": 3,
+                    "high": 4,
+                    "full": 4,
+                }.get(label, default)
+    elif value is None:
+        intensity = default
+    else:
+        raise ProgramError(f"surface {field} must be numeric, text, or omitted")
+    return max(1, min(4, intensity))
+
+
 def surface_priority(surface: dict[str, Any]) -> float:
     priority = _surface_score_value(surface.get("priority"), "priority", 0.5)
     uncertainty = _surface_score_value(surface.get("uncertainty"), "uncertainty", 0.5)
@@ -630,7 +661,11 @@ def compile_portfolio(program: dict[str, Any], runtime: dict[str, Any]) -> list[
     tickets = {}
     for _, family_id, family in families:
         surface = surfaces[family["surface_id"]]
-        intensity = int(surface.get("current_intensity", family.get("intensity", 1)))
+        intensity = _surface_intensity_value(
+            surface.get("current_intensity", family.get("intensity", 1)),
+            f"{surface['surface_id']}.current_intensity",
+            1,
+        )
         if surface.get("status") in {"DEPRIORITIZED", "EXHAUSTED_FOR_NOW"}:
             intensity = min(1, intensity)
         tickets[family_id] = max(1, min(4, intensity))
