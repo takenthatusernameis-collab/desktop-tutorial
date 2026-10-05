@@ -26,6 +26,7 @@ The autonomous worker must not modify or persist changes to:
 - lab/mutator.py
 - lab/evaluate_benchmark.py
 - lab/test_benchmark.py
+- lab/benchmark_campaign.py
 - lab/kilo-worker.Dockerfile
 - lab/kilo_gateway_proxy.py
 - lab/README.md
@@ -51,3 +52,8 @@ A helper may become durable infrastructure when there is evidence that future ac
 Objective:
 
 maximum useful authorized-security research continuity subject to a small, explicit safety boundary.
+
+## Controller-only benchmark state
+
+The trusted workflow may persist the active hidden benchmark in controller-only workflow artifacts so an unsolved research campaign can survive multiple activations. This state is not worker-visible repository content and must not be copied into the worker workspace.
+
