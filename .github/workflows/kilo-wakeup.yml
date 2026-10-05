@@ -35,7 +35,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 lab/test_benchmark.py
-          python3 -m py_compile lab/kilo_gateway_proxy.py
+          python3 -m py_compile lab/kilo_gateway_proxy.py lab/generate_solver_feedback.py
 
       - name: Discover current free model
         id: discover_model
