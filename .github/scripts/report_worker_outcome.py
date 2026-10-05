@@ -17,6 +17,7 @@ def report(
     research_validation: str,
     findings_path: Path,
     research_report_path: Path,
+    research_handoff: str = "success",
 ) -> tuple[int, str]:
     print(f"Preflight infrastructure outcome: {preflight}")
     print(f"Kilo execution smoke outcome: {smoke}")
@@ -24,6 +25,7 @@ def report(
     print(f"Independent evaluator outcome: {evaluate}")
     print(f"Deterministic research portfolio outcome: {portfolio}")
     print(f"Kilo research-program validation outcome: {research_validation}")
+    print(f"Research-program handoff outcome: {research_handoff}")
 
     if portfolio != "success":
         return 1, "FAILED_PRE_KILO_PORTFOLIO"
@@ -33,6 +35,8 @@ def report(
         return 1, "FAILED_KILO_SMOKE"
     if research_validation != "success":
         return 1, "FAILED_RESEARCH_VALIDATION"
+    if research_handoff != "success":
+        return 1, "FAILED_RESEARCH_HANDOFF"
     if worker == "skipped":
         return 1, "FAILED_WORKER_SKIPPED"
     if evaluate != "success":
@@ -84,6 +88,19 @@ def self_test() -> int:
         rc, outcome = report(
             preflight="success",
             smoke="success",
+            worker="success",
+            evaluate="success",
+            portfolio="success",
+            research_validation="success",
+            findings_path=findings,
+            research_report_path=research,
+            research_handoff="failure",
+        )
+        assert rc != 0 and outcome == "FAILED_RESEARCH_HANDOFF"
+
+        rc, outcome = report(
+            preflight="success",
+            smoke="success",
             worker="failure",
             evaluate="success",
             portfolio="success",
@@ -118,6 +135,7 @@ def main() -> int:
     parser.add_argument("--evaluate")
     parser.add_argument("--portfolio")
     parser.add_argument("--research-validation")
+    parser.add_argument("--research-handoff", default="success")
     parser.add_argument("--findings-path", type=Path)
     parser.add_argument("--research-report-path", type=Path)
     args = parser.parse_args()
@@ -132,6 +150,7 @@ def main() -> int:
         "evaluate": args.evaluate,
         "portfolio": args.portfolio,
         "research-validation": args.research_validation,
+        "research-handoff": args.research_handoff,
     }
     missing = [name for name, value in required.items() if value is None]
     if missing or args.findings_path is None or args.research_report_path is None:
@@ -146,6 +165,7 @@ def main() -> int:
         research_validation=args.research_validation,
         findings_path=args.findings_path,
         research_report_path=args.research_report_path,
+        research_handoff=args.research_handoff,
     )
     print(f"WORKER_OUTCOME={outcome}")
     if outcome == "COMPLETED_WITH_WORKER_CLI_ERROR":
