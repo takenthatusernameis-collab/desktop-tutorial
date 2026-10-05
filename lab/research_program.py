@@ -659,8 +659,9 @@ def execute_generation(
     family: dict[str, Any],
     generation: int,
     max_candidates: int,
-    transport: Callable[[str, dict[str, Any]], dict[str, Any]] = perform_request,
+    transport: Callable[[str, dict[str, Any]], dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    transport = transport or perform_request
     runtime = load_runtime(state_dir)
     fr = (runtime.get("families") or {}).get(family["family_id"], {})
     program_generation = int(family.get("generation", 1))
