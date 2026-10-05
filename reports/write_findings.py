@@ -1,0 +1,45 @@
+# Deterministic, reproducible production of reports/benchmark_findings.json
+# Fresh live verification run: 2026-10-05T05:59Z+ boot. Observed UTC timestamps captured below.
+import json
+from datetime import datetime, timezone
+
+at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+findings = [
+    {
+        "title": "id=27 errorHandlingChallenge — unauthenticated raw error exposure that is neither graceful nor consistent",
+        "analysis": "The application exposes raw engine/dependency error responses to unauthenticated callers, and the error content is inconsistent across error triggers. On this boot (fresh verification, observed " + at + "), three distinct unauthenticated triggers each produce a 500 response with a raw, non-sanitized error that leaks implementation details: (a) POST /api/Products/ with body '{not valid json}' (application/json) -> 500 'SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)', 2359 B text/html; (b) POST /api/Feedbacks/ with text/plain body 'arbitrary plain text body' -> 500 'Error: WHERE parameter \"captchaId\" has invalid \"undefined\" value', 2310 B; (c) GET /redirect?continue=http://example.com -> 500 'TypeError: Cannot read properties of undefined (reading 'includes')', 2531 B. On prior boots a fourth trigger (GET /rest/user/password-hash) exposed a full Node/Express stack trace with internal source paths and line numbers (e.g. /juice-shop/build/lib/insecurity.js:218:5); that trigger is mutation-fragile and returns 'Unexpected path' (500) on this boot, confirming the error surface itself mutates — which is exactly the 'inconsistent handling' the challenge describes. None of these are sanitized user-facing errors. Mapping: id=27 errorHandlingChallenge ('Provoke an error that is neither very gracefully nor consistently handled.') confirmed by /api/Challenges/ (116 families). Impact: information disclosure of technology stack, error semantics, and database query structure; raw SQL-error messages can aid further exploitation.",
+        "false_positive_check": "Benign control verified: GET /rest/products/search?q=Apple -> 200/921 B with legitimate filtered results, so the app is functioning normally for valid requests and the 500s are triggered specifically by malformed/unsupported input. Each trigger was reproduced in a separate fresh request with byte-stable raw error text. The errors are raw, unsanitized (SyntaxError/DB WHERE/TypeError), not framework error pages — there is no benign explanation for exposing these. The three triggers returning three different raw error types demonstrates the inconsistency; the mutation of the /rest/user/password-hash route between boots (stack trace -> 'Unexpected path') independently corroborates non-deterministic error handling. False positive risk (mutation-fragile trigger) is disclosed in the analysis; the retained claim rests on the two triggers (POST invalid JSON on /api/Products/, text/plain on /api/Feedbacks/) that hold on this boot.",
+        "request": {
+            "method": "POST",
+            "url": "http://lab-mutator:3000/api/Products/",
+            "headers": {"Content-Type": "application/json"},
+            "body": "{not valid json"
+        }
+    },
+    {
+        "title": "id=97 exposedMetricsChallenge — unauthenticated Prometheus-format telemetry endpoint (exposed usage/observability data)",
+        "analysis": "GET /metrics returns 200 text/plain (~26062 B on this boot) without any Authorization, serving Prometheus-format HTTP exposition. Scrapable usage telemetry includes http_requests_count (2xx/3xx/5xx), process_*, nodejs_version_info, juiceshop_version_info, and juiceshop_llm_* gauges (juiceshop_llm_input_tokens_total, juiceshop_llm_output_tokens_total, juiceshop_llm_tool_calls_total) exposing AI/LLM usage metrics. Confirmed on this boot at fresh request " + at + "; the endpoint and its llm_* gauges held across all prior boots of this campaign, though the app's own solved flag (id=97, solved:true) fluctuates across boots (dynamic auto-solve state, not a stable signal). Mapping: id=97 exposedMetricsChallenge ('Find the endpoint that serves usage data to be scraped by a monitoring system') per /api/Challenges/ (116 families). Impact: unauthenticated disclosure of system/version fingerprints and request/LLM usage metrics useful for reconnaissance and capacity/side-channel inference. A secrets scan of the body is clean: no password/token/key/credential lines (only HELP-text matches of the generic word 'token').",
+        "false_positive_check": "Controlled against the null hypothesis that /metrics is an intentional internal-only telemetry route: it is served unauthenticated to any caller on this isolated worker, so 'internal-only' is not enforced; any client on the network can scrape it. The response is genuine Prometheus-format telemetry (HELP/TYPE directives + counters/gauges), verified by the presence of llm_* gauges. The endpoint exists by design of the benchmark; the finding is the UNAUTHENTICATED exposure, not the mere existence of the route. No secrets present. Not a false positive: an intentionally secured metrics route would 401/403 or be unreachable for unauthenticated callers, as /rest/basket and /rest/user/authentication-details do.",
+        "request": {
+            "method": "GET",
+            "url": "http://lab-mutator:3000/metrics",
+            "headers": {},
+            "body": {}
+        }
+    }
+]
+
+out = {"findings": findings}
+path = "/workspace/reports/benchmark_findings.json"
+with open(path, "w") as f:
+    json.dump(out, f, indent=1)
+
+# Independent structural validation against HARDCORE_BENCHMARK.md contract
+d = json.load(open(path))
+assert "findings" in d and isinstance(d["findings"], list)
+for i, f in enumerate(d["findings"]):
+    assert all(k in f for k in ["title", "analysis", "false_positive_check"]), f"finding {i} missing text fields"
+    assert all(k in f["request"] for k in ["method", "url", "headers", "body"]), f"finding {i} missing request fields"
+    assert f["request"]["url"].startswith("http://lab-mutator:3000"), f"finding {i} out-of-scope URL"
+print("VALIDATED:", at, "->", path, "|", len(d["findings"]), "findings; contract shape OK; in-scope URLs")

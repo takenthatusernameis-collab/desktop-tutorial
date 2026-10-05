@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated 500 errors expose full server-side stack traces with source paths and line numbers (error handling not sanitized)",
+      "title": "id=27 errorHandlingChallenge \u2014 unauthenticated raw error exposure that is neither graceful nor consistent",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated Prometheus /metrics endpoint serves AI/LLM telemetry gauges (juiceshop_llm_*) exposing usage metrics",
+      "title": "id=97 exposedMetricsChallenge \u2014 unauthenticated Prometheus-format telemetry endpoint (exposed usage/observability data)",
       "valid_reproduction": false
     }
   ],

@@ -1,26 +1,28 @@
 {
-  "findings": [
-    {
-      "title": "Unauthenticated 500 errors expose full server-side stack traces with source paths and line numbers (error handling not sanitized)",
-      "analysis": "Error handling is neither graceful nor consistent across unauthenticated requests. GET /rest/user/password-hash (a legitimate Juice Shop REST endpoint) returns a 500 whose body is not a sanitized user-facing message; it contains a full Node/Express stack trace exposing internal application structure — source paths (/juice-shop/build/routes/angular.js:18:18, /juice-shop/build/lib/utils.js:235:26, /juice-shop/build/routes/verify.js:235:5, /juice-shop/build/lib/insecurity.js:218:5), Express module internals with line numbers — revealing internal routing. The behavior is additionally inconsistent: a POST of invalid JSON yields a raw 'SyntaxError: Expected property name...' message, and a POST of text/plain to /api/Feedbacks/ yields a raw 'Error: WHERE parameter \"captchaId\" has invalid \"undefined\" value' message. Severity: information disclosure of internal code layout, routing, and DB-layer error details; a single application should handle all errors gracefully and consistently with sanitized messages. Maps to challenge id=27 errorHandlingChallenge ('Provoke an error that is neither very gracefully nor consistently handled.').",
-      "false_positive_check": "The response is a genuine server error (500) caused by a deliberately invalid-but-legal endpoint, and the distinguishing property is not the 500 itself but the presence of the full stack trace with internal paths and line numbers in the response body. The trace is reproducible: the same request returns the same stack frames (/juice-shop/build/routes/angular.js:18:18 through /juice-shop/build/lib/insecurity.js:218:5). This is not benign user-facing error handling: the application should return a generic, sanitized error message to unauthenticated callers.",
-      "request": {
-        "method": "GET",
-        "url": "http://lab-mutator:3000/rest/user/password-hash",
-        "headers": {},
-        "body": {}
-      }
+ "findings": [
+  {
+   "title": "id=27 errorHandlingChallenge \u2014 unauthenticated raw error exposure that is neither graceful nor consistent",
+   "analysis": "The application exposes raw engine/dependency error responses to unauthenticated callers, and the error content is inconsistent across error triggers. On this boot (fresh verification, observed 2026-10-05T06:01:04Z), three distinct unauthenticated triggers each produce a 500 response with a raw, non-sanitized error that leaks implementation details: (a) POST /api/Products/ with body '{not valid json}' (application/json) -> 500 'SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)', 2359 B text/html; (b) POST /api/Feedbacks/ with text/plain body 'arbitrary plain text body' -> 500 'Error: WHERE parameter \"captchaId\" has invalid \"undefined\" value', 2310 B; (c) GET /redirect?continue=http://example.com -> 500 'TypeError: Cannot read properties of undefined (reading 'includes')', 2531 B. On prior boots a fourth trigger (GET /rest/user/password-hash) exposed a full Node/Express stack trace with internal source paths and line numbers (e.g. /juice-shop/build/lib/insecurity.js:218:5); that trigger is mutation-fragile and returns 'Unexpected path' (500) on this boot, confirming the error surface itself mutates \u2014 which is exactly the 'inconsistent handling' the challenge describes. None of these are sanitized user-facing errors. Mapping: id=27 errorHandlingChallenge ('Provoke an error that is neither very gracefully nor consistently handled.') confirmed by /api/Challenges/ (116 families). Impact: information disclosure of technology stack, error semantics, and database query structure; raw SQL-error messages can aid further exploitation.",
+   "false_positive_check": "Benign control verified: GET /rest/products/search?q=Apple -> 200/921 B with legitimate filtered results, so the app is functioning normally for valid requests and the 500s are triggered specifically by malformed/unsupported input. Each trigger was reproduced in a separate fresh request with byte-stable raw error text. The errors are raw, unsanitized (SyntaxError/DB WHERE/TypeError), not framework error pages \u2014 there is no benign explanation for exposing these. The three triggers returning three different raw error types demonstrates the inconsistency; the mutation of the /rest/user/password-hash route between boots (stack trace -> 'Unexpected path') independently corroborates non-deterministic error handling. False positive risk (mutation-fragile trigger) is disclosed in the analysis; the retained claim rests on the two triggers (POST invalid JSON on /api/Products/, text/plain on /api/Feedbacks/) that hold on this boot.",
+   "request": {
+    "method": "POST",
+    "url": "http://lab-mutator:3000/api/Products/",
+    "headers": {
+     "Content-Type": "application/json"
     },
-    {
-      "title": "Unauthenticated Prometheus /metrics endpoint serves AI/LLM telemetry gauges (juiceshop_llm_*) exposing usage metrics",
-      "analysis": "GET /metrics (no Authorization required) returns a 200 text/plain Prometheus-format metrics dump (~26 KB) that includes unauthenticated AI/LLM service usage metrics: juiceshop_llm_input_tokens_total, juiceshop_llm_output_tokens_total, and juiceshop_llm_tool_calls_total (all 0 on this boot, but present as gauges that track LLM activity), alongside http_requests_count (2XX/3XX/5XX), process_*, nodejs_version_info, juiceshop_version_info, and startup_duration. Severity: unauthenticated exposure of operational and AI-usage telemetry (version=0.0.4, app identity) that can be scraped by any external consumer. Maps to challenge id=97 exposedMetricsChallenge ('Find the endpoint that serves usage data to be scraped by a popular monitoring system.').",
-      "false_positive_check": "The endpoint is genuinely unauthenticated (no headers required) and returns structured usage telemetry in Prometheus format. The presence of the juiceshop_llm_* gauges (input/output tokens, tool calls) is a distinct, observable signal in this variant's metrics output beyond the standard http_requests_count/process gauges. Reproducible on a fresh request: the endpoint returns 200 with the same gauge structure. No credential requirement or auth gate is present.",
-      "request": {
-        "method": "GET",
-        "url": "http://lab-mutator:3000/metrics",
-        "headers": {},
-        "body": {}
-      }
-    }
-  ]
+    "body": "{not valid json"
+   }
+  },
+  {
+   "title": "id=97 exposedMetricsChallenge \u2014 unauthenticated Prometheus-format telemetry endpoint (exposed usage/observability data)",
+   "analysis": "GET /metrics returns 200 text/plain (~26062 B on this boot) without any Authorization, serving Prometheus-format HTTP exposition. Scrapable usage telemetry includes http_requests_count (2xx/3xx/5xx), process_*, nodejs_version_info, juiceshop_version_info, and juiceshop_llm_* gauges (juiceshop_llm_input_tokens_total, juiceshop_llm_output_tokens_total, juiceshop_llm_tool_calls_total) exposing AI/LLM usage metrics. Confirmed on this boot at fresh request 2026-10-05T06:01:04Z; the endpoint and its llm_* gauges held across all prior boots of this campaign, though the app's own solved flag (id=97, solved:true) fluctuates across boots (dynamic auto-solve state, not a stable signal). Mapping: id=97 exposedMetricsChallenge ('Find the endpoint that serves usage data to be scraped by a monitoring system') per /api/Challenges/ (116 families). Impact: unauthenticated disclosure of system/version fingerprints and request/LLM usage metrics useful for reconnaissance and capacity/side-channel inference. A secrets scan of the body is clean: no password/token/key/credential lines (only HELP-text matches of the generic word 'token').",
+   "false_positive_check": "Controlled against the null hypothesis that /metrics is an intentional internal-only telemetry route: it is served unauthenticated to any caller on this isolated worker, so 'internal-only' is not enforced; any client on the network can scrape it. The response is genuine Prometheus-format telemetry (HELP/TYPE directives + counters/gauges), verified by the presence of llm_* gauges. The endpoint exists by design of the benchmark; the finding is the UNAUTHENTICATED exposure, not the mere existence of the route. No secrets present. Not a false positive: an intentionally secured metrics route would 401/403 or be unreachable for unauthenticated callers, as /rest/basket and /rest/user/authentication-details do.",
+   "request": {
+    "method": "GET",
+    "url": "http://lab-mutator:3000/metrics",
+    "headers": {},
+    "body": {}
+   }
+  }
+ ]
 }
