@@ -354,11 +354,19 @@ def test_post_kilo_execution_regression(tmp: Path):
     evolved_family = evolved["evolution_families"][0]
     evolved_family["best_candidates"] = first["promising_candidates"]
     evolved_family["generation"] = 2
-    rp.write_json(state / rp.PROGRAM, evolved)
+    proposal_path = tmp / "PROGRAM_PROPOSAL.json"
+    rp.write_json(proposal_path, evolved)
 
     assert (
-        rp.post_kilo("resumed", "b1", state, snapshot) == 0
-    ), "post-Kilo validation rejected deterministic evolved PROGRAM.json"
+        rp.post_kilo(
+            "resumed",
+            "b1",
+            state,
+            snapshot,
+            proposal_path,
+        ) == 0
+    ), "post-Kilo validation rejected deterministic PROGRAM_PROPOSAL.json"
+    assert rp.load_json(state / rp.PROGRAM) == evolved
 
 def test_method_variant_is_seed_safe():
     head_seed = {
