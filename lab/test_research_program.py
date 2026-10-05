@@ -370,6 +370,40 @@ def test_method_variant_is_seed_safe():
     assert rp.mutate_request(head_seed, "METHOD_VARIANTS") == []
 
 
+def test_validation_rejects_malformed_best_candidate(tmp: Path):
+    program = sample_program("candidate-contract")
+    candidate = {
+        "candidate_id": "wrong-id",
+        "parent_candidate_id": None,
+        "request": {
+            "method": "GET",
+            "path": "/search",
+            "query": {"q": ["alpha"]},
+            "headers": {},
+        },
+        "mutation": {"operator": "BASELINE"},
+        "response_signature": [200, "sha", "text/plain", 4, ""],
+    }
+    program["evolution_families"][0]["best_candidates"] = [candidate]
+    try:
+        rp.validate_program(program, "candidate-contract")
+    except rp.ProgramError as exc:
+        assert "candidate_id" in str(exc)
+    else:
+        raise AssertionError("malformed best candidate was accepted")
+
+
+def test_validation_rejects_mismatched_surface_family_reference(tmp: Path):
+    program = sample_program("family-reference")
+    program["surfaces"][0]["evolutionary_families"] = ["family-b"]
+    try:
+        rp.validate_program(program, "family-reference")
+    except rp.ProgramError as exc:
+        assert "owned by" in str(exc)
+    else:
+        raise AssertionError("mismatched surface family reference was accepted")
+
+
 def test_validation_rejects_zero_candidate_family(tmp: Path):
     program = sample_program("zero-candidate")
     family = program["evolution_families"][0]
@@ -531,6 +565,8 @@ def main():
         test_portfolio_budget_preserves_surface_breadth(root / "f")
         test_portfolio_validation_rejects_budget_below_breadth(root / "g")
         test_validation_rejects_zero_candidate_family(root / "h")
+        test_validation_rejects_malformed_best_candidate(root / "l")
+        test_validation_rejects_mismatched_surface_family_reference(root / "m")
         test_method_variant_is_seed_safe()
         test_materialize_string_effort_evidence(root / "i")
         test_validate_state_rejects_generation_divergence(root / "j")
