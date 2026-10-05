@@ -6,6 +6,7 @@ worker can catch invalid program state before ending an activation.
 """
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import re
@@ -67,7 +68,14 @@ def normalize_candidate_request(value, label: str) -> dict:
 
 
 def main() -> int:
-    path = Path("state/research/PROGRAM.json")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--path", default=None)
+    args = parser.parse_args()
+    path = Path(args.path) if args.path else (
+        Path("PROGRAM_PROPOSAL.json")
+        if Path("PROGRAM_PROPOSAL.json").is_file()
+        else Path("state/research/PROGRAM.json")
+    )
     if not path.is_file():
         fail("state/research/PROGRAM.json is missing")
     try:
@@ -117,8 +125,9 @@ def main() -> int:
                     f"family {fid} candidate {j} has inconsistent candidate_id "
                     f"(expected {expected_candidate_id}, got {candidate.get('candidate_id')!r})"
                 )
-            if not isinstance(candidate.get("parent_candidate_id"), str):
-                fail(f"family {fid} candidate {j}.parent_candidate_id must be a string")
+            parent_id = candidate.get("parent_candidate_id")
+            if parent_id is not None and not isinstance(parent_id, str):
+                fail(f"family {fid} candidate {j}.parent_candidate_id must be a string or null")
 
     for i, surface in enumerate(surfaces):
         if not isinstance(surface, dict):
@@ -140,6 +149,7 @@ def main() -> int:
 
     print(
         "PROGRAM_HANDOFF_VALID=1",
+        f"path={path}",
         f"surfaces={len(surfaces)}",
         f"families={len(families)}",
         f"active_surfaces={sum(1 for s in surfaces if s.get('status') in ACTIVE_STATUSES)}",

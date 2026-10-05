@@ -1368,10 +1368,30 @@ def validate_continuity(previous: dict[str, Any] | None, current: dict[str, Any]
                 raise ProgramError(f"surface {sid} effort evidence regressed for {key}")
 
 
-def post_kilo(mode: str, benchmark_id: str, state_dir: Path, snapshot_dir: Path) -> int:
+def post_kilo(
+    mode: str,
+    benchmark_id: str,
+    state_dir: Path,
+    snapshot_dir: Path,
+    proposal_path: Path | None = None,
+) -> int:
     program_path = state_dir / PROGRAM
     previous = load_json(snapshot_dir / PROGRAM)
     current = load_json(program_path)
+    proposal = load_json(proposal_path) if proposal_path is not None else current
+
+    if previous is not None and current != previous:
+        restore_controller_owned(state_dir, snapshot_dir)
+        if proposal_path is not None:
+            proposal_path.unlink(missing_ok=True)
+        print("RESEARCH_PROGRAM_VALIDATION=FAIL authoritative PROGRAM was modified directly; use PROGRAM_PROPOSAL.json")
+        return 1
+    if previous is None and current is not None:
+        restore_controller_owned(state_dir, snapshot_dir)
+        if proposal_path is not None:
+            proposal_path.unlink(missing_ok=True)
+        print("RESEARCH_PROGRAM_VALIDATION=FAIL authoritative PROGRAM appeared outside the proposal channel")
+        return 1
 
     controller_paths = (RUNTIME, SURFACES, FAMILIES, RECEIPTS, CHECKLIST, SUMMARY, COMPILED)
     controller_dirs = (GENERATIONS, RESULTS)
@@ -1387,25 +1407,25 @@ def post_kilo(mode: str, benchmark_id: str, state_dir: Path, snapshot_dir: Path)
         print("RESEARCH_PROGRAM_VALIDATION=FAIL controller-owned execution evidence was modified")
         return 1
 
-    if current is None:
+    if proposal is None:
         if previous is None:
-            print("RESEARCH_PROGRAM_VALIDATION=UNVERIFIED Kilo did not persist an initial research program")
+            print("RESEARCH_PROGRAM_VALIDATION=UNVERIFIED Kilo did not persist PROGRAM_PROPOSAL.json")
             return 1
-        restore_controller_owned(state_dir, snapshot_dir)
-        shutil.copy2(snapshot_dir / PROGRAM, program_path)
-        print("RESEARCH_PROGRAM_VALIDATION=FAIL existing research program disappeared")
+        print("RESEARCH_PROGRAM_VALIDATION=FAIL missing PROGRAM_PROPOSAL.json")
         return 1
 
     try:
-        validate_program(current, benchmark_id)
-        validate_continuity(previous, current)
+        validate_program(proposal, benchmark_id)
+        validate_continuity(previous, proposal)
     except ProgramError as exc:
-        if previous is not None:
-            write_json(program_path, previous)
-        else:
-            program_path.unlink(missing_ok=True)
+        if proposal_path is not None:
+            proposal_path.unlink(missing_ok=True)
         print(f"RESEARCH_PROGRAM_VALIDATION=FAIL {exc}")
         return 1
+
+    write_json(program_path, proposal)
+    if proposal_path is not None:
+        proposal_path.unlink(missing_ok=True)
 
     reviews_dir = state_dir / REVIEWS
     if reviews_dir.exists():
@@ -1557,6 +1577,7 @@ def main() -> int:
     parser.add_argument("--target", default="http://lab-mutator:3000")
     parser.add_argument("--state-dir", default="state/research")
     parser.add_argument("--snapshot-dir")
+    parser.add_argument("--proposal")
     args = parser.parse_args()
 
     if args.command == "self-test":
@@ -1575,7 +1596,10 @@ def main() -> int:
             return run_pre_kilo(args.mode, args.benchmark_id, args.target, state_dir)
         if not args.snapshot_dir:
             raise SystemExit("--snapshot-dir is required")
-        return post_kilo(args.mode, args.benchmark_id, state_dir, Path(args.snapshot_dir))
+        return post_kilo(
+            args.mode, args.benchmark_id, state_dir, Path(args.snapshot_dir),
+            Path(args.proposal) if args.proposal else None,
+        )
     except ProgramError as exc:
         print(f"RESEARCH_PROGRAM_STATUS=FAIL {exc}")
         return 1
