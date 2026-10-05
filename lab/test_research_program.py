@@ -360,6 +360,16 @@ def test_post_kilo_execution_regression(tmp: Path):
         rp.post_kilo("resumed", "b1", state, snapshot) == 0
     ), "post-Kilo validation rejected deterministic evolved PROGRAM.json"
 
+def test_method_variant_is_seed_safe():
+    head_seed = {
+        "method": "HEAD",
+        "path": "/health",
+        "query": {},
+        "headers": {},
+    }
+    assert rp.mutate_request(head_seed, "METHOD_VARIANTS") == []
+
+
 def test_validation_rejects_zero_candidate_family(tmp: Path):
     program = sample_program("zero-candidate")
     family = program["evolution_families"][0]
@@ -452,6 +462,7 @@ def main():
         test_portfolio_budget_preserves_surface_breadth(root / "f")
         test_portfolio_validation_rejects_budget_below_breadth(root / "g")
         test_validation_rejects_zero_candidate_family(root / "h")
+        test_method_variant_is_seed_safe()
         test_post_kilo_execution_regression(root / "post-kilo")
     print("research program tests: PASS")
 
