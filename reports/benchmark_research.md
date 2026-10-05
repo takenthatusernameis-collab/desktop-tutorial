@@ -96,6 +96,38 @@
 - **UNVERIFIED:** Challenge-family mapping for F23–F26 (Password Hash Leak id=1, exposed metrics id=97, union-SQLi id=85 not matched — credential extraction via `q` explicitly unclaimed); CAPTCHA bypass path (answer leak verified, submission path broken); Web3/NFT Takeover private-key location (not on public surface); authenticated-surface testing (all blocked in this variant).
 - **NEXT:** Await regenerated `SOLVER_FEEDBACK.md` and controller evaluation (campaign at the submission gate). If the campaign remains unsolved on this variant: the authenticated surface is still blocked (registration/account/reset/create 500, no credential source, order-history WAF-blocked), so further probes have diminishing information value — wait for a variant advance or an auth-route unblocking rather than re-hammering identical routes. If the controller delivers a new hidden variant: re-run Pass 0 baseline + Pass 1 map + verify F23–F26 hold on the new seed, then re-target discovery.
 
+## 7b. Hand-off state (updated at 2026-10-05T04:17Z)
+
+- **CHANGED:** `reports/benchmark_findings.json` (NEW this activation, 2026-10-05T04:17Z — 5 findings: F1 /rest/memories user-object exposure, F2 /api/SecurityAnswers/ unauth write gap, F3 /rest/products/search?q= SQL filter bypass, F4 /metrics observability, F5 /rest/user/security-question?email= per-user security-question disclosure + account existence enumeration; exact reproducible requests, differential controls, false-positive analysis per each). This `benchmark_research.md` (F5 discovery, mutation drift since A9/A10, and Activation A11 record).
+- **VERIFIED:** F1–F5 independently reproduced with fresh requests at 2026-10-05T04:17Z (`reports/final_verify.json` contains F1–F4 fresh verification; F5 fresh differential verification at 2026-10-05T04:17Z: bjoern@owasp.org 200/139 B with question id=7, emma@juice-sh.op 200/153 B id=10, john@juice-sh.op 200/154 B id=14, nonexistent 200/2 B `{}`). F2 fresh on this boot: identical POSTs return ids 24 and 25 (server-side persistence, no auth). F1 stable at 6183 B with full user objects. F3: q=Apple 921 B vs q=tautology 16557 B. F4: 200 text/plain/version=0.0.4/26111 B. `benchmark_findings.json` parses as valid JSON with the HARDCORE_BENCHMARK.md contract shape (title/analysis/false_positive_check/exact reproducible request per finding).
+- **UNVERIFIED:** Challenge-family mapping for F1–F5 (Password Hash Leak id=1, exposed metrics id=97, union-SQLi id=85 not matched — credential extraction via `q` explicitly unclaimed; F5 mapping to Email Leak/id=24 or security-question behavior not confirmed by ground truth). Geo-stalking challenge answers (id=103, 104) — the security-question ANSWERS embedded in photo metadata/image content were not extractable (favorite-hiking-place.png zTXt EXIF profile truncated at the GPS sub-IFD; IMG_4253.jpg has no EXIF). Authenticated-surface testing impossible (registration/account/reset/create/login wrapped 500).
+- **NEXT:** Campaign at the submission gate with 5 verified findings in `reports/benchmark_findings.json`. Await regenerated `SOLVER_FEEDBACK.md` / controller evaluation. The authenticated surface remains blocked (all auth routes return 500 wrapped, no credential source, order-history WAF-blocked); further unauth-probing has diminishing information value. If the controller delivers a new variant, re-run Pass 0–1 baseline + map + verify F1–F5 on the new seed.
+
+## 11. Activation A11 — security-question finding (F5) + deliverable production (2026-10-05T04:09–04:17Z)
+
+**Purpose:** The current activation began from the A10 checkpoint noting the authenticated surface blocked and the `reports/benchmark_findings.json` deliverable absent. The first objective was to confirm whether the live target had drifted (it had: a new boot session, timestamps `2026-10-05T04:09:10.xxxZ` vs A9's `03:11:34.xxxZ`). A broad fresh sweep of the `/rest/user/*` and related namespaces found a NEW functional endpoint, and re-verification showed the four prior findings (F1–F4) still hold while auth routes remained wrapped. The mandatory deliverable had never been persisted despite A10's record.
+
+**Drift observed vs A9/A10 (same variant, new boot):**
+1. `/rest/user/login` — now **500** `Unexpected path` (was functional, returning 401 for empty body in A9). Authentication surface more restricted.
+2. `/rest/web3/nftUnlock` — now **500** (was 200 `{status:false}` in A9). Web3 deferred.
+3. `/api/SecurityAnswers/` — unauth POST still **201**; ids now incrementing 24, 25 on this boot (26–29 on A9's boot). Same mechanism.
+4. `/metrics` — 200, **26111 B** vs 26115 B in A9 (drift). Same mechanism.
+5. `/rest/memories` — stable at **6183 B** with all user objects; user object `createdAt` refreshed to the new boot. Same mechanism.
+6. `/rest/products/search?q=` — tautology now **16557 B** (was 16557 B in A9 — stable); malformed UNION payload now 30 B (was raw SQLITE_ERROR 500 in A9) — payload-representation drift, core filter-bypass result unchanged.
+7. Auth routes `/rest/user/register`, `/account/reset`, `/account/create`, `/order-history`, `/2fa/*`, `/admin`, `/chat` — all **500** `Unexpected path` (unchanged; blocked since A8).
+
+**F5 discovery and differential verification (2026-10-05T04:17Z):** `GET /rest/user/security-question?email=<email>` is reachable without authentication. Differential: existing user WITH a configured question returns 200 + `{"question":{"id":N,"question":"<TEXT>","createdAt":"2026-10-05T04:09:10.034Z","updatedAt":"2026-10-05T04:09:10.034Z"}}`; nonexistent / no-question user returns 200 + `{}`.
+- bjoern@owasp.org → `{"question":{"id":7,"question":"Name of your favorite pet?"}}` (200/139 B)
+- emma@juice-sh.op → `{"question":{"id":10,"question":"Company you first work for as an adult?"}}` (200/153 B)
+- john@juice-sh.op → `{"question":{"id":14,"question":"What's your favorite place to go hiking?"}}` (200/154 B)
+- test@nonexistent.invalid → `{}` (200/2 B)
+- admin@juice.sh → `{}` (200/2 B)
+Control: `/rest/user/authentication-details` returns 401 "No Authorization header was found" without auth; all other `/rest/user/*` routes are wrapped (500). The differential {} vs question-JSON is a distinct application-level response difference (not an error 401/500). This is an unauth per-user security-question disclosure with an observable account-existence signal, mapping to the Email Leak / security-question information-disclosure challenge families. Note: the question TEXT is exposed; the QUESTION ANSWER (used in the Bjoern's Favorite Pet / geoStalking challenges id=7, 103, 104) was not extractable — the photo uploads' metadata (favorite-hiking-place.png zTXt "text exif" profile) truncated before the GPS sub-IFD, and IMG_4253.jpg has no EXIF.
+
+**Deliverable production:** `reports/benchmark_findings.json` written at 2026-10-05T04:17Z with 5 findings (F1–F5) in the HARDCORE_BENCHMARK.md contract shape (title, analysis, false_positive_check, request with method/url/headers/body); all 5 passed independent fresh-request reproduction and false-positive review. The file was ABSENT from the working tree despite A10 claiming its production — this gap is the reason discovery/precision were 0.0000; now closed.
+
+**Status:** 5 verified, independently reproducible findings submitted; authenticated surface blocked; campaign at the submission gate awaiting controller evaluation.
+
 ## 8. Activation A9 — fresh independent re-verification (2026-10-05T03:47–03:52Z)
 
 **Purpose:** This activation re-verified the campaign's four findings against the live target from scratch, rebuilt the coverage map (reports/mapping.json), and explored uncovered challenge families, because `reports/benchmark_findings.json` was absent and the campaign remained unsolved.
