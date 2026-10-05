@@ -41,7 +41,1018 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: FAILSAFE - restore notice
+      - name: Synchronize with latest branch tip
+        id: audit_source_2_synchronize_with_latest_branch_tip
         run: |
-          echo "This is an incomplete push marker. Full workflow restore in progress."
-          exit 1
+          set -euo pipefail
+          git fetch --prune origin "$GITHUB_REF_NAME"
+          git reset --hard "origin/$GITHUB_REF_NAME"
+          echo "Activation workspace synchronized to origin/$GITHUB_REF_NAME at $(git rev-parse HEAD)."
+
+      - name: Self-test benchmark harness
+        id: audit_source_3_self_test_benchmark_harness
+        run: |
+          set -euo pipefail
+          python3 lab/test_benchmark.py
+          python3 lab/test_research_program.py
+          python3 -m py_compile \
+            lab/kilo_gateway_proxy.py \
+            lab/generate_solver_feedback.py \
+            lab/generate_benchmark.py \
+            lab/evaluate_benchmark.py \
+            lab/mutator.py \
+            lab/test_benchmark.py \
+            lab/benchmark_campaign.py \
+            lab/research_program.py \
+            lab/test_research_program.py \
+            .github/scripts/report_worker_outcome.py \
+            .github/scripts/record_failure_memory.py \
+            .github/scripts/research_portfolio_runner.py
+          python3 .github/scripts/record_failure_memory.py --self-test
+
+      - name: Deep audit — after Self-test benchmark harness
+        id: deep_audit_1_self_test_benchmark_harness
+        if: always()
+        continue-on-error: true
+        env:
+          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_3_self_test_benchmark_harness.outcome }}
+        run: |
+          set +e
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Self-test benchmark harness"
+          rc=$?
+          echo "DEEP_AUDIT_RC=$rc"
+          exit 0
+      - name: Discover current free model
+        id: discover_model
+        run: |
+          set -euo pipefail
+          python3 -c '
+          import json, os
+          from urllib.request import Request, urlopen
+
+          request = Request("https://api.kilo.ai/api/gateway/models",
+                            headers={"Accept": "application/json"})
+          with urlopen(request, timeout=20) as response:
+              payload = json.load(response)
+
+          models = payload.get("data", [])
+          free = [m for m in models
+                  if isinstance(m.get("id"), str) and m["id"].endswith(":free")]
+
+          preferred = [
+              "minimax/minimax-m2.1:free",
+              "z-ai/glm-5:free",
+          ]
+
+          selected = next(
+              (m for model_id in preferred for m in free if m.get("id") == model_id),
+              None
+          )
+
+          if selected is None:
+              def tool_capable(model):
+                  params = model.get("supported_parameters") or []
+                  return bool(
+                      model.get("tool_calling")
+                      or model.get("tool_call")
+                      or any(str(v).lower() in {"tools", "tool_choice"} for v in params)
+                  )
+
+              candidates = sorted(
+                  [m for m in free if tool_capable(m)],
+                  key=lambda m: m.get("id", "")
+              )
+              selected = candidates[0] if candidates else None
+
+          if selected is None:
+              raise SystemExit("No suitable tool-capable free Kilo model was found.")
+
+          model_id = selected["id"]
+          model_name = selected.get("name") or model_id
+
+          with open("/tmp/kilo-free-model-name", "w", encoding="utf-8") as f:
+              f.write(model_name)
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
+              f.write(f"KILO_FREE_MODEL_ID={model_id}\n")
+
+          print(f"Selected current free model: {model_id}")
+          '
+
+      - name: Prepare trusted Kilo configuration
+        id: audit_source_5_prepare_trusted_kilo_configuration
+        run: |
+          set -euo pipefail
+          python3 -c '
+          import json, os
+          from pathlib import Path
+
+          model_id = os.environ["KILO_FREE_MODEL_ID"]
+          model_name = Path("/tmp/kilo-free-model-name").read_text(encoding="utf-8")
+
+          config = {
+              "$schema": "https://app.kilo.ai/config.json",
+              "enabled_providers": ["openai-compatible"],
+              "model": "openai-compatible/free-kilo",
+              "small_model": "openai-compatible/free-kilo",
+              "subagent_model": "openai-compatible/free-kilo",
+              "provider": {
+                  "openai-compatible": {
+                      "options": {
+                          "baseURL": "https://api.kilo.ai/api/gateway"
+                      },
+                      "models": {
+                          "free-kilo": {
+                              "id": model_id,
+                              "name": model_name,
+                              "tool_call": True
+                          }
+                      }
+                  }
+              },
+              "sandbox": {
+                  "enabled": False,
+                  "network": "allow",
+                  "allowed_hosts": [
+                      "github.com:443",
+                      "api.github.com:443",
+                      "raw.githubusercontent.com:443",
+                      "api.kilo.ai:443",
+                      "pypi.org:443",
+                      "files.pythonhosted.org:443",
+                      "registry.npmjs.org:443"
+                  ]
+              }
+          }
+
+          path = Path(os.environ["HOME"]) / ".config" / "kilo" / "kilo.json"
+          path.parent.mkdir(parents=True, exist_ok=True)
+          path.write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
+          os.chmod(path, 0o600)
+          '
+
+      - name: Validate trusted Kilo configuration
+        id: audit_source_6_validate_trusted_kilo_configuration
+        run: |
+          set -euo pipefail
+          test "$(stat -c "%a" "$HOME/.config/kilo/kilo.json")" = "600"
+          python3 -c '
+          import json, os
+          from pathlib import Path
+
+          path = Path(os.environ["HOME"]) / ".config" / "kilo" / "kilo.json"
+          config = json.loads(path.read_text(encoding="utf-8"))
+
+          assert config["model"] == "openai-compatible/free-kilo"
+          assert config["small_model"] == "openai-compatible/free-kilo"
+          assert config["subagent_model"] == "openai-compatible/free-kilo"
+          gateway = config["provider"]["openai-compatible"]
+          assert "apiKey" not in gateway["options"]
+          assert gateway["models"]["free-kilo"]["id"].endswith(":free")
+          assert config["sandbox"]["enabled"] is False
+          print("Trusted Kilo configuration validated.")
+          '
+
+      - name: Build isolated Kilo worker image
+        id: audit_source_7_build_isolated_kilo_worker_image
+        run: |
+          set -euo pipefail
+          docker build --pull -t "$EHB_KILO_IMAGE" -f lab/kilo-worker.Dockerfile lab
+      - name: Restore or create persistent benchmark campaign
+        id: benchmark
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+          ACTIVE_BENCHMARK_DIR="$RUNNER_TEMP/ehb-active-benchmark"
+          rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR" "$ACTIVE_BENCHMARK_DIR"
+          mkdir -p "$LAB_SECRET_DIR" "$EHB_WORKER_DIR" "$ACTIVE_BENCHMARK_DIR"
+          chmod 700 "$LAB_SECRET_DIR"
+
+          python3 lab/benchmark_campaign.py restore \
+            --secret-dir "$LAB_SECRET_DIR" \
+            --active-dir "$ACTIVE_BENCHMARK_DIR" \
+            --history "lab/benchmark_history.jsonl"
+
+      - name: Start isolated benchmark environment
+        id: start_benchmark
+        run: |
+          set -euo pipefail
+          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+          docker network create --internal ehb-target-net
+          docker network create --internal ehb-worker-net
+          docker network create ehb-egress-net
+
+          docker run -d \
+            --name ehb-kilo-egress \
+            --network ehb-egress-net \
+            alpine:3.22 \
+            sh -lc 'apk add --no-cache socat >/dev/null && exec socat -d -d TCP-LISTEN:443,reuseaddr,fork,bind=0.0.0.0 TCP4:api.kilo.ai:443'
+
+          docker network connect --alias kilo-gateway ehb-worker-net ehb-kilo-egress
+          KILO_RELAY_IP="$(docker inspect -f '{{(index .NetworkSettings.Networks "ehb-worker-net").IPAddress}}' ehb-kilo-egress)"
+          test -n "$KILO_RELAY_IP"
+          echo "KILO_RELAY_IP=$KILO_RELAY_IP" >> "$GITHUB_ENV"
+          echo "Kilo relay worker-network address: $KILO_RELAY_IP"
+          docker run -d \
+            --name juice-shop \
+            --network ehb-target-net \
+            bkimminich/juice-shop@sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b
+
+          docker run -d \
+            --name lab-mutator \
+            --network ehb-target-net \
+            --read-only \
+            --tmpfs /tmp \
+            --mount type=bind,source="$LAB_SECRET_DIR",target=/run/lab,readonly \
+            --mount type=bind,source="$GITHUB_WORKSPACE/lab",target=/app,readonly \
+            python:3.12-alpine \
+            python /app/mutator.py --spec /run/lab/spec.json --upstream-host juice-shop
+
+          echo "Waiting for pinned Juice Shop target readiness..."
+          for attempt in $(seq 1 30); do
+            if docker run --rm --network ehb-target-net \
+              "$EHB_KILO_IMAGE" \
+              bash -lc 'curl --fail --silent --show-error http://juice-shop:3000/ >/dev/null'; then
+              echo "Juice Shop target is ready."
+              break
+            fi
+            if [ "$attempt" -eq 30 ]; then
+              echo "Juice Shop target did not become ready."
+              exit 1
+            fi
+            sleep 2
+          done
+
+          docker network connect ehb-worker-net lab-mutator
+
+          echo "Waiting for mutation gateway readiness..."
+          for attempt in $(seq 1 20); do
+            if docker run --rm --network ehb-worker-net \
+              "$EHB_KILO_IMAGE" \
+              bash -lc 'curl --fail --silent --show-error http://lab-mutator:3000/__lab__/health >/dev/null'; then
+              echo "Mutation gateway is ready."
+              break
+            fi
+            if [ "$attempt" -eq 20 ]; then
+              echo "Mutation gateway did not become ready."
+              exit 1
+            fi
+            sleep 1
+          done
+
+          echo "Checking direct Kilo connectivity from the isolated egress network..."
+          docker run --rm --network ehb-egress-net \
+            "$EHB_KILO_IMAGE" \
+            bash -lc 'curl --fail --silent --show-error --connect-timeout 10 --max-time 20 https://api.kilo.ai/api/gateway/models >/dev/null && echo "Direct Kilo connectivity is ready."'
+
+          echo "Checking fixed Kilo egress relay path..."
+          for attempt in $(seq 1 8); do
+            if docker run --rm --network ehb-worker-net \
+              --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
+              "$EHB_KILO_IMAGE" \
+              bash -lc 'curl --fail --silent --show-error --connect-timeout 10 --max-time 20 https://api.kilo.ai/api/gateway/models >/dev/null'; then
+              echo "Kilo gateway network path is ready."
+              break
+            fi
+            if [ "$attempt" -eq 8 ]; then
+              echo "Kilo gateway relay did not become usable after 8 attempts."
+              docker logs ehb-kilo-egress || true
+              exit 1
+            fi
+            sleep 2
+          done
+
+      - name: Execute deterministic pre-Kilo research portfolio
+        id: research_portfolio
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/research_portfolio_runner.py
+
+      - name: Snapshot controller research state before Kilo
+        id: audit_source_11_snapshot_controller_research_state_before_kilo
+        run: |
+          set -euo pipefail
+          SNAP="$RUNNER_TEMP/ehb-research-snapshot"
+          rm -rf "$SNAP"
+          mkdir -p "$SNAP"
+          if [ -d "state/research" ]; then
+            cp -a state/research/. "$SNAP/"
+          fi
+          echo "Controller research-state snapshot prepared at $SNAP."
+
+      - name: Prepare blind worker workspace
+        id: audit_source_12_prepare_blind_worker_workspace
+        run: |
+          set -euo pipefail
+          rm -rf "$EHB_WORKER_DIR"
+          mkdir -p "$EHB_WORKER_DIR"
+          rsync -a \
+            --exclude=".git/" \
+            --exclude=".github/" \
+            --exclude="lab/" \
+            --exclude="state/research/" \
+            --exclude="reports/benchmark_*.json" \
+            "$GITHUB_WORKSPACE/" "$EHB_WORKER_DIR/"
+          mkdir -p "$EHB_WORKER_DIR/state/research"
+          rm -f "$EHB_WORKER_DIR/PROGRAM_PROPOSAL.json"
+
+      - name: Preflight infrastructure health check
+        id: preflight
+        run: |
+          set -euo pipefail
+
+          echo "Checking final worker workspace and permissions..."
+          docker run --rm \
+            --network ehb-worker-net \
+            --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
+            --user "$(id -u):$(id -g)" \
+            --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
+            --mount type=bind,source="$RUNNER_TEMP/ehb-research-snapshot",target=/workspace/state/research,readonly \
+            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
+            --mount type=bind,source="$GITHUB_WORKSPACE/.github/scripts/report_worker_outcome.py",target=/tmp/report_worker_outcome.py,readonly \
+            -e HOME=/tmp/kilo-home \
+            -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
+            -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
+            "$EHB_KILO_IMAGE" \
+            bash -lc '
+              set -euo pipefail
+              cd /workspace
+
+              mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
+              cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
+              chmod 600 "$HOME/.config/kilo/kilo.json"
+
+              test -s .kilo/wakeup-prompt.md
+              test -s SOLVER_FEEDBACK.md
+              test ! -e lab
+              test ! -e .git
+              test ! -e /workspace/spec.json
+              test -d state/research
+              if touch state/research/.worker-must-not-write 2>/dev/null; then
+                rm -f state/research/.worker-must-not-write
+                echo "Worker unexpectedly has write access to controller research state."
+                exit 1
+              fi
+
+              # The reporter owns the complete worker-outcome contract regression suite.
+              # Keep one source of truth here so workflow expectations cannot drift.
+              python3 /tmp/report_worker_outcome.py --self-test
+
+              test "$(id -u)" = "$(stat -c "%u" /workspace)"
+              if find /workspace -xdev -uid 0 -print -quit | grep -q .; then
+                echo "Preflight found root-owned files in the worker workspace."
+                find /workspace -xdev -uid 0 -print
+                exit 1
+              fi
+
+              probe=/workspace/.preflight-write-test
+              printf "ok\n" > "$probe"
+              test "$(cat "$probe")" = "ok"
+              rm -f "$probe"
+              test ! -e "$probe"
+
+              command -v kilo >/dev/null
+              kilo --version >/dev/null
+
+              echo "Checking allowed mutation-gateway connectivity..."
+              curl --fail --silent --show-error --connect-timeout 5 --max-time 10 \
+                http://lab-mutator:3000/__lab__/health >/dev/null
+
+              echo "Checking allowed Kilo relay connectivity..."
+              curl --fail --silent --show-error --connect-timeout 10 --max-time 20 \
+                https://api.kilo.ai/api/gateway/models >/dev/null
+
+              echo "Checking worker cannot reach the hidden target directly..."
+              if curl --fail --silent --show-error --connect-timeout 3 --max-time 5 \
+                http://juice-shop:3000/ >/dev/null 2>&1; then
+                echo "Worker unexpectedly reached Juice Shop directly."
+                exit 1
+              fi
+
+              echo "Checking worker cannot use arbitrary Internet egress..."
+              if curl --fail --silent --show-error --connect-timeout 3 --max-time 5 \
+                https://github.com/ >/dev/null 2>&1; then
+                echo "Worker unexpectedly reached arbitrary Internet egress."
+                exit 1
+              fi
+
+              echo "Preflight infrastructure health check passed."
+            '
+      - name: Smoke-test real Kilo execution path
+        id: kilo_smoke
+        if: steps.preflight.outcome == 'success'
+        timeout-minutes: 3
+        env:
+          KILO_DISABLE_EXTERNAL_SKILLS: "true"
+        run: |
+          set -euo pipefail
+          SMOKE_DIR="$RUNNER_TEMP/kilo-preflight-smoke"
+          rm -rf "$SMOKE_DIR"
+          mkdir -p "$SMOKE_DIR"
+          trap 'rm -rf "$SMOKE_DIR"' EXIT
+
+          cat > "$SMOKE_DIR/README.md" <<'EOF'
+          This is a disposable Kilo infrastructure smoke test.
+          Do not access the security target or any network resource.
+          Use the normal terminal/tooling path available to you.
+          Create a file named `kilo-smoke-sentinel.txt` containing exactly:
+          KILO_SMOKE_OK
+          Then finish immediately.
+          EOF
+
+          docker run --rm \
+            --network ehb-worker-net \
+            --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
+            --user "$(id -u):$(id -g)" \
+            --mount type=bind,source="$SMOKE_DIR",target=/workspace \
+            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
+            -e HOME=/tmp/kilo-home \
+            -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
+            -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
+            -e KILO_DISABLE_EXTERNAL_SKILLS=true \
+            "$EHB_KILO_IMAGE" \
+            bash -lc '
+              set -euo pipefail
+              cd /workspace
+              mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
+              cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
+              chmod 600 "$HOME/.config/kilo/kilo.json"
+              timeout 120s kilo run --model openai-compatible/free-kilo --auto "$(cat README.md)"
+            '
+
+          test -f "$SMOKE_DIR/kilo-smoke-sentinel.txt"
+          test "$(cat "$SMOKE_DIR/kilo-smoke-sentinel.txt")" = "KILO_SMOKE_OK"
+          echo "Real Kilo execution-path smoke test passed."
+      - name: Deterministic post-Kilo execution regression
+        id: post_kilo_regression
+        if: steps.kilo_smoke.outcome == 'success'
+        run: |
+          set -euo pipefail
+          python3 lab/test_research_program.py --post-kilo-regression
+      - name: Run isolated Kilo worker
+        if: steps.preflight.outcome == 'success' && steps.kilo_smoke.outcome == 'success'
+        id: kilo
+        continue-on-error: true
+        timeout-minutes: 315
+        env:
+          KILO_DISABLE_EXTERNAL_SKILLS: "true"
+        run: |
+          set -euo pipefail
+          docker run --rm \
+            --name ehb-kilo \
+            --user "$(id -u):$(id -g)" \
+            --network ehb-worker-net \
+            --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
+            --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
+            --mount type=bind,source="$RUNNER_TEMP/ehb-research-snapshot",target=/workspace/state/research,readonly \
+            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
+            -e HOME=/tmp/kilo-home \
+            -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
+            -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
+            -e KILO_DISABLE_EXTERNAL_SKILLS=true \
+            -e BENCHMARK_ID="$BENCHMARK_ID" \
+            -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
+            "$EHB_KILO_IMAGE" \
+            bash -lc '
+              set -uo pipefail
+              cd /workspace
+              mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
+              cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
+              chmod 600 "$HOME/.config/kilo/kilo.json"
+
+              set +e
+              kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)" 2>&1 | tee /tmp/kilo-primary.log
+              rc=${PIPESTATUS[0]}
+
+              if [ "$rc" -ne 0 ] && grep -Eq "invalid request error trace_id:" /tmp/kilo-primary.log; then
+                echo "Detected transient Kilo gateway invalid-request response; retrying the same worker workspace once."
+                kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)" 2>&1 | tee /tmp/kilo-retry.log
+                retry_rc=${PIPESTATUS[0]}
+                if [ "$retry_rc" -eq 0 ]; then
+                  rc=0
+                else
+                  echo "Kilo retry also failed with exit code $retry_rc."
+                  rc="$retry_rc"
+                fi
+              fi
+
+              if [ "$rc" -ne 0 ]; then
+                echo "Kilo worker failed with exit code $rc."
+              fi
+              exit "$rc"
+            '
+
+      - name: Deep audit — after Run isolated Kilo worker
+        id: deep_audit_2_run_isolated_kilo_worker
+        if: always()
+        continue-on-error: true
+        env:
+          AUDIT_PREV_OUTCOME: ${{ steps.kilo.outcome }}
+        run: |
+          set +e
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Run isolated Kilo worker"
+          rc=$?
+          echo "DEEP_AUDIT_RC=$rc"
+          exit 0
+      - name: Merge safe worker results back
+        id: audit_source_17_merge_safe_worker_results_back
+        if: always()
+        run: |
+          set -euo pipefail
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+          if [ ! -d "$EHB_WORKER_DIR" ]; then
+            echo "Worker workspace was not created; preserving original failure."
+            exit 0
+          fi
+          rsync -a \
+            --exclude=".git/" \
+            --exclude=".github/" \
+            --exclude=".kilo/" \
+            --exclude="lab/" \
+            --exclude="AUTHORIZED_TARGET.md" \
+            --exclude="HARDCORE_BENCHMARK.md" \
+            "$EHB_WORKER_DIR/" "$GITHUB_WORKSPACE/"
+
+      - name: Verify durable research-program handoff
+        id: research_handoff
+        if: always()
+        continue-on-error: true
+        env:
+          KILO_OUTCOME: ${{ steps.kilo.outcome }}
+        run: |
+          set -euo pipefail
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" != "resumed" ]; then
+            echo "RESEARCH_HANDOFF=NOT_APPLICABLE"
+            exit 0
+          fi
+
+          # A failed worker may legitimately have no PROGRAM_PROPOSAL.json.
+          # The worker outcome is classified separately by the deterministic
+          # reporter; do not turn worker failure into a synthetic handoff failure.
+          if [ "${KILO_OUTCOME:-failure}" != "success" ]; then
+            echo "Kilo worker did not complete successfully; durable research-program handoff validation is not required for this activation."
+            echo "RESEARCH_HANDOFF=NOT_APPLICABLE"
+            exit 0
+          fi
+
+          test -s state/research/PROGRAM.json
+          python3 .kilo/validate-program-handoff.py --path "PROGRAM_PROPOSAL.json"
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("state/research/PROGRAM.json")
+          program = json.loads(path.read_text(encoding="utf-8"))
+          assert program.get("program_version") == "1.0.0"
+          assert program.get("benchmark_id") == os.environ["BENCHMARK_ID"]
+          assert isinstance(program.get("evolution_families"), list)
+          assert program["evolution_families"], "persisted program has no evolutionary families"
+          for family in program["evolution_families"]:
+              assert int(family.get("generation", 0)) >= 1
+              assert isinstance(family.get("seed_requests"), list)
+              assert isinstance(family.get("best_candidates", []), list)
+          PY
+
+          echo "RESEARCH_HANDOFF=READY"
+
+      - name: Deep audit — after Verify durable research-program handoff
+        id: deep_audit_3_verify_durable_research_program_handoff
+        if: always()
+        continue-on-error: true
+        env:
+          AUDIT_PREV_OUTCOME: ${{ steps.research_handoff.outcome }}
+        run: |
+          set +e
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Verify durable research-program handoff"
+          rc=$?
+          echo "DEEP_AUDIT_RC=$rc"
+          exit 0
+      - name: Evaluate hidden benchmark independently
+        id: evaluate
+        if: always() && steps.benchmark.outcome == 'success' && steps.start_benchmark.outcome == 'success' && steps.kilo.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
+          docker run --rm \
+            --network none \
+            --mount type=bind,source="$GITHUB_WORKSPACE",target=/workspace \
+            --mount type=bind,source="$LAB_SECRET_DIR",target=/run/lab,readonly \
+            python:3.12-alpine \
+            python /workspace/lab/evaluate_benchmark.py \
+              --spec /run/lab/spec.json \
+              --public /run/lab/public.json \
+              --workspace /workspace
+
+      - name: Generate safe solver feedback
+        id: feedback
+        if: always() && steps.evaluate.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 lab/generate_solver_feedback.py \
+            --result "reports/benchmark_${BENCHMARK_ID}.json" \
+            --history "lab/benchmark_history.jsonl" \
+            --output "SOLVER_FEEDBACK.md"
+          test -s SOLVER_FEEDBACK.md
+          echo "Trusted aggregate solver feedback generated."
+
+      - name: Preserve manual-dispatch forensic benchmark
+        id: audit_source_22_preserve_manual_dispatch_forensic_benchmark
+        if: always() && github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/ehb-secret/**
+            reports/benchmark_*.json
+      - name: Validate controller research state before persistence
+        id: pre_persist_research_validate
+        if: always() && steps.research_portfolio.outcome == 'success' && steps.kilo.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 lab/research_program.py post-kilo \
+            --mode "$BENCHMARK_CAMPAIGN_MODE" \
+            --benchmark-id "$BENCHMARK_ID" \
+            --state-dir "state/research" \
+            --snapshot-dir "$RUNNER_TEMP/ehb-research-snapshot" \
+            --proposal "PROGRAM_PROPOSAL.json"
+
+      - name: Record worker failure memory
+        id: failure_memory
+        if: always()
+        continue-on-error: true
+        env:
+          RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          KILO_SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
+          POST_KILO_REGRESSION_OUTCOME: ${{ steps.post_kilo_regression.outcome }}
+          KILO_OUTCOME: ${{ steps.kilo.outcome }}
+          RESEARCH_VALIDATION_OUTCOME: ${{ steps.pre_persist_research_validate.outcome }}
+          RESEARCH_HANDOFF_OUTCOME: ${{ steps.research_handoff.outcome }}
+          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+        run: |
+          set +e
+          python3 .github/scripts/record_failure_memory.py \
+            --portfolio "$RESEARCH_PORTFOLIO_OUTCOME" \
+            --preflight "$PREFLIGHT_OUTCOME" \
+            --smoke "$KILO_SMOKE_OUTCOME" \
+            --post-kilo-regression "$POST_KILO_REGRESSION_OUTCOME" \
+            --worker "$KILO_OUTCOME" \
+            --research-validation "$RESEARCH_VALIDATION_OUTCOME" \
+            --research-handoff "$RESEARCH_HANDOFF_OUTCOME" \
+            --evaluate "$EVALUATE_OUTCOME"
+          rc=$?
+          echo "FAILURE_MEMORY_RC=$rc"
+          exit 0
+
+      - name: Persist safe repository changes
+        id: persist
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          KILO_OUTCOME: ${{ steps.kilo.outcome }}
+          FEEDBACK_OUTCOME: ${{ steps.feedback.outcome }}
+          PRE_PERSIST_RESEARCH_VALIDATE_OUTCOME: ${{ steps.pre_persist_research_validate.outcome }}
+        run: |
+          set -euo pipefail
+
+          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/benchmark_campaign.py lab/research_program.py lab/test_research_program.py lab/kilo-worker.Dockerfile lab/kilo_gateway_proxy.py lab/README.md 2>/dev/null || true
+          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/benchmark_campaign.py lab/research_program.py lab/test_research_program.py lab/README.md 2>/dev/null || true
+
+          if [ "${FEEDBACK_OUTCOME:-failure}" != "success" ]; then
+            git restore --worktree --staged -- SOLVER_FEEDBACK.md 2>/dev/null || true
+          fi
+
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
+            test -s state/research/PROGRAM.json
+          fi
+
+          # Worker proposals are ephemeral. Never persist an unvalidated proposal.
+          if [ "${PRE_PERSIST_RESEARCH_VALIDATE_OUTCOME:-failure}" != "success" ]; then
+            rm -f -- PROGRAM_PROPOSAL.json
+          fi
+
+          # Stage the complete post-worker worktree first, excluding generated bytecode.
+          find . -type d -name __pycache__ -prune -exec rm -rf {} +
+          find . -type f \( -name '*.pyc' -o -name '*.pyo' -o -name '*.py.c' \) -delete
+          git add -A
+          git restore --staged --             ":(glob)**/__pycache__/**"             ":(glob)**/*.pyc"             ":(glob)**/*.pyo"             ":(glob)**/*.py.c" 2>/dev/null || true
+
+          # Research continuity is authoritative state. Force-add the explicit
+          # controller state plus the worker's durable deliverables. This also
+          # handles tracked files with skip-worktree/ignore interactions.
+          for durable_path in \
+            LEARNING_STATE.md \
+            research_state.md \
+            reports/benchmark_findings.json \
+            reports/benchmark_research.md \
+            state/research/PROGRAM.json \
+            state/research/RUNTIME.json \
+            state/research/SURFACES.json \
+            state/research/EVOLUTION_FAMILIES.json \
+            state/research/EXECUTION_RECEIPTS.jsonl \
+            state/research/PORTFOLIO_CHECKLIST.md \
+            state/research/PORTFOLIO_SUMMARY.json \
+            state/research/COMPILED_PORTFOLIO.json \
+            state/research/FAILURE_MEMORY.jsonl \
+            state/research/GENERATIONS \
+            state/research/RESULTS \
+            state/research/REVIEWS; do
+            if [ -e "$durable_path" ]; then
+              git add -f -- "$durable_path"
+            fi
+          done
+
+          # Re-stage only authoritative research state; never re-add generated files.
+          git restore --staged --             ":(glob)**/__pycache__/**"             ":(glob)**/*.pyc"             ":(glob)**/*.pyo"             ":(glob)**/*.py.c" 2>/dev/null || true
+
+          if git diff --cached --name-only | grep -E '(^|/)(__pycache__/|.*\.(pyc|pyo|py\.c)$)' >/tmp/generated_python_paths; then
+            echo "Generated Python bytecode unexpectedly staged:"
+            cat /tmp/generated_python_paths
+            exit 1
+          fi
+
+          # The persistence transaction must be clean before commit/rebase.
+          if ! git diff --quiet; then
+            echo "Unstaged changes remain before persistence commit:"
+            git status --short
+            git diff --name-only
+            exit 1
+          fi
+          if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+            echo "Untracked non-ignored files remain before persistence commit:"
+            git status --short
+            exit 1
+          fi
+
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
+            test -s state/research/PROGRAM.json
+            git ls-files --stage -- state/research/PROGRAM.json | grep -Fq "state/research/PROGRAM.json"
+          fi
+          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|benchmark_campaign\.py|research_program\.py|test_research_program\.py|kilo-worker\.Dockerfile|kilo_gateway_proxy\.py|README\.md)$' >/tmp/protected; then
+            echo "Protected paths unexpectedly staged:"
+            cat /tmp/protected
+            exit 1
+          fi
+
+          if git diff --cached --name-only | grep -E '(^|/)(\.env(\..*)?|id_rsa|id_dsa|id_ecdsa|id_ed25519|credentials\.(json|ya?ml|toml)|secrets\.(json|ya?ml|toml))$|\.(pem|key)$' >/tmp/credential_paths; then
+            echo "Credential-like paths are not allowed to persist:"
+            cat /tmp/credential_paths
+            exit 1
+          fi
+
+          if git diff --cached --summary | grep -E "^ create mode 120000 " >/tmp/symlinks; then
+            echo "Symbolic links are not allowed to persist:"
+            cat /tmp/symlinks
+            exit 1
+          fi
+
+          if git diff --cached --binary | grep -E -n "BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|kilo_[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9_-]{20,}" >/tmp/secrets; then
+            echo "Potential credential material detected:"
+            cat /tmp/secrets
+            exit 1
+          fi
+
+          if git diff --cached --quiet; then
+            echo "No safe repository changes to persist."
+            exit 0
+          fi
+
+          git config user.name "security-research-enterprise"
+          git config user.email "security-research-enterprise@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+          git commit -m "Persist security research activation"
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
+            test -n "$(git ls-tree -r --name-only HEAD -- state/research/PROGRAM.json)"
+          fi
+
+          # The branch may have advanced while this long activation was running.
+          # Rebase with autostash and retry the push so concurrent main commits do not
+          # strand the activation commit or leave a dirty worktree after reset.
+          for attempt in 1 2 3; do
+            git fetch origin "$GITHUB_REF_NAME"
+            if git merge-base --is-ancestor "origin/$GITHUB_REF_NAME" HEAD; then
+              if git push origin "HEAD:$GITHUB_REF_NAME"; then
+                break
+              fi
+            else
+              git rebase --autostash "origin/$GITHUB_REF_NAME"
+              if git push origin "HEAD:$GITHUB_REF_NAME"; then
+                break
+              fi
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "Unable to push persistence commit after 3 branch-synchronization attempts."
+              git status --short
+              git log --oneline --decorate -8
+              exit 1
+            fi
+            sleep 2
+          done
+
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
+            git fetch origin "$GITHUB_REF_NAME"
+            test -n "$(git ls-tree -r --name-only "origin/$GITHUB_REF_NAME" -- state/research/PROGRAM.json)"
+            echo "Durable research program is present on origin/$GITHUB_REF_NAME."
+          fi
+
+          echo "Worker activation outcome: $KILO_OUTCOME"
+
+      - name: Deep audit — after Persist safe repository changes
+        id: deep_audit_4_persist_safe_repository_changes
+        if: always()
+        continue-on-error: true
+        env:
+          AUDIT_PREV_OUTCOME: ${{ steps.persist.outcome }}
+        run: |
+          set +e
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Persist safe repository changes"
+          rc=$?
+          echo "DEEP_AUDIT_RC=$rc"
+          exit 0
+      - name: Prepare persistent benchmark campaign state
+        id: persist_campaign
+        if: always() && steps.benchmark.outcome == 'success'
+        continue-on-error: true
+        env:
+          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+          RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
+          RESEARCH_VALIDATION_OUTCOME: ${{ steps.pre_persist_research_validate.outcome }}
+          PERSIST_OUTCOME: ${{ steps.persist.outcome }}
+        run: |
+          set -euo pipefail
+          OUT="$RUNNER_TEMP/ehb-active-benchmark-final"
+          rm -rf "$OUT"
+          mkdir -p "$OUT"
+
+          python3 lab/benchmark_campaign.py prepare-state             --secret-dir "$LAB_SECRET_DIR"             --output-dir "$OUT"             --result "reports/benchmark_$BENCHMARK_ID.json"             --evaluate-outcome "$EVALUATE_OUTCOME"             --persist-outcome "$PERSIST_OUTCOME"             --run-id "$GITHUB_RUN_ID"
+
+      - name: Upload persistent benchmark campaign state
+        id: upload_persistent_campaign
+        if: always() && steps.persist_campaign.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-tutorial-active-benchmark
+          path: ${{ runner.temp }}/ehb-active-benchmark-final/*
+          if-no-files-found: error
+          retention-days: 90
+          overwrite: false
+
+      - name: Retire superseded benchmark campaign artifact
+        id: audit_source_26_retire_superseded_benchmark_campaign_artifact
+        if: always() && steps.upload_persistent_campaign.outcome == 'success' && env.PREVIOUS_BENCHMARK_ARTIFACT_ID != ''
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error             -X DELETE             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GITHUB_TOKEN"             -H "X-GitHub-Api-Version: 2026-03-10"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$PREVIOUS_BENCHMARK_ARTIFACT_ID"
+
+      - name: Cleanup isolated benchmark environment
+        id: audit_source_27_cleanup_isolated_benchmark_environment
+        if: always()
+        run: |
+          set +e
+          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+          docker rm -f ehb-kilo ehb-kilo-egress lab-mutator juice-shop >/dev/null 2>&1 || true
+          docker network rm ehb-target-net ehb-worker-net ehb-egress-net >/dev/null 2>&1 || true
+          docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
+          rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
+
+      - name: Report worker outcome
+        id: audit_source_28_report_worker_outcome
+        if: always()
+        env:
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          KILO_SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
+          POST_KILO_REGRESSION_OUTCOME: ${{ steps.post_kilo_regression.outcome }}
+          KILO_OUTCOME: ${{ steps.kilo.outcome }}
+          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+          RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
+          RESEARCH_VALIDATION_OUTCOME: ${{ steps.pre_persist_research_validate.outcome }}
+          RESEARCH_HANDOFF_OUTCOME: ${{ steps.research_handoff.outcome }}
+          PERSIST_OUTCOME: ${{ steps.persist.outcome }}
+        run: |
+          set -euo pipefail
+          echo "::group::REPORT OUTCOME DEBUG — run metadata"
+          printf 'GITHUB_RUN_ID=%s\n' "${GITHUB_RUN_ID:-unknown}"
+          printf 'GITHUB_RUN_ATTEMPT=%s\n' "${GITHUB_RUN_ATTEMPT:-unknown}"
+          printf 'GITHUB_REF_NAME=%s\n' "${GITHUB_REF_NAME:-unknown}"
+          printf 'GITHUB_SHA=%s\n' "${GITHUB_SHA:-unknown}"
+          printf 'GITHUB_EVENT_NAME=%s\n' "${GITHUB_EVENT_NAME:-unknown}"
+          printf 'GITHUB_WORKFLOW=%s\n' "${GITHUB_WORKFLOW:-unknown}"
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — exact classifier inputs"
+          printf 'PREFLIGHT_OUTCOME=%q\n' "${PREFLIGHT_OUTCOME:-<unset>}"
+          printf 'KILO_SMOKE_OUTCOME=%q\n' "${KILO_SMOKE_OUTCOME:-<unset>}"
+          printf 'POST_KILO_REGRESSION_OUTCOME=%q\n' "${POST_KILO_REGRESSION_OUTCOME:-<unset>}"
+          printf 'KILO_OUTCOME=%q\n' "${KILO_OUTCOME:-<unset>}"
+          printf 'EVALUATE_OUTCOME=%q\n' "${EVALUATE_OUTCOME:-<unset>}"
+          printf 'RESEARCH_PORTFOLIO_OUTCOME=%q\n' "${RESEARCH_PORTFOLIO_OUTCOME:-<unset>}"
+          printf 'RESEARCH_VALIDATION_OUTCOME=%q\n' "${RESEARCH_VALIDATION_OUTCOME:-<unset>}"
+          printf 'RESEARCH_HANDOFF_OUTCOME=%q\n' "${RESEARCH_HANDOFF_OUTCOME:-<unset>}"
+          printf 'PERSIST_OUTCOME=%q\n' "${PERSIST_OUTCOME:-<unset>}"
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — reporter integrity"
+          test -f .github/scripts/report_worker_outcome.py
+          sha256sum .github/scripts/report_worker_outcome.py
+          python3 -m py_compile .github/scripts/report_worker_outcome.py
+          python3 .github/scripts/report_worker_outcome.py --self-test
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — required artifacts"
+          for report_path in \
+            reports/benchmark_findings.json \
+            reports/benchmark_research.md \
+            state/research/PROGRAM.json \
+            state/research/RUNTIME.json \
+            state/research/EXECUTION_RECEIPTS.jsonl \
+            LEARNING_STATE.md \
+            research_state.md; do
+            if [ -e "$report_path" ]; then
+              stat -c '%n | type=%F | bytes=%s | mode=%a | mtime=%y' "$report_path"
+            else
+              echo "MISSING | $report_path"
+            fi
+          done
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — research-state inventory"
+          python3 - <<'PY'
+          from pathlib import Path
+          root = Path("state/research")
+          if not root.is_dir():
+              print("MISSING | state/research")
+          else:
+              files = sorted(
+                  path for path in root.rglob("*")
+                  if path.is_file() and len(path.relative_to(root).parts) <= 2
+              )
+              for path in files[:200]:
+                  print(f"{path} | bytes={path.stat().st_size}")
+              extra = len(files) - 200
+              if extra > 0:
+                  print(f"... truncated {extra} more files")
+          PY
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — Git persistence state"
+          git rev-parse --short=12 HEAD
+          git status --short
+          echo "--- unstaged names ---"
+          git diff --name-status
+          echo "--- staged names ---"
+          git diff --cached --name-status
+          echo "--- repository HEAD ---"
+          git log -1 --format='%H%n%ct%n%s'
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — classification execution begins"
+          echo "The deterministic reporter invocation follows with the exact arguments shown above."
+          echo "::endgroup::"
+          python3 .github/scripts/report_worker_outcome.py \
+            --preflight "$PREFLIGHT_OUTCOME" \
+            --smoke "$KILO_SMOKE_OUTCOME" \
+            --post-kilo-regression "$POST_KILO_REGRESSION_OUTCOME" \
+            --worker "$KILO_OUTCOME" \
+            --evaluate "$EVALUATE_OUTCOME" \
+            --portfolio "$RESEARCH_PORTFOLIO_OUTCOME" \
+            --research-validation "$RESEARCH_VALIDATION_OUTCOME" \
+            --research-handoff "${RESEARCH_HANDOFF_OUTCOME:-failure}" \
+            --persist "${PERSIST_OUTCOME:-failure}" \
+            --findings-path "reports/benchmark_findings.json" \
+            --research-report-path "reports/benchmark_research.md"
+
+      - name: Deep audit — after Report worker outcome
+        id: deep_audit_5_report_worker_outcome
+        if: always()
+        continue-on-error: true
+        env:
+          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_28_report_worker_outcome.outcome }}
+        run: |
+          set +e
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Report worker outcome"
+          rc=$?
+          echo "DEEP_AUDIT_RC=$rc"
+          exit 0
+      - name: Deep audit — final rollup
+        id: deep_audit_final
+        if: always()
+        continue-on-error: true
+        run: |
+          set +e
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --final
+          rc=$?
+          echo "DEEP_AUDIT_FINAL_RC=$rc"
+          exit 0
