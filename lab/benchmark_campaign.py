@@ -143,10 +143,15 @@ def restore_campaign(secret_dir: Path, active_dir: Path, history: Path) -> str:
         validate_pair(secret_dir)
         print("Started a new benchmark campaign.")
 
+    public = json.loads((secret_dir / "public.json").read_text(encoding="utf-8"))
     write_env(
         {
             "BENCHMARK_CAMPAIGN_MODE": mode,
             "PREVIOUS_BENCHMARK_ARTIFACT_ID": previous_artifact_id,
+            "BENCHMARK_ID": str(public["benchmark_id"]),
+            "BENCHMARK_COMMITMENT": str(public["commitment"]),
+            "BENCHMARK_DIFFICULTY": str(public["difficulty"]),
+            "SECURITY_RESEARCH_TARGET": "http://lab-mutator:3000",
             "LAB_SECRET_DIR": str(secret_dir),
             "EHB_WORKER_DIR": str(Path(os.environ.get("RUNNER_TEMP", "/tmp")) / "ehb-worker"),
         }
