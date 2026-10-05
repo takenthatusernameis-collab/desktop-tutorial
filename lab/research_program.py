@@ -479,6 +479,27 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
     return program
 
 
+def validate_state(state_dir: Path, benchmark_id: str, mode: str) -> dict[str, Any] | None:
+    """Validate persisted controller state without making network requests."""
+    program_path = state_dir / PROGRAM
+    if not program_path.exists():
+        if mode == "fresh":
+            print("RESEARCH_PROGRAM_VALIDATION=SKIP_NO_PROGRAM")
+            return None
+        raise ProgramError("resumed benchmark has no persisted PROGRAM.json")
+    program = load_json(program_path)
+    validate_program(program, benchmark_id)
+    runtime = load_runtime(state_dir)
+    plan = compile_portfolio(program, runtime)
+    if mode != "fresh" and not plan:
+        raise ProgramError("persisted research program compiled to an empty portfolio")
+    print(
+        f"RESEARCH_PROGRAM_VALIDATION=PASS surfaces={len(program.get('surfaces', []))} "
+        f"families={len(program.get('evolution_families', []))} tickets={len(plan)}"
+    )
+    return program
+
+
 def load_runtime(state_dir: Path) -> dict[str, Any]:
     path = state_dir / RUNTIME
     if not path.exists():
@@ -1337,7 +1358,7 @@ def self_test() -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=("pre-kilo", "post-kilo", "self-test"))
+    parser.add_argument("command", choices=("pre-kilo", "post-kilo", "validate", "self-test"))
     parser.add_argument("--mode")
     parser.add_argument("--benchmark-id")
     parser.add_argument("--target", default="http://lab-mutator:3000")
@@ -1352,6 +1373,11 @@ def main() -> int:
 
     state_dir = Path(args.state_dir)
     try:
+        if args.command == "validate":
+            if not args.mode or not args.benchmark_id:
+                raise SystemExit("--mode and --benchmark-id are required")
+            validate_state(state_dir, args.benchmark_id, args.mode)
+            return 0
         if args.command == "pre-kilo":
             return run_pre_kilo(args.mode, args.benchmark_id, args.target, state_dir)
         if not args.snapshot_dir:
