@@ -451,6 +451,21 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
             raise ProgramError(f"family {fid} has invalid seed_requests")
         for seed_index, seed in enumerate(seeds):
             normalize_request(seed, f"family {fid} seed {seed_index}")
+        if not seeds:
+            raise ProgramError(f"family {fid} has no executable seed requests")
+        # Every family must compile to at least one deterministic candidate from
+        # its current seeds/operators. This catches no-op operator/seed pairings
+        # before the long activation reaches execution.
+        if not any(
+            mutate_request(seed, operator)
+            for seed in seeds
+            for operator in operators
+        ):
+            raise ProgramError(
+                f"family {fid} compiles to zero candidates from its current "
+                "seed_requests and mutation_operators; add a compatible operator "
+                "(BASELINE is the universal fallback) or a compatible seed"
+            )
         if not isinstance(family.get("lineage"), list):
             raise ProgramError(f"family {fid} must retain lineage")
         if status == "ARCHIVED" and not family.get("archive_reason"):
