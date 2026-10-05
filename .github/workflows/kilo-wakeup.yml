@@ -15,7 +15,7 @@ concurrency:
 
 permissions:
   contents: write
-  actions: read
+  actions: write
 
 jobs:
   worker:
@@ -587,6 +587,7 @@ jobs:
           python3 lab/benchmark_campaign.py prepare-state             --secret-dir "$LAB_SECRET_DIR"             --output-dir "$OUT"             --result "reports/benchmark_$BENCHMARK_ID.json"             --evaluate-outcome "$EVALUATE_OUTCOME"             --persist-outcome "$PERSIST_OUTCOME"             --run-id "$GITHUB_RUN_ID"
 
       - name: Upload persistent benchmark campaign state
+        id: upload_persistent_campaign
         if: always() && steps.persist_campaign.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
@@ -594,7 +595,16 @@ jobs:
           path: ${{ runner.temp }}/ehb-active-benchmark-final/*
           if-no-files-found: error
           retention-days: 90
-          overwrite: true
+          overwrite: false
+
+      - name: Retire superseded benchmark campaign artifact
+        if: always() && steps.upload_persistent_campaign.outcome == 'success' && env.PREVIOUS_BENCHMARK_ARTIFACT_ID != ''
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error             -X DELETE             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GITHUB_TOKEN"             -H "X-GitHub-Api-Version: 2026-03-10"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$PREVIOUS_BENCHMARK_ARTIFACT_ID"
 
       - name: Cleanup isolated benchmark environment
         if: always()
