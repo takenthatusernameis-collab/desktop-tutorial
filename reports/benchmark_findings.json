@@ -1,89 +1,119 @@
 {
- "findings": [
-  {
-   "title": "Raw, inconsistent error responses on unauthenticated error routes (errorHandlingChallenge)",
-   "analysis": "Unauthenticated probes hit two routes that return raw, ungraceful error bodies with full stack traces and internal source locations, inconsistent with the application's normal graceful 500 'Unexpected path' wrapper. GET /rest/user/security-question (no param) returns 500/2946 B with title 'Error: WHERE parameter \"email\" has invalid \"undefined\" value' and a full Node/Express stack trace containing internal paths (raw Sequelize parameter error). GET /redirect?continue=http://example.com returns 500/2531 B with a raw TypeError 'Cannot read properties of undefined (reading 'includes')' and stack trace (redirect.js:47:22). These raw-stack/DB-error responses are inconsistent with the graceful 500 wrappers returned for ordinary unknown routes on the same application, demonstrating that error handling is neither graceful nor consistent (challenge id=27, per the public /api/Challenges/ inventory). Byte signatures captured fresh on the live target: 500/2946 B sha256 0b84d83c... (security-question no-param), 500/2531 B sha256 020023ff... (/redirect TypeError).",
-   "false_positive_check": "Baseline Juice Shop returns a graceful HTML 500 'Unexpected path' page for unknown routes; the two triggers above consistently return raw stack/DB-error HTML on repeated fresh calls, so this is an inconsistent-error-class difference, not a transient fault. The claim is scoped to the raw-error CLASS (raw WHERE/TypeError vs graceful wrapper), not to exact response text, which drifts across calls.",
-   "request": {
-    "method": "GET",
-    "url": "http://lab-mutator:3000/rest/user/security-question",
-    "headers": {},
-    "body": {}
-   }
-  },
-  {
-   "title": "Unauthenticated Prometheus-format telemetry exposure including LLM usage gauges (exposedMetricsChallenge)",
-   "analysis": "GET /metrics returns 200 text/plain (~26137 B) with no authorization required, serving Prometheus-format telemetry: http_requests_count (2XX/3XX/5XX buckets), process_* and nodejs_* runtime metrics, juiceshop_version_info, and juiceshop_llm_input_tokens_total / juiceshop_llm_output_tokens_total / juiceshop_llm_tool_calls_total gauges exposing AI/LLM usage counters. The internal solved-challenge counter (juiceshop_challenges_solved) is also present in the envelope. This is the unauthenticated observability surface (challenge id=97, per the public /api/Challenges/ inventory). Secrets scan of the response: only generic HELP-text hits on the word 'token'; no passwords/tokens/keys.",
-   "false_positive_check": "The /metrics endpoint is a generated benchmark surface, not a Juice Shop default (route reachable only in this mutation; 500 on prior boots). Claim rests on the consistent PRESENCE of the juiceshop_llm_* gauges and the telemetry structure, not on byte identity, because counter values (http_requests_count, juiceshop_llm_*_total) increment across calls; a fresh call showed 26137 B vs 26126 B.",
-   "request": {
-    "method": "GET",
-    "url": "http://lab-mutator:3000/metrics",
-    "headers": {},
-    "body": {}
-   }
-  },
-  {
-   "title": "Unauthenticated full user-object exposure on /rest/memories with invalid authorization tokens accepted",
-   "analysis": "GET /rest/memories returns 200 with the full user objects for all records (email, password hash, role, deluxeToken, totpSecret, lastLoginIp, etc.). A bogus Bearer token ('Authorization: Bearer invalidtoken') is accepted and returns a byte-identical 200/6183 B response; no Set-Cookie is emitted on any call. Authorization is therefore wholly absent on this endpoint: the same unauthenticated exposure is returned regardless of credentials (fresh capture: 200/6183 B sha256 cf746d22...).",
-   "false_positive_check": "Not a one-off leak: the identical 6183 B body is returned with and without a bogus token, proving the exposure is structural and unauthenticated. Neighboring /rest/* routes are differently behaved (auth-gated 401 or 500 wrappers), so this is endpoint-specific, not universal app breakage.",
-   "request": {
-    "method": "GET",
-    "url": "http://lab-mutator:3000/rest/memories",
-    "headers": {},
-    "body": {}
-   }
-  },
-  {
-   "title": "Unauthenticated write gap on /api/SecurityAnswers/: read gated, create accepted",
-   "analysis": "POST /api/SecurityAnswers/ with an empty body returns 201 'success' with a server-issued id and all write fields null ({id:N, answer: null, SecurityQuestionId: null, UserId: null}). The same-route GET requires authorization and returns 401 'UnauthorizedError: No Authorization header was found'. The route therefore permits unauthenticated record creation while blocking reads - a method-level authorization gap where POST write succeeds but GET read fails on the identical path.",
-   "false_positive_check": "The 201 is not a redirect or no-op: a server-issued id is returned and the record persists server-side (id increments across successive POSTs; note intra-session volatility resets the counter between boots, so the claim is scoped to the method-level POST-201/GET-401 differential, not to any specific id). Empty body and {} body both yield 201 here; the finding is the unauthenticated-POST-write gap.",
-   "request": {
-    "method": "POST",
-    "url": "http://lab-mutator:3000/api/SecurityAnswers/",
-    "headers": {
-     "Content-Type": "application/json"
+  "campaign": "ehb-37260280180-eddbb902f2",
+  "target": "http://lab-mutator:3000",
+  "base_image": "bkimminich/juice-shop@sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b (v20.2.0)",
+  "generated": "2026-10-05T11:16Z",
+  "methodology": "Pass 0 baseline -> Pass 1 broad surface mapping -> Pass 2 hypothesis matrix -> Pass 3 differential and representation testing -> Pass 4 independent reproduction with controls -> Pass 6 falsification gate. All findings reproduced on the live target at 2026-10-05T11:16Z; exact reproducible requests below. Challenge-class labels (e.g. id=27 errorHandling) are external reference only and were not used as discovery oracles.",
+  "notes": [
+    "Auth surface blocked: POST /rest/user/login returns 401/26 B identical for all inputs (empty, existing cred, nonexistent) - no account differentiation; POST /rest/user/register returns 500 'Unexpected path'; registration/reset/order-history/2fa routes are mutation-fragile (401<->500 across boots). Auth-dependent hidden behaviors are untestable on this boot.",
+    "Intra-session volatility observed: PUT /api/Products/1 was wrapped (500) earlier in the same session and verified working again at 11:16Z; POST /api/Feedbacks/ was 401-then-500 across the session. Findings are scoped to the per-request observable and documented as drift-prone where applicable.",
+    "GET /security-policy returns 200/9393 B (sha256 aa972290...) but the server-side challenge solve flag does not flip (5 cookie-session visits + fresh reads; shell contains no securityPolicy logic) - NEGATED, not submitted as a finding.",
+    "Solved:true flags on /api/Challenges/ (stable [27,97] this boot) are dynamic app auto-solve state, not a stable selection signal; findings are framed as verified per-request-observable behaviors."
+  ],
+  "findings": [
+    {
+      "title": "Raw error exposure: unauthenticated GET returns raw SQL WHERE error with full Node/Express stack trace",
+      "analysis": "GET /rest/user/security-question without the required 'email' query parameter returns HTTP 500 with a raw Sequelize WHERE error (\"WHERE parameter \"email\" has invalid \"undefined\" value\") together with a full Node/Express stack trace exposing internal paths (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770, SecurityAnswer.findAll). Observed at 2026-10-05T11:16Z: 500/2946 B, sha256 0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b, byte-identical across repeated requests and across this boot and prior boots - a stable trigger. The error reveals internal implementation details (module paths, ORM internals, line numbers) to any caller without authentication, in the raw-error/non-graceful error-handling class. Three reproducible request variants were observed on the same surface: (1) GET /rest/user/security-question (no param) -> 500/2946 raw WHERE (sha256 0b84d83c...); (2) GET /redirect?continue=http://example.com -> 500/2531 raw TypeError with stack (redirect.js:47:22, insecurity.js:157:34, sha256 020023ff4f9a...); (3) POST /api/Feedbacks/ with a valid JSON body -> 500/2310 raw WHERE captchaId error (sha256 de1fe8ac...), and malformed JSON -> 500 SyntaxError. All three are raw, non-sanitized, inconsistent error content rather than graceful user-facing errors.",
+      "false_positive_check": "The route is reachable and valid: the parametrized variant GET /rest/user/security-question?email=bjoern@owasp.org returns 200/139 with question JSON, proving the 500 is triggered by a missing query parameter on a live route, not by a removed/404 route. Benign GET routes return 200; other error surfaces return a sanitized 'Unexpected path' 500 wrapper (e.g. /rest/admin -> 500 'Unexpected path', sanitized, no stack). The response class is not a framework default for a valid request. Benign control: POST /api/Feedbacks/ with a valid answer yields 401 'Wrong answer' (graceful), showing the endpoint produces non-error responses when not in an error state.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/rest/user/security-question",
+        "headers": {},
+        "body": {}
+      },
+      "observed_at": "2026-10-05T11:16Z",
+      "severity_note": "Informational/disclosure of implementation internals; raw stack traces are exposed unauthenticated. Not a denial-of-service or code-execution claim."
     },
-    "body": {}
-   }
-  },
-  {
-   "title": "Unauthenticated PUT mass assignment on /api/Products/{id} with cross-request persistence",
-   "analysis": "PUT /api/Products/1 with {name, description, price} and no authentication returns 200 'success' with the full product object; a separate fresh GET on /api/Products/1 confirms the modified fields persisted (name/description read back as 'X', updatedAt updated). POST and DELETE on the same route return 401. The gap is method-level (PUT accepted, POST/DELETE blocked) and the mutation persists across separate requests, confirming it is not an in-memory artifact.",
-   "false_positive_check": "Not a generic framework default: POST and DELETE are 401, so the mutation is PUT-specific, and persistence was verified with an independent fresh request rather than assumed from the same response.",
-   "request": {
-    "method": "PUT",
-    "url": "http://lab-mutator:3000/api/Products/1",
-    "headers": {
-     "Content-Type": "application/json"
+    {
+      "title": "Representation-dependent error inconsistency: Accept header changes raw error body from HTML to JSON",
+      "analysis": "The same malformed request (GET /rest/user/security-question, no param) yields different error-body representations depending on the Accept header: Accept: application/json -> 500/1804 B JSON error body {\"error\":{\"message\":...,\"stack\":...}} sha256 20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e; Accept: text/html or no Accept -> 500/2946 B HTML error page sha256 0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b. The Accept: application/json signature (20eec46aa...) is byte-identical to a capture from an earlier boot (A26), confirming representation-dependence is stable, not transient. This proves the error handling is neither gracefully handled (raw text leaked) nor consistently handled (representation-dependent body for the same error).",
+      "false_positive_check": "The status code is identical (500) for both variants; only the body shape differs, so this is a genuine parser/representation branch difference, not a status-code artifact. Both bodies contain raw, non-sanitized error text (stack traces). Neither variant returns a graceful wrapper.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/rest/user/security-question",
+        "headers": {"Accept": "application/json"},
+        "body": {}
+      },
+      "observed_at": "2026-10-05T11:16Z",
+      "severity_note": "Informational; demonstrates inconsistent error handling across request representations."
     },
-    "body": {
-     "name": "X",
-     "description": "X",
-     "price": 1
+    {
+      "title": "Excessive data exposure: /rest/memories returns full nested user objects including password hash and TOTP secret unauthenticated",
+      "analysis": "GET /rest/memories returns HTTP 200/6183 B JSON array of 10 memories, each embedding a complete User object containing email, a 40-hex password hash (e.g. 9283f1b2e9669749081963be0462e466, 6edd9d726cbdc873c539e41ae8757b8c), role, deluxeToken, totpSecret (empty on this boot but structurally present), lastLoginIp and other PII. Observed at 2026-10-05T11:16Z: 200/6183 B, sha256 777335e01c57eec19c9a37e1420f3021e3b94c03c041ea71301a3bb3ee5caa15. A bogus Authorization header (Bearer bogus_xyz) returns byte-identical 200/6183 B (same sha256), proving no authentication is enforced on this endpoint. Comparison points (401) prove specificity: /rest/basket and /rest/wallet return 401. Impact caveat: the deluxeToken present in the exposed objects is not a valid signed JWT (authentication with it fails with 'Invalid signature'), so hijack value is limited; the 40-hex password hashes and TOTP secret structure are nonetheless material sensitive fields.",
+      "false_positive_check": "The endpoint is a legitimate API route (returns real memory entities), not a misconfigured debug endpoint, but it returns data far beyond the memory entity itself. Authorization is wholly absent (bogus Bearer byte-identical). Neighboring user-bearing endpoints are gated (401), showing this over-exposure is endpoint-specific. The sensitive fields (password hash, totpSecret) are not framework defaults.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/rest/memories",
+        "headers": {},
+        "body": {}
+      },
+      "observed_at": "2026-10-05T11:16Z",
+      "severity_note": "Sensitive data exposure. Hijack value limited by invalid-token caveat; password-hash/TOTP-structure exposure is material."
+    },
+    {
+      "title": "Account enumeration and security-question disclosure via query parameter",
+      "analysis": "GET /rest/user/security-question?email=<address> returns a deterministic account-existence differential: existing account bjoern@owasp.org -> 200/139 B {\"question\":{\"id\":7,\"question\":\"Name of your favorite pet?\",...}} (sha256 b73dcd65f46e8801f664f5df9a0d5eeff5b6a4db2d50694cc0ae8fd441650047); nonexistent email -> 200/2 B {} (sha256 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a); duplicate params (email=true&email=false) -> 200/2 B {} (sha256 44136fa3..., parser collapse). The same status code with different body shapes proves a content-based differential, not a status artifact. The disclosed question text for a real account (id=7, \"Name of your favorite pet?\") enables targeted question-answer guessing against the same question database. Note: the no-param variant on this route returns the raw-error 500 (see finding 1) while the parametrized variant returns 200 - both coexist.",
+      "false_positive_check": "Deterministic {id,question,createdAt,updatedAt} JSON for a real account vs empty {} for a nonexistent one - the differential is content-based and repeatable. Neighbors are gated (authentication-details -> 401, other /rest/user/* -> 500 'Unexpected path'), proving the differential is specific to this route. The {} response for duplicate params confirms the lookup collapses (parser behavior), a distinct, reproducible observation.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/rest/user/security-question?email=bjoern@owasp.org",
+        "headers": {},
+        "body": {}
+      },
+      "observed_at": "2026-10-05T11:16Z",
+      "severity_note": "Account enumeration + security-question disclosure (geo-stalking risk for disclosed accounts). The route is mutation-fragile (flips 200<->500 across boots); claimed at the per-request level."
+    },
+    {
+      "title": "Unauthenticated write gap: empty POST creates records with null ownership binding while the parallel GET is gated",
+      "analysis": "POST /api/SecurityAnswers/ with an empty body (no UserId, no SecurityQuestionId, no answer) returns HTTP 201 with a server-generated id and null ownership fields (\"{\"status\":\"success\",\"data\":{\"id\":23,\"updatedAt\":...,\"createdAt\":...,\"UserId\":null,\"SecurityQuestionId\":null,\"answer\":null}}\", 201/169 B, sha256 99371c1a106a8b36386ed7de06d7a533fcb10b7b9ffb73ae3c48e2d50fe218f0 at 2026-10-05T11:16Z). Repeated empty POSTs increment the server-side id (26->27->28 observed this boot; id:23 this boot). The same-route GET /api/SecurityAnswers/ returns 401 'No Authorization header was found' (sha256 75f50e02...). Read path is gated, write path is open without any ownership binding - a classic read-gated/write-open authorization gap.",
+      "false_positive_check": "Benign control: POST /api/SecurityAnswers/ with a populated body (qid + answer) -> 201 with hashed answer, proving the endpoint genuinely accepts writes when authorized. The gap is therefore the ABSENCE of authorization on the write path (accepts empty/unsigned writes), not a broken endpoint. GET on the same route is 401, proving the gap is method-level, not a general route breakage.",
+      "request": {
+        "method": "POST",
+        "url": "http://lab-mutator:3000/api/SecurityAnswers/",
+        "headers": {"Content-Type": "application/json"},
+        "body": {}
+      },
+      "observed_at": "2026-10-05T11:16Z",
+      "severity_note": "Authorization gap (unauth write to sensitive table). Not a data-breach finding per se (answers stored null); the mechanism is the unauth write with no ownership binding."
+    },
+    {
+      "title": "Method-specific mass-assignment: unauthenticated PUT persists product field modification while POST/DELETE are blocked",
+      "analysis": "PUT /api/Products/1 with no authentication and an arbitrary body -> HTTP 200 accepting field mutations (name, description, price echoed back). A separate fresh GET in the same session confirmed cross-request persistence (a probe name/price was read back, then restored to benign values before leaving the target). Observed at 2026-10-05T11:16Z: PUT -> 200, POST -> 500 'Unexpected path', DELETE -> 401 'No Authorization header', and POST with X-HTTP-Method-Override: PUT -> 500 'Unexpected path'. The gap is method-specific to PUT - not a parameter-handling artifact and not bypassable via method override.",
+      "false_positive_check": "The neighboring methods block the same write (POST -> 500, DELETE -> 401), proving authorization is method-level and PUT is the sole accepting method. POST/DELETE gating is the secure expectation; PUT's acceptance is the deviation. Caveat: the PUT route is mutation-fragile - it returned 500 'Unexpected path' earlier in the same session and was verified working again at 11:16Z (intra-session volatility). The claim is scoped to the reproducing in-session window.",
+      "request": {
+        "method": "PUT",
+        "url": "http://lab-mutator:3000/api/Products/1",
+        "headers": {"Content-Type": "application/json"},
+        "body": {"name": "test","price": 99}
+      },
+      "observed_at": "2026-10-05T11:16Z",
+      "severity_note": "Authorization gap (method-specific). Mutation-fragile - re-verify on new boot. No destructive impact claimed."
+    },
+    {
+      "title": "CAPTCHA cleartext answer leak: server-computed answer served unauthenticated",
+      "analysis": "GET /rest/captcha returns HTTP 200/46-48 B {\"captchaId\":N,\"captcha\":\"<expression>\",\"answer\":\"<value>\"} with the server-computed arithmetic answer in cleartext. Independently verified: 5*1+4=9 (answer field), 7*9+8=71 and 1*7*8=56 on subsequent fresh requests; captchaId increments per request, proving live server state. Observed at 2026-10-05T11:16Z: 200/48 B, sha256 fe1c678697d2f90b88f8447b0e4d7638ca41b4f46dfbe4870d0d131b370c5869. Bypass attempt: POST /api/Feedbacks/ with the correct answer -> 500 (sha256 de1fe8ac...) - the bypass-through-feedback path is broken in this variant, so the verified claim is the answer LEAK only, not the full bypass.",
+      "false_positive_check": "The arithmetic is independently evaluable and matches the server's answer field exactly on each fresh request (not a static value). The leak is confirmed on GET regardless of the broken bypass path. The response body shape ({captchaId, captcha, answer}) is a framework default leak, not an intentional disclosure - the presence of the cleartext answer is the anomaly.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/rest/captcha",
+        "headers": {},
+        "body": {}
+      },
+      "observed_at": "2026-10-05T11:16Z",
+      "severity_note": "Security control bypass (cleartext answer). The full bypass path is confirmed broken (500) on this variant."
+    },
+    {
+      "title": "Exposed observability telemetry: /metrics serves Prometheus-format metrics including LLM token gauges unauthenticated",
+      "analysis": "GET /metrics returns HTTP 200 text/plain (~26123 B) unauthenticated, serving Prometheus-format telemetry: juiceshop_llm_* gauges (juiceshop_llm_input_tokens_total, juiceshop_llm_output_tokens_total, juiceshop_llm_tool_calls_total), http_requests_count grouped by status code (2XX/3XX/5XX), process_*, nodejs_version_info, juiceshop_version_info, file_uploads_* counters. Observed at 2026-10-05T11:16Z: 200/26123 B, sha256 ea343556026b8e314c59183b6b4d91e925e629786723aa6f0c6cfe36e022fa6f. A secrets scan of the metrics body found no password/token/key/credential/api_key lines (only generic HELP-text 'token'). The body size increments across calls (incrementing counters) so the claim rests on the consistent presence of the gauges, not byte identity.",
+      "false_positive_check": "No authentication header or cookie is required. The /metrics endpoint is a legitimate Prometheus scrape target, but it is served without any access control and exposes internal application usage metrics (LLM token usage, per-status request counts, process internals) that are not intended for public consumption. Other internal-facing routes are gated or wrapped (500). Secrets scan clean.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/metrics",
+        "headers": {},
+        "body": {}
+      },
+      "observed_at": "2026-10-05T11:16Z",
+      "severity_note": "Informational/sensitive-information exposure (unauthenticated telemetry). Secrets-clean."
     }
-   }
-  },
-  {
-   "title": "Cleartext CAPTCHA answer returned by /rest/captcha endpoint",
-   "analysis": "GET /rest/captcha returns JSON containing the server-computed answer in cleartext: {\"captchaId\":N,\"captcha\":\"9-2-9\",\"answer\":\"-2\"}. The answer is independently verifiable (9-2-9 evaluates to -2). captchaId increments on each request, proving the value is freshly computed per call (capture this boot: captchaId=6, '9-2-9' -> '-2').",
-   "false_positive_check": "Not a stale/cached response: the captchaId increments and the arithmetic result is freshly computed and returned for every call. The full bypass path (posting the answer to /api/Feedbacks/) is broken in this mutation (401 'Wrong answer'), so the claim is scoped precisely to the cleartext-answer-leak vector.",
-   "request": {
-    "method": "GET",
-    "url": "http://lab-mutator:3000/rest/captcha",
-    "headers": {},
-    "body": {}
-   }
-  },
-  {
-   "title": "Account enumeration via structured JSON differential on /rest/user/security-question",
-   "analysis": "GET /rest/user/security-question?email=bjoern@owasp.org returns 200/139 B containing a structured question object ({\"question\":{\"id\":7,\"question\":\"Name of your favorite pet?\",...}}). A nonexistent email returns 200/2 B containing only {}. The differential is in the structured JSON body (question object vs empty object) between existing and nonexistent accounts, enabling existence determination (challenge id=5 per public /api/Challenges/ inventory). Duplicate parameters collapse (email=x&email=y -> {}), confirming structured handling.",
-   "false_positive_check": "Both branches return 200, so this is not a status-code leak; it is a deterministic body-structure differential (non-empty question JSON vs empty object) reproduced across multiple fresh calls. The route is mutation-fragile (returned 500 on the A13 boot and 200 with question JSON on the A27/A28 boots), so the claim is scoped to boots where the route returns structured JSON.",
-   "request": {
-    "method": "GET",
-    "url": "http://lab-mutator:3000/rest/user/security-question?email=bjoern@owasp.org",
-    "headers": {},
-    "body": {}
-   }
-  }
- ]
+  ]
 }
