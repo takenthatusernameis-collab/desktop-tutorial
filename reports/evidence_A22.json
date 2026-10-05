@@ -1,0 +1,101 @@
+{
+ "id27_secq": {
+  "status": 500,
+  "size": 2946,
+  "ct": "text/html; charset=utf-8",
+  "raw": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>\n    <s",
+  "tags": [
+   "HTTP500"
+  ]
+ },
+ "id27_redirect": {
+  "status": 500,
+  "size": 2531,
+  "ct": "text/html; charset=utf-8",
+  "raw": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>",
+  "tags": [
+   "HTTP500"
+  ]
+ },
+ "id27_feedbacks": {
+  "status": 500,
+  "size": 2310,
+  "ct": "text/html; charset=utf-8",
+  "raw": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;captchaId&quot; has invalid &quot;undefined&quot; value</title>\n  ",
+  "tags": [
+   "HTTP500"
+  ]
+ },
+ "id97_metrics": {
+  "status": 200,
+  "size": 26167,
+  "ct": "text/plain; version=0.0.4; charset=utf-8",
+  "raw": "# HELP juiceshop_llm_input_tokens_total Number of total input tokens processed\n# TYPE juiceshop_llm_input_tokens_total counter\njuiceshop_llm_input_tok",
+  "tags": [
+   ""
+  ]
+ },
+ "enum_known": {
+  "status": 200,
+  "size": 139,
+  "ct": "application/json; charset=utf-8",
+  "raw": "{\"question\":{\"id\":7,\"question\":\"Name of your favorite pet?\",\"createdAt\":\"2026-10-05T07:05:38.073Z\",\"updatedAt\":\"2026-10-05T07:05:38.073Z\"}}",
+  "tags": [
+   ""
+  ]
+ },
+ "enum_fake": {
+  "status": 200,
+  "size": 2,
+  "ct": "application/json; charset=utf-8",
+  "raw": "{}",
+  "tags": [
+   ""
+  ]
+ },
+ "memories": {
+  "status": 200,
+  "size": 6183,
+  "ct": "application/json; charset=utf-8",
+  "raw": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"\ud83d\ude3c #zatschi #whoneedsfourlegs\",\"imagePath\":\"assets/public/images/uploads/\u14da\u160f\u15e2-#zatsc",
+  "tags": [
+   ""
+  ]
+ },
+ "captcha": {
+  "status": 200,
+  "size": 47,
+  "ct": "application/json; charset=utf-8",
+  "raw": "{\"captchaId\":10,\"captcha\":\"4*1-4\",\"answer\":\"0\"}",
+  "tags": [
+   ""
+  ]
+ },
+ "sa_post": {
+  "status": 201,
+  "size": 169,
+  "ct": "application/json; charset=utf-8",
+  "raw": "{\"status\":\"success\",\"data\":{\"id\":29,\"updatedAt\":\"2026-10-05T07:13:55.286Z\",\"createdAt\":\"2026-10-05T07:13:55.286Z\",\"UserId\":null,\"SecurityQuestionId\":n",
+  "tags": [
+   ""
+  ]
+ },
+ "sa_get": {
+  "status": 401,
+  "size": 972,
+  "ct": "text/html; charset=utf-8",
+  "raw": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padd",
+  "tags": [
+   "HTTP401"
+  ]
+ },
+ "put_prod": {
+  "status": 200,
+  "size": 235,
+  "ct": "application/json; charset=utf-8",
+  "raw": "{\"status\":\"success\",\"data\":{\"id\":1,\"name\":\"x\",\"description\":\"The all-time classic.\",\"price\":1,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\"",
+  "tags": [
+   ""
+  ]
+ }
+}
