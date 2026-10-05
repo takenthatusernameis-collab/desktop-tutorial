@@ -206,6 +206,63 @@ def test_evolution_parent_carry_forward(tmp: Path):
     ), "generation 2 did not mutate from the selected parent"
 
 
+def test_cross_session_program_progression(tmp: Path):
+    program = sample_program()
+    state = tmp / "controller"
+    rp.write_json(state / rp.PROGRAM, program)
+
+    original_transport = rp.perform_request
+
+    def fake_transport(_target, req):
+        query = req["query"].get("q", [""])[0]
+        body_sha = "baseline" if query == "alpha" else "mutated"
+        return {
+            "status": 200,
+            "body_sha256": body_sha,
+            "content_type": "text/plain",
+            "body_length": len(body_sha),
+            "location": "",
+            "error": None,
+        }
+
+    rp.perform_request = fake_transport
+    try:
+        first_rc = rp.run_pre_kilo(
+            "resumed",
+            "b1",
+            "http://lab-mutator:3000",
+            state,
+        )
+        assert first_rc == 0
+        first_program = rp.load_json(state / rp.PROGRAM)
+        assert first_program["evolution_families"][0]["generation"] > 1
+        assert first_program["evolution_families"][0]["best_candidates"]
+
+        first_runtime = rp.load_json(state / rp.RUNTIME)
+        first_generation = first_runtime["families"]["family-a"]["last_executed_generation"]
+
+        second_rc = rp.run_pre_kilo(
+            "resumed",
+            "b1",
+            "http://lab-mutator:3000",
+            state,
+        )
+        assert second_rc == 0
+
+        second_program = rp.load_json(state / rp.PROGRAM)
+        second_runtime = rp.load_json(state / rp.RUNTIME)
+        second_generation = second_runtime["families"]["family-a"]["last_executed_generation"]
+
+        assert second_generation > first_generation
+        assert second_program["evolution_families"][0]["generation"] > first_program["evolution_families"][0]["generation"]
+        assert not (state / "DISCOVERY_REQUIRED.json").exists(), (
+            "a durable research program must not regress to bootstrap state "
+            "once a prior activation has executed it"
+        )
+    finally:
+        rp.perform_request = original_transport
+
+
 def test_generation_receipts(tmp: Path):
     program = sample_program()
     rp.write_json(tmp / rp.PROGRAM, program)
@@ -244,6 +301,7 @@ def main():
         test_new_and_bootstrap(root / "a")
         test_portfolio_compiler_and_continuity(root / "b")
         test_generation_receipts(root / "c")
+        test_cross_session_program_progression(root / "e")
         test_evolution_parent_carry_forward(root / "d")
     print("research program tests: PASS")
 
