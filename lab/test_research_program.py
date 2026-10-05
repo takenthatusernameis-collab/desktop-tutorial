@@ -2,6 +2,7 @@
 """Deterministic tests for the research-program controller."""
 
 import json
+import sys
 import tempfile
 from pathlib import Path
 
@@ -274,6 +275,53 @@ def test_cross_session_program_progression(tmp: Path):
     final_program = rp.load_json(state / rp.PROGRAM)
     assert final_program["evolution_families"][0]["generation"] == 2
 
+
+def test_post_kilo_execution_regression(tmp: Path):
+    """Exercise the trusted post-Kilo validator against a real deterministic G1->G2 evolution."""
+    program = sample_program()
+    state = tmp / "state"
+    snapshot = tmp / "snapshot"
+    state.mkdir(parents=True, exist_ok=True)
+    snapshot.mkdir(parents=True, exist_ok=True)
+
+    rp.write_json(state / rp.PROGRAM, program)
+    rp.write_json(snapshot / rp.PROGRAM, program)
+
+    family = json.loads(json.dumps(program["evolution_families"][0]))
+
+    def fake_transport(_target, req):
+        query = req["query"].get("q", [""])[0]
+        body_sha = "baseline" if query == "alpha" else "mutated"
+        return {
+            "status": 200,
+            "body_sha256": body_sha,
+            "content_type": "text/plain",
+            "body_length": len(body_sha),
+            "location": "",
+            "error": None,
+        }
+
+    first = rp.execute_generation(
+        tmp / "execution",
+        "http://lab-mutator:3000",
+        family,
+        1,
+        8,
+        transport=fake_transport,
+    )
+    assert first["actual_execution"] is True
+    assert first["promising_candidates"], "deterministic G1 produced no retained parent"
+
+    evolved = json.loads(json.dumps(program))
+    evolved_family = evolved["evolution_families"][0]
+    evolved_family["best_candidates"] = first["promising_candidates"]
+    evolved_family["generation"] = 2
+    rp.write_json(state / rp.PROGRAM, evolved)
+
+    assert (
+        rp.post_kilo("resumed", "b1", state, snapshot) == 0
+    ), "post-Kilo validation rejected deterministic evolved PROGRAM.json"
+
 def test_generation_receipts(tmp: Path):
     program = sample_program()
     rp.write_json(tmp / rp.PROGRAM, program)
@@ -309,11 +357,16 @@ def test_generation_receipts(tmp: Path):
 def main():
     with tempfile.TemporaryDirectory() as temp:
         root = Path(temp)
+        if len(sys.argv) > 1 and sys.argv[1] == "--post-kilo-regression":
+            test_post_kilo_execution_regression(root / "post-kilo")
+            print("post-Kilo execution regression: PASS")
+            return
         test_new_and_bootstrap(root / "a")
         test_portfolio_compiler_and_continuity(root / "b")
         test_generation_receipts(root / "c")
         test_cross_session_program_progression(root / "e")
         test_evolution_parent_carry_forward(root / "d")
+        test_post_kilo_execution_regression(root / "post-kilo")
     print("research program tests: PASS")
 
 

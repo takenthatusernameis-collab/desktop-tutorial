@@ -480,6 +480,12 @@ jobs:
           test -f "$SMOKE_DIR/kilo-smoke-sentinel.txt"
           test "$(cat "$SMOKE_DIR/kilo-smoke-sentinel.txt")" = "KILO_SMOKE_OK"
           echo "Real Kilo execution-path smoke test passed."
+      - name: Deterministic post-Kilo execution regression
+        id: post_kilo_regression
+        if: steps.kilo_smoke.outcome == 'success'
+        run: |
+          set -euo pipefail
+          python3 lab/test_research_program.py --post-kilo-regression
       - name: Run isolated Kilo worker
         if: steps.preflight.outcome == 'success' && steps.kilo_smoke.outcome == 'success'
         id: kilo
