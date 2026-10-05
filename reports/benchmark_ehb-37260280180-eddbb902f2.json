@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated raw SQL / stack-trace error exposure via GET /rest/user/security-question (errorHandlingChallenge, id=27)",
+      "title": "Raw, non-graceful errors are not consistently handled (errorHandlingChallenge, id=27): representation-dependent error bodies and independent TypeError trigger",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated Prometheus observability endpoint exposing AI/LLM usage counters and application state (exposedMetricsChallenge, id=97)",
+      "title": "Unauthenticated Prometheus-style observability endpoint exposing usage counters (exposedMetricsChallenge, id=97): llm_* and challenges_solved gauges scraped without authorization",
       "valid_reproduction": false
     }
   ],
