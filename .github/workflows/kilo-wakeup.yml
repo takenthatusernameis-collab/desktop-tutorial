@@ -606,9 +606,20 @@ jobs:
       - name: Verify durable research-program handoff
         id: research_handoff
         if: always()
+        env:
+          KILO_OUTCOME: ${{ steps.kilo.outcome }}
         run: |
           set -euo pipefail
           if [ "${BENCHMARK_CAMPAIGN_MODE:-}" != "resumed" ]; then
+            echo "RESEARCH_HANDOFF=NOT_APPLICABLE"
+            exit 0
+          fi
+
+          # A failed worker may legitimately have no PROGRAM_PROPOSAL.json.
+          # The worker outcome is classified separately by the deterministic
+          # reporter; do not turn worker failure into a synthetic handoff failure.
+          if [ "${KILO_OUTCOME:-failure}" != "success" ]; then
+            echo "Kilo worker did not complete successfully; durable research-program handoff validation is not required for this activation."
             echo "RESEARCH_HANDOFF=NOT_APPLICABLE"
             exit 0
           fi
