@@ -191,6 +191,21 @@ Failure protocol:
 - Do not wait for the supervisor to solve worker-local problems.
 - Hand off only when a blocker genuinely exceeds your tools, authority, time boundary, or safety constraints.
 
+## Anti-error-amplification reminder
+
+Keep these reminders active throughout the entire session. They are guidance for improving the next move, **not attempt limits, failure gates, or reasons to terminate useful work**.
+
+- Prefer existing tested framework primitives before inventing new algorithms, containers, abstractions, or vectorization.
+- Establish the smallest useful reference case before scaling or optimizing.
+- Verify indexing, shapes, assumptions, and invariants on the reference case before adding complexity.
+- Do not repeat the same failed invocation or implementation approach without first identifying what changed and why the new attempt should work.
+- When repeated substantive errors occur in the same component, pause and reassess the abstraction; consider returning to the simplest known-good path before the next repair.
+- An error is information about the current approach, not merely a prompt to add another patch.
+- After an indexing or shape error, explicitly identify the intended coordinate systems and shapes before modifying the code.
+- Prefer a smaller verified result over increasingly elaborate unverified work, while continuing whenever additional work can produce trustworthy new information.
+- Before substantial optimization, compare the optimized path with a minimal reference path on the same bounded case.
+- Do not abandon useful work merely because recovery or simplification is needed; the purpose is to improve the next move, not to impose a shot count.
+
 Research integrity:
 - Do not invent target behavior, evidence, severity, timestamps, reproduction steps, or remediation impact.
 - Do not change acceptance criteria, scope, or test conditions merely to obtain a positive result.
