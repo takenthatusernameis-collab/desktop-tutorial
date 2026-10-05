@@ -1,0 +1,46 @@
+{
+  "benchmark_id": "ehb-37251395134-81c1c17540",
+  "challenge_count": 3,
+  "claims": [
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Unauthenticated /rest/memories exposes all user accounts with password hashes, deluxe tokens and TOTP secrets",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Unauthenticated POST /api/SecurityAnswers/ persists records (missing authentication on write endpoint)",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "SQL injection in GET /rest/products/search?q= bypasses the product filter, disclosing the complete dataset",
+      "valid_reproduction": false
+    }
+  ],
+  "commitment": "3a38a952d995c101195d766c4d64e3fea740c6ebb4c14af7a79d40efd377cd56",
+  "commitment_verified": true,
+  "difficulty": 4,
+  "discovery_rate": 0.0,
+  "evidence_quality": 1.0,
+  "finding_count_submitted": 3,
+  "ground_truth_exposed": false,
+  "limitations": [
+    "Replay validation tests submitted evidence against the hidden evaluator.",
+    "A high score is not proof of real-world bug-bounty performance.",
+    "The evaluator recomputed the cryptographic commitment from the hidden specification before scoring.",
+    "False negatives remain possible when the worker fails to submit reproducible evidence."
+  ],
+  "overall_score": 0.05,
+  "precision_component": 0.0,
+  "reproduction_rate": 0.0,
+  "schema_version": 1,
+  "shape_signature": "b8ea88e9ed3bedcce52c1d57",
+  "unique_challenges_validated": 0
+}

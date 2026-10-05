@@ -1,0 +1,1304 @@
+{
+  "campaign_started": "2026-10-05T01:29:04.647980Z",
+  "target": "http://lab-mutator:3000",
+  "baseline": {
+    "probe_at": "2026-10-05T01:29:04.648006Z",
+    "method": "GET",
+    "paths": {
+      "/": {
+        "GET": {
+          "status": 200,
+          "length": 9393,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.\n  ~ SPDX-License-Identifier: MIT\n  -->\n\n<!doctype html>\n<html lang=\"en\" data-beasties-container>\n<head>\n  <meta charset=\"utf-8\">\n  <title>OWASP Juice Shop</title>\n  <meta name=\"description\" content=\"Probably the most modern and sophisticated insecure web application\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n  <link rel"
+        }
+      },
+      "/robots.txt": {
+        "GET": {
+          "status": 200,
+          "length": 28,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "User-agent: *\nDisallow: /ftp"
+        }
+      },
+      "/sitemap.xml": {
+        "GET": {
+          "status": 200,
+          "length": 9393,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.\n  ~ SPDX-License-Identifier: MIT\n  -->\n\n<!doctype html>\n<html lang=\"en\" data-beasties-container>\n<head>\n  <meta charset=\"utf-8\">\n  <title>OWASP Juice Shop</title>\n  <meta name=\"description\" content=\"Probably the most modern and sophisticated insecure web application\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n  <link rel"
+        }
+      },
+      "/rest/memories": {
+        "GET": {
+          "status": 200,
+          "length": 6183,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"\ud83d\ude3c #zatschi #whoneedsfourlegs\",\"imagePath\":\"assets/public/images/uploads/\u14da\u160f\u15e2-#zatschi-#whoneedsfourlegs-1572600969477.jpg\",\"createdAt\":\"2026-10-05T01:26:42.702Z\",\"updatedAt\":\"2026-10-05T01:26:42.702Z\",\"User\":{\"id\":13,\"username\":\"\",\"email\":\"bjoern@owasp.org\",\"password\":\"9283f1b2e9669749081963be0462e466\",\"role\":\"deluxe\",\"deluxeToken\":\"efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4\",\"lastLoginIp\":\"\",\"profileImage\":\"assets/p"
+        }
+      },
+      "/rest/captcha": {
+        "GET": {
+          "status": 200,
+          "length": 47,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"captchaId\":9,\"captcha\":\"9+7+2\",\"answer\":\"18\"}"
+        }
+      },
+      "/rest/user/whoami": {
+        "GET": {
+          "status": 200,
+          "length": 11,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"user\":{}}"
+        }
+      },
+      "/rest/wallet/balance": {
+        "GET": {
+          "status": 401,
+          "length": 83,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}"
+        }
+      },
+      "/rest/basket": {
+        "GET": {
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/rest/products/search": {
+        "GET": {
+          "status": 200,
+          "length": 16563,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 01:26:42.348 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.348 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":"
+        }
+      },
+      "/api/Challenges/": {
+        "GET": {
+          "status": 200,
+          "length": 67663,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"key\":\"passwordHashLeakChallenge\",\"name\":\"Password Hash Leak\",\"category\":\"Sensitive Data Exposure\",\"tags\":null,\"description\":\"Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint.\",\"difficulty\":2,\"mitigationUrl\":\"https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure\",\"solved\":false,\"disabledEnv\":null,\"tutorialOrder\":null,\"codingChallengeStatus\":0,\"hasCodingChallenge\":false,\"createdAt\":\"2026-10-05T0"
+        }
+      },
+      "/api/SecurityAnswers/": {
+        "GET": {
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/api/Feedbacks/": {
+        "GET": {
+          "status": 200,
+          "length": 1734,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"success\",\"data\":[{\"UserId\":1,\"id\":1,\"comment\":\"I love this shop! Best products in town! Highly recommended! (***in@juice-sh.op)\",\"rating\":5,\"createdAt\":\"2026-10-05T01:26:41.890Z\",\"updatedAt\":\"2026-10-05T01:26:41.890Z\"},{\"UserId\":2,\"id\":2,\"comment\":\"Great shop! Awesome service! (***@juice-sh.op)\",\"rating\":4,\"createdAt\":\"2026-10-05T01:26:41.892Z\",\"updatedAt\":\"2026-10-05T01:26:41.892Z\"},{\"UserId\":3,\"id\":3,\"comment\":\"Nothing useful available here! (***der@juice-sh.op)\",\"rating\":1,\"created"
+        }
+      },
+      "/rest/web3/nftUnlocked": {
+        "GET": {
+          "status": 200,
+          "length": 16,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":false}"
+        }
+      },
+      "/rest/user/security-question?email=test@example.com": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{}"
+        }
+      },
+      "/rest/user/login": {
+        "GET": {
+          "status": 500,
+          "length": 2432,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/user/login</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n"
+        }
+      },
+      "/rest/chat": {
+        "GET": {
+          "status": 500,
+          "length": 2420,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/chat</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font"
+        }
+      },
+      "/rest/order-history": {
+        "GET": {
+          "status": 500,
+          "length": 2457,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Blocked illegal activity by ::ffff:172.18.0.3</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/rest/deluxe-membership": {
+        "GET": {
+          "status": 400,
+          "length": 72,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"error\",\"error\":\"You are not eligible for deluxe membership!\"}"
+        }
+      },
+      "/redirect": {
+        "GET": {
+          "status": 500,
+          "length": 2531,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-"
+        }
+      },
+      "/redirect?continue=http://example.com": {
+        "GET": {
+          "status": 500,
+          "length": 2531,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-"
+        }
+      },
+      "/rest/languages": {
+        "GET": {
+          "status": 200,
+          "length": 4215,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "[{\"key\":\"az_AZ\",\"lang\":\"Az\u0259rbaycanca\",\"icons\":[\"az\"],\"shortKey\":\"AZ\",\"percentage\":38,\"gauge\":\"quarter\"},{\"key\":\"id_ID\",\"lang\":\"Bahasa Indonesia\",\"icons\":[\"id\"],\"shortKey\":\"ID\",\"percentage\":14,\"gauge\":\"empty\"},{\"key\":\"ca_ES\",\"lang\":\"Catalan\",\"icons\":[\"es-ct\"],\"shortKey\":\"CA\",\"percentage\":8,\"gauge\":\"empty\"},{\"key\":\"cs_CZ\",\"lang\":\"\u010cesky\",\"icons\":[\"cz\"],\"shortKey\":\"CS\",\"percentage\":39,\"gauge\":\"quarter\"},{\"key\":\"da_DK\",\"lang\":\"Dansk\",\"icons\":[\"dk\"],\"shortKey\":\"DA\",\"percentage\":56,\"gauge\":\"half\"},{\"ke"
+        }
+      },
+      "/rest/repeat-notification": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "OK"
+        }
+      },
+      "/rest/country-mapping": {
+        "GET": {
+          "status": 500,
+          "length": 0,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": ""
+        }
+      },
+      "/api/Complaints/": {
+        "GET": {
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/api/Cards/": {
+        "GET": {
+          "status": 401,
+          "length": 83,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}"
+        }
+      },
+      "/api/Addresss/": {
+        "GET": {
+          "status": 401,
+          "length": 83,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}"
+        }
+      },
+      "/rest/continue-code-findIt": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{}"
+        }
+      },
+      "/rest/continue-code-findIt?continueCode=123": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{}"
+        }
+      },
+      "/rest/2fa/status": {
+        "GET": {
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/rest/2fa/setup": {
+        "GET": {
+          "status": 500,
+          "length": 2430,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/2fa/setup</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n "
+        }
+      },
+      "/rest/2fa/verify": {
+        "GET": {
+          "status": 500,
+          "length": 2432,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/2fa/verify</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n"
+        }
+      },
+      "/rest/2fa/disable": {
+        "GET": {
+          "status": 500,
+          "length": 2434,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/2fa/disable</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {"
+        }
+      }
+    }
+  },
+  "methodsweep": {
+    "probe_at": "2026-10-05T01:29:05.095248Z",
+    "method": "GET",
+    "paths": {
+      "/rest/memories": {
+        "GET": {
+          "status": 200,
+          "length": 6183,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"\ud83d\ude3c #zatschi #whoneedsfourlegs\",\"imagePath\":\"assets/public/images/uploads/\u14da\u160f\u15e2-#zatschi-#whoneedsfourlegs-1572600969477.jpg\",\"createdAt\":\"2026-10-05T01:26:42.702Z\",\"updatedAt\":\"2026-10-05T01:26:42.702Z\",\"User\":{\"id\":13,\"username\":\"\",\"email\":\"bjoern@owasp.org\",\"password\":\"9283f1b2e9669749081963be0462e466\",\"role\":\"deluxe\",\"deluxeToken\":\"efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4\",\"lastLoginIp\":\"\",\"profileImage\":\"assets/p"
+        }
+      },
+      "/rest/captcha": {
+        "GET": {
+          "status": 200,
+          "length": 48,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"captchaId\":10,\"captcha\":\"4+5+7\",\"answer\":\"16\"}"
+        }
+      },
+      "/rest/products/search": {
+        "GET": {
+          "status": 200,
+          "length": 16563,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 01:26:42.348 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.348 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":"
+        }
+      },
+      "/rest/products/search?q=Apple": {
+        "GET": {
+          "status": 200,
+          "length": 921,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 01:26:42.348 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.348 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":"
+        }
+      },
+      "/rest/user/whoami": {
+        "GET": {
+          "status": 200,
+          "length": 11,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"user\":{}}"
+        }
+      },
+      "/rest/user/authentication-details": {
+        "GET": {
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/rest/user/basket": {
+        "GET": {
+          "status": 500,
+          "length": 2434,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/user/basket</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {"
+        }
+      },
+      "/rest/user/addresses": {
+        "GET": {
+          "status": 500,
+          "length": 2440,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/user/addresses</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h"
+        }
+      },
+      "/rest/user/security-question?email=admin@owasp.org": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{}"
+        }
+      },
+      "/rest/user/security-question?email=": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{}"
+        }
+      },
+      "/rest/user/change-password": {
+        "GET": {
+          "status": 401,
+          "length": 25,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "Password cannot be empty."
+        }
+      },
+      "/rest/admin": {
+        "GET": {
+          "status": 500,
+          "length": 2422,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/admin</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  fon"
+        }
+      },
+      "/rest/order-history": {
+        "GET": {
+          "status": 500,
+          "length": 2457,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Blocked illegal activity by ::ffff:172.18.0.3</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/rest/web3/nftUnlocked": {
+        "GET": {
+          "status": 200,
+          "length": 16,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":false}"
+        }
+      },
+      "/rest/web3/submitKey": {
+        "GET": {
+          "status": 500,
+          "length": 2440,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/web3/submitKey</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h"
+        }
+      },
+      "/rest/deluxe-membership": {
+        "GET": {
+          "status": 400,
+          "length": 72,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"error\",\"error\":\"You are not eligible for deluxe membership!\"}"
+        }
+      },
+      "/rest/continue-code-findIt": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{}"
+        }
+      },
+      "/rest/continue-code-findIt?apply": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{}"
+        }
+      },
+      "/rest/continue-code-fixIt": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{}"
+        }
+      },
+      "/rest/continue-code-fixIt?apply": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{}"
+        }
+      },
+      "/rest/continue-code/apply/abc123": {
+        "GET": {
+          "status": 500,
+          "length": 2464,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/continue-code/apply/abc123</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialia"
+        }
+      },
+      "/rest/chat": {
+        "GET": {
+          "status": 500,
+          "length": 2420,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/chat</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font"
+        }
+      },
+      "/rest/2fa/status": {
+        "GET": {
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/rest/2fa/setup": {
+        "GET": {
+          "status": 500,
+          "length": 2430,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/2fa/setup</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n "
+        }
+      },
+      "/rest/2fa/verify": {
+        "GET": {
+          "status": 500,
+          "length": 2432,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/2fa/verify</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n"
+        }
+      },
+      "/rest/2fa/disable": {
+        "GET": {
+          "status": 500,
+          "length": 2434,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/2fa/disable</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {"
+        }
+      },
+      "/rest/languages": {
+        "GET": {
+          "status": 200,
+          "length": 4215,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "[{\"key\":\"az_AZ\",\"lang\":\"Az\u0259rbaycanca\",\"icons\":[\"az\"],\"shortKey\":\"AZ\",\"percentage\":38,\"gauge\":\"quarter\"},{\"key\":\"id_ID\",\"lang\":\"Bahasa Indonesia\",\"icons\":[\"id\"],\"shortKey\":\"ID\",\"percentage\":14,\"gauge\":\"empty\"},{\"key\":\"ca_ES\",\"lang\":\"Catalan\",\"icons\":[\"es-ct\"],\"shortKey\":\"CA\",\"percentage\":8,\"gauge\":\"empty\"},{\"key\":\"cs_CZ\",\"lang\":\"\u010cesky\",\"icons\":[\"cz\"],\"shortKey\":\"CS\",\"percentage\":39,\"gauge\":\"quarter\"},{\"key\":\"da_DK\",\"lang\":\"Dansk\",\"icons\":[\"dk\"],\"shortKey\":\"DA\",\"percentage\":56,\"gauge\":\"half\"},{\"ke"
+        }
+      },
+      "/rest/repeat-notification": {
+        "GET": {
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "OK"
+        }
+      },
+      "/rest/country-mapping": {
+        "GET": {
+          "status": 500,
+          "length": 0,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": ""
+        }
+      },
+      "/api/Feedbacks/": {
+        "GET": {
+          "status": 200,
+          "length": 1734,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"success\",\"data\":[{\"UserId\":1,\"id\":1,\"comment\":\"I love this shop! Best products in town! Highly recommended! (***in@juice-sh.op)\",\"rating\":5,\"createdAt\":\"2026-10-05T01:26:41.890Z\",\"updatedAt\":\"2026-10-05T01:26:41.890Z\"},{\"UserId\":2,\"id\":2,\"comment\":\"Great shop! Awesome service! (***@juice-sh.op)\",\"rating\":4,\"createdAt\":\"2026-10-05T01:26:41.892Z\",\"updatedAt\":\"2026-10-05T01:26:41.892Z\"},{\"UserId\":3,\"id\":3,\"comment\":\"Nothing useful available here! (***der@juice-sh.op)\",\"rating\":1,\"created"
+        }
+      },
+      "/api/Challenges/": {
+        "GET": {
+          "status": 200,
+          "length": 67663,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"key\":\"passwordHashLeakChallenge\",\"name\":\"Password Hash Leak\",\"category\":\"Sensitive Data Exposure\",\"tags\":null,\"description\":\"Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint.\",\"difficulty\":2,\"mitigationUrl\":\"https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure\",\"solved\":false,\"disabledEnv\":null,\"tutorialOrder\":null,\"codingChallengeStatus\":0,\"hasCodingChallenge\":false,\"createdAt\":\"2026-10-05T0"
+        }
+      },
+      "/api/SecurityAnswers/": {
+        "GET": {
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/api/Complaints/": {
+        "GET": {
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;"
+        }
+      },
+      "/api/Cards/": {
+        "GET": {
+          "status": 401,
+          "length": 83,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}"
+        }
+      },
+      "/api/Addresss/": {
+        "GET": {
+          "status": 401,
+          "length": 83,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}"
+        }
+      },
+      "/api/Memories/": {
+        "GET": {
+          "status": 500,
+          "length": 2428,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /api/Memories/</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  "
+        }
+      },
+      "/rest/nft/1": {
+        "GET": {
+          "status": 500,
+          "length": 2422,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/nft/1</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  fon"
+        }
+      },
+      "/rest/nft/collect": {
+        "GET": {
+          "status": 500,
+          "length": 2434,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/nft/collect</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {"
+        }
+      },
+      "/redirect": {
+        "GET": {
+          "status": 500,
+          "length": 2531,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-"
+        }
+      },
+      "/redirect?continue=http://127.0.0.1:22": {
+        "GET": {
+          "status": 500,
+          "length": 2531,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-"
+        }
+      }
+    }
+  },
+  "differentials": [
+    {
+      "label": "D1_captcha_leak_vs_submission",
+      "at": "2026-10-05T01:29:05.713675Z",
+      "cases": [
+        {
+          "name": "captcha_leaked_answer",
+          "status": 200,
+          "length": 47,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"captchaId\":12,\"captcha\":\"8*1-3\",\"answer\":\"5\"}",
+          "exc": null
+        },
+        {
+          "name": "feedback_wrong_answer",
+          "status": 401,
+          "length": 42,
+          "cors": "*",
+          "allow": "",
+          "body": "Wrong answer to CAPTCHA. Please try again.",
+          "exc": null
+        },
+        {
+          "name": "feedback_correct_answer",
+          "status": 401,
+          "length": 42,
+          "cors": "*",
+          "allow": "",
+          "body": "Wrong answer to CAPTCHA. Please try again.",
+          "exc": null
+        },
+        {
+          "name": "feedback_no_captcha",
+          "status": 500,
+          "length": 2310,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;captchaId&quot; has invalid &quot;undefined&quot; value</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li ",
+          "exc": null
+        }
+      ]
+    },
+    {
+      "label": "D2_memories_public_vs_controls",
+      "at": "2026-10-05T01:29:05.771445Z",
+      "cases": [
+        {
+          "name": "GET_memories",
+          "status": 200,
+          "length": 6183,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"\ud83d\ude3c #zatschi #whoneedsfourlegs\",\"imagePath\":\"assets/public/images/uploads/\u14da\u160f\u15e2-#zatschi-#whoneedsfourlegs-1572600969477.jpg\",\"createdAt\":\"2026-10-05T01:26:42.702Z\",\"updatedAt\":\"2026-10-05T01:26:42.702Z\",\"User\":{\"id\":13,\"username\":\"\",\"email\":\"bjoern@owasp.org\",\"password\":\"9283f1b2e9669749081963be0462e466\",\"role\":\"deluxe\",\"deluxeToken\":\"efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4\",\"lastLoginIp\":\"\",\"profileImage\":\"assets/public/images/uploads/13.jpg\",\"totpSecret\":\"\",\"isActive\":true,\"createdAt\":\"2026-10-05T01:26:41.841Z\",\"updatedAt\":\"2026-10-05T01:26:41.841Z\",\"deletedAt\":null}},{\"UserId\":4,\"id\":2,\"caption\":\"Magn(et)ific",
+          "exc": null
+        },
+        {
+          "name": "GET_memories_with_fake_auth",
+          "status": 200,
+          "length": 6183,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"\ud83d\ude3c #zatschi #whoneedsfourlegs\",\"imagePath\":\"assets/public/images/uploads/\u14da\u160f\u15e2-#zatschi-#whoneedsfourlegs-1572600969477.jpg\",\"createdAt\":\"2026-10-05T01:26:42.702Z\",\"updatedAt\":\"2026-10-05T01:26:42.702Z\",\"User\":{\"id\":13,\"username\":\"\",\"email\":\"bjoern@owasp.org\",\"password\":\"9283f1b2e9669749081963be0462e466\",\"role\":\"deluxe\",\"deluxeToken\":\"efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4\",\"lastLoginIp\":\"\",\"profileImage\":\"assets/public/images/uploads/13.jpg\",\"totpSecret\":\"\",\"isActive\":true,\"createdAt\":\"2026-10-05T01:26:41.841Z\",\"updatedAt\":\"2026-10-05T01:26:41.841Z\",\"deletedAt\":null}},{\"UserId\":4,\"id\":2,\"caption\":\"Magn(et)ific",
+          "exc": null
+        },
+        {
+          "name": "GET_wallet_balance",
+          "status": 401,
+          "length": 83,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}",
+          "exc": null
+        },
+        {
+          "name": "GET_user_authentication_details",
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#stacktr",
+          "exc": null
+        },
+        {
+          "name": "GET_basket",
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#stacktr",
+          "exc": null
+        },
+        {
+          "name": "GET_user_security_question",
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "body": "{}",
+          "exc": null
+        }
+      ]
+    },
+    {
+      "label": "D3_securityAnswers_write_gap",
+      "at": "2026-10-05T01:29:05.838927Z",
+      "cases": [
+        {
+          "name": "GET_401",
+          "status": 401,
+          "length": 972,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#stacktr",
+          "exc": null
+        },
+        {
+          "name": "POST_no_auth",
+          "status": 201,
+          "length": 231,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":{\"id\":33,\"answer\":\"9e6b6829380355c0768f69a28e8e0ca6a724bb7353d3168ef30f4ebabdb255b5\",\"updatedAt\":\"2026-10-05T01:29:05.850Z\",\"createdAt\":\"2026-10-05T01:29:05.850Z\",\"UserId\":null,\"SecurityQuestionId\":null}}",
+          "exc": null
+        },
+        {
+          "name": "POST_no_auth_v2",
+          "status": 201,
+          "length": 231,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":{\"id\":34,\"answer\":\"2654cc8c3f0ef9353e20ae8a1641f48a2ea1b61c4ac49cc648675a9ec1185824\",\"updatedAt\":\"2026-10-05T01:29:05.868Z\",\"createdAt\":\"2026-10-05T01:29:05.868Z\",\"UserId\":null,\"SecurityQuestionId\":null}}",
+          "exc": null
+        },
+        {
+          "name": "POST_empty_object",
+          "status": 201,
+          "length": 169,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":{\"id\":35,\"updatedAt\":\"2026-10-05T01:29:05.885Z\",\"createdAt\":\"2026-10-05T01:29:05.885Z\",\"UserId\":null,\"SecurityQuestionId\":null,\"answer\":null}}",
+          "exc": null
+        },
+        {
+          "name": "POST_very_empty",
+          "status": 201,
+          "length": 169,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":{\"id\":36,\"updatedAt\":\"2026-10-05T01:29:05.902Z\",\"createdAt\":\"2026-10-05T01:29:05.902Z\",\"UserId\":null,\"SecurityQuestionId\":null,\"answer\":null}}",
+          "exc": null
+        },
+        {
+          "name": "POST_missing_fields",
+          "status": 201,
+          "length": 231,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":{\"id\":37,\"answer\":\"5ce8f36e03eb4c417a0ffd2475c13c2f611dd6bfa059766b0fd1bb02d8fda3ae\",\"updatedAt\":\"2026-10-05T01:29:05.919Z\",\"createdAt\":\"2026-10-05T01:29:05.919Z\",\"UserId\":null,\"SecurityQuestionId\":null}}",
+          "exc": null
+        }
+      ]
+    },
+    {
+      "label": "D4_products_search_param_mutation",
+      "at": "2026-10-05T01:29:05.930552Z",
+      "cases": [
+        {
+          "name": "GET_no_param",
+          "status": 200,
+          "length": 16563,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 01:26:42.348 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.348 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":\"apple_pressings.jpg\",\"createdAt\":\"2026-10-05 01:26:42.354 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.354 +00:00\",\"deletedAt\":null},{\"id\":6,\"name\":\"Banana Juice (1000ml)\",\"description\":\"Monkeys love it ",
+          "exc": null
+        },
+        {
+          "name": "GET_q=Apple",
+          "status": 200,
+          "length": 921,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 01:26:42.348 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.348 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":\"apple_pressings.jpg\",\"createdAt\":\"2026-10-05 01:26:42.354 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.354 +00:00\",\"deletedAt\":null},{\"id\":47,\"name\":\"Pineapple Juice (1000ml)\",\"description\":\"Tropical ref",
+          "exc": null
+        },
+        {
+          "name": "GET_q=",
+          "status": 200,
+          "length": 16563,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 01:26:42.348 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.348 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":\"apple_pressings.jpg\",\"createdAt\":\"2026-10-05 01:26:42.354 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.354 +00:00\",\"deletedAt\":null},{\"id\":6,\"name\":\"Banana Juice (1000ml)\",\"description\":\"Monkeys love it ",
+          "exc": null
+        },
+        {
+          "name": "GET_q=test",
+          "status": 200,
+          "length": 517,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":9,\"name\":\"OWASP SSL Advanced Forensic Tool (O-Saft)\",\"description\":\"O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href=\\\"https://www.owasp.org/index.php/O-Saft\\\" target=\\\"_blank\\\">More...</a>\",\"price\":0.01,\"deluxePrice\":0.01,\"image\":\"orange_juice.jpg\",\"createdAt\":\"2026-10-05 01:26:42.351 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.351 +00:00\",\"deletedAt\":null}]}",
+          "exc": null
+        },
+        {
+          "name": "GET_q_unsafe_singlequote",
+          "status": 200,
+          "length": 30,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[]}",
+          "exc": null
+        },
+        {
+          "name": "GET_q_or_tautology",
+          "status": 200,
+          "length": 16563,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 01:26:42.348 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.348 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":\"apple_pressings.jpg\",\"createdAt\":\"2026-10-05 01:26:42.354 +00:00\",\"updatedAt\":\"2026-10-05 01:26:42.354 +00:00\",\"deletedAt\":null},{\"id\":6,\"name\":\"Banana Juice (1000ml)\",\"description\":\"Monkeys love it ",
+          "exc": null
+        },
+        {
+          "name": "GET_q_union",
+          "status": 500,
+          "length": 982,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: SQLITE_ERROR: near &quot;UNION&quot;: syntax error</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#st",
+          "exc": null
+        },
+        {
+          "name": "GET_q_drop",
+          "status": 200,
+          "length": 30,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[]}",
+          "exc": null
+        },
+        {
+          "name": "GET_q_nullbyte",
+          "status": 500,
+          "length": 996,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: SQLITE_ERROR: unrecognized token: &quot;&#39;%apple&quot;</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none",
+          "exc": null
+        },
+        {
+          "name": "GET_q_xss",
+          "status": 200,
+          "length": 30,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[]}",
+          "exc": null
+        },
+        {
+          "name": "GET_q_xss_html",
+          "status": 200,
+          "length": 30,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"success\",\"data\":[]}",
+          "exc": null
+        }
+      ]
+    },
+    {
+      "label": "D6_redirect_variants",
+      "at": "2026-10-05T01:29:06.262008Z",
+      "cases": [
+        {
+          "name": "GET_redirect",
+          "status": 500,
+          "length": 2531,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-",
+          "exc": null
+        },
+        {
+          "name": "GET_redirect_continue_example",
+          "status": 500,
+          "length": 2531,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-",
+          "exc": null
+        },
+        {
+          "name": "GET_redirect_continue_local",
+          "status": 500,
+          "length": 2531,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-",
+          "exc": null
+        },
+        {
+          "name": "GET_redirect_continue_blank",
+          "status": 500,
+          "length": 2531,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-",
+          "exc": null
+        }
+      ]
+    },
+    {
+      "label": "D7_order_history_variants",
+      "at": "2026-10-05T01:29:06.287353Z",
+      "cases": [
+        {
+          "name": "GET_order_history",
+          "status": 500,
+          "length": 2457,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Blocked illegal activity by ::ffff:172.18.0.3</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#stacktr",
+          "exc": null
+        },
+        {
+          "name": "GET_order_history_empty",
+          "status": 500,
+          "length": 2457,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Blocked illegal activity by ::ffff:172.18.0.3</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#stacktr",
+          "exc": null
+        }
+      ]
+    },
+    {
+      "label": "D8_deluxe_membership",
+      "at": "2026-10-05T01:29:06.302305Z",
+      "cases": [
+        {
+          "name": "GET_deluxe",
+          "status": 400,
+          "length": 72,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"error\",\"error\":\"You are not eligible for deluxe membership!\"}",
+          "exc": null
+        },
+        {
+          "name": "POST_deluxe_noauth",
+          "status": 401,
+          "length": 83,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}",
+          "exc": null
+        },
+        {
+          "name": "POST_deluxe_credit",
+          "status": 401,
+          "length": 83,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}",
+          "exc": null
+        }
+      ]
+    },
+    {
+      "label": "D9_continue_code_variants",
+      "at": "2026-10-05T01:29:06.321192Z",
+      "cases": [
+        {
+          "name": "GET_continue_findIt",
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "body": "{}",
+          "exc": null
+        },
+        {
+          "name": "GET_continue_fixIt",
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "body": "{}",
+          "exc": null
+        },
+        {
+          "name": "GET_continue_findIt_apply",
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "body": "{}",
+          "exc": null
+        },
+        {
+          "name": "GET_continue_fixIt_apply",
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "body": "{}",
+          "exc": null
+        },
+        {
+          "name": "GET_continue_findIt_code",
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "body": "{}",
+          "exc": null
+        },
+        {
+          "name": "GET_continue_fixIt_code",
+          "status": 200,
+          "length": 2,
+          "cors": "*",
+          "allow": "",
+          "body": "{}",
+          "exc": null
+        },
+        {
+          "name": "GET_continue_apply_path",
+          "status": 500,
+          "length": 2464,
+          "cors": "*",
+          "allow": "",
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/continue-code/apply/abc123</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#sta",
+          "exc": null
+        }
+      ]
+    },
+    {
+      "label": "D10_captchaId_fresh_vs_fresh",
+      "at": "2026-10-05T01:29:06.637664Z",
+      "cases": [
+        {
+          "name": "captcha_first",
+          "status": 200,
+          "length": 47,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"captchaId\":15,\"captcha\":\"7-4-1\",\"answer\":\"2\"}",
+          "exc": null
+        },
+        {
+          "name": "captcha_second",
+          "status": 200,
+          "length": 49,
+          "cors": "*",
+          "allow": "",
+          "body": "{\"captchaId\":16,\"captcha\":\"1-4*7\",\"answer\":\"-27\"}",
+          "exc": null
+        },
+        {
+          "name": "feedback_first_correct",
+          "status": 401,
+          "length": 42,
+          "cors": "*",
+          "allow": "",
+          "body": "Wrong answer to CAPTCHA. Please try again.",
+          "exc": null
+        }
+      ]
+    }
+  ],
+  "web3_get": {
+    "probe_at": "2026-10-05T01:29:06.086277Z",
+    "method": "GET",
+    "paths": {
+      "/rest/web3/nftUnlocked": {
+        "GET": {
+          "status": 200,
+          "length": 16,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"status\":false}"
+        }
+      },
+      "/rest/web3/nft": {
+        "GET": {
+          "status": 500,
+          "length": 2428,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/web3/nft</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  "
+        }
+      },
+      "/rest/web3/mint": {
+        "GET": {
+          "status": 500,
+          "length": 2430,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/web3/mint</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n "
+        }
+      },
+      "/rest/web3/submitKey": {
+        "GET": {
+          "status": 500,
+          "length": 2440,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/web3/submitKey</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h"
+        }
+      },
+      "/rest/web3/wallet": {
+        "GET": {
+          "status": 500,
+          "length": 2434,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/web3/wallet</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {"
+        }
+      }
+    }
+  },
+  "web3_methods": {
+    "paths": {
+      "/rest/web3/submitKey": {
+        "POST": {
+          "status": 401,
+          "length": 566,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "{\"success\":false,\"message\":\"Looks like you entered a non-Ethereum private key to access me.\",\"status\":{\"id\":9,\"key\":\"nftUnlockChallenge\",\"name\":\"NFT Takeover\",\"category\":\"Sensitive Data Exposure\",\"tags\":\"Contraption,Good for Demos,Web3,With Coding Challenge\",\"description\":\"Take over the wallet containing our official Soul Bound Token (NFT).\",\"difficulty\":2,\"solved\":false,\"mitigationUrl\":null,\"disabledEnv\":null,\"tutorialOrder\":null,\"codingChallengeStatus\":0,\"hasCodingChallenge\":true,\"createdAt\":\""
+        },
+        "PUT": {
+          "status": 500,
+          "length": 2440,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/web3/submitKey</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h"
+        },
+        "DELETE": {
+          "status": 500,
+          "length": 2440,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/web3/submitKey</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h"
+        },
+        "PATCH": {
+          "status": 500,
+          "length": 2440,
+          "cors": "*",
+          "allow": "",
+          "exc": null,
+          "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/web3/submitKey</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h"
+        }
+      }
+    }
+  },
+  "challenge_inventory": {
+    "count": 116
+  },
+  "campaign_finished": "2026-10-05T01:29:06.694367Z"
+}
