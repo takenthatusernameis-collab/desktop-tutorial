@@ -1,8 +1,8 @@
 {
   "actual_execution": true,
-  "behavioral_differences": 69,
+  "behavioral_differences": 78,
   "benchmark_id": "ehb-37260280180-eddbb902f2",
-  "candidate_requests": 160,
+  "candidate_requests": 158,
   "compiled_generations": 24,
   "controller_version": "1.0.0",
   "executed_generations": 24,
@@ -22,8 +22,8 @@
     "fam_non_viable_500_monitor",
     "fam_redirect_ssrf_monitor"
   ],
-  "observed_at": "2026-10-05T09:58:56Z",
-  "repeat_reproductions": 63,
+  "observed_at": "2026-10-05T10:20:53Z",
+  "repeat_reproductions": 72,
   "schema_version": "1.0.0",
   "surfaces_represented": [
     "surf_23_memories",
