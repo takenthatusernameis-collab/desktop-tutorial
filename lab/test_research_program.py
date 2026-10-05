@@ -131,7 +131,12 @@ def test_portfolio_compiler_and_continuity(tmp: Path):
     program["surfaces"][0]["status"] = "NEGATED"
     rp.validate_program(program, "b1")
     rp.write_json(tmp / rp.PROGRAM, program)
-    assert len(rp.compile_portfolio(program, rp.load_runtime(tmp))) == 3
+    plan = rp.compile_portfolio(program, rp.load_runtime(tmp))
+    assert len(plan) == 3
+    family_a_generations = [
+        item["generation"] for item in plan if item["family_id"] == "family-a"
+    ]
+    assert family_a_generations == [1, 2]
 
     broken = json.loads(json.dumps(program))
     broken["surfaces"] = [broken["surfaces"][0]]
@@ -150,6 +155,55 @@ def test_portfolio_compiler_and_continuity(tmp: Path):
         pass
     else:
         raise AssertionError("exhaustive map was accepted")
+
+
+def test_evolution_parent_carry_forward(tmp: Path):
+    program = sample_program()
+    family = program["evolution_families"][0]
+    state = tmp / "controller"
+
+    def fake_transport(_target, req):
+        query = req["query"].get("q", [""])[0]
+        body_sha = "baseline" if query == "alpha" else "mutated"
+        return {
+            "status": 200,
+            "body_sha256": body_sha,
+            "content_type": "text/plain",
+            "body_length": len(body_sha),
+            "location": "",
+            "error": None,
+        }
+
+    first = rp.execute_generation(
+        state,
+        "http://lab-mutator:3000",
+        family,
+        1,
+        8,
+        transport=fake_transport,
+    )
+    assert first["promising_candidates"], "first generation did not retain a reproducible parent"
+    selected_request = first["promising_candidates"][0]["request"]
+    assert selected_request["query"]["q"] != ["alpha"]
+
+    rp.persist_generation(state, first)
+    rp.update_runtime(state, program, [first])
+    family["best_candidates"] = first["promising_candidates"]
+    family["generation"] = 2
+
+    second = rp.execute_generation(
+        state,
+        "http://lab-mutator:3000",
+        family,
+        2,
+        8,
+        transport=fake_transport,
+    )
+    selected_parent_id = rp.candidate_id(selected_request)
+    assert any(
+        row["parent_candidate_id"] == selected_parent_id
+        for row in second["parent_lineage"]
+    ), "generation 2 did not mutate from the selected parent"
 
 
 def test_generation_receipts(tmp: Path):
@@ -190,6 +244,7 @@ def main():
         test_new_and_bootstrap(root / "a")
         test_portfolio_compiler_and_continuity(root / "b")
         test_generation_receipts(root / "c")
+        test_evolution_parent_carry_forward(root / "d")
     print("research program tests: PASS")
 
 
