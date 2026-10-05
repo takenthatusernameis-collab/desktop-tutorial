@@ -127,7 +127,7 @@ def test_new_and_bootstrap(tmp: Path):
 def test_portfolio_compiler_and_continuity(tmp: Path):
     program = sample_program()
     rp.write_json(tmp / rp.PROGRAM, program)
-    assert len(rp.compile_portfolio(program, rp.load_runtime(tmp))) == 2
+    assert len(rp.compile_portfolio(program, rp.load_runtime(tmp))) == 3
 
     broken = json.loads(json.dumps(program))
     broken["surfaces"] = [broken["surfaces"][0]]
