@@ -720,6 +720,7 @@ jobs:
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
           RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
           RESEARCH_VALIDATION_OUTCOME: ${{ steps.research_validate.outcome }}
+          RESEARCH_HANDOFF_OUTCOME: ${{ steps.research_handoff.outcome }}
           PERSIST_OUTCOME: ${{ steps.persist.outcome }}
         run: |
           set -euo pipefail
@@ -778,5 +779,6 @@ jobs:
             --evaluate "$EVALUATE_OUTCOME" \
             --portfolio "$RESEARCH_PORTFOLIO_OUTCOME" \
             --research-validation "$RESEARCH_VALIDATION_OUTCOME" \
+            --research-handoff "$RESEARCH_HANDOFF_OUTCOME" \
             --findings-path "reports/benchmark_findings.json" \
             --research-report-path "reports/benchmark_research.md"
