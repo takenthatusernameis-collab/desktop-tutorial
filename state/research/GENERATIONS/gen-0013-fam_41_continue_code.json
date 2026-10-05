@@ -1,0 +1,114 @@
+{
+  "actual_execution": true,
+  "candidate_count": 2,
+  "family_id": "fam_41_continue_code",
+  "generation": 13,
+  "generation_id": "gen-0013-fam_41_continue_code",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 79,
+        "body_sha256": "8457c01d5455bff81420db8db484352d6b58b80cc2546bdd6bb053c80c330f8f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 5.0,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-1bcde07ba4a41bb49069",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 79,
+        "body_sha256": "8457c01d5455bff81420db8db484352d6b58b80cc2546bdd6bb053c80c330f8f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 7.83,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-1bcde07ba4a41bb49069",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Accept": "text/html"
+        },
+        "method": "GET",
+        "path": "/rest/continue-code",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 79,
+        "body_sha256": "8457c01d5455bff81420db8db484352d6b58b80cc2546bdd6bb053c80c330f8f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 6.98,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-62fa92c8438f21b17a58",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 79,
+        "body_sha256": "8457c01d5455bff81420db8db484352d6b58b80cc2546bdd6bb053c80c330f8f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 7.57,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-62fa92c8438f21b17a58",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-05T13:36:17Z",
+  "operators": [
+    "BASELINE"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-1bcde07ba4a41bb49069",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-1bcde07ba4a41bb49069"
+    },
+    {
+      "candidate_id": "cand-62fa92c8438f21b17a58",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-62fa92c8438f21b17a58"
+    }
+  ],
+  "promising_candidates": [],
+  "results": {
+    "behavioral_differences": 0,
+    "error_observations": 0,
+    "information_gain": 0.25,
+    "repeat_reproductions": 0,
+    "unique_response_signatures": 1
+  },
+  "stopping_reason": "operator candidate set exhausted",
+  "surface_id": "surf_41_continue_code"
+}

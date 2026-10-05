@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Raw, non-graceful errors are not consistently handled (errorHandlingChallenge, id=27): representation-dependent error bodies and independent TypeError trigger",
+      "title": "Unauthenticated raw SQL error diagnostics and full stack traces exposed via inconsistent, non-graceful error handling (errorHandlingChallenge, id=27)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated Prometheus-style observability endpoint exposing usage counters (exposedMetricsChallenge, id=97): llm_* and challenges_solved gauges scraped without authorization",
+      "title": "Unauthenticated Prometheus /metrics endpoint exposes application telemetry including LLM usage counters and challenge-solved state (exposedMetricsChallenge, id=97)",
       "valid_reproduction": false
     }
   ],

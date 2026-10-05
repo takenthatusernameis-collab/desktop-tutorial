@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 0,
+  "candidate_count": 2,
+  "family_id": "fam_41_continue_code",
+  "generation": 13,
+  "generation_id": "gen-0013-fam_41_continue_code",
+  "information_gain": 0.25,
+  "observed_at": "2026-10-05T13:36:17Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_41_continue_code"
+}

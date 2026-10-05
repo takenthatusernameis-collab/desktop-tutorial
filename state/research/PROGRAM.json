@@ -28,71 +28,94 @@
     {
       "best_candidates": [
         {
-          "candidate_id": "cand-98d40c3a3ffd25562e39",
+          "candidate_id": "cand-41f248cf507bb6f0729c",
           "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
+            "method": "OPTIONS",
+            "operator": "METHOD_VARIANTS"
           },
-          "parent_candidate_id": null,
+          "parent_candidate_id": "cand-0690e28f06efd299c706",
+          "request": {
+            "headers": {
+              "Accept": "application/json"
+            },
+            "method": "OPTIONS",
+            "path": "/rest/user/security-question",
+            "query": {}
+          },
+          "response_signature": [
+            204,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "",
+            0,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-b746d21369b437cf808d",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "dot_suffix"
+          },
+          "parent_candidate_id": "cand-98d40c3a3ffd25562e39",
           "request": {
             "headers": {
               "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
             },
             "method": "GET",
-            "path": "/rest/user/security-question",
+            "path": "/rest/user/security-question/.",
             "query": {}
           },
           "response_signature": [
             500,
-            "0b84d83c08cc28421da7b67c",
+            "644baf6d8ed5b62f924263b45c7cbc772126482aaae429330887beef4f6499f2",
             "text/html; charset=utf-8",
-            2946,
+            2460,
             ""
           ]
         },
         {
-          "candidate_id": "cand-0690e28f06efd299c706",
+          "candidate_id": "cand-11e3bdd55d265bc94523",
           "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
+            "operator": "PATH_VARIANTS",
+            "variant": "dot_suffix"
           },
-          "parent_candidate_id": null,
+          "parent_candidate_id": "cand-0690e28f06efd299c706",
           "request": {
             "headers": {
               "Accept": "application/json"
             },
             "method": "GET",
-            "path": "/rest/user/security-question",
+            "path": "/rest/user/security-question/.",
             "query": {}
           },
           "response_signature": [
             500,
-            "20eec46aa7555e7df9a45e29",
-            "text/plain; charset=utf-8",
-            1804,
+            "cd7fc6e7b3c4afbb2035483769aa9a64e42206ed644566502c9a89011cc454e2",
+            "application/json; charset=utf-8",
+            1368,
             ""
           ]
         },
         {
-          "candidate_id": "cand-bd53377361fcb9292656",
+          "candidate_id": "cand-3bec4acec2515f057baf",
           "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
+            "method": "HEAD",
+            "operator": "METHOD_VARIANTS"
           },
-          "parent_candidate_id": null,
+          "parent_candidate_id": "cand-bd53377361fcb9292656",
           "request": {
             "headers": {
               "Accept": "text/html"
             },
-            "method": "GET",
+            "method": "HEAD",
             "path": "/redirect",
             "query": {}
           },
           "response_signature": [
-            500,
-            "020023ff4f9ae2b934531ecd",
-            "text/html; charset=utf-8",
-            2531,
+            501,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "text/html;charset=utf-8",
+            0,
             ""
           ]
         }
@@ -106,7 +129,7 @@
         "none - benign controls return 201 for valid submission, 401 for wrong-but-valid answer (graceful)"
       ],
       "family_id": "fam_27_raw_error_discovery",
-      "generation": 29,
+      "generation": 30,
       "independent_reproduction_history": [
         "fresh-request reproduction of all 4 triggers with byte-stable raw text and benign controls",
         "A26 (2026-10-05T10:37Z): fresh independent reproduction of the primary trigger with sha256 signatures, plus Accept-header variant body; benign controls verified.",
@@ -166,31 +189,7 @@
       "surface_id": "surf_27_error_handling"
     },
     {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-82fba6be9216bc7c2f70",
-          "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
-          },
-          "parent_candidate_id": null,
-          "request": {
-            "headers": {
-              "Accept": "text/html"
-            },
-            "method": "GET",
-            "path": "/security-policy",
-            "query": {}
-          },
-          "response_signature": [
-            200,
-            "aa97229042ece5a3",
-            "text/html; charset=UTF-8",
-            9393,
-            ""
-          ]
-        }
-      ],
+      "best_candidates": [],
       "coverage_history": [
         {
           "behaviors_reproduced": 1,
@@ -203,7 +202,7 @@
         "graceful 'Unexpected path' wrappers on other routes do not apply to /security-policy (200 vs 500; solved:true tracked server-side only for this route)"
       ],
       "family_id": "fam_76_security_policy",
-      "generation": 17,
+      "generation": 19,
       "independent_reproduction_history": [
         "GET /security-policy -> 200/9393 B repeated x3 with identical sha256; GET /api/Challenges/ after fresh access returns solved:true ids [27, 76, 97]",
         "A26 (2026-10-05T10:37Z): fresh independent request sequence reproduced: access route, then /api/Challenges/ shows solved:true for id=76."
@@ -260,31 +259,7 @@
       "surface_id": "surf_76_security_policy"
     },
     {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-33d0923ae48894c81a4b",
-          "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
-          },
-          "parent_candidate_id": null,
-          "request": {
-            "headers": {
-              "Accept": "text/plain"
-            },
-            "method": "GET",
-            "path": "/metrics",
-            "query": {}
-          },
-          "response_signature": [
-            200,
-            "069598ed9e8c0412",
-            "text/plain; version=0.0.4; charset=utf-8",
-            26146,
-            ""
-          ]
-        }
-      ],
+      "best_candidates": [],
       "coverage_history": [
         "1 route, verified on A9-A23",
         "2026-10-05T10:46-10:48Z A27 GET /metrics -> 200/26128 B (e8ecd22d...); juiceshop_llm_* token gauges and http_requests_count exposed; secrets-clean.",
@@ -295,7 +270,7 @@
         "none"
       ],
       "family_id": "fam_97_metrics_baseline",
-      "generation": 36,
+      "generation": 38,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot",
         "A26 (2026-10-05T10:37Z): fresh independent reproduction of /metrics with telemetry and secret-clean scan.",
@@ -386,6 +361,27 @@
           ]
         },
         {
+          "candidate_id": "cand-bf870572825ae7291476",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "trailing_slash"
+          },
+          "parent_candidate_id": "cand-440916eab266f3425399",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/memories/./././././",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "566c1bc9e323b8a9bcd567b973c04fd79cbb61eb2579c4e706a626918515dfaf",
+            "text/html; charset=utf-8",
+            2450,
+            ""
+          ]
+        },
+        {
           "candidate_id": "cand-7f7b2ff4f7faef04967d",
           "mutation": {
             "operator": "PATH_VARIANTS",
@@ -403,27 +399,6 @@
             "8fe1c2eceae46495870477df8015c8b7e6aa99f61969ecd019486130b6c5cfc7",
             "text/html; charset=utf-8",
             2434,
-            ""
-          ]
-        },
-        {
-          "candidate_id": "cand-5d8728a0b581a9d8c15e",
-          "mutation": {
-            "operator": "PATH_VARIANTS",
-            "variant": "dot_suffix"
-          },
-          "parent_candidate_id": "cand-bf870572825ae7291476",
-          "request": {
-            "headers": {},
-            "method": "GET",
-            "path": "/rest/memories/./././././.",
-            "query": {}
-          },
-          "response_signature": [
-            500,
-            "900c6b53c44e87f5e4d12fac67df64fdbcbe922602048df55662b8ab5c666d96",
-            "text/html; charset=utf-8",
-            2452,
             ""
           ]
         },
@@ -452,9 +427,9 @@
           "candidate_id": "cand-440916eab266f3425399",
           "mutation": {
             "operator": "PATH_VARIANTS",
-            "variant": "without_trailing_slash"
+            "variant": "dot_suffix"
           },
-          "parent_candidate_id": "cand-bf870572825ae7291476",
+          "parent_candidate_id": "cand-f20c916593c641c9766d",
           "request": {
             "headers": {},
             "method": "GET",
@@ -479,7 +454,7 @@
         "none; bogus Bearer identical 200 proves lack of auth; deluxeToken not a valid signed JWT (documented)"
       ],
       "family_id": "fam_23_memories_overexposure",
-      "generation": 25,
+      "generation": 27,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot",
         "A26 (2026-10-05T10:37Z): fresh independent reproduction of the overexposure; authorization wholly absent (bogus Bearer byte-identical).",
@@ -578,7 +553,7 @@
         "none; GET gated, POST accepts null UserId"
       ],
       "family_id": "fam_24_writegap",
-      "generation": 25,
+      "generation": 27,
       "independent_reproduction_history": [
         "fresh-request id increment verified x3",
         "A26 (2026-10-05T10:37Z): fresh reproduction: empty-body POST -> 201 with server-generated id and timestamps; GET on same route -> 401.",
@@ -791,7 +766,7 @@
         "none; deterministic body shapes; neighbors gated proves specificity"
       ],
       "family_id": "fam_5_security_question_enum",
-      "generation": 25,
+      "generation": 27,
       "independent_reproduction_history": [
         "fresh-request reproduction of both body shapes",
         "A26 (2026-10-05T10:37Z): fresh reproduction of the binary differential; parameter-pollution variant captured.",
@@ -838,31 +813,7 @@
       "surface_id": "surf_5_security_question"
     },
     {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-d16e980a56d7c339e935",
-          "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
-          },
-          "parent_candidate_id": null,
-          "request": {
-            "headers": {
-              "Accept": "text/html"
-            },
-            "method": "GET",
-            "path": "/rest/captcha",
-            "query": {}
-          },
-          "response_signature": [
-            200,
-            "402abb962376922e",
-            "application/json; charset=utf-8",
-            47,
-            ""
-          ]
-        }
-      ],
+      "best_candidates": [],
       "coverage_history": [
         "1 route, A11-A23",
         "2026-10-05T10:46-10:48Z A27 GET /rest/captcha -> answer arithmetic verified (8*2*8=128, 10-5*7=-25); captchaId increments; POST with correct answer -> 401 'Wrong answer'."
@@ -872,7 +823,7 @@
         "none; arithmetic proof; captchaId server state proves non-static"
       ],
       "family_id": "fam_7_captcha_leak",
-      "generation": 25,
+      "generation": 27,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot",
         "A26 (2026-10-05T10:37Z): fresh reproduction of the cleartext answer leak with arithmetic verification; bypass path confirmed broken.",
@@ -1056,7 +1007,7 @@
         "none; fresh GET readback confirms persistence; values restored"
       ],
       "family_id": "fam_6_put_tamper",
-      "generation": 25,
+      "generation": 27,
       "independent_reproduction_history": [
         "fresh-request reproduction + readback; restore after verification",
         "A26 (2026-10-05T10:37Z): fresh reproduction: PUT + separate GET proves cross-request persistence; sibling methods blocked.",
@@ -1154,7 +1105,7 @@
         "none"
       ],
       "family_id": "fam_blocked_auth_sweep",
-      "generation": 13,
+      "generation": 14,
       "independent_reproduction_history": [
         "fresh-request observation each boot"
       ],
@@ -1195,65 +1146,86 @@
     {
       "best_candidates": [
         {
-          "candidate_id": "cand-40be732c7ca3b2348ea9",
+          "candidate_id": "cand-f1cd3df795e2c4bd4ef2",
           "mutation": {
             "operator": "PATH_VARIANTS",
-            "variant": "trailing_slash"
+            "variant": "without_trailing_slash"
           },
-          "parent_candidate_id": "cand-6397ad915de35d07e1f6",
+          "parent_candidate_id": "cand-9918604721aba5927208",
           "request": {
             "headers": {},
             "method": "GET",
-            "path": "/rest/admin/././",
+            "path": "/rest/admin",
             "query": {}
           },
           "response_signature": [
             500,
-            "74b1a631940bef2519e464f4416d45958875edbc3c82c5b547ce5759b50df435",
+            "83416c79e5d32ac4f39fcc3865ba3a8413bf2946067653db6ccf76f2841aec2d",
             "text/html; charset=utf-8",
-            2432,
+            2422,
             ""
           ]
         },
         {
-          "candidate_id": "cand-fdb0ded710addf1930f0",
+          "candidate_id": "cand-6397ad915de35d07e1f6",
           "mutation": {
             "operator": "PATH_VARIANTS",
-            "variant": "dot_suffix"
+            "variant": "without_trailing_slash"
           },
-          "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+          "parent_candidate_id": "cand-40be732c7ca3b2348ea9",
           "request": {
             "headers": {},
             "method": "GET",
-            "path": "/rest/admin/.",
+            "path": "/rest/admin/./.",
             "query": {}
           },
           "response_signature": [
             500,
-            "8e0ee913e2ac6c8519daa5fc4b9d68c6825af1eda9191784e1c13917608fbc05",
+            "97e27c763853186a8e8e21a685236997512232bce22c7eba730710811d9e1e72",
             "text/html; charset=utf-8",
-            2426,
+            2430,
             ""
           ]
         },
         {
-          "candidate_id": "cand-9918604721aba5927208",
+          "candidate_id": "cand-43d4eb683f68c7d268e5",
           "mutation": {
             "operator": "PATH_VARIANTS",
             "variant": "trailing_slash"
           },
-          "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+          "parent_candidate_id": "cand-fdb0ded710addf1930f0",
           "request": {
             "headers": {},
             "method": "GET",
-            "path": "/rest/admin/",
+            "path": "/rest/admin/./",
             "query": {}
           },
           "response_signature": [
             500,
-            "9cf2952d85b121aa46bbd7f26d98f4350999d95f9a9c152de8ef24155be2d203",
+            "a3e19d4fb276b20ed1066c59ea37ae05424a20db8d0809f08f4fb1681e798831",
             "text/html; charset=utf-8",
-            2424,
+            2428,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-984e579d97aa46516071",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "trailing_slash"
+          },
+          "parent_candidate_id": "cand-4ff151307745b1f9c515",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/admin/./././",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "bb3cbb15d8d426c1ad406720c50825a37b6383e17be1068921c8afe159ab2f91",
+            "text/html; charset=utf-8",
+            2436,
             ""
           ]
         },
@@ -1263,7 +1235,7 @@
             "operator": "PATH_VARIANTS",
             "variant": "dot_suffix"
           },
-          "parent_candidate_id": "cand-6397ad915de35d07e1f6",
+          "parent_candidate_id": "cand-40be732c7ca3b2348ea9",
           "request": {
             "headers": {},
             "method": "GET",
@@ -1287,7 +1259,7 @@
         "none"
       ],
       "family_id": "fam_non_viable_500_monitor",
-      "generation": 13,
+      "generation": 14,
       "independent_reproduction_history": [
         "sweep reproduced each boot"
       ],
@@ -1326,31 +1298,7 @@
       "surface_id": "surf_non_viable_500"
     },
     {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-1bcde07ba4a41bb49069",
-          "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
-          },
-          "parent_candidate_id": null,
-          "request": {
-            "headers": {
-              "Accept": "text/html"
-            },
-            "method": "GET",
-            "path": "/rest/continue-code",
-            "query": {}
-          },
-          "response_signature": [
-            200,
-            "bab765f76c132c25",
-            "application/json; charset=utf-8",
-            79,
-            ""
-          ]
-        }
-      ],
+      "best_candidates": [],
       "coverage_history": [
         "1 route, A14-A23"
       ],
@@ -1359,7 +1307,7 @@
         "none"
       ],
       "family_id": "fam_41_continue_code",
-      "generation": 13,
+      "generation": 14,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot"
       ],
@@ -1398,31 +1346,7 @@
       "surface_id": "surf_41_continue_code"
     },
     {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-ac3ae13b6fd5f73b516f",
-          "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
-          },
-          "parent_candidate_id": null,
-          "request": {
-            "headers": {
-              "Accept": "text/html"
-            },
-            "method": "GET",
-            "path": "/rest/web3/nftUnlocked",
-            "query": {}
-          },
-          "response_signature": [
-            200,
-            "c462d460eab61de1",
-            "application/json; charset=utf-8",
-            16,
-            ""
-          ]
-        }
-      ],
+      "best_candidates": [],
       "coverage_history": [
         "1 route, A14-A23"
       ],
@@ -1431,7 +1355,7 @@
         "none"
       ],
       "family_id": "fam_9_web3_nft",
-      "generation": 13,
+      "generation": 14,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot"
       ],
@@ -1470,31 +1394,7 @@
       "surface_id": "surf_9_web3"
     },
     {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-10fd14b9edcbff0287d6",
-          "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
-          },
-          "parent_candidate_id": null,
-          "request": {
-            "headers": {
-              "Accept": "text/html"
-            },
-            "method": "GET",
-            "path": "/rest/languages",
-            "query": {}
-          },
-          "response_signature": [
-            200,
-            "aa8dfff3ff3ffa31",
-            "application/json; charset=utf-8",
-            4215,
-            ""
-          ]
-        }
-      ],
+      "best_candidates": [],
       "coverage_history": [
         "static sweep A9-A23"
       ],
@@ -1503,7 +1403,7 @@
         "none"
       ],
       "family_id": "fam_29_extra_language",
-      "generation": 13,
+      "generation": 14,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot"
       ],
@@ -1544,58 +1444,7 @@
       "surface_id": "surf_29_extra_language"
     },
     {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-e9a04a52f96d41173ff7",
-          "mutation": {
-            "method": "OPTIONS",
-            "operator": "METHOD_VARIANTS"
-          },
-          "parent_candidate_id": "cand-13e2d676d9c2186b63da",
-          "request": {
-            "headers": {},
-            "method": "OPTIONS",
-            "path": "/redirect",
-            "query": {
-              "continue": [
-                "http://example.com"
-              ]
-            }
-          },
-          "response_signature": [
-            204,
-            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "",
-            0,
-            ""
-          ]
-        },
-        {
-          "candidate_id": "cand-6eeb6387282211701c96",
-          "mutation": {
-            "method": "HEAD",
-            "operator": "METHOD_VARIANTS"
-          },
-          "parent_candidate_id": "cand-13e2d676d9c2186b63da",
-          "request": {
-            "headers": {},
-            "method": "HEAD",
-            "path": "/redirect",
-            "query": {
-              "continue": [
-                "http://example.com"
-              ]
-            }
-          },
-          "response_signature": [
-            501,
-            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "text/html;charset=utf-8",
-            0,
-            ""
-          ]
-        }
-      ],
+      "best_candidates": [],
       "coverage_history": [
         "redirect parameter + header variants, A14-A23"
       ],
@@ -1604,7 +1453,7 @@
         "none"
       ],
       "family_id": "fam_redirect_ssrf_monitor",
-      "generation": 13,
+      "generation": 14,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot"
       ],
@@ -1649,31 +1498,7 @@
       "surface_id": "surf_redirect"
     },
     {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-67991dca30e0275ef197",
-          "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
-          },
-          "parent_candidate_id": null,
-          "request": {
-            "headers": {
-              "Accept": "text/html"
-            },
-            "method": "GET",
-            "path": "/rest/chat",
-            "query": {}
-          },
-          "response_signature": [
-            500,
-            "813fce32cc153be1",
-            "text/html; charset=utf-8",
-            2420,
-            ""
-          ]
-        }
-      ],
+      "best_candidates": [],
       "coverage_history": [
         "1 route, A15-A23"
       ],
@@ -1682,7 +1507,7 @@
         "none"
       ],
       "family_id": "fam_chatbot_monitor",
-      "generation": 13,
+      "generation": 14,
       "independent_reproduction_history": [
         "fresh-request observation each boot"
       ],
@@ -1723,36 +1548,12 @@
       "surface_id": "surf_chatbot"
     },
     {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-9e1201956812ab48a66e",
-          "mutation": {
-            "operator": "BASELINE",
-            "variant": "fresh_a32_capture"
-          },
-          "parent_candidate_id": null,
-          "request": {
-            "headers": {
-              "Accept": "text/html"
-            },
-            "method": "GET",
-            "path": "/rest/user/security-question",
-            "query": {}
-          },
-          "response_signature": [
-            500,
-            "0b84d83c08cc28421da7b67c",
-            "text/html; charset=utf-8",
-            2946,
-            ""
-          ]
-        }
-      ],
+      "best_candidates": [],
       "coverage_history": [],
       "exploration_exploitation_policy": "exploration reserve: HEADER_ORIGIN_VARIANTS is a breadth probe; do not starve other surfaces",
       "false_positive_history": [],
       "family_id": "fam_origin_header_variants",
-      "generation": 6,
+      "generation": 8,
       "independent_reproduction_history": [],
       "information_gain_history": [],
       "last_kilo_review": "2026-10-05T11:26Z: fresh live verification of all mechanisms; 6 findings submitted with byte-sha256 signatures; header-origin family retired (zero-yield); program handed off. ; A32 (2026-10-05T13:12Z) handoff: next-gen spec updated, BASELINE candidates added where absent.",

@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 0,
+  "candidate_count": 2,
+  "family_id": "fam_chatbot_monitor",
+  "generation": 13,
+  "generation_id": "gen-0013-fam_chatbot_monitor",
+  "information_gain": 0.25,
+  "observed_at": "2026-10-05T13:36:18Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_chatbot"
+}
