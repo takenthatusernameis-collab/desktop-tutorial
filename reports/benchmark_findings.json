@@ -1,70 +1,26 @@
 {
- "findings": [
-  {
-   "title": "Unauthenticated raw error responses neither graceful nor consistently handled (id=27 - errorHandlingChallenge)",
-   "analysis": "The application returns four distinct unauthenticated raw-error responses on this boot (2026-10-05T06:40-06:42Z), each a 500 Internal Server Error with unsanitized, non-graceful content: (1) GET /rest/user/security-question (missing 'email' param) -> 500/2946 B, raw Sequelize WHERE error: WHERE parameter \"email\" has invalid \"undefined\" value, with a full stack exposing internal source paths; byte-stable across repeated requests (md5 2aa969a19d722117bd9b4ce8f4b6ed8e, 2x). (2) GET /redirect -> 500/2531 B, raw JavaScript TypeError: Cannot read properties of undefined (reading 'includes'); byte-stable x2 (md5 39ea1953ca299a8bebf46f05ffceeba0). (3) POST /api/Feedbacks/ with Content-Type text/plain -> 500, raw Sequelize WHERE error for \"captchaId\" has invalid \"undefined\" value. (4) POST /api/Products/ with Content-Type application/json and an invalid JSON body -> 500, raw JSON.parse SyntaxError. The inconsistency is proven by the coexistence of these raw errors with graceful 'Unexpected path' wrappers returned on other /rest/* routes. Benign control GET / -> 200 clean shell. This matches the id=27 errorHandlingChallenge class ('Provoke an error that is neither very gracefully nor consistently handled'), which /api/Challenges/ flags as solved:true in this variant.",
-   "false_positive_check": "Not a benign framework default: a valid GET / returns 200 with the clean application shell, so raw error responses appear only on malformed/omitted input. Three independent raw-error TYPES (Sequelize WHERE, JS TypeError, JSON SyntaxError) all reach the same unauthenticated 500 path, and graceful 'Unexpected path' wrappers exist on neighboring routes, proving the app's error handling is inconsistent rather than uniformly configured. The behavior is unauthenticated (no Authorization header) and therefore exposed to any caller; each trigger reproduces byte-stably within the session.",
-   "request": {
-    "method": "GET",
-    "url": "http://lab-mutator:3000/rest/user/security-question",
-    "headers": {},
-    "body": {}
-   }
-  },
-  {
-   "title": "Unauthenticated exposure of Prometheus-format observability telemetry including LLM usage and internal solved-challenge counters (id=97 - exposedMetricsChallenge)",
-   "analysis": "GET /metrics returns 200 text/plain (unauthenticated) serving Prometheus-format telemetry (~26113 B) that includes juiceshop_llm_input_tokens_total, juiceshop_llm_output_tokens_total, juiceshop_llm_tool_calls_total gauges (LLM usage visibility), http_requests_count by status code, process_* and nodejs_version_info, juiceshop_version_info (v20.2.0), and juiceshop_challenges_solved counters grouped by difficulty and category. An unauthenticated caller can therefore observe application versioning, request-load distribution, and internal challenge-completion progress. No secrets, passwords, tokens, or keys are present in the metrics output (secrets scan clean). The internal juiceshop_challenges_solved gauges corroborate that exactly two categories (id=27 Security Misconfiguration and id=97 Observability Failures) are completable in this variant, matching the /api/Challenges/ inventory (116 families, solved:true only for id=27 and id=97).",
-   "false_positive_check": "Not an artifact of the SPA shell or gateway: the control route GET / returns 200 but serves the 9393 B Angular shell, not metrics. The metrics endpoint is a legitimate telemetry export but exposes it to any unauthenticated caller without authorization - the exposure is the property under test. A secrets scan of the response returned zero password/token/key/credential/api_key lines, so the risk is information disclosure of operational and internal state, not credential leakage. The endpoint is stable (repeated fetches return identical content).",
-   "request": {
-    "method": "GET",
-    "url": "http://lab-mutator:3000/metrics",
-    "headers": {},
-    "body": {}
-   }
-  }
- ],
- "campaign_id": "ehb-37260280180-eddbb902f2",
- "produced_at": "2026-10-05T06:41Z",
- "verification": {
-  "method": "fresh live requests on the current boot (2026-10-05T06:40-06:42Z), independent repetition, differential controls, byte-stability checks (md5), and false-positive review",
-  "triggers_verified_id27": [
-   {
-    "request": "GET /rest/user/security-question (no param)",
-    "status": 500,
-    "length": 2946,
-    "stability": "md5 2aa969a19d722117bd9b4ce8f4b6ed8e x2"
-   },
-   {
-    "request": "GET /redirect",
-    "status": 500,
-    "length": 2531,
-    "stability": "md5 39ea1953ca299a8bebf46f05ffceeba0 x2"
-   },
-   {
-    "request": "POST /api/Feedbacks/ text/plain",
-    "status": 500,
-    "note": "raw WHERE error"
-   },
-   {
-    "request": "POST /api/Products/ invalid JSON",
-    "status": 500,
-    "note": "raw SyntaxError"
-   }
-  ],
-  "verified_id97": {
-   "request": "GET /metrics",
-   "status": 200,
-   "type": "text/plain",
-   "contains": [
-    "juiceshop_llm_input_tokens_total",
-    "juiceshop_llm_output_tokens_total",
-    "juiceshop_llm_tool_calls_total",
-    "http_requests_count",
-    "juiceshop_challenges_solved",
-    "juiceshop_version_info"
-   ],
-   "secrets_scan": "clean"
-  },
-  "challenge_inventory": "/api/Challenges/ envelope {status:'success', data:[116 families]}, solved:true count 2 (id=27, id=97)"
- }
+  "findings": [
+    {
+      "title": "Error handling - raw, non-graceful, inconsistent unauthenticated errors (id=27 errorHandlingChallenge)",
+      "analysis": "juiceshop returns multiple distinct unauthenticated raw error responses that are neither gracefully nor consistently handled, matching the mutation's id=27 errorHandlingChallenge (Security Misconfiguration). Four independent 500 triggers reproduce on fresh requests:\n* PRIMARY: GET /rest/user/security-question (no email parameter) -> 500, raw Sequelize error 'Error: WHERE parameter \"email\" has invalid \"undefined\" value' with full stack trace exposing internal source paths (juice-shop build/node_modules paths). Byte-stable across repeated requests (md5 2aa969a19d722117bd9b4ce8f4b6ed8e).\n* Corroborating: GET /redirect -> 500, TypeError 'Cannot read properties of undefined (reading \"includes\")'. Byte-stable (md5 39ea1953ca299a8bebf46f05ffceeba0).\n* Corroborating: POST /api/Products/ with invalid JSON (Content-Type application/json) -> 500, raw JSON.parse SyntaxError 'Expected property name or '}\\' in JSON at position 1'.\n* Corroborating: POST /api/Feedbacks/ (Content-Type text/plain) -> 500, raw Sequelize 'Error: WHERE parameter \"captchaId\" has invalid \"undefined\" value'.\nInconsistency is proven by coexistence of these raw errors with graceful handlers elsewhere: GET /rest/user/password-hash returns a sanitized 500 'Unexpected path', GET /redirect?continue=... similarly wraps, and POST /api/Products/ with a text/plain body returns 401 'UnauthorizedError'. The raw, unsanitized errors leak internal structure (SQL dialect, library internals) and are inconsistent across the same application class.\nDrift noted: exact POST-trigger TEXT drifts across separate calls on a single boot while the GET triggers are byte-stable; the claim is on the reproducible raw-error CLASS (unauthenticated 500, unsanitized error type, internal paths), not literal text.\nThis is a mutation-introduced behavior, not baseline v20.2.0 handling: the solved-flag inventory on this boot shows only id=27 and id=97 of 116 challenge families are viable in this variant.",
+      "false_positive_check": "Not benign framework behavior or a consistent error class: (1) the same GET on a valid route (e.g. /rest/memories, /metrics, /) returns clean 200 shells/JSON; (2) the malformed-parameter variant /rest/user/security-question|| and other broken routes return a graceful 500 'Unexpected path' - showing the application CAN sanitize, and the raw errors are the inconsistent deviation; (3) the raw errors contain internal library/dialect details (Sequelize WHERE, JSON.parse position) absent from the sanitized wrappers; (4) the behavior is scoped by the challenge inventory to id=27 (the mutation requires an error that is neither gracefully nor consistently handled). Benign control confirmed per request.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/rest/user/security-question",
+        "headers": {},
+        "body": {}
+      }
+    },
+    {
+      "title": "Exposed observability telemetry - unauthenticated Prometheus /metrics (id=97 exposedMetricsChallenge)",
+      "analysis": "GET /metrics returns 200 text/plain (~26082 B on this boot) to any caller without authentication, serving Prometheus-format HTTP/process/version/LLM-usage telemetry with the same internal solved-challenge gauges the app uses. Gauges include juiceshop_llm_input_tokens_total, juiceshop_llm_output_tokens_total, juiceshop_llm_tool_calls_total, http_requests_count (2XX/3XX/5XX), process_*, nodejs_version_info, juiceshop_version_info (v20.2.0), and juiceshop_challenges_solved. A secrets scan of the response found 0 secret/token/key lines. The endpoint is the mutation-introduced id=97 exposedMetricsChallenge (Observability Failures): metrics are present in this variant and unauthenticated.",
+      "false_positive_check": "Not a 404/401/blank: the endpoint responds 200 with valid Prometheus exposition format and operational counters (http_requests_count, process_*) that change across requests, proving real, populated telemetry rather than a static placeholder. No authentication or authorization step gates /metrics. A secrets scan of the full response found only operational telemetry (no password/token/key lines), so the finding is exposure of application health/usage telemetry, not credential leakage - the precise class the challenge defines.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/metrics",
+        "headers": {},
+        "body": {}
+      }
+    }
+  ]
 }

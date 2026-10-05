@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated raw error responses neither graceful nor consistently handled (id=27 - errorHandlingChallenge)",
+      "title": "Error handling - raw, non-graceful, inconsistent unauthenticated errors (id=27 errorHandlingChallenge)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated exposure of Prometheus-format observability telemetry including LLM usage and internal solved-challenge counters (id=97 - exposedMetricsChallenge)",
+      "title": "Exposed observability telemetry - unauthenticated Prometheus /metrics (id=97 exposedMetricsChallenge)",
       "valid_reproduction": false
     }
   ],
