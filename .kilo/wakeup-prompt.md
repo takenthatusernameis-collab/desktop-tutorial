@@ -155,6 +155,7 @@ Do not invent new executable operators outside that vocabulary. Propose novel se
 
 11. Portfolio policy:
 Set intensity and allocation using expected information value, uncertainty, promising-lineage exploitation, exploration/new-surface discovery, reasonable-effort debt, and diminishing returns.
+The deterministic controller enforces a breadth-first invariant: max_generations_per_activation MUST be at least the number of non-archived research surfaces represented by non-archived families, so the activation can give every represented surface at least one generation before exploitation consumes the remaining budget. Never set the generation budget below that breadth requirement.
 The deterministic controller performs a round-robin sequential portfolio so all relevant persistent surfaces remain represented.
 
 12. Strategic cycle:
