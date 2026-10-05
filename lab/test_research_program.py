@@ -324,7 +324,7 @@ def test_cross_session_program_progression(tmp: Path):
 
 
 def test_post_kilo_execution_regression(tmp: Path):
-    """Exercise the trusted post-Kilo validator against a real deterministic G1->G2 evolution."""
+    """Exercise handoff while keeping the controller-owned generation cursor unchanged."""
     program = sample_program()
     state = tmp / "state"
     snapshot = tmp / "snapshot"
@@ -362,7 +362,9 @@ def test_post_kilo_execution_regression(tmp: Path):
     evolved = json.loads(json.dumps(program))
     evolved_family = evolved["evolution_families"][0]
     evolved_family["best_candidates"] = first["promising_candidates"]
-    evolved_family["generation"] = 2
+    # Execution generation is controller-owned; the worker proposal may evolve
+    # strategy content but must preserve the current execution cursor.
+    evolved_family["generation"] = 1
     proposal_path = tmp / "PROGRAM_PROPOSAL.json"
     rp.write_json(proposal_path, evolved)
 
