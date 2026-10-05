@@ -720,7 +720,6 @@ jobs:
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
           RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
           RESEARCH_VALIDATION_OUTCOME: ${{ steps.research_validate.outcome }}
-          RESEARCH_HANDOFF_OUTCOME: ${{ steps.research_handoff.outcome }}
           PERSIST_OUTCOME: ${{ steps.persist.outcome }}
         run: |
           set -euo pipefail
@@ -770,6 +769,7 @@ jobs:
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
           RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
           RESEARCH_VALIDATION_OUTCOME: ${{ steps.research_validate.outcome }}
+          RESEARCH_HANDOFF_OUTCOME: ${{ steps.research_handoff.outcome }}
         run: |
           set -euo pipefail
           python3 .github/scripts/report_worker_outcome.py \
