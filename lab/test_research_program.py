@@ -415,6 +415,41 @@ def test_portfolio_budget_preserves_surface_breadth(tmp: Path):
     assert {item["surface_id"] for item in plan} == {"surface-a", "surface-b"}
 
 
+def test_multi_round_pre_kilo_advances_runtime_per_generation(tmp: Path):
+    program = sample_program("multi-round")
+    program["surfaces"][0]["current_intensity"] = "full"
+    program["portfolio_policy"]["max_generations_per_activation"] = 3
+    rp.write_json(tmp / rp.PROGRAM, program)
+
+    def fake_transport(_target, req):
+        query = req["query"].get("q", [""])[0]
+        body_sha = "baseline" if query == "alpha" else "mutated"
+        return {
+            "status": 200,
+            "body_sha256": body_sha,
+            "content_type": "text/plain",
+            "body_length": len(body_sha),
+            "location": "",
+            "error": None,
+        }
+
+    assert (
+        rp.run_pre_kilo(
+            "resumed",
+            "multi-round",
+            "http://lab-mutator:3000",
+            tmp,
+            transport=fake_transport,
+        )
+        == 0
+    )
+    runtime = rp.load_json(tmp / rp.RUNTIME)
+    persisted = rp.load_json(tmp / rp.PROGRAM)
+    assert runtime["families"]["family-a"]["last_executed_generation"] == 2
+    assert persisted["evolution_families"][0]["generation"] == 3
+    assert runtime["families"]["family-b"]["last_executed_generation"] == 1
+
+
 def test_validate_state_rejects_generation_divergence(tmp: Path):
     program = sample_program("continuity")
     rp.write_json(tmp / rp.PROGRAM, program)
@@ -499,6 +534,7 @@ def main():
         test_method_variant_is_seed_safe()
         test_materialize_string_effort_evidence(root / "i")
         test_validate_state_rejects_generation_divergence(root / "j")
+        test_multi_round_pre_kilo_advances_runtime_per_generation(root / "k")
         test_post_kilo_execution_regression(root / "post-kilo")
     print("research program tests: PASS")
 
