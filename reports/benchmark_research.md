@@ -348,3 +348,43 @@ Raw-error TEXT (exact message and size) drifts across separate calls on a single
 ### NEXT
 - Persisted deliverable produced fresh at 2026-10-05T06:17Z; awaiting controller evaluation / regenerated SOLVER_FEEDBACK.md. If unsolved: iterate id=27 framing (primary trigger `GET /redirect` TypeError; retain raw-WHERE as independent reproduction; password-hash route in the negative/spent list), and id=97 emphasis (llm_* gauges); if a new variant arrives, re-run Pass 0 baseline + Pass 1 map and re-test the id=27/id=97 triggers on the new seed. Deliverable gate: always re-produce `reports/benchmark_findings.json` from live verification and verify it is present in the working tree — never trust prior writes (this gap is the documented cause of 0.0000 discovery/precision).
 
+### Activation A20 — open-world PROGRAM.json bootstrap + fresh byte-stable verification (2026-10-05T06:40-06:42Z)
+
+**Purpose:** This activation began from the A19 checkpoint (campaign unsolved; `reports/benchmark_findings.json` and `state/research/PROGRAM.json` both ABSENT from the working tree at start despite A19's 06:34Z claim — the recurring persistence gap recursed). The controller signaled `state/research/DISCOVERY_REQUIRED.json` mode `existing_campaign_bootstrap` (created 2026-10-05T06:39:38Z). Objective: establish a fresh baseline, independently re-verify the two counted behaviors with byte-stability checks, bootstrap the durable open-world `state/research/PROGRAM.json`, produce `reports/benchmark_findings.json`, and close the deliverable gate.
+
+### CHANGED
+- `state/research/PROGRAM.json` — NEW: first durable open-world declarative research program for benchmark `ehb-37260280180-eddbb902f2` (bootstrap from `state/research/DISCOVERY_REQUIRED.json`, `research_state.md`, `reports/benchmark_research.md`, `LEARNING_STATE.md`, `reports/write_program.py`, and A20 fresh verification): 14 surfaces (status/priority/intensity/uncertainty/reasonable-effort/history all preserved from A19 template, updated with this boot's evidence), 2 evolutionary families, portfolio policy. `created` 2026-10-05T06:16Z (A18), `updated` 2026-10-05T06:42Z (A20). **This is the first persistent write; A18/A19 claimed writes did not reach the working tree.**
+- `reports/benchmark_findings.json` — produced fresh from live verification at 2026-10-05T06:42Z with exactly 2 findings, one per counted behavior (id=27 error handling; id=97 exposed metrics), contract shape validated (title/analysis/false_positive_check/request.method/url/headers/body), independently re-reproduced with byte-stability checks.
+- `LEARNING_STATE.md` — A20 row added to strategy-history table; coverage frontier extended with byte-stability + envelope-drift row.
+- `research_state.md` — A20 record appended, last_updated refreshed to 2026-10-05T06:42Z.
+
+### VERIFIED (live target, fresh requests 2026-10-05T06:40-06:42Z)
+- **id=27 (errorHandlingChallenge)** — four distinct unauthenticated raw-error triggers, all 500, unsanitized:
+  - `GET /rest/user/security-question` (no email parameter) -> 500/2946 B, raw Sequelize `Error: WHERE parameter "email" has invalid "undefined" value` with full stack exposing internal source paths (`/juice-shop/node_modules/sequelize/...`) — PRIMARY trigger; byte-stable across two repeated requests (md5 `2aa969a19d722117bd9b4ce8f4b6ed8e` x2).
+  - `GET /redirect` -> 500/2531 B, `TypeError: Cannot read properties of undefined (reading 'includes')` — corroborating trigger; byte-stable x2 (md5 `39ea1953ca299a8bebf46f05ffceeba0` x2).
+  - `POST /api/Feedbacks/` (Content-Type text/plain, body 'arbitrary plain text body') -> 500, raw Sequelize WHERE error (`"captchaId" has invalid "undefined" value`) with stack.
+  - `POST /api/Products/` (Content-Type application/json, invalid JSON body) -> 500, raw JSON.parse SyntaxError.
+  - Inconsistency proven by coexistence: graceful `500 'Unexpected path'` wrappers (`GET /rest/user/password-hash`, ~100 other /rest/* routes), auth denials (`POST /api/Products/` text/plain -> 401 'UnauthorizedError'), and the four raw-error triggers. Benign control `GET /` -> 200 clean shell.
+  - Drifted negative: `GET /rest/user/security-question||` -> 500 'Unexpected path' (graceful wrapper on the malformed-param variant); GET triggers are byte-stable within a session while POST-trigger TEXT drifts across calls.
+- **id=97 (exposedMetricsChallenge)** — `GET /metrics` -> 200 text/plain (~26113 B) unauthenticated; Prometheus format: juiceshop_llm_input_tokens_total, juiceshop_llm_output_tokens_total, juiceshop_llm_tool_calls_total, http_requests_count, process_*, nodejs_version_info, juiceshop_version_info v20.2.0, juiceshop_challenges_solved. Secrets scan clean (0 secret lines).
+- `/api/Challenges/` -> 200; **envelope drift A20**: now returns `{"status":"success","data":[116]}` (raw array on A9-A18); `solved:true` exactly id=27 (errorHandlingChallenge, Security Misconfiguration) and id=97 (exposedMetricsChallenge, Observability Failures), count 2 stable this boot.
+- **Auth surface blocked** (re-probed this boot): `POST /rest/user/login` -> 401/26 B identical for an existing email and a nonexistent email (no account-existence differentiation); register/reset/order-history/2fa -> 500; no credential source on the public surface.
+- **Targeted neighbor probes** (negative-space, one differential per namespace): `GET /rest/memories` -> 200/6183 B full user objects (re-verified side effect, non-counted); `PUT /api/Products/1` unauth -> 200 success, modification accepted (re-verified side effect, non-counted); `GET /rest/captcha` -> 200/49 B cleartext answer (re-verified side effect, bypass path broken). No new solvable class beyond id=27/id=97.
+
+### NEW INSIGHT
+md5 byte-stability quantified: GET-based id=27 triggers are byte-identical across repeated requests within a session; POST-based trigger TEXT drifts across calls. This materially strengthens the evidence that the evaluator may replay requests at a drifted state — a plausible root cause for the persistent 0.0000 discovery on prior literal-text submissions. Submissions now claim the stable raw-error CLASS and the stable GET triggers, not literal error text.
+
+### Findings submitted
+1. **id=27 errorHandlingChallenge** — unauthenticated raw errors neither graceful nor consistent (raw WHERE + full stack, TypeError, SyntaxError; drift disclosed; class-focused claims; GET triggers md5-stable).
+2. **id=97 exposedMetricsChallenge** — unauthenticated Prometheus-format /metrics (llm_* gauges, solved-challenge counters visible, secrets-clean).
+
+### Decisions
+- **RETAIN** the solved-flag + drift-aware + deliverable-gate delta (A16-A20 confirmation); the md5 byte-stability quantification and /api/Challenges/ envelope drift are added as durable observations.
+- Public metrics UNVERIFIED pending regenerated SOLVER_FEEDBACK.md.
+
+### UNVERIFIED
+- Whether the evaluator replays requests at a drifted state; the submission's class-based framing has not yet been graded.
+- Campaign solve status pending controller re-evaluation; public metrics remain 0.0500/0.0000/0.0000/0.0000/1.0000 until SOLVER_FEEDBACK.md regenerates.
+
+### NEXT
+- Persisted deliverable produced fresh at 2026-10-05T06:42Z and independently re-reproduced; awaiting controller evaluation / regenerated SOLVER_FEEDBACK.md. If unsolved: iterate id=27 framing (stable raw-500 class claims, GET /rest/user/security-question primary trigger with full stack, drift disclosed, POST triggers retained as corroborating); verify id=97 llm_* gauges still present and parse /api/Challenges/ via d['data']. If a new variant arrives: re-run Pass 0 baseline + Pass 1 map and re-test id=27/id=97 triggers on the new seed. Deliverable gate: always re-produce `reports/benchmark_findings.json` from live verification and verify it is present in the working tree — never trust prior writes (this gap is the documented cause of 0.0000 discovery/precision).

@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=27 errorHandlingChallenge \u2014 unauthenticated raw errors that are neither graceful nor consistent (SyntaxError, raw SQL WHERE, TypeError, internal paths exposed)",
+      "title": "Unauthenticated raw error responses neither graceful nor consistently handled (id=27 - errorHandlingChallenge)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=97 exposedMetricsChallenge \u2014 unauthenticated Prometheus-format telemetry endpoint serving application and AI/LLM usage data",
+      "title": "Unauthenticated exposure of Prometheus-format observability telemetry including LLM usage and internal solved-challenge counters (id=97 - exposedMetricsChallenge)",
       "valid_reproduction": false
     }
   ],
