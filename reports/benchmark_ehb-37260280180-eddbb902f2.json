@@ -7,35 +7,35 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "[F1] Unauthenticated user-object exposure via GET /rest/memories (password hash, totpSecret, deluxeToken, lastLoginIp)",
+      "title": "[F1] Unauthenticated exposure of full user objects via GET /rest/memories (password hash, totpSecret, deluxeToken, lastLoginIp, email, role)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "[F2] /api/SecurityAnswers/: read-gated / unauthenticated-write-open gap (broken access control)",
+      "title": "[F2] /api/SecurityAnswers/: read-gated but unauthenticated write-open gap (broken access control / no ownership validation)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "[F5] /rest/user/security-question?email= unauthenticated account enumeration and security-question disclosure",
+      "title": "[F5] /rest/user/security-question?email= unauthenticated account enumeration and security-question disclosure (mutation-fragile: verified 200 on this boot)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "[F6] Unauthenticated PUT on /api/Products/{id} -> persistent product-tampering (broken object-level authorization)",
+      "title": "[F6] Unauthenticated PUT on /api/Products/{id} persists product-tampering across requests (broken object-level authorization / HTTP-method auth gap)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "[F7] Cleartext CAPTCHA-answer leak via GET /rest/captcha (CAPTCHA defeat vector; POST submission path broken in this mutation)",
+      "title": "[F7] Cleartext CAPTCHA-answer leak via GET /rest/captcha (verified answer; POST submission path broken in this mutation \u2014 partial finding)",
       "valid_reproduction": false
     }
   ],
