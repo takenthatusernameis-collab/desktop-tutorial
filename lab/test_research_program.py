@@ -134,6 +134,15 @@ def test_portfolio_compiler_and_continuity(tmp: Path):
     rp.validate_program(program, "b1")
     compiled = rp.compile_portfolio(program, rp.load_runtime(tmp))
     assert compiled
+
+    # Worker research may also preserve unlabelled explanatory uncertainty prose.
+    prose = json.loads(json.dumps(program))
+    prose["surfaces"][0]["uncertainty"] = (
+        "whether the evaluator expects the current response type; "
+        "text can drift between requests"
+    )
+    rp.validate_program(prose, "b1")
+    assert rp.compile_portfolio(prose, rp.load_runtime(tmp))
     program["surfaces"][0]["status"] = "VERIFIED"
     rp.validate_program(program, "b1")
     program["surfaces"][0]["status"] = "NEGATED"
