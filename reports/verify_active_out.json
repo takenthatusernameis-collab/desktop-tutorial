@@ -1,0 +1,97 @@
+{
+ "baseline_root": {
+  "status": 200,
+  "len": 9393
+ },
+ "baseline_metrics": {
+  "status": 200,
+  "len": 26062
+ },
+ "baseline_robots": {
+  "status": 200,
+  "body": "User-agent: *\nDisallow: /ftp"
+ },
+ "F1_memories": {
+  "status": 200,
+  "ct": null,
+  "len": 6134,
+  "count": null
+ },
+ "F1_bogus_bearer": {
+  "status": 200,
+  "identical": true
+ },
+ "F1_control_balance": {
+  "status": 401
+ },
+ "F1_control_basket": {
+  "status": 401
+ },
+ "F1_control_authentication-details": {
+  "status": 401
+ },
+ "F1_control_": {
+  "status": 401
+ },
+ "F1_control_order-history": {
+  "status": 500
+ },
+ "F2": {
+  "get_status": 401,
+  "post1_status": 201,
+  "post1_id": null,
+  "post1_createdAt": null,
+  "post2_status": 201,
+  "post2_id": null,
+  "post2_createdAt": null,
+  "post_empty_status": 201,
+  "ids_increased": false
+ },
+ "F3": {
+  "q_Apple_status": 200,
+  "q_Apple_length": 921,
+  "q_Apple_ids": [],
+  "tautology_status": null,
+  "tautology_length": 0,
+  "tautology_ids": [],
+  "malformed_status": null,
+  "malformed_preview": ""
+ },
+ "F3_catalog_names_count": 0,
+ "F3_taut_equals_all_records": false,
+ "F3_taut_contains_no_catalog_name": true,
+ "F4": {
+  "status": 200,
+  "len": 26125,
+  "ct": null,
+  "secrets_found": 0
+ },
+ "F5": {
+  "exist_bjoern": {
+   "status": 200,
+   "has_question": true,
+   "question": "{'question': {'id': 7, 'question': 'Name of your favorite pet?', 'createdAt': '2026-10-05T04:23:12.456Z', 'updatedAt': '2026-10-05T04:23:12.456Z'}}"
+  },
+  "exist_emma": {
+   "status": 200,
+   "has_question": true,
+   "question": "{'question': {'id': 10, 'question': 'Company you first work for as an adult?', 'createdAt': '2026-10-05T04:23:12.456Z', 'updatedAt': '2026-10-05T04:23:12.456Z'}}"
+  },
+  "exist_john": {
+   "status": 200,
+   "has_question": true,
+   "question": "{'question': {'id': 14, 'question': \"What's your favorite place to go hiking?\", 'createdAt': '2026-10-05T04:23:12.456Z', 'updatedAt': '2026-10-05T04:23:12.456Z'}}"
+  },
+  "nonexist": {
+   "status": 200,
+   "body": "{}"
+  }
+ },
+ "auth": {
+  "login_POST_status": 401,
+  "login_body": "Invalid email or password.",
+  "register_POST_status": 500,
+  "register_body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+  "order_history_GET_status": 500
+ }
+}

@@ -1,0 +1,239 @@
+{
+ "t0": 1791174271.8122578,
+ "baseline": {
+  "root": 200,
+  "metrics": 200
+ },
+ "F1": {
+  "status": 200,
+  "len": 6134,
+  "count": 10,
+  "user_fields": [
+   "createdAt",
+   "deletedAt",
+   "deluxeToken",
+   "email",
+   "id",
+   "isActive",
+   "lastLoginIp",
+   "password",
+   "profileImage",
+   "role",
+   "totpSecret",
+   "updatedAt",
+   "username"
+  ],
+  "has_password": true,
+  "has_deluxeToken": true,
+  "has_totpSecret": true,
+  "bogus_bearer": 200,
+  "controls": {
+   "/rest/wallet/balance": 401,
+   "/rest/basket": 401,
+   "/rest/user/authentication-details": 401,
+   "/api/SecurityAnswers/": 401
+  }
+ },
+ "F2": {
+  "get_status": 401,
+  "post_existing_qid": {
+   "status": 201,
+   "id": null,
+   "answer": null,
+   "questionId": null,
+   "body_preview": "{\"status\":\"success\",\"data\":{\"id\":29,\"updatedAt\":\"2026-10-05T04:24:31.865Z\",\"createdAt\":\"2026-10-05T04:24:31.865Z\",\"UserI"
+  },
+  "post_existing_qid2": {
+   "status": 201,
+   "id": null,
+   "answer": null,
+   "questionId": null,
+   "body_preview": "{\"status\":\"success\",\"data\":{\"id\":30,\"updatedAt\":\"2026-10-05T04:24:31.900Z\",\"createdAt\":\"2026-10-05T04:24:31.900Z\",\"UserI"
+  },
+  "post_new_qid": {
+   "status": 201,
+   "id": null,
+   "answer": null,
+   "questionId": null,
+   "body_preview": "{\"status\":\"success\",\"data\":{\"id\":31,\"updatedAt\":\"2026-10-05T04:24:31.912Z\",\"createdAt\":\"2026-10-05T04:24:31.912Z\",\"UserI"
+  },
+  "post_empty": {
+   "status": 201,
+   "id": null,
+   "answer": null,
+   "questionId": null,
+   "body_preview": "{\"status\":\"success\",\"data\":{\"id\":32,\"updatedAt\":\"2026-10-05T04:24:31.924Z\",\"createdAt\":\"2026-10-05T04:24:31.924Z\",\"UserI"
+  }
+ },
+ "F3": {
+  "q_Apple": {
+   "status": 200,
+   "j": {
+    "status": "success",
+    "data": [
+     {
+      "id": 1,
+      "name": "Apple Juice (1000ml)",
+      "description": "The all-time classic.",
+      "price": 1.99,
+      "deluxePrice": 0.99,
+      "image": "apple_juice.jpg",
+      "createdAt": "2026-10-05 04:23:13.019 +00:00",
+      "updatedAt": "2026-10-05 04:23:13.019 +00:00",
+      "deletedAt": null
+     },
+     {
+      "id": 24,
+      "name": "Apple Pomace",
+      "description": "Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\"/#recycle\">sent back to us</a> for recycling.",
+      "price": 0.89,
+      "deluxePrice": 0.89,
+      "image": "apple_pressings.jpg",
+      "createdAt": "2026-10-05 04:23:13.022 +00:00",
+      "updatedAt": "2026-10-05 04:23:13.022 +00:00",
+      "deletedAt": null
+     },
+     {
+      "id": 47,
+      "name": "Pineapple Juice (1000ml)",
+      "description": "Tropical refreshment from the finest sun-ripened pineapples.",
+      "price": 2.99,
+      "deluxePrice": 2.99,
+      "image": "pineapple_juice.png",
+      "createdAt": "2026-10-05 04:23:13.024 +00:00",
+      "updatedAt": "2026-10-05 04:23:13.024 +00:00",
+      "deletedAt": null
+     }
+    ]
+   }
+  },
+  "q_taut": {
+   "status": null,
+   "j": null
+  },
+  "q_malf": {
+   "status": null,
+   "preview": ""
+  }
+ },
+ "F4": {
+  "status": 200,
+  "len": 26126,
+  "ct": null,
+  "secrets_found": 0
+ },
+ "F5": {
+  "exist_bjoern": {
+   "status": 200,
+   "has_question": true,
+   "body": "{'question': {'id': 7, 'question': 'Name of your favorite pet?', 'createdAt': '2026-10-05T04:23:12.456Z', 'updatedAt': '2026-10-05T04:23:12.456Z'}}"
+  },
+  "exist_emma": {
+   "status": 200,
+   "has_question": true,
+   "body": "{'question': {'id': 10, 'question': 'Company you first work for as an adult?', 'createdAt': '2026-10-05T04:23:12.456Z', 'updatedAt': '2026-10-05T04:23:12.456Z'}}"
+  },
+  "exist_john": {
+   "status": 200,
+   "has_question": true,
+   "body": "{'question': {'id': 14, 'question': \"What's your favorite place to go hiking?\", 'createdAt': '2026-10-05T04:23:12.456Z', 'updatedAt': '2026-10-05T04:23:12.456Z'}}"
+  },
+  "nonexist": {
+   "status": 200,
+   "has_question": false,
+   "body": "{}"
+  },
+  "neighbors": {
+   "authentication-details": 401,
+   "basket": 500
+  }
+ },
+ "auth": {
+  "login": [
+   401,
+   {
+    "Server": "EHBMutationGateway/1.0 Python/3.12.15",
+    "Date": "Mon, 05 Oct 2026 04:24:32 GMT",
+    "Access-Control-Allow-Origin": "*",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Feature-Policy": "payment 'self'",
+    "X-Recruiting": "/#/jobs",
+    "Content-Type": "text/html; charset=utf-8",
+    "Content-Length": "26",
+    "ETag": "W/\"1a-ARJvVK+smzAF3QQve2mDSG+3Eus\"",
+    "Vary": "Accept-Encoding"
+   },
+   26,
+   "Invalid email or password."
+  ],
+  "register": [
+   500,
+   {
+    "Server": "EHBMutationGateway/1.0 Python/3.12.15",
+    "Date": "Mon, 05 Oct 2026 04:24:32 GMT",
+    "Access-Control-Allow-Origin": "*",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Feature-Policy": "payment 'self'",
+    "X-Recruiting": "/#/jobs",
+    "Content-Type": "text/html; charset=utf-8",
+    "Vary": "Accept-Encoding",
+    "Content-Length": "2438"
+   },
+   2438,
+   "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/user/register</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#stacktrace {\n  margin-left: 60px;\n}\n</style>\n  </head>\n  <body>\n    <div id=\"wrapper\">\n      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>\n      <h2><em>500</em> Error: Unexpected path: /rest/user/register</h2>\n      <ul id=\"stacktrace\"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>\n    </div>\n  </body>\n</html>\n"
+  ],
+  "reset": [
+   500,
+   {
+    "Server": "EHBMutationGateway/1.0 Python/3.12.15",
+    "Date": "Mon, 05 Oct 2026 04:24:32 GMT",
+    "Access-Control-Allow-Origin": "*",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Feature-Policy": "payment 'self'",
+    "X-Recruiting": "/#/jobs",
+    "Content-Type": "text/html; charset=utf-8",
+    "Vary": "Accept-Encoding",
+    "Content-Length": "2432"
+   },
+   2432,
+   "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/user/reset</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#stacktrace {\n  margin-left: 60px;\n}\n</style>\n  </head>\n  <body>\n    <div id=\"wrapper\">\n      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>\n      <h2><em>500</em> Error: Unexpected path: /rest/user/reset</h2>\n      <ul id=\"stacktrace\"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>\n    </div>\n  </body>\n</html>\n"
+  ],
+  "order-history": [
+   500,
+   {
+    "Server": "EHBMutationGateway/1.0 Python/3.12.15",
+    "Date": "Mon, 05 Oct 2026 04:24:32 GMT",
+    "Access-Control-Allow-Origin": "*",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Feature-Policy": "payment 'self'",
+    "X-Recruiting": "/#/jobs",
+    "Content-Type": "text/html; charset=utf-8",
+    "Vary": "Accept-Encoding",
+    "Content-Length": "2457"
+   },
+   2457,
+   "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Blocked illegal activity by ::ffff:172.18.0.3</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#stacktrace {\n  margin-left: 60px;\n}\n</style>\n  </head>\n  <body>\n    <div id=\"wrapper\">\n      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>\n      <h2><em>500</em> Error: Blocked illegal activity by ::ffff:172.18.0.3</h2>\n      <ul id=\"stacktrace\"><li> &nbsp; &nbsp;at /juice-shop/build/routes/orderHistory.js:55:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/route.js:149:13)</li><li> &nbsp; &nbsp;at Route.dispatch (/juice-shop/node_modules/express/lib/router/route.js:119:3)</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:284:15</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li></ul>\n    </div>\n  </body>\n</html>\n"
+  ],
+  "2fa": [
+   500,
+   {
+    "Server": "EHBMutationGateway/1.0 Python/3.12.15",
+    "Date": "Mon, 05 Oct 2026 04:24:32 GMT",
+    "Access-Control-Allow-Origin": "*",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Feature-Policy": "payment 'self'",
+    "X-Recruiting": "/#/jobs",
+    "Content-Type": "text/html; charset=utf-8",
+    "Vary": "Accept-Encoding",
+    "Content-Length": "2436"
+   },
+   2436,
+   "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/2fa/activate</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);\n  background-repeat: no-repeat;\n  color: #555;\n  -webkit-font-smoothing: antialiased;\n}\nh1, h2 {\n  font-size: 22px;\n  color: #343434;\n}\nh1 em, h2 em {\n  padding: 0 5px;\n  font-weight: normal;\n}\nh1 {\n  font-size: 60px;\n}\nh2 {\n  margin-top: 10px;\n}\nul li {\n  list-style: none;\n}\n#stacktrace {\n  margin-left: 60px;\n}\n</style>\n  </head>\n  <body>\n    <div id=\"wrapper\">\n      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>\n      <h2><em>500</em> Error: Unexpected path: /rest/2fa/activate</h2>\n      <ul id=\"stacktrace\"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>\n    </div>\n  </body>\n</html>\n"
+  ]
+ }
+}

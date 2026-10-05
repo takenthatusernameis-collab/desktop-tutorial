@@ -1,0 +1,202 @@
+{
+ "t0": "2026-10-05T04:24Z",
+ "F1": {
+  "req": {
+   "method": "GET",
+   "url": "/rest/memories",
+   "headers": {},
+   "body": null
+  },
+  "observed": {
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 6134
+  },
+  "analysis_notes": {
+   "record_count": 10,
+   "sensitive_user_fields": [
+    "password",
+    "deluxeToken",
+    "totpSecret",
+    "lastLoginIp",
+    "role",
+    "email"
+   ],
+   "all_have_password": true,
+   "all_have_totpSecret": true,
+   "bogus_bearer_status": 200,
+   "identical_body": true,
+   "bogus_bearer_ct": "application/json; charset=utf-8"
+  },
+  "control": {
+   "gated_endpoints_401": {
+    "/rest/basket": 401,
+    "/rest/wallet/balance": 401,
+    "/rest/user/authentication-details": 401,
+    "/api/SecurityAnswers/": 401
+   }
+  }
+ },
+ "F2": {
+  "req": {
+   "method": "POST",
+   "url": "/api/SecurityAnswers/",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "body": {
+    "questionId": 7,
+    "answer": "verify-new",
+    "email": "verify@repro.test"
+   }
+  },
+  "observed": {
+   "read_status": 401,
+   "post_existing_qid7_a": {
+    "status": 201,
+    "id": 37,
+    "createdAt": "2026-10-05T04:26:40.064Z",
+    "body_preview": "{\"status\":\"success\",\"data\":{\"id\":37,\"updatedAt\":\"2026-10-05T04:26:40.064Z\",\"createdAt\":\"2026-10-05T04:26:40.064Z\",\"UserId\":null,\"S"
+   },
+   "post_existing_qid7_b": {
+    "status": 201,
+    "id": 38,
+    "createdAt": "2026-10-05T04:26:40.081Z",
+    "body_preview": "{\"status\":\"success\",\"data\":{\"id\":38,\"updatedAt\":\"2026-10-05T04:26:40.081Z\",\"createdAt\":\"2026-10-05T04:26:40.081Z\",\"UserId\":null,\"S"
+   },
+   "post_new_qid100": {
+    "status": 201,
+    "id": 39,
+    "createdAt": "2026-10-05T04:26:40.093Z",
+    "body_preview": "{\"status\":\"success\",\"data\":{\"id\":39,\"updatedAt\":\"2026-10-05T04:26:40.093Z\",\"createdAt\":\"2026-10-05T04:26:40.093Z\",\"UserId\":null,\"S"
+   },
+   "post_empty": {
+    "status": 201,
+    "id": 40,
+    "createdAt": "2026-10-05T04:26:40.105Z",
+    "body_preview": "{\"status\":\"success\",\"data\":{\"id\":40,\"updatedAt\":\"2026-10-05T04:26:40.105Z\",\"createdAt\":\"2026-10-05T04:26:40.105Z\",\"UserId\":null,\"S"
+   }
+  },
+  "control": {
+   "read_gated_401": true
+  }
+ },
+ "F3": {
+  "req": {
+   "method": "GET",
+   "url": "/rest/products/search",
+   "headers": {},
+   "body": null
+  },
+  "observed": {
+   "filter_q_Apple": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "len": 921
+   },
+   "filter_q_ozzzzz": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "len": 30
+   },
+   "apple_ids": [
+    1,
+    24,
+    47
+   ],
+   "ozzz_ids": [],
+   "identical_responses": false,
+   "base_products_route_status": 500,
+   "note": "on prior boots q=Apple filtered to 3 records; this boot returns full catalog for all q"
+  },
+  "control": {
+   "data_is_public_product_catalog": true
+  }
+ },
+ "F4": {
+  "req": {
+   "method": "GET",
+   "url": "/metrics",
+   "headers": {},
+   "body": null
+  },
+  "observed": {
+   "status": 200,
+   "ct": "text/plain; version=0.0.4; charset=utf-8",
+   "len": 26121,
+   "secrets_found": 0
+  }
+ },
+ "F5": {
+  "req": {
+   "method": "GET",
+   "url": "/rest/user/security-question",
+   "headers": {},
+   "body": null
+  },
+  "observed": {
+   "existing_bjoern": {
+    "status": 200,
+    "has_question": true,
+    "body": "{'question': {'id': 7, 'question': 'Name of your favorite pet?', 'createdAt': '2026-10-05T04:23:12.456Z', 'updatedAt': '2026-10-05T04:23:12.456Z'}}"
+   },
+   "existing_emma": {
+    "status": 200,
+    "has_question": true,
+    "body": "{'question': {'id': 10, 'question': 'Company you first work for as an adult?', 'createdAt': '2026-10-05T04:23:12.456Z', 'updatedAt': '2026-10-05T04:23:12.456Z'}}"
+   },
+   "existing_john": {
+    "status": 200,
+    "has_question": true,
+    "body": "{'question': {'id': 14, 'question': \"What's your favorite place to go hiking?\", 'createdAt': '2026-10-05T04:23:12.456Z', 'updatedAt': '2026-10-05T04:23:12.456Z'}}"
+   },
+   "nonexistent": {
+    "status": 200,
+    "has_question": false,
+    "body": "{}"
+   }
+  },
+  "control": {
+   "neighbors": {
+    "authentication-details": 401,
+    "basket": 500,
+    "order-history": 500
+   }
+  },
+  "falsification": {
+   "deterministic_differential": "existing -> question JSON; nonexistent -> {}"
+  }
+ },
+ "extras": {
+  "api_Feedbacks_GET": {
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 1734
+  },
+  "captcha_GET": {
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 47
+  },
+  "continue_code_GET": {
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 79
+  },
+  "nftUnlocked_GET": {
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 16
+  },
+  "auth_login_POST": {
+   "status": 401,
+   "ct": null,
+   "len": 26
+  },
+  "auth_register_POST": {
+   "status": 500,
+   "ct": null,
+   "len": 2438
+  }
+ }
+}

@@ -7,35 +7,35 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated full user-object exposure on /rest/memories (password hashes, deluxeToken, totpSecret)",
+      "title": "Unauthenticated exposure of full user account objects (password hash, deluxeToken, totpSecret) via /rest/memories",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated POST write gap on /api/SecurityAnswers/ (read path gated, write path accepts unauth insertions)",
+      "title": "Unauthenticated write to /api/SecurityAnswers/ with server-assigned incrementing ids (read is gated, write is not)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "SQL filter bypass on /rest/products/search?q= via tautology (unfiltered catalog disclosure)",
+      "title": "SQL filter bypass in /rest/products/search?q= that discloses the full product catalog via tautology payloads",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated Prometheus-style observability surface on /metrics",
+      "title": "Mutation-introduced /metrics endpoint exposes operational telemetry without authentication (no secrets observed)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated per-user security-question disclosure and account existence enumeration via /rest/user/security-question?email=",
+      "title": "Unauthenticated per-user security-question enumeration and disclosure via /rest/user/security-question?email=",
       "valid_reproduction": false
     }
   ],

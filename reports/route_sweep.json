@@ -1,0 +1,194 @@
+{
+ "/rest/memories": {
+  "status": 200,
+  "len": 6183
+ },
+ "/rest/products": {
+  "status": 500,
+  "len": 2428
+ },
+ "/rest/products/search": {
+  "status": 200,
+  "len": 16563
+ },
+ "/rest/users": {
+  "status": 500,
+  "len": 2422
+ },
+ "/rest/user/security-question?email=bjoern@owasp.org": {
+  "status": 200,
+  "len": 139
+ },
+ "/rest/user/authentication-details": {
+  "status": 401,
+  "len": 972
+ },
+ "/rest/user/basket": {
+  "status": 500,
+  "len": 2434
+ },
+ "/rest/basket": {
+  "status": 401,
+  "len": 972
+ },
+ "/rest/order-history": {
+  "status": 500,
+  "len": 2457
+ },
+ "/rest/wallet/balance": {
+  "status": 401,
+  "len": 83
+ },
+ "/rest/web3/nftUnlocked": {
+  "status": 200,
+  "len": 16
+ },
+ "/rest/web3/submitKey": {
+  "status": 500,
+  "len": 2440
+ },
+ "/rest/feedback": {
+  "status": 500,
+  "len": 2428
+ },
+ "/rest/Feedbacks/": {
+  "status": 500,
+  "len": 2432
+ },
+ "/rest/captcha": {
+  "status": 200,
+  "len": 46
+ },
+ "/rest/continue-code": {
+  "status": 200,
+  "len": 79
+ },
+ "/rest/continue-code/apply": {
+  "status": 500,
+  "len": 2450
+ },
+ "/rest/continue-code/apply/abc": {
+  "status": 500,
+  "len": 2458
+ },
+ "/rest/security-questions": {
+  "status": 500,
+  "len": 2448
+ },
+ "/rest/challenges": {
+  "status": 500,
+  "len": 2432
+ },
+ "/rest/complaints": {
+  "status": 500,
+  "len": 2432
+ },
+ "/rest/Complaints/": {
+  "status": 500,
+  "len": 2434
+ },
+ "/rest/cards": {
+  "status": 500,
+  "len": 2422
+ },
+ "/rest/Cards/": {
+  "status": 500,
+  "len": 2424
+ },
+ "/rest/reviews": {
+  "status": 500,
+  "len": 2426
+ },
+ "/rest/Reviews/": {
+  "status": 500,
+  "len": 2428
+ },
+ "/rest/questions": {
+  "status": 500,
+  "len": 2430
+ },
+ "/rest/Questions/": {
+  "status": 500,
+  "len": 2432
+ },
+ "/rest/memberships": {
+  "status": 500,
+  "len": 2434
+ },
+ "/rest/Memberships/": {
+  "status": 500,
+  "len": 2436
+ },
+ "/rest/coupons": {
+  "status": 500,
+  "len": 2426
+ },
+ "/rest/Coupons/": {
+  "status": 500,
+  "len": 2428
+ },
+ "/rest/recovery-answers": {
+  "status": 500,
+  "len": 2444
+ },
+ "/RecoveryAnswers/": {
+  "status": 200,
+  "len": 9393
+ },
+ "/rest/user-accounts": {
+  "status": 500,
+  "len": 2438
+ },
+ "/rest/ProductLabels/": {
+  "status": 500,
+  "len": 2440
+ },
+ "/rest/user/register": {
+  "status": 500,
+  "len": 2438
+ },
+ "/rest/user/login": {
+  "status": 500,
+  "len": 2432
+ },
+ "/rest/user/reset": {
+  "status": 500,
+  "len": 2432
+ },
+ "/rest/2fa/activate": {
+  "status": 500,
+  "len": 2436
+ },
+ "/rest/user/create": {
+  "status": 500,
+  "len": 2434
+ },
+ "/rest/account/register": {
+  "status": 500,
+  "len": 2444
+ },
+ "/rest/account/create": {
+  "status": 500,
+  "len": 2440
+ },
+ "/rest/account/reset": {
+  "status": 500,
+  "len": 2438
+ },
+ "/rest/metrics": {
+  "status": 500,
+  "len": 2426
+ },
+ "/metrics": {
+  "status": 200,
+  "len": 26120
+ },
+ "/api/SecurityAnswers/": {
+  "status": 401,
+  "len": 972
+ },
+ "/api/SecurityQuestion/": {
+  "status": 500,
+  "len": 2444
+ }
+}
