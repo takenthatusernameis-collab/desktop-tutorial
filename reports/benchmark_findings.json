@@ -1,43 +1,54 @@
 {
- "findings": [
-  {
-   "title": "Unauthenticated GET /rest/memories exposes all user accounts with password hashes, deluxe tokens and TOTP secrets",
-   "analysis": "Observation (2026-10-05T02:17:22Z): GET http://lab-mutator:3000/rest/memories with no Authorization header returns HTTP 200 (application/json; charset=utf-8, 6183 bytes) and embeds the full user object for each of the 10 memory records. Each embedded user object contains fields never exposed by the public UI: email, username, password (32-hex hash), role, deluxeToken (reusable session token), lastLoginIp, profileImage, totpSecret, isActive, createdAt/updatedAt/deletedAt. Example record: user id=13, email=bjoern@owasp.org, password=9283f1b2e9669749081963be0462e466, role=deluxe, deluxeToken=efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4. Reasoning: a bogus Authorization: Bearer header changes nothing (response identical), so the endpoint performs no authorization at all; it returns every user's record unauthenticated. Impact: Sensitive Data Exposure (OWASP ASVS L1-L2 excessive data exposure; maps to the app's own Password Hash Leak challenge family, id=1). An unauthenticated actor can enumerate all registered email addresses and harvest credential-bearing data (password hashes and deluxe session tokens) for offline analysis and session hijacking. The delivery of the complete catalog via SQL injection (below) further confirms the endpoint returns every row.",
-   "false_positive_check": "1) Control comparison: /rest/wallet/balance, /rest/basket, /rest/user/authentication-details and /api/SecurityAnswers/ all return HTTP 401 without an Authorization header, proving the application's authorization mechanism works elsewhere and the leak is route-specific, not a global misconfiguration. 2) The embedded objects contain non-public fields (password, deluxeToken, totpSecret) that no legitimate public memory listing would return. 3) Response is stable across independent fresh requests; the same user record was captured repeatedly (same email + 32-hex password + token + role). 4) Query parameters (orderBy/limit/skip/where) on /rest/memories are ignored by this endpoint's own logic and do not restrict the returned users, ruling out a pagination-only misconfiguration.",
-   "request": {
-    "method": "GET",
-    "url": "http://lab-mutator:3000/rest/memories",
-    "headers": {},
-    "body": null
-   }
-  },
-  {
-   "title": "Unauthenticated POST /api/SecurityAnswers/ persists records (missing authentication on write endpoint)",
-   "analysis": "Observation (2026-10-05T02:17:22Z): GET http://lab-mutator:3000/api/SecurityAnswers/ (no Authorization header) -> HTTP 401 'No Authorization header was found', so the read path is authorized. POST /api/SecurityAnswers/ with Content-Type application/json, body {\"questionId\":7,\"answer\":\"verify-new\",\"email\":\"verify@repro.test\"} and NO Authorization header -> HTTP 201 'success' with a persisted record (id=30). A repeat POST of the identical payload -> HTTP 201 with a NEW record (id=31), proving server-side persistence without ownership or deduplication checks. An empty-object POST -> HTTP 201 with no input validation. Reasoning: the mutation selectively removed server-side authorization from writes on this endpoint while the read path and neighboring writes remain gated. Impact: Broken Access Control / Missing Authentication on write. An unauthenticated actor can create arbitrary security-answer records in this store, which could pollute security-question data or abuse account-recovery flows wired to this store. Note: answers are hashed server-side (64-hex), so the payload's plaintext is not preserved; the unauthorized write itself is the verified property.",
-   "false_positive_check": "1) The identical route requires auth for GET (401), so this is not a public diagnostic endpoint; the gap is write-specific (read-gated, write-open). 2) A repeat POST of the identical payload created a new row (id 30 -> 31), proving server-side persistence without ownership checks. 3) Empty-object POST -> 201 success, proving no input validation gates the write. 4) Neighboring POST endpoints (Complaints, Cards, Addresses, Feedbacks) correctly return 401 or require auth/captcha, so the behavior is endpoint-specific rather than a global server misconfiguration.",
-   "request": {
-    "method": "POST",
-    "url": "http://lab-mutator:3000/api/SecurityAnswers/",
-    "headers": {
-     "Content-Type": "application/json; charset=utf-8"
+  "findings": [
+    {
+      "title": "Unauthenticated GET /rest/memories exposes all user accounts with password hashes, deluxe tokens and TOTP secrets",
+      "analysis": "Observation (2026-10-05T02:48:19Z): GET http://lab-mutator:3000/rest/memories with no Authorization header returns HTTP 200 (application/json; charset=utf-8) and embeds the full user object for each of the 10 memory records. Each embedded user object contains fields never exposed by the public UI: email, username, password (32-hex hash), role, deluxeToken (reusable session token), lastLoginIp, profileImage, totpSecret, isActive, createdAt/updatedAt/deletedAt. Example: user id=13, email=bjoern@owasp.org, password=9283f1b2e9669749081963be0462e466, role=deluxe, deluxeToken=efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4, totpSecret='' (empty). Reasoning: a bogus Authorization: Bearer header changes nothing (response identical at 200, same user records), so the endpoint performs no authorization at all and returns every user's record unauthenticated. Impact: Sensitive Data Exposure (OWASP ASVS excessive data exposure; maps to the app's own Password Hash Leak challenge family). An unauthenticated actor can enumerate all registered email addresses and harvest credential-bearing data (password hashes and deluxe session tokens) for offline analysis and session hijacking. Stable and reproducible across independent fresh requests (verified 2026-10-05T02:46:08Z and 2026-10-05T02:48:19Z).",
+      "false_positive_check": "1) Control comparison: /rest/wallet/balance, /rest/basket, /rest/user/authentication-details and /api/SecurityAnswers/ all return HTTP 401 without an Authorization header, proving the application's authorization mechanism works elsewhere; the leak is route-specific, not a global misconfiguration. 2) The embedded objects contain non-public fields (password, deluxeToken, totpSecret) that no legitimate public memory listing would return. 3) Response is stable across independent fresh requests; the same user record was captured repeatedly (same email + 32-hex password + token + role). 4) A bogus Authorization: Bearer header produces an identical response, ruling out a broken-but-present auth check that merely ignores the header.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/rest/memories",
+        "headers": {},
+        "body": null
+      }
     },
-    "body": {
-     "questionId": 7,
-     "answer": "verify-new",
-     "email": "verify@repro.test"
+    {
+      "title": "Unauthenticated POST /api/SecurityAnswers/ persists records (missing authentication on write endpoint)",
+      "analysis": "Observation (2026-10-05T02:48:19Z): GET http://lab-mutator:3000/api/SecurityAnswers/ (no Authorization header) -> HTTP 401 'No Authorization header was found', so the read path is authorized. POST /api/SecurityAnswers/ with Content-Type application/json; charset=utf-8, body {\"questionId\":7,\"answer\":\"verify-new\",\"email\":\"verify@repro.test\"} and NO Authorization header -> HTTP 201 'success' with a persisted record (record ids 27 then 28 across the two verified runs). A repeat POST of the identical payload -> HTTP 201 with a NEW record each time (id 27 -> 28), proving server-side persistence without ownership or deduplication checks. An empty-object POST -> HTTP 201 with no input validation. Reasoning: the mutation removed server-side authorization from writes on this endpoint while the read path and neighboring writes remain gated. Impact: Broken Access Control / Missing Authentication on write. An unauthenticated actor can create arbitrary security-answer records in this store, polluting security-question data or abusing account-recovery flows wired to this store. Answers are hashed server-side (64-hex), so the plaintext is not preserved; the unauthorized write itself is the verified property.",
+      "false_positive_check": "1) The identical route requires auth for GET (401), so this is not a public diagnostic endpoint; the gap is write-specific (read-gated, write-open). 2) A repeat POST of the identical payload created a new row (id 27 -> 28), proving server-side persistence without ownership checks. 3) Empty-object POST -> 201 success, proving no input validation gates the write. 4) Neighboring POST endpoints (Complaints, Cards, Addresses, Feedbacks) correctly return 401 or error without proper auth/captcha, so the behavior is endpoint-specific rather than a global server misconfiguration.",
+      "request": {
+        "method": "POST",
+        "url": "http://lab-mutator:3000/api/SecurityAnswers/",
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "questionId": 7,
+          "answer": "verify-new",
+          "email": "verify@repro.test"
+        }
+      }
+    },
+    {
+      "title": "SQL injection in GET /rest/products/search?q= bypasses the product filter, disclosing the complete product catalog",
+      "analysis": "Observation (2026-10-05T02:48:19Z): GET http://lab-mutator:3000/rest/products/search?q=Apple -> HTTP 200, 921 bytes, 3 products (filtered subset). GET http://lab-mutator:3000/rest/products/search?q=%27%20OR%20%271%27=%271 (i.e. ' OR '1'='1) -> HTTP 200, 16557 bytes, 46 products (the complete catalog). The injected tautology string occurs in zero product catalog names, yet the response returns the entire product set, so benign string filtering cannot explain it. Malformed payloads (e.g. ?q=%27%20UNION%20SELECT%201,2,3--) -> HTTP 500 with raw SQLite errors ('near UNION: syntax error', 'unrecognized token'), proving raw input reaches a SQLite query layer rather than a client-side filter. The deduced query structure is a LIKE filter concatenating the raw q value (WHERE name LIKE '%' || <q> || '%'). Impact: Injection (filter bypass / full-catalog disclosure). An unauthenticated actor can disclose the full product catalog beyond any intended search scope. Explicitly scoped limitations: the boolean extraction channel is dead — a tautology branch always yields all-rows and a contradiction branch (' AND '1'='2) always yields zero-rows regardless of the inner condition — so no column-level extraction (e.g. user credentials) via this parameter could be reproduced. A DROP TABLE probe returned 200 with a JSON success envelope but the products table remained intact afterward (3 products, same names), so no destructive impact is claimed.",
+      "false_positive_check": "1) Malformed payloads elicit raw 'SQLITE_ERROR' messages ('unrecognized token', 'near UNION'), proving raw input reaches a SQLite query layer. 2) The injected tautology payload occurs in 0 of 46 product names, yet returns the full catalog; a benign filter cannot produce this. 3) Behavior is stable across independent fresh requests (verified 2026-10-05T02:46:08Z and 2026-10-05T02:48:19Z). 4) The finding is scoped strictly to filter bypass and full-catalog disclosure; the extraction channel was independently tested (contradiction -> 0 rows) and is explicitly unclaimed. 5) A destructive DROP probe was tested and the table survived, so no destructive behavior is claimed.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/rest/products/search?q=%27%20OR%20%271%27=%271",
+        "headers": {},
+        "body": null
+      }
+    },
+    {
+      "title": "Unauthenticated GET /metrics exposes Prometheus observability metrics including LLM token counters and startup internals",
+      "analysis": "Observation (2026-10-05T02:48:19Z): GET http://lab-mutator:3000/metrics with no Authorization header returns HTTP 200 with Content-Type text/plain; version=0.0.4; charset=utf-8, ~26.2 KB, in Prometheus exposition format. The metrics include juiceshop_llm_input_tokens_total/input_tokens, juiceshop_llm_output_tokens_total/output_tokens, juiceshop_llm_tool_calls_total, file_upload counters, http_requests_count grouped by status_code (2XX/3XX/4XX/5XX per app), juiceshop_startup_duration_seconds gauges for startup tasks (validateConfig, cleanupFtpFolder, validatePreconditions, datacreator, customizeApplication, customizeEasterEgg, ready), and process CPU metrics. This /metrics endpoint is present in the mutation-introduced variant (the pinned base image bkimminich/juice-shop@sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b, v20.2.0, serves no /metrics endpoint in its standard distribution; the LLM telemetry counters are a mutation addition). Impact: Observability data exposure (OWASP ASVS insufficient security monitoring / Observability Failures). The endpoint is publicly scrapable by any unauthenticated actor, revealing LLM usage telemetry and startup timing that aids reconnaissance; no secrets, tokens, or credentials were present in the scraped output. Reproducible across fresh requests.",
+      "false_positive_check": "1) /metrics is a conventional Prometheus scrape path, but the pinned baseline image does not expose it and carries no LLM telemetry — its presence and the llm_* counters are mutation-introduced surface, not baseline Juice Shop behavior. 2) No Authorization header is required; the response structure is identical across independent fresh requests. 3) The content is application telemetry (token counters, startup task durations, request counts), not a legitimate public-facing dashboard; neighboring authorization-sensitive routes (/rest/wallet/balance, /rest/user/authentication-details) return 401 without auth. 4) No secrets, credentials or sensitive PII were found in the metrics output — the verified property is the unauthenticated disclosure of operational telemetry.",
+      "request": {
+        "method": "GET",
+        "url": "http://lab-mutator:3000/metrics",
+        "headers": {},
+        "body": null
+      }
     }
-   }
-  },
-  {
-   "title": "SQL injection in GET /rest/products/search?q= bypasses the product filter, disclosing the complete product catalog",
-   "analysis": "Observation (2026-10-05T02:17:22Z): GET http://lab-mutator:3000/rest/products/search?q=Apple -> HTTP 200, 921 bytes, 3 products (filtered subset). GET http://lab-mutator:3000/rest/products/search?q=%27%20OR%20%271%27=%271 -> HTTP 200, 16557 bytes, 46 products (the complete catalog). The injected tautology string '%27%20OR%20%271%27=%271' (i.e., ' OR '1'='1) occurs in zero product catalog names, yet the response returns the entire product set, so benign string filtering cannot explain it. Malformed payloads (e.g., ?q=%27%20UNION%20SELECT%201,2,3--) -> HTTP 500 with raw SQLite errors ('near UNION: syntax error', 'unrecognized token'), proving raw input reaches a SQLite query layer rather than a client-side filter. The deduced query structure is a LIKE filter concatenating the raw q value (WHERE name LIKE '%' || <q> || '%'). Impact: Injection (filter bypass). An unauthenticated actor can disclose the full product dataset beyond any intended search scope. Explicit limitation: a boolean TRUE/FALSE data-extraction channel could not be reproducibly established because the trailing '|| %' interacts with SQLite operator precedence — an OR-branch tautology always evaluates all-rows and an AND-branch contradiction always evaluates zero-rows regardless of the inner condition — so no column-level extraction (users/passwords) via this parameter is claimed.",
-   "false_positive_check": "1) Malformed payloads elicit raw 'SQLITE_ERROR' messages ('unrecognized token', 'near UNION'), proving raw input reaches a SQLite query layer. 2) The injected tautology payload occurs in 0 of 46 product names, yet returns the full catalog; a benign filter cannot produce this. 3) Behavior is stable across independent fresh requests. 4) The finding is scoped strictly to filter bypass and full-catalog disclosure; data extraction via this parameter is explicitly unclaimed because the extraction channel was not reproducible. 5) Query parameters orderBy/limit/skip/where are ignored by this endpoint's own logic (all return the full catalog), consistent with the q value being the sole (and unsafely concatenated) filter.",
-   "request": {
-    "method": "GET",
-    "url": "http://lab-mutator:3000/rest/products/search?q=%27%20OR%20%271%27=%271",
-    "headers": {},
-    "body": null
-   }
-  }
- ]
+  ]
 }

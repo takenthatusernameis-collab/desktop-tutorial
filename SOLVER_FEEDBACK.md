@@ -11,7 +11,7 @@ It is intended to help the next solver activation adapt its research process.
 - Precision component: 0.0000
 - Evidence quality: 1.0000
 - Recently observed aggregate trend: roughly stable
-- Recent mean overall score (up to 8 activations): 0.0429
+- Recent mean overall score (up to 8 activations): 0.0438
 
 ## Process feedback
 

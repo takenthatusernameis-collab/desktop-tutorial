@@ -1,0 +1,395 @@
+# HELP juiceshop_llm_input_tokens_total Number of total input tokens processed
+# TYPE juiceshop_llm_input_tokens_total counter
+juiceshop_llm_input_tokens_total{app="juiceshop"} 0
+
+# HELP juiceshop_llm_input_tokens Number of input tokens processed
+# TYPE juiceshop_llm_input_tokens counter
+
+# HELP juiceshop_llm_output_tokens_total Number of total output tokens processed
+# TYPE juiceshop_llm_output_tokens_total counter
+juiceshop_llm_output_tokens_total{app="juiceshop"} 0
+
+# HELP juiceshop_llm_output_tokens Number of output tokens processed
+# TYPE juiceshop_llm_output_tokens counter
+
+# HELP juiceshop_llm_tool_calls_total Number of tool calls made
+# TYPE juiceshop_llm_tool_calls_total counter
+
+# HELP file_uploads_count Total number of successful file uploads grouped by file type.
+# TYPE file_uploads_count counter
+
+# HELP file_upload_errors Total number of failed file uploads grouped by file type.
+# TYPE file_upload_errors counter
+
+# HELP http_requests_count Total HTTP request count grouped by status code.
+# TYPE http_requests_count counter
+http_requests_count{status_code="2XX",app="juiceshop"} 122
+http_requests_count{status_code="4XX",app="juiceshop"} 51
+http_requests_count{status_code="5XX",app="juiceshop"} 240
+http_requests_count{status_code="3XX",app="juiceshop"} 1
+
+# HELP juiceshop_startup_duration_seconds Duration juiceshop required to perform a certain task during startup
+# TYPE juiceshop_startup_duration_seconds gauge
+juiceshop_startup_duration_seconds{task="validateConfig",app="juiceshop"} 0.039960327
+juiceshop_startup_duration_seconds{task="cleanupFtpFolder",app="juiceshop"} 0.225640955
+juiceshop_startup_duration_seconds{task="validatePreconditions",app="juiceshop"} 0.258428372
+juiceshop_startup_duration_seconds{task="datacreator",app="juiceshop"} 1.192140577
+juiceshop_startup_duration_seconds{task="customizeApplication",app="juiceshop"} 0.006473282
+juiceshop_startup_duration_seconds{task="customizeEasterEgg",app="juiceshop"} 0.002887619
+juiceshop_startup_duration_seconds{task="ready",app="juiceshop"} 1.273
+
+# HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.
+# TYPE process_cpu_user_seconds_total counter
+process_cpu_user_seconds_total{app="juiceshop"} 8.529296
+
+# HELP process_cpu_system_seconds_total Total system CPU time spent in seconds.
+# TYPE process_cpu_system_seconds_total counter
+process_cpu_system_seconds_total{app="juiceshop"} 1.517563
+
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total{app="juiceshop"} 10.046859000000001
+
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds{app="juiceshop"} 1791168309
+
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes{app="juiceshop"} 386789376
+
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes{app="juiceshop"} 2099191808
+
+# HELP process_heap_bytes Process heap size in bytes.
+# TYPE process_heap_bytes gauge
+process_heap_bytes{app="juiceshop"} 1001926656
+
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds{app="juiceshop"} 23
+
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds{app="juiceshop"} 65536
+
+# HELP nodejs_eventloop_lag_seconds Lag of event loop in seconds.
+# TYPE nodejs_eventloop_lag_seconds gauge
+nodejs_eventloop_lag_seconds{app="juiceshop"} 0.001866469
+
+# HELP nodejs_eventloop_lag_min_seconds The minimum recorded event loop delay.
+# TYPE nodejs_eventloop_lag_min_seconds gauge
+nodejs_eventloop_lag_min_seconds{app="juiceshop"} 0.009076736
+
+# HELP nodejs_eventloop_lag_max_seconds The maximum recorded event loop delay.
+# TYPE nodejs_eventloop_lag_max_seconds gauge
+nodejs_eventloop_lag_max_seconds{app="juiceshop"} 0.016842751
+
+# HELP nodejs_eventloop_lag_mean_seconds The mean of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_mean_seconds gauge
+nodejs_eventloop_lag_mean_seconds{app="juiceshop"} 0.010168637641816624
+
+# HELP nodejs_eventloop_lag_stddev_seconds The standard deviation of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_stddev_seconds gauge
+nodejs_eventloop_lag_stddev_seconds{app="juiceshop"} 0.0003706132768187471
+
+# HELP nodejs_eventloop_lag_p50_seconds The 50th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p50_seconds gauge
+nodejs_eventloop_lag_p50_seconds{app="juiceshop"} 0.010092543
+
+# HELP nodejs_eventloop_lag_p90_seconds The 90th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p90_seconds gauge
+nodejs_eventloop_lag_p90_seconds{app="juiceshop"} 0.010125311
+
+# HELP nodejs_eventloop_lag_p99_seconds The 99th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p99_seconds gauge
+nodejs_eventloop_lag_p99_seconds{app="juiceshop"} 0.011182079
+
+# HELP nodejs_active_resources Number of active resources that are currently keeping the event loop alive, grouped by async resource type.
+# TYPE nodejs_active_resources gauge
+nodejs_active_resources{type="PipeWrap",app="juiceshop"} 2
+nodejs_active_resources{type="FSEventWrap",app="juiceshop"} 1
+nodejs_active_resources{type="TCPServerWrap",app="juiceshop"} 1
+nodejs_active_resources{type="TCPSocketWrap",app="juiceshop"} 1
+nodejs_active_resources{type="Timeout",app="juiceshop"} 1
+nodejs_active_resources{type="Immediate",app="juiceshop"} 1
+
+# HELP nodejs_active_resources_total Total number of active resources.
+# TYPE nodejs_active_resources_total gauge
+nodejs_active_resources_total{app="juiceshop"} 7
+
+# HELP nodejs_active_handles Number of active libuv handles grouped by handle type. Every handle type is C++ class name.
+# TYPE nodejs_active_handles gauge
+nodejs_active_handles{type="Socket",app="juiceshop"} 3
+nodejs_active_handles{type="FSWatcher",app="juiceshop"} 1
+nodejs_active_handles{type="Server",app="juiceshop"} 1
+
+# HELP nodejs_active_handles_total Total number of active handles.
+# TYPE nodejs_active_handles_total gauge
+nodejs_active_handles_total{app="juiceshop"} 5
+
+# HELP nodejs_active_requests Number of active libuv requests grouped by request type. Every request type is C++ class name.
+# TYPE nodejs_active_requests gauge
+
+# HELP nodejs_active_requests_total Total number of active requests.
+# TYPE nodejs_active_requests_total gauge
+nodejs_active_requests_total{app="juiceshop"} 0
+
+# HELP nodejs_heap_size_total_bytes Process heap size from Node.js in bytes.
+# TYPE nodejs_heap_size_total_bytes gauge
+nodejs_heap_size_total_bytes{app="juiceshop"} 213438464
+
+# HELP nodejs_heap_size_used_bytes Process heap size used from Node.js in bytes.
+# TYPE nodejs_heap_size_used_bytes gauge
+nodejs_heap_size_used_bytes{app="juiceshop"} 79929392
+
+# HELP nodejs_external_memory_bytes Node.js external memory size in bytes.
+# TYPE nodejs_external_memory_bytes gauge
+nodejs_external_memory_bytes{app="juiceshop"} 4331949
+
+# HELP nodejs_heap_space_size_total_bytes Process heap space size total from Node.js in bytes.
+# TYPE nodejs_heap_space_size_total_bytes gauge
+nodejs_heap_space_size_total_bytes{space="read_only",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="new",app="juiceshop"} 134217728
+nodejs_heap_space_size_total_bytes{space="old",app="juiceshop"} 64106496
+nodejs_heap_space_size_total_bytes{space="code",app="juiceshop"} 5242880
+nodejs_heap_space_size_total_bytes{space="shared",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="trusted",app="juiceshop"} 5877760
+nodejs_heap_space_size_total_bytes{space="shared_trusted",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="new_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="large_object",app="juiceshop"} 3829760
+nodejs_heap_space_size_total_bytes{space="code_large_object",app="juiceshop"} 163840
+nodejs_heap_space_size_total_bytes{space="shared_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="shared_trusted_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="trusted_large_object",app="juiceshop"} 0
+
+# HELP nodejs_heap_space_size_used_bytes Process heap space size used from Node.js in bytes.
+# TYPE nodejs_heap_space_size_used_bytes gauge
+nodejs_heap_space_size_used_bytes{space="read_only",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="new",app="juiceshop"} 6567952
+nodejs_heap_space_size_used_bytes{space="old",app="juiceshop"} 61075680
+nodejs_heap_space_size_used_bytes{space="code",app="juiceshop"} 4506880
+nodejs_heap_space_size_used_bytes{space="shared",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="trusted",app="juiceshop"} 3816592
+nodejs_heap_space_size_used_bytes{space="shared_trusted",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="new_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="large_object",app="juiceshop"} 3802496
+nodejs_heap_space_size_used_bytes{space="code_large_object",app="juiceshop"} 163584
+nodejs_heap_space_size_used_bytes{space="shared_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="shared_trusted_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="trusted_large_object",app="juiceshop"} 0
+
+# HELP nodejs_heap_space_size_available_bytes Process heap space size available from Node.js in bytes.
+# TYPE nodejs_heap_space_size_available_bytes gauge
+nodejs_heap_space_size_available_bytes{space="read_only",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="new",app="juiceshop"} 60536816
+nodejs_heap_space_size_available_bytes{space="old",app="juiceshop"} 2815992
+nodejs_heap_space_size_available_bytes{space="code",app="juiceshop"} 735360
+nodejs_heap_space_size_available_bytes{space="shared",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="trusted",app="juiceshop"} 2049312
+nodejs_heap_space_size_available_bytes{space="shared_trusted",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="new_large_object",app="juiceshop"} 67108864
+nodejs_heap_space_size_available_bytes{space="large_object",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="code_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="shared_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="shared_trusted_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="trusted_large_object",app="juiceshop"} 0
+
+# HELP nodejs_version_info Node.js version info.
+# TYPE nodejs_version_info gauge
+nodejs_version_info{version="v24.19.0",major="24",minor="19",patch="0",app="juiceshop"} 1
+
+# HELP nodejs_gc_duration_seconds Garbage collection duration by kind, one of major, minor, incremental or weakcb.
+# TYPE nodejs_gc_duration_seconds histogram
+nodejs_gc_duration_seconds_bucket{le="0.001",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="0.01",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="0.1",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="1",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="2",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="5",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="+Inf",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_sum{app="juiceshop",kind="incremental"} 0.0022765650000073946
+nodejs_gc_duration_seconds_count{app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="0.001",app="juiceshop",kind="minor"} 37
+nodejs_gc_duration_seconds_bucket{le="0.01",app="juiceshop",kind="minor"} 78
+nodejs_gc_duration_seconds_bucket{le="0.1",app="juiceshop",kind="minor"} 78
+nodejs_gc_duration_seconds_bucket{le="1",app="juiceshop",kind="minor"} 78
+nodejs_gc_duration_seconds_bucket{le="2",app="juiceshop",kind="minor"} 78
+nodejs_gc_duration_seconds_bucket{le="5",app="juiceshop",kind="minor"} 78
+nodejs_gc_duration_seconds_bucket{le="+Inf",app="juiceshop",kind="minor"} 78
+nodejs_gc_duration_seconds_sum{app="juiceshop",kind="minor"} 0.17942172300000678
+nodejs_gc_duration_seconds_count{app="juiceshop",kind="minor"} 78
+nodejs_gc_duration_seconds_bucket{le="0.001",app="juiceshop",kind="major"} 0
+nodejs_gc_duration_seconds_bucket{le="0.01",app="juiceshop",kind="major"} 6
+nodejs_gc_duration_seconds_bucket{le="0.1",app="juiceshop",kind="major"} 6
+nodejs_gc_duration_seconds_bucket{le="1",app="juiceshop",kind="major"} 6
+nodejs_gc_duration_seconds_bucket{le="2",app="juiceshop",kind="major"} 6
+nodejs_gc_duration_seconds_bucket{le="5",app="juiceshop",kind="major"} 6
+nodejs_gc_duration_seconds_bucket{le="+Inf",app="juiceshop",kind="major"} 6
+nodejs_gc_duration_seconds_sum{app="juiceshop",kind="major"} 0.040407234999962384
+nodejs_gc_duration_seconds_count{app="juiceshop",kind="major"} 6
+
+# HELP juiceshop_version_info Release version of OWASP Juice Shop.
+# TYPE juiceshop_version_info gauge
+juiceshop_version_info{version="20.2.0",major="20",minor="2",patch="0",app="juiceshop"} 1
+
+# HELP juiceshop_challenges_solved Number of solved challenges grouped by difficulty and category.
+# TYPE juiceshop_challenges_solved gauge
+juiceshop_challenges_solved{difficulty="2",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Observability Failures",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Improper Input Validation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Vulnerable Components",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Broken Authentication",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Security through Obscurity",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Miscellaneous",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Insecure Deserialization",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Broken Anti Automation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Broken Authentication",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Security Misconfiguration",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Improper Input Validation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Security Misconfiguration",app="juiceshop"} 1
+juiceshop_challenges_solved{difficulty="4",category="Improper Input Validation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Broken Anti Automation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Cryptographic Issues",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Vulnerable Components",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Observability Failures",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Vulnerable Components",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Broken Authentication",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Security Misconfiguration",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Broken Anti Automation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Cryptographic Issues",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Unvalidated Redirects",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Broken Authentication",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Miscellaneous",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Security through Obscurity",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Improper Input Validation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Miscellaneous",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Security through Obscurity",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Insecure Deserialization",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Cryptographic Issues",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Unvalidated Redirects",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="XXE",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="XXE",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Security Misconfiguration",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Observability Failures",app="juiceshop"} 1
+juiceshop_challenges_solved{difficulty="3",category="Miscellaneous",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Vulnerable Components",app="juiceshop"} 0
+
+# HELP juiceshop_challenges_total Total number of challenges grouped by difficulty and category.
+# TYPE juiceshop_challenges_total gauge
+juiceshop_challenges_total{difficulty="2",category="Sensitive Data Exposure",app="juiceshop"} 6
+juiceshop_challenges_total{difficulty="3",category="XSS",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="4",category="Observability Failures",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Improper Input Validation",app="juiceshop"} 6
+juiceshop_challenges_total{difficulty="2",category="Broken Access Control",app="juiceshop"} 4
+juiceshop_challenges_total{difficulty="6",category="Vulnerable Components",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Broken Authentication",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="5",category="Security through Obscurity",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="Miscellaneous",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Broken Access Control",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Insecure Deserialization",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Broken Anti Automation",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Broken Authentication",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="4",category="Injection",app="juiceshop"} 5
+juiceshop_challenges_total{difficulty="4",category="XSS",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="1",category="Sensitive Data Exposure",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="XSS",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Injection",app="juiceshop"} 5
+juiceshop_challenges_total{difficulty="2",category="Security Misconfiguration",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="4",category="Broken Access Control",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Sensitive Data Exposure",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="2",category="Improper Input Validation",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Security Misconfiguration",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Improper Input Validation",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="5",category="Broken Anti Automation",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="6",category="Cryptographic Issues",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="3",category="Broken Access Control",app="juiceshop"} 5
+juiceshop_challenges_total{difficulty="4",category="Sensitive Data Exposure",app="juiceshop"} 6
+juiceshop_challenges_total{difficulty="5",category="Vulnerable Components",app="juiceshop"} 4
+juiceshop_challenges_total{difficulty="5",category="Observability Failures",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Vulnerable Components",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="2",category="Injection",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Sensitive Data Exposure",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Broken Authentication",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="6",category="Security Misconfiguration",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="Broken Anti Automation",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Cryptographic Issues",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Injection",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Unvalidated Redirects",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="2",category="Broken Authentication",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Miscellaneous",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="3",category="Security through Obscurity",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="2",category="XSS",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Improper Input Validation",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="6",category="Broken Access Control",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="Injection",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="2",category="Miscellaneous",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Security through Obscurity",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="Insecure Deserialization",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="XSS",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="2",category="Cryptographic Issues",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Unvalidated Redirects",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="3",category="XXE",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="XXE",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Security Misconfiguration",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Observability Failures",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="3",category="Miscellaneous",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="3",category="Vulnerable Components",app="juiceshop"} 1
+
+# HELP juiceshop_coding_challenges_progress Number of coding challenges grouped by progression phase.
+# TYPE juiceshop_coding_challenges_progress gauge
+juiceshop_coding_challenges_progress{phase="find it",app="juiceshop"} 0
+juiceshop_coding_challenges_progress{phase="fix it",app="juiceshop"} 0
+juiceshop_coding_challenges_progress{phase="unsolved",app="juiceshop"} 35
+
+# HELP juiceshop_cheat_score Overall probability that any hacking or coding challenges were solved by cheating.
+# TYPE juiceshop_cheat_score gauge
+juiceshop_cheat_score{app="juiceshop"} 0
+
+# HELP juiceshop_coding_challenges_accuracy Overall accuracy while solving coding challenges grouped by phase.
+# TYPE juiceshop_coding_challenges_accuracy gauge
+juiceshop_coding_challenges_accuracy{phase="find it",app="juiceshop"} Nan
+juiceshop_coding_challenges_accuracy{phase="fix it",app="juiceshop"} Nan
+
+# HELP juiceshop_orders_placed_total Number of orders placed in OWASP Juice Shop.
+# TYPE juiceshop_orders_placed_total gauge
+juiceshop_orders_placed_total{app="juiceshop"} 3
+
+# HELP juiceshop_users_registered Number of registered users grouped by customer type.
+# TYPE juiceshop_users_registered gauge
+juiceshop_users_registered{type="standard",app="juiceshop"} 10
+juiceshop_users_registered{type="deluxe",app="juiceshop"} 4
+
+# HELP juiceshop_users_registered_total Total number of registered users.
+# TYPE juiceshop_users_registered_total gauge
+juiceshop_users_registered_total{app="juiceshop"} 23
+
+# HELP juiceshop_wallet_balance_total Total balance of all users' digital wallets.
+# TYPE juiceshop_wallet_balance_total gauge
+juiceshop_wallet_balance_total{app="juiceshop"} 13887
+
+# HELP juiceshop_user_social_interactions Number of social interactions with users grouped by type.
+# TYPE juiceshop_user_social_interactions gauge
+juiceshop_user_social_interactions{type="review",app="juiceshop"} 29
+juiceshop_user_social_interactions{type="feedback",app="juiceshop"} 8
+juiceshop_user_social_interactions{type="complaint",app="juiceshop"} 1

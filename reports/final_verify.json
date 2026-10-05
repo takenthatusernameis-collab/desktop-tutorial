@@ -1,5 +1,5 @@
 {
- "timestamp": "2026-10-05T02:17:22Z",
+ "timestamp": "2026-10-05T02:48:19Z",
  "target": "http://lab-mutator:3000",
  "f1": {
   "request": {
@@ -66,9 +66,9 @@
   "get_status": 401,
   "get_body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Authorization header was found</title>     <style>* {   margin: 0;   padd",
   "post1_status": 201,
-  "post1_id": 30,
+  "post1_id": 27,
   "post2_status": 201,
-  "post2_id": 31,
+  "post2_id": 28,
   "empty_post_status": 201
  },
  "f3": {

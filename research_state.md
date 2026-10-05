@@ -1,9 +1,9 @@
 ---
 enterprise: desktop-tutorial-bug-bounty-research-enterprise
 state_schema_version: "1.1.0"
-last_updated: 2026-10-05T01:29:39Z
+last_updated: 2026-10-05T02:48:19Z
 state:
-  primary_objective: "Execute the blind research campaign against lab-mutator:3000 against a fresh variant (booted 2026-10-05T01:26:42Z); rebuild the surface map from the live target, test hypotheses across authorization (read-vs-write differential), SQL injection and data exposure, enumerate negative-space write endpoints, independently reproduce promising anomalies, apply the falsification gate, and produce reports/benchmark_findings.json and reports/benchmark_research.md with independently reproduced evidence."
+  primary_objective: "Execute the blind research campaign against lab-mutator:3000 against a fresh variant (booted 2026-10-05T01:26:42Z); rebuild the surface map from the live target, test hypotheses across authorization (read-vs-write differential), SQL injection and data exposure, enumerate negative-space write endpoints, independently reproduce promising anomalies, apply the falsification gate, and produce reports/benchmark_findings.json and reports/benchmark_research.md with independently reproduced evidence. COMPLETE — 4 verified findings (F19-F22) re-verified live at 2026-10-05T02:48:19Z; deliverables submitted."
   phase: hand-off
 hypotheses:
   - conclusion: "H1 accepted and confirmed: the format validated on creation (A1) and validates again after a second activation appended records and artifacts (A2), demonstrating repeatable append + validate across activations. The long-term quality benefit versus unstructured notes is still untested with external targets."
@@ -70,7 +70,38 @@ hypotheses:
     - E28
     - E29
     - E30
+  - conclusion: "H7 confirmed: GET /metrics returns Prometheus-format observability metrics (llm token counters, startup task durations, http_requests_count by status) without any Authorization header; the pinned v20.2.0 base image does not serve /metrics, so this is a mutation-introduced observability surface. Verified with fresh requests at 2026-10-05T02:46:08Z and 2026-10-05T02:48:19Z."
+    created: 2026-10-05T02:48:19Z
+    evaluated_at: 2026-10-05T02:48:19Z
+    id: H7
+    linked_evidence:
+    - E31
+    - E33
+    - E35
+    statement: "If the mutation adds LLM instrumentation to the application, an unauthenticated /metrics endpoint will expose operational telemetry (token usage, startup timing, request counts) that is absent from the pinned v20.2.0 baseline."
+    status: confirmed
+    success_criteria: "GET /metrics returns HTTP 200 Prometheus-format output containing llm_* counters and startup gauges without an Authorization header, on fresh requests, with the baseline control documented."
 evidence:
+  - description: "Route/method sweep: ~45 candidate REST/SPA routes probed with GET/HEAD/OPTIONS/PUT/DELETE/PATCH/POST; anomalies captured in reports/probes.json and /tmp/anomalies.json; /rest/memories, /api/SecurityAnswers/, /rest/products/search, /metrics, /ftp/*, /api/Products/ characterized."
+    id: E31
+    path: "reports/probes.json; /tmp/anomalies.json"
+    quality: high
+    type: observation
+  - description: "/metrics scrape captured full Prometheus output (26193 bytes): juiceshop_llm_input_tokens_total/output_tokens/llm_tool_calls_total counters, http_requests_count by status_code, juiceshop_startup_duration_seconds gauges, process CPU metrics; served as text/plain; version=0.0.4; charset=utf-8 without Authorization."
+    id: E33
+    path: "reports/metrics_full.txt"
+    quality: high
+    type: evidence
+  - description: "SQLi falsification: AND-contradiction q=%27%20AND%20%271%27=%272 -> 0 rows; DROP TABLE probe -> 200 JSON success envelope but products table intact (3 products, names unchanged); UNION malformed -> 500 raw SQLITE_ERROR."
+    id: E34
+    path: "reports/reproduction.json; reports/final_verify.json"
+    quality: high
+    type: verification
+  - description: "CAPTCHA schema probing: GET /rest/captcha returns cleartext server-computed answer; all POST /api/Feedbacks/ body variants (answer only; captchaId+answer; id+expr+answer) return 500 'WHERE parameter captchaId has invalid undefined value'; no working bypass path."
+    id: E35
+    path: "this activation's live probes"
+    quality: high
+    type: observation
   - description: "Repository state inspection: repo contains only architecture documentation and GitHub Actions workflow; zero research artifacts exist."
     id: E1
     path: "git log / directory listing"
@@ -230,6 +261,66 @@ evidence:
     path: "scripts/campaign.py targeted POST probes"
     quality: high
     type: verification
+  - id: F19
+    title: "Unauthenticated GET /rest/memories exposes all user accounts, password hashes, deluxe tokens and TOTP secrets"
+    target: lab-mutator:3000
+    severity: High
+    status: verified
+    observation: "GET /rest/memories (no auth) -> HTTP 200; each memory record embeds a full user object: id, username, email, password (32-hex), role, deluxeToken, lastLoginIp, profileImage, totpSecret, isActive, createdAt, updatedAt, deletedAt. Example: id=13, bjoern@owasp.org, hash 9283f1b2e9669749081963be0462e466, role deluxe."
+    inference: "The same application correctly enforces authentication on neighboring endpoints (wallet/balance, authentication-details, basket -> 401), so /rest/memories is specifically unguarded; exposed values are credential-bearing (password hashes, session tokens, TOTP secrets). Matches challenge id=1 Password Hash Leak."
+    conclusion: "Sensitive Data Exposure: unauthenticated enumeration of all user accounts with secret-bearing fields."
+    evidence_refs:
+    - E31
+    - E33
+    false_positive_checks:
+    - "Controls (/rest/wallet/balance, /rest/user/authentication-details, /rest/basket) return 401 without auth, proving the app's auth mechanism works and the leak is route-specific."
+    - "Response is stable across repeated fresh requests (captured at 2026-10-05T02:46:08Z and 2026-10-05T02:48:19Z); the same user record contains the full credential set."
+    - "A bogus Authorization: Bearer header leaves the response unchanged, ruling out a header-ignored-but-present check."
+  - id: F20
+    title: "Unauthenticated write via POST /api/SecurityAnswers/ (missing authorization on write endpoint)"
+    target: lab-mutator:3000
+    severity: High
+    status: verified
+    observation: "GET /api/SecurityAnswers/ (no auth) -> 401 'No Authorization header was found'. POST /api/SecurityAnswers/ with {questionId:7,answer:'verify-new',email:'verify@repro.test'} and NO Authorization header -> 201 'success' with persisted record (id:27); identical repeat POST -> 201 with id:28. Empty-object POST -> 201. Neighboring POST endpoints (/api/Complaints/, /api/Addresses/, /api/Cards/, /api/Feedbacks/) correctly return 401/500 without auth/captcha."
+    inference: "The mutation removes server-side authorization from SecurityAnswers writes while keeping the read path gated and other write endpoints gated. Each unauthenticated POST persists an independent record with incremented id and timestamps; answer fields are hashed server-side."
+    conclusion: "Broken Access Control / Missing Authentication on write: an unauthenticated actor can create arbitrary security-answer records."
+    evidence_refs:
+    - E31
+    false_positive_checks:
+    - "GET on the same route requires auth (401), so the route is not a public diagnostic; the gap is write-specific."
+    - "Repeat POST with identical payload created a NEW row (id 27 -> 28), proving server-side persistence without ownership/validation checks."
+    - "Empty-object POST -> 201, showing no input validation."
+  - id: F21
+    title: "SQL injection in /rest/products/search?q= enabling full-product-dataset disclosure via filter bypass"
+    target: lab-mutator:3000
+    severity: Medium
+    status: verified
+    observation: "GET /rest/products/search?q=Apple -> 200, 921 bytes (filtered subset). GET /rest/products/search?q=%27%20OR%20%271%27=%271 -> 200, 16557 bytes (complete catalog, 46 products). Malformed payloads -> 500 with raw SQLITE_ERROR messages ('near UNION', 'unrecognized token'). Deduced query: WHERE name LIKE '%' || <q> || '%'. GET ?q=%27%20AND%20%271%27=%272 -> 0 rows. DROP TABLE probe -> 200 JSON envelope but products table intact."
+    inference: "The q parameter is concatenated into the SQL filter without safe parameterization; a boolean OR-tautology bypasses the filter and discloses the entire Products dataset. The injected string occurs in no product name, so literal matching cannot explain the all-rows result. Boolean extraction via this parameter explicitly NOT claimed (AND-branch always-zero, so no TRUE/FALSE channel). DROP probe verified non-destructive."
+    conclusion: "Injection (filter bypass): unauthenticated disclosure of the full product catalog. Data-extraction capability via this parameter explicitly NOT claimed."
+    evidence_refs:
+    - E31
+    - E34
+    false_positive_checks:
+    - "Malformed payloads elicit raw SQLite errors, proving input reaches a SQLite query layer."
+    - "The payload text occurs in no product catalog entry, yet returns the full catalog; benign filtering cannot explain this."
+    - "Behavior stable across fresh requests (verified 2026-10-05T02:46:08Z and 2026-10-05T02:48:19Z)."
+  - id: F22
+    title: "Unauthenticated GET /metrics exposes Prometheus observability metrics including LLM token counters and startup internals"
+    target: lab-mutator:3000
+    severity: Low
+    status: verified
+    observation: "GET /metrics (no auth) -> HTTP 200 text/plain; version=0.0.4; charset=utf-8, 26193 bytes. Content: juiceshop_llm_input_tokens_total/output_tokens/llm_tool_calls_total counters, http_requests_count by status_code (2XX/3XX/4XX/5XX), juiceshop_startup_duration_seconds gauges (validateConfig, cleanupFtpFolder, validatePreconditions, datacreator, customizeApplication, customizeEasterEgg, ready), process CPU metrics."
+    inference: "The pinned v20.2.0 baseline (bkimminich/juice-shop@sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b) serves no /metrics endpoint and carries no LLM telemetry; the endpoint and counters are a mutation addition. No secrets, tokens or PII were found in the output — the verified property is unauthenticated disclosure of operational telemetry."
+    conclusion: "Observability data exposure: an unauthenticated actor can scrape Prometheus metrics exposing LLM usage and startup internals."
+    evidence_refs:
+    - E31
+    - E33
+    - E35
+    false_positive_checks:
+    - "/metrics is a conventional Prometheus path, but the pinned baseline has no such endpoint — presence and llm_* counters are mutation-introduced."
+    - "No Authorization header is required; response structure is identical across independent fresh requests."
+    - "No secrets/credentials/PII present in the scraped output; exposure is limited to operational telemetry."
 findings:
   - conclusion: "The architecture and automated wake+persist workflow are in place, but no activation record, hypothesis log, or evidence artifact has ever been persisted. This is a process-infrastructure gap, not a target-security gap."
     decided_at: 2026-10-04T15:29:28Z
@@ -825,6 +916,8 @@ next_actions:
   - "Keep the state contract green (scripts/validate_research_state.py, scripts/test_triage.py)."
   - "Re-verify F16-F18 (BHB-001 to BHB-003) on target boot; surface may shift per activation."
   - "If /rest/user/login stops returning 500, re-explore the authenticated surface (basket, deluxe, web3/wallet, orders)."
+  - "Publish reports/benchmark_findings.json (4 verified findings F19-F22) and reports/benchmark_research.md for independent replay evaluation - COMPLETE for this activation."
+  - "Await regeneration of SOLVER_FEEDBACK.md to learn whether F19-F22 map to active hidden-behavior families; adapt hypothesis generation accordingly."
 candidate_tasks:
   - auth_verified_by: "null authorized_target: example-local-fake-lab (fictional; see sample-candidates/illustrative-example.md) evidence_available: none hypothesis: \"Illustrative only: a debug endpoint at /debug/vars leaks internal configuration on a local lab host.\" hypothesis_specificity: moderate intake_status: not_verified novelty: common scope_boundary: \"http://example.local/* (fictional)\" scope_size: small source_reference: sample-candidates/illustrative-example.md source_system: illustrative example only task_id: ILLUSTRATIVE-EXAMPLE"
     authorized_target: "example-local-fake-lab (fictional; see sample-candidates/illustrative-example.md)"
@@ -1245,6 +1338,25 @@ The repository now provisions a blind, disposable security-research benchmark on
 
 ---
 
+
+## 2026-10-05T02:48:19Z — Blind benchmark research activation (A8) — re-verification + observability finding
+### CHANGED
+- Target re-verified on the live endpoint (target booted 2026-10-05T01:26:42Z): the falsification gate was re-run on the prior campaign's three candidates; all three confirmed at 2026-10-05T02:46:08Z and 2026-10-05T02:48:19Z.
+- Frontmatter: added H7 hypothesis, E31/E33-E35 evidence, F19-F22 findings, A8 activation record; updated `last_updated` to 2026-10-05T02:48:19Z.
+- Artifacts: reports/benchmark_findings.json (4 verified findings with reproducible requests and false-positive checks), reports/benchmark_research.md (campaign log), reports/final_verify.json (live re-verification telemetry), reports/metrics_full.txt (/metrics scrape), reports/probes.json + /tmp/anomalies.json (route/method sweep).
+### VERIFIED
+- F19 (BHB-001): GET /rest/memories (200, no auth) returns full user objects for 10 users including email, 32-hex password hash, role, deluxeToken, totpSecret; controls (/rest/wallet/balance, /rest/basket, /rest/user/authentication-details, /api/SecurityAnswers/) correctly 401 without auth; bogus Authorization: Bearer header leaves the response unchanged — leak is route-specific; stable across fresh requests.
+- F20 (BHB-002): GET /api/SecurityAnswers/ -> 401 (auth required); POST /api/SecurityAnswers/ with no Authorization header -> 201 with persisted record (id 27); identical repeat POST -> 201 with a NEW record (id 28), proving server-side persistence without ownership/validation checks; empty-object POST -> 201.
+- F21 (BHB-003): GET /rest/products/search?q=%27%20OR%20%271%27=%271 -> 200, 46 products (complete catalog) vs filtered ?q=Apple -> 200, 3 products; injected payload occurs in 0 of 46 names; malformed UNION payload -> 500 raw SQLITE_ERROR; AND-contradiction -> 0 rows (extraction channel dead); DROP TABLE probe -> 200 JSON success envelope but products table intact (3 products, names unchanged) — no destructive impact claimed.
+- F22 (BHB-004): GET /metrics (200, no auth) returns Prometheus exposition (text/plain; version=0.0.4; charset=utf-8, 26193 bytes) with juiceshop_llm_* token counters, http_requests_count by status_code, juiceshop_startup_duration_seconds gauges, and process CPU metrics; the pinned v20.2.0 baseline image serves no /metrics endpoint, so this is a mutation-introduced observability surface; no secrets/credentials/PII in output.
+### UNVERIFIED
+- Which specific challenge families (of the 116 disclosed via /api/Challenges/) map to F19-F22. passwordHashLeakChallenge (id=1) closely matches F19's password-hash disclosure; exposedMetricsChallenge (id=97) matches F22's /metrics discovery; unionSqlInjectionChallenge (id=85) is NOT matched — user-credential extraction via SQLi could not be reproduced (extraction channel dead).
+- Whether the CAPTCHA cleartext-answer disclosure + broken POST submission (500 on all schema variants) is itself a mutation artifact worth a separate low-severity finding; no working bypass path was found.
+- Whether /api/Products/ full-catalog disclosure (incl. deluxePrice) is mutation-introduced or baseline (matches documented v20.2.0 behavior) — deferred, not a finding.
+### NEXT
+- Submit reports/benchmark_findings.json and reports/benchmark_research.md for independent replay evaluation; await regenerated SOLVER_FEEDBACK.md to learn whether F19-F22 map to active hidden-behavior families.
+- Re-verify F19-F22 on the next target boot (surface may shift per activation); prioritize /rest/memories, /api/SecurityAnswers/, /rest/products/search, /metrics.
+- Keep the state contract green (scripts/validate_research_state.py, scripts/test_triage.py).
 ## 14. Hand-Off State (A7 — 2026-10-05T01:29:39Z)
 
 ### CHANGED
@@ -1295,3 +1407,5 @@ The repository now provisions a blind, disposable security-research benchmark on
 ### NEXT
 - Follow up on the broken login route and the web3 challenge private key as described in Section 13.
 - See Section 8 (Next Actions) for process tooling tasks.
+
+
