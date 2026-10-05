@@ -356,7 +356,9 @@ def mutate_request(seed: dict[str, Any], operator: str) -> list[tuple[dict[str, 
             out.append((child, {"operator": operator, "variant": name}))
         return out
 
-    if operator == "METHOD_VARIANTS" and seed["method"] == "GET":
+    if operator == "METHOD_VARIANTS":
+        if seed["method"] != "GET":
+            return []
         for method in ("HEAD", "OPTIONS"):
             child = dict(seed)
             child["method"] = method
