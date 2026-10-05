@@ -7,56 +7,49 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=27 Unauthenticated raw, non-graceful, inconsistent error handling (errorHandlingChallenge)",
+      "title": "Raw, non-graceful, inconsistent unauthenticated error responses (id=27 / errorHandlingChallenge)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=76 Unauthenticated security policy page is accessible (securityPolicyChallenge)",
+      "title": "Unauthenticated exposure of Prometheus observability and AI/LLM usage telemetry (id=97 / exposedMetricsChallenge)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=97 Unauthenticated exposed Prometheus metrics telemetry (exposedMetricsChallenge)",
+      "title": "Excessive unauthenticated user-object exposure via /rest/memories (id=23)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Excessive unauthenticated user-object data exposure via /rest/memories (id=23)",
+      "title": "Unauthenticated write gap on /api/SecurityAnswers/ - writes accepted with no credentials (id=24)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated write gap on /api/SecurityAnswers/ (read-gated, write-open)",
+      "title": "Unauthenticated mass-assignment on PUT /api/Products/{id} with cross-request persistence (id=6)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated PUT mass-assignment on /api/Products/{id}",
+      "title": "CAPTCHA cleartext answer leak via GET /rest/captcha (id=7)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "CAPTCHA cleartext answer leak (bypass path broken in variant)",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Account-existence enumeration via /rest/user/security-question?email=",
+      "title": "Account existence enumeration via GET /rest/user/security-question?email= (id=5)",
       "valid_reproduction": false
     }
   ],
@@ -65,7 +58,7 @@
   "difficulty": 4,
   "discovery_rate": 0.0,
   "evidence_quality": 1.0,
-  "finding_count_submitted": 8,
+  "finding_count_submitted": 7,
   "ground_truth_exposed": false,
   "limitations": [
     "Replay validation tests submitted evidence against the hidden evaluator.",

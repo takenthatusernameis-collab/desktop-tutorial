@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 0,
+  "candidate_count": 1,
+  "family_id": "fam_76_security_policy",
+  "generation": 2,
+  "generation_id": "gen-0002-fam_76_security_policy",
+  "information_gain": 0.5,
+  "observed_at": "2026-10-05T10:43:21Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_76_security_policy"
+}
