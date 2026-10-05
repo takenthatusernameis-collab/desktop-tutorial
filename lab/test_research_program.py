@@ -127,6 +127,13 @@ def test_new_and_bootstrap(tmp: Path):
 
 def test_portfolio_compiler_and_continuity(tmp: Path):
     program = sample_program()
+    program["surfaces"][0]["priority"] = "HIGH"
+    program["surfaces"][0]["uncertainty"] = "high - qualitative uncertainty retained from worker research"
+    program["surfaces"][1]["priority"] = "LOW"
+    program["surfaces"][1]["uncertainty"] = "medium - bounded maintenance uncertainty"
+    rp.validate_program(program, "b1")
+    compiled = rp.compile_portfolio(program, rp.load_runtime(tmp))
+    assert compiled
     program["surfaces"][0]["status"] = "VERIFIED"
     rp.validate_program(program, "b1")
     program["surfaces"][0]["status"] = "NEGATED"
