@@ -39,9 +39,21 @@ def report(
         return 1, "FAILED_RESEARCH_HANDOFF"
     if worker == "skipped":
         return 1, "FAILED_WORKER_SKIPPED"
+
+    findings_present = findings_path.is_file() and findings_path.stat().st_size > 0
+    research_report_present = research_report_path.is_file() and research_report_path.stat().st_size > 0
+
+    # A non-successful worker is a continuation point, not an automatic
+    # activation failure. Independent evaluation is skipped in that case.
+    if worker != "success":
+        if not findings_present or not research_report_present:
+            return 0, "PARTIAL"
+        if evaluate not in {"success", "skipped"}:
+            return 1, "FAILED_INDEPENDENT_EVALUATION"
+
     if evaluate != "success":
         return 1, "FAILED_INDEPENDENT_EVALUATION"
-    if not findings_path.is_file() or findings_path.stat().st_size == 0:
+    if not findings_present:
         return 1, "FAILED_FINDINGS_REPORT_MISSING"
     if not research_report_path.is_file() or research_report_path.stat().st_size == 0:
         return 1, "FAILED_RESEARCH_REPORT_MISSING"
