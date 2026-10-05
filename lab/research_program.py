@@ -671,6 +671,12 @@ def compile_portfolio(program: dict[str, Any], runtime: dict[str, Any]) -> list[
         tickets[family_id] = max(1, min(4, intensity))
 
     all_relevant_surfaces = {
+        s["surface_id"]
+        for s in program["surfaces"]
+        if s.get("status") in SURFACE_STATUSES and s["surface_id"] in {
+            f["surface_id"] for _, _, f in families
+        }
+    }
     if len(all_relevant_surfaces) > max_generations:
         raise ProgramError(
             "portfolio generation budget is smaller than required surface breadth: "
@@ -719,12 +725,6 @@ def compile_portfolio(program: dict[str, Any], runtime: dict[str, Any]) -> list[
         if len(plan) >= max_generations:
             break
 
-        s["surface_id"]
-        for s in program["surfaces"]
-        if s.get("status") in SURFACE_STATUSES and s["surface_id"] in {
-            f["surface_id"] for _, _, f in families
-        }
-    }
     covered_surfaces = {item["surface_id"] for item in plan}
     missing = sorted(all_relevant_surfaces - covered_surfaces)
     if missing:
