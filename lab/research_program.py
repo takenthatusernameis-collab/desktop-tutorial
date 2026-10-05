@@ -1038,6 +1038,7 @@ def run_pre_kilo(mode: str, benchmark_id: str, target: str, state_dir: Path) -> 
         },
     )
     write_json(program_path, program)
+    (state_dir / "DISCOVERY_REQUIRED.json").unlink(missing_ok=True)
     print(f"RESEARCH_PORTFOLIO_STATUS=EXECUTED generations={len(results)}")
     return 0
 
