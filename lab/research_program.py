@@ -1361,8 +1361,16 @@ def validate_continuity(previous: dict[str, Any] | None, current: dict[str, Any]
             raise ProgramError(f"family {fid} generation regressed")
     for sid, old in old_surfaces.items():
         cur = new_surfaces[sid]
-        old_effort = old.get("reasonable_effort_evidence") or {}
-        cur_effort = cur.get("reasonable_effort_evidence") or {}
+        raw_old_effort = old.get("reasonable_effort_evidence")
+        raw_cur_effort = cur.get("reasonable_effort_evidence")
+
+        # Older durable programs stored human-readable effort evidence as a
+        # string. Newer programs may use a structured numeric/object form.
+        # Preserve the legacy text for continuity purposes without trying to
+        # iterate it as a mapping.
+        old_effort = raw_old_effort if isinstance(raw_old_effort, dict) else {}
+        cur_effort = raw_cur_effort if isinstance(raw_cur_effort, dict) else {}
+
         for key, old_value in old_effort.items():
             if isinstance(old_value, (int, float)) and float(cur_effort.get(key, old_value)) < float(old_value):
                 raise ProgramError(f"surface {sid} effort evidence regressed for {key}")
@@ -1565,9 +1573,32 @@ def self_test() -> int:
 
     server.shutdown()
     server.server_close()
+    legacy_previous = {
+        "surfaces": [
+            {
+                "surface_id": "legacy-surface",
+                "reasonable_effort_evidence": "legacy human-readable evidence",
+            }
+        ],
+        "evolution_families": [
+            {"family_id": "legacy-family", "generation": 2, "lineage": []}
+        ],
+    }
+    legacy_current = {
+        "surfaces": [
+            {
+                "surface_id": "legacy-surface",
+                "reasonable_effort_evidence": {"behavioral_differences": 3},
+            }
+        ],
+        "evolution_families": [
+            {"family_id": "legacy-family", "generation": 2, "lineage": []}
+        ],
+    }
+    validate_continuity(legacy_previous, legacy_current)
+
     print("research program self-test: PASS")
     return 0
-
 
 def main() -> int:
     parser = argparse.ArgumentParser()
