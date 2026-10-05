@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=27 \u2014 Unauthenticated raw server errors are neither graceful nor consistently handled (raw Sequelize WHERE errors and TypeError stack traces exposed)",
+      "title": "id=27 errorHandlingChallenge - unauthenticated raw error responses are neither gracefully nor consistently handled (Accept-header representation differential)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=97 \u2014 Unauthenticated Prometheus-style metrics endpoint exposes application usage telemetry (LLM usage counters, request counts, solved-challenge counters)",
+      "title": "id=97 exposedMetricsChallenge - unauthenticated Prometheus-format /metrics endpoint serves application usage telemetry (juiceshop_llm_* gauges and challenge counters)",
       "valid_reproduction": false
     }
   ],

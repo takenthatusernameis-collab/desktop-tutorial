@@ -1,0 +1,55 @@
+{
+  "behavioral_differences": 2,
+  "candidate_count": 12,
+  "family_id": "fam_76_security_policy_fragment",
+  "generation": 3,
+  "generation_id": "gen-0003-fam_76_security_policy_fragment",
+  "information_gain": 0.2083,
+  "observed_at": "2026-10-05T21:17:02Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-a3920760ebcee559337e",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-d36d6ea8aa300b2d7c57",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/#/security-policy",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-50e174ba7ebb46fb017e",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-d36d6ea8aa300b2d7c57",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/#/security-policy",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 2,
+  "surface_id": "surf_76_security_policy"
+}
