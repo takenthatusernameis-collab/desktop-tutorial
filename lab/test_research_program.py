@@ -360,6 +360,25 @@ def test_post_kilo_execution_regression(tmp: Path):
         rp.post_kilo("resumed", "b1", state, snapshot) == 0
     ), "post-Kilo validation rejected deterministic evolved PROGRAM.json"
 
+def test_portfolio_budget_preserves_surface_breadth(tmp: Path):
+    program = sample_program("breadth")
+    # Simulate many high-priority families on one surface competing with a second
+    # surface under a deliberately tiny activation budget.
+    extras = []
+    for index in range(10):
+        family = json.loads(json.dumps(program["evolution_families"][0]))
+        family["family_id"] = f"family-extra-{index}"
+        family["surface_id"] = "surface-a"
+        extras.append(family)
+    program["evolution_families"].extend(extras)
+    program["portfolio_policy"]["max_generations_per_activation"] = 2
+
+    rp.validate_program(program, "breadth")
+    plan = rp.compile_portfolio(program, rp.load_runtime(tmp))
+    assert len(plan) == 2
+    assert {item["surface_id"] for item in plan} == {"surface-a", "surface-b"}
+
+
 def test_generation_receipts(tmp: Path):
     program = sample_program()
     rp.write_json(tmp / rp.PROGRAM, program)
@@ -404,6 +423,7 @@ def main():
         test_generation_receipts(root / "c")
         test_cross_session_program_progression(root / "e")
         test_evolution_parent_carry_forward(root / "d")
+        test_portfolio_budget_preserves_surface_breadth(root / "f")
         test_post_kilo_execution_regression(root / "post-kilo")
     print("research program tests: PASS")
 
