@@ -553,6 +553,42 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
     return program
 
 
+def reconcile_execution_generations(
+    program: dict[str, Any],
+    runtime: dict[str, Any],
+) -> bool:
+    """
+    Repair legacy persisted cursors that are ahead of the authoritative runtime.
+
+    The runtime records what was actually executed. For an existing family, the
+    next executable generation is therefore runtime.last_executed_generation + 1.
+    A program cursor behind that point is a hard divergence; a cursor ahead of it
+    is stale planning state and is safely rewound to the next executable generation.
+    """
+    repaired = False
+    runtime_families = runtime.get("families") or {}
+    for family in program.get("evolution_families", []):
+        if family.get("status") == "ARCHIVED" or family.get("dormant"):
+            continue
+        fid = family["family_id"]
+        runtime_generation = int(
+            (runtime_families.get(fid) or {}).get("last_executed_generation", 0)
+        )
+        if runtime_generation <= 0:
+            continue
+        program_generation = int(family.get("generation", 1))
+        expected_generation = runtime_generation + 1
+        if program_generation < expected_generation:
+            raise ProgramError(
+                f"generation continuity divergence for {fid}: "
+                f"program expects {program_generation}, runtime last executed {runtime_generation}"
+            )
+        if program_generation > expected_generation:
+            family["generation"] = expected_generation
+            repaired = True
+    return repaired
+
+
 def validate_state(state_dir: Path, benchmark_id: str, mode: str) -> dict[str, Any] | None:
     """Validate persisted controller state without making network requests."""
     program_path = state_dir / PROGRAM
@@ -564,22 +600,14 @@ def validate_state(state_dir: Path, benchmark_id: str, mode: str) -> dict[str, A
     program = load_json(program_path)
     validate_program(program, benchmark_id)
     runtime = load_runtime(state_dir)
+    repaired = reconcile_execution_generations(program, runtime)
+    if repaired:
+        write_json(program_path, program)
+        print("RESEARCH_PROGRAM_REPAIR=RECONCILED_STALE_GENERATION_CURSORS")
     plan = compile_portfolio(program, runtime)
     if mode != "fresh" and not plan:
         raise ProgramError("persisted research program compiled to an empty portfolio")
-    for family in program.get("evolution_families", []):
-        if family.get("status") == "ARCHIVED" or family.get("dormant"):
-            continue
-        fid = family["family_id"]
-        runtime_generation = int(
-            ((runtime.get("families") or {}).get(fid, {})).get("last_executed_generation", 0)
-        )
-        program_generation = int(family.get("generation", 1))
-        if runtime_generation and program_generation != runtime_generation + 1:
-            raise ProgramError(
-                f"generation continuity divergence for {fid}: "
-                f"program expects {program_generation}, runtime last executed {runtime_generation}"
-            )
+    # reconcile_execution_generations above is the authoritative cursor check.
 
     print(
         f"RESEARCH_PROGRAM_VALIDATION=PASS surfaces={len(program.get('surfaces', []))} "
