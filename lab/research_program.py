@@ -62,6 +62,7 @@ SURFACE_STATUSES = {
     "EXHAUSTED_FOR_NOW",
     "REOPENED",
     "VERIFIED",
+    "NEGATED",
 }
 FAMILY_STATUSES = set(SURFACE_STATUSES)
 ID_RE = re.compile(r"^[A-Za-z0-9._-]{1,96}$")
