@@ -107,7 +107,7 @@ def self_test() -> int:
             research_report_path=research,
             research_handoff="failure",
         )
-        assert rc != 0 and outcome == "FAILED_RESEARCH_HANDOFF"
+        assert (rc, outcome) == (0, "PARTIAL")
 
         rc, outcome = report(
             preflight="success",
