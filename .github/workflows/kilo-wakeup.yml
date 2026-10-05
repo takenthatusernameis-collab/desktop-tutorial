@@ -375,7 +375,11 @@ jobs:
           EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
           docker rm -f ehb-kilo ehb-kilo-egress lab-mutator juice-shop >/dev/null 2>&1 || true
           docker network rm ehb-target-net ehb-worker-net ehb-egress-net >/dev/null 2>&1 || true
-          if [ -n "${EHB_KILO_IMAGE:-}" ]; then
+          if [ -n "${EHB_KILO_IMAGE:-}" ] && [ -d "$EHB_WORKER_DIR" ]; then
+            docker run --rm --user 0 \
+              --mount type=bind,source="$EHB_WORKER_DIR",target=/cleanup \
+              "$EHB_KILO_IMAGE" \
+              bash -lc 'chown -R 0:0 /cleanup' >/dev/null 2>&1 || true
             docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
           fi
           rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
