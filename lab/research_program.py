@@ -1357,8 +1357,13 @@ def validate_continuity(previous: dict[str, Any] | None, current: dict[str, Any]
         cur = new_families[fid]
         if not isinstance(cur.get("lineage"), list) or not isinstance(old.get("lineage"), list):
             raise ProgramError(f"family {fid} lost lineage history")
-        if int(cur.get("generation", 1)) < int(old.get("generation", 1)):
-            raise ProgramError(f"family {fid} generation regressed")
+        old_generation = int(old.get("generation", 1))
+        current_generation = int(cur.get("generation", 1))
+        if current_generation != old_generation:
+            raise ProgramError(
+                f"family {fid} generation changed from controller cursor "
+                f"{old_generation} to {current_generation}; execution generation is controller-owned"
+            )
     for sid, old in old_surfaces.items():
         cur = new_surfaces[sid]
         raw_old_effort = old.get("reasonable_effort_evidence")
