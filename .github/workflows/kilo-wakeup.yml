@@ -534,6 +534,7 @@ jobs:
             --network ehb-worker-net \
             --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
             --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
+            --mount type=bind,source="$RUNNER_TEMP/ehb-research-snapshot",target=/workspace/state/research,readonly \
             --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
             -e HOME=/tmp/kilo-home \
             -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
