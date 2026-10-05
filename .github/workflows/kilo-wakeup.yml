@@ -54,7 +54,8 @@ jobs:
             lab/test_benchmark.py \
             lab/benchmark_campaign.py \
             lab/research_program.py \
-            lab/test_research_program.py
+            lab/test_research_program.py \
+            .github/scripts/research_portfolio_runner.py
 
       - name: Discover current free model
         id: discover_model
@@ -300,11 +301,7 @@ jobs:
         id: research_portfolio
         run: |
           set -euo pipefail
-          python3 lab/research_program.py pre-kilo \
-            --mode "$BENCHMARK_CAMPAIGN_MODE" \
-            --benchmark-id "$BENCHMARK_ID" \
-            --target "$SECURITY_RESEARCH_TARGET" \
-            --state-dir "state/research"
+          python3 .github/scripts/research_portfolio_runner.py
 
       - name: Snapshot controller research state before Kilo
         run: |
