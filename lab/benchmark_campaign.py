@@ -105,28 +105,29 @@ def restore_campaign(secret_dir: Path, active_dir: Path, history: Path) -> str:
     previous_artifact_id = ""
 
     if repo and token:
-        try:
-            artifact = latest_artifact(repo, token)
-            if artifact is not None:
-                previous_artifact_id = str(artifact.get("id", ""))
-                restore_archive(artifact, token, active_dir)
-                state_path = active_dir / "state.json"
-                public_path = active_dir / "public.json"
-                spec_path = active_dir / "spec.json"
-                state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
-                if (
-                    state.get("schema_version") == 1
-                    and state.get("status") == "active"
-                    and public_path.is_file()
-                    and spec_path.is_file()
-                ):
-                    shutil.copy2(public_path, secret_dir / "public.json")
-                    shutil.copy2(spec_path, secret_dir / "spec.json")
-                    validate_pair(secret_dir)
-                    mode = "resumed"
-                    print(f"Resuming active benchmark campaign: {state.get('benchmark_id', 'unknown')}")
-        except Exception as exc:
-            print(f"Persistent benchmark restore unavailable; using fresh generation: {exc}")
+        artifact = latest_artifact(repo, token)
+        if artifact is not None:
+            previous_artifact_id = str(artifact.get("id", ""))
+            restore_archive(artifact, token, active_dir)
+            state_path = active_dir / "state.json"
+            public_path = active_dir / "public.json"
+            spec_path = active_dir / "spec.json"
+            state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
+            status = state.get("status")
+            if status == "solved":
+                mode = "fresh"
+            elif status == "active":
+                if not public_path.is_file() or not spec_path.is_file():
+                    raise RuntimeError("Active benchmark artifact is missing required hidden state.")
+                shutil.copy2(public_path, secret_dir / "public.json")
+                shutil.copy2(spec_path, secret_dir / "spec.json")
+                validate_pair(secret_dir)
+                mode = "resumed"
+                print(f"Resuming active benchmark campaign: {state.get('benchmark_id', 'unknown')}")
+            else:
+                raise RuntimeError(f"Unknown persistent benchmark state: {status!r}")
+        else:
+            print("No prior persistent benchmark artifact exists; creating the first campaign.")
 
     if mode == "fresh":
         subprocess.run(
