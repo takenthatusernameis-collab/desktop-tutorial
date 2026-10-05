@@ -12,6 +12,7 @@ on:
       - "lab/research_program.py"
       - "lab/test_research_program.py"
       - ".github/scripts/research_portfolio_runner.py"
+      - ".github/scripts/report_worker_outcome.py"
 
 concurrency:
   group: bug-bounty-research-enterprise
@@ -58,6 +59,7 @@ jobs:
             lab/benchmark_campaign.py \
             lab/research_program.py \
             lab/test_research_program.py \
+            .github/scripts/report_worker_outcome.py \
             .github/scripts/research_portfolio_runner.py
 
       - name: Discover current free model
@@ -341,6 +343,7 @@ jobs:
             --user "$(id -u):$(id -g)" \
             --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
             --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
+            --mount type=bind,source="$GITHUB_WORKSPACE/.github/scripts/report_worker_outcome.py",target=/tmp/report_worker_outcome.py,readonly \
             -e HOME=/tmp/kilo-home \
             -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
             -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
@@ -358,6 +361,39 @@ jobs:
               test ! -e lab
               test ! -e .git
               test ! -e /workspace/spec.json
+
+              python3 /tmp/report_worker_outcome.py --self-test
+
+              regression_dir=/tmp/worker-outcome-regression
+              rm -rf "$regression_dir"
+              mkdir -p "$regression_dir"
+              printf "{}\n" > "$regression_dir/benchmark_findings.json"
+              printf "# regression\n" > "$regression_dir/benchmark_research.md"
+              python3 /tmp/report_worker_outcome.py \
+                --preflight success \
+                --smoke success \
+                --worker failure \
+                --evaluate success \
+                --portfolio success \
+                --research-validation success \
+                --findings-path "$regression_dir/benchmark_findings.json" \
+                --research-report-path "$regression_dir/benchmark_research.md" \
+                | tee "$regression_dir/positive.out"
+              grep -q 'WORKER_OUTCOME_STATUS=COMPLETED_WITH_WORKER_CLI_ERROR' "$regression_dir/positive.out"
+
+              set +e
+              python3 /tmp/report_worker_outcome.py \
+                --preflight success \
+                --smoke success \
+                --worker failure \
+                --evaluate success \
+                --portfolio success \
+                --research-validation success \
+                --findings-path "$regression_dir/missing.json" \
+                --research-report-path "$regression_dir/benchmark_research.md"
+              missing_report_rc=$?
+              set -e
+              test "$missing_report_rc" -ne 0
 
               test "$(id -u)" = "$(stat -c "%u" /workspace)"
               if find /workspace -xdev -uid 0 -print -quit | grep -q .; then
@@ -667,50 +703,12 @@ jobs:
           RESEARCH_VALIDATION_OUTCOME: ${{ steps.research_validate.outcome }}
         run: |
           set -euo pipefail
-
-          echo "Preflight infrastructure outcome: $PREFLIGHT_OUTCOME"
-          echo "Kilo execution smoke outcome: $KILO_SMOKE_OUTCOME"
-          echo "Raw Kilo worker outcome: $KILO_OUTCOME"
-          echo "Independent evaluator outcome: $EVALUATE_OUTCOME"
-          echo "Deterministic research portfolio outcome: $RESEARCH_PORTFOLIO_OUTCOME"
-          echo "Kilo research-program validation outcome: $RESEARCH_VALIDATION_OUTCOME"
-
-          if [ "$RESEARCH_PORTFOLIO_OUTCOME" != "success" ]; then
-            echo "Deterministic pre-Kilo research portfolio failed."
-            exit 1
-          fi
-
-          if [ "$PREFLIGHT_OUTCOME" != "success" ]; then
-            echo "Campaign did not start because the deterministic infrastructure preflight failed."
-            exit 1
-          fi
-
-          if [ "$KILO_SMOKE_OUTCOME" != "success" ]; then
-            echo "Campaign did not start because the real Kilo execution-path smoke test failed."
-            exit 1
-          fi
-
-          if [ "$RESEARCH_VALIDATION_OUTCOME" != "success" ]; then
-            echo "Kilo did not leave a valid persistent research program; controller state was restored where applicable."
-            exit 1
-          fi
-
-          if [ "$KILO_OUTCOME" = "skipped" ]; then
-            echo "Worker activation was skipped."
-            exit 1
-          fi
-
-          if [ "$EVALUATE_OUTCOME" != "success" ]; then
-            echo "Campaign did not reach a successful independent evaluation."
-            exit 1
-          fi
-
-          test -s reports/benchmark_findings.json
-          test -s reports/benchmark_research.md
-
-          if [ "$KILO_OUTCOME" = "success" ]; then
-            echo "Worker activation and independent evaluation completed successfully."
-          else
-            echo "Worker CLI ended non-zero, but it produced a valid research campaign result and the independent evaluator completed successfully."
-            echo "This is recorded as completed-with-worker-cli-error rather than silently treating the raw worker outcome as success."
-          fi
+          python3 .github/scripts/report_worker_outcome.py \
+            --preflight "$PREFLIGHT_OUTCOME" \
+            --smoke "$KILO_SMOKE_OUTCOME" \
+            --worker "$KILO_OUTCOME" \
+            --evaluate "$EVALUATE_OUTCOME" \
+            --portfolio "$RESEARCH_PORTFOLIO_OUTCOME" \
+            --research-validation "$RESEARCH_VALIDATION_OUTCOME" \
+            --findings-path "reports/benchmark_findings.json" \
+            --research-report-path "reports/benchmark_research.md"
