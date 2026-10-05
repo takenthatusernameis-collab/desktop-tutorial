@@ -33,6 +33,13 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Synchronize with latest branch tip
+        run: |
+          set -euo pipefail
+          git fetch --prune origin "$GITHUB_REF_NAME"
+          git reset --hard "origin/$GITHUB_REF_NAME"
+          echo "Activation workspace synchronized to origin/$GITHUB_REF_NAME at $(git rev-parse HEAD)."
+
       - name: Self-test benchmark harness
         run: |
           set -euo pipefail
