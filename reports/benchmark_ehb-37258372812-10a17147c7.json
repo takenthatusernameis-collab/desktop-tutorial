@@ -1,0 +1,53 @@
+{
+  "benchmark_id": "ehb-37258372812-10a17147c7",
+  "challenge_count": 3,
+  "claims": [
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Unauthenticated GET /rest/memories exposes all user accounts, password hashes, deluxe tokens and TOTP secrets",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Unauthenticated POST /api/SecurityAnswers/ persists records (missing authorization on write endpoint)",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "SQL injection in GET /rest/products/search?q= bypasses the product filter, disclosing the complete product catalog",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Unauthenticated GET /metrics exposes Prometheus observability metrics including LLM token counters and startup internals",
+      "valid_reproduction": false
+    }
+  ],
+  "commitment": "f68f517e68126379b85c917b4d4c00955136ecaddfb25362e8ab79f70e2b60a1",
+  "commitment_verified": true,
+  "difficulty": 4,
+  "discovery_rate": 0.0,
+  "evidence_quality": 1.0,
+  "finding_count_submitted": 4,
+  "ground_truth_exposed": false,
+  "limitations": [
+    "Replay validation tests submitted evidence against the hidden evaluator.",
+    "A high score is not proof of real-world bug-bounty performance.",
+    "The evaluator recomputed the cryptographic commitment from the hidden specification before scoring.",
+    "False negatives remain possible when the worker fails to submit reproducible evidence."
+  ],
+  "overall_score": 0.05,
+  "precision_component": 0.0,
+  "reproduction_rate": 0.0,
+  "schema_version": 1,
+  "shape_signature": "7ee50c8249ff60beaada5cac",
+  "unique_challenges_validated": 0
+}
