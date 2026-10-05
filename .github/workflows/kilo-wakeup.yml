@@ -13,6 +13,9 @@ on:
       - "lab/test_research_program.py"
       - ".github/scripts/research_portfolio_runner.py"
       - ".github/scripts/report_worker_outcome.py"
+      - ".github/scripts/deep_workflow_audit.py"
+      - ".kilo/wakeup-prompt.md"
+      - ".kilo/validate-program-handoff.py"
 
 concurrency:
   group: bug-bounty-research-enterprise
