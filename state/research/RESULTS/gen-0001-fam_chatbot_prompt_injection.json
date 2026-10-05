@@ -1,0 +1,169 @@
+{
+  "behavioral_differences": 9,
+  "candidate_count": 11,
+  "family_id": "fam_chatbot_prompt_injection",
+  "generation": 1,
+  "generation_id": "gen-0001-fam_chatbot_prompt_injection",
+  "information_gain": 0.9091,
+  "observed_at": "2026-10-05T14:06:19Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-f9553393e5f57bcceaf7",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "prompt",
+        "value": ""
+      },
+      "parent_candidate_id": "cand-1bebb3f4546019f49cc0",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/chat",
+        "query": {
+          "prompt": [
+            ""
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "0cf7bb8ba2c3b618cce2663df28c91a1e0d4af8b10eec47e516265ababedd4ac",
+        "text/html; charset=utf-8",
+        2436,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-44e8aba75cae9669acf0",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "prompt",
+        "value": "1"
+      },
+      "parent_candidate_id": "cand-1bebb3f4546019f49cc0",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/chat",
+        "query": {
+          "prompt": [
+            "1"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "4591a0ab2d5c59ac2edfa03e7a2a420d38d1658517c171630400024f98f3e901",
+        "text/html; charset=utf-8",
+        2438,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-64b68ff6b8a035b67f9e",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "prompt",
+        "value": "null"
+      },
+      "parent_candidate_id": "cand-1bebb3f4546019f49cc0",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/chat",
+        "query": {
+          "prompt": [
+            "null"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "5ce80a6d331d456de052bd4cf9f4cc9bb5f0cd1089b8131284052e741ba5b25b",
+        "text/html; charset=utf-8",
+        2444,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-50f15b27d81eb596079a",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "prompt",
+        "value": "%"
+      },
+      "parent_candidate_id": "cand-1bebb3f4546019f49cc0",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/chat",
+        "query": {
+          "prompt": [
+            "%"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "6bb2ba2796a51ee5bb164e0ac4ba20a4ec7d7887717800ab324300f01477e04d",
+        "text/html; charset=utf-8",
+        2442,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-9891d3a750e9283fb442",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "prompt",
+        "value": "%2e%2e"
+      },
+      "parent_candidate_id": "cand-1bebb3f4546019f49cc0",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/chat",
+        "query": {
+          "prompt": [
+            "%2e%2e"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "8fb2c39cd35aa0e077266ca04a906bfacfd24eedc36830e1272f104b62eb8398",
+        "text/html; charset=utf-8",
+        2456,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-860b826b17a88ee42077",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "prompt",
+        "value": "0"
+      },
+      "parent_candidate_id": "cand-1bebb3f4546019f49cc0",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/chat",
+        "query": {
+          "prompt": [
+            "0"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "91404d22af385dfb0e13763c100906282beb9797e945f5bd38dcca5e2212892c",
+        "text/html; charset=utf-8",
+        2438,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 9,
+  "surface_id": "surf_chatbot"
+}
