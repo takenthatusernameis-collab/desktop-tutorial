@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "[id=27] Error Handling \u2014 inconsistent unauthenticated 500 responses leaking full server-side stack traces with internal source paths",
+      "title": "[F1] Unauthenticated raw, non-graceful, inconsistent errors via GET /redirect (TypeError) and POST /api/Feedbacks/ (raw Sequelize WHERE) \u2014 error handling challenge id=27",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "[id=97] Exposed Metrics \u2014 unauthenticated Prometheus-format telemetry endpoint exposing application and AI/LLM usage metrics",
+      "title": "[F2] Unauthenticated exposure of Prometheus observability telemetry including LLM usage gauges via GET /metrics \u2014 exposed metrics challenge id=97",
       "valid_reproduction": false
     }
   ],
