@@ -533,12 +533,32 @@ jobs:
             -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
             "$EHB_KILO_IMAGE" \
             bash -lc '
-              set -euo pipefail
+              set -uo pipefail
               cd /workspace
               mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
               cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
               chmod 600 "$HOME/.config/kilo/kilo.json"
-              kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)"
+
+              set +e
+              kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)" 2>&1 | tee /tmp/kilo-primary.log
+              rc=${PIPESTATUS[0]}
+
+              if [ "$rc" -ne 0 ] && grep -Eq "invalid request error trace_id:" /tmp/kilo-primary.log; then
+                echo "Detected transient Kilo gateway invalid-request response; retrying the same worker workspace once."
+                kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)" 2>&1 | tee /tmp/kilo-retry.log
+                retry_rc=${PIPESTATUS[0]}
+                if [ "$retry_rc" -eq 0 ]; then
+                  rc=0
+                else
+                  echo "Kilo retry also failed with exit code $retry_rc."
+                  rc="$retry_rc"
+                fi
+              fi
+
+              if [ "$rc" -ne 0 ]; then
+                echo "Kilo worker failed with exit code $rc."
+              fi
+              exit "$rc"
             '
 
       - name: Deep audit — after Run isolated Kilo worker
@@ -667,6 +687,14 @@ jobs:
           path: |
             ${{ runner.temp }}/ehb-secret/**
             reports/benchmark_*.json
+      - name: Validate controller research state before persistence
+        id: pre_persist_research_validate
+        if: always() && steps.research_portfolio.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 lab/research_program.py post-kilo             --mode "$BENCHMARK_CAMPAIGN_MODE"             --benchmark-id "$BENCHMARK_ID"             --state-dir "state/research"             --snapshot-dir "$RUNNER_TEMP/ehb-research-snapshot"
+
       - name: Persist safe repository changes
         id: persist
         if: always()
