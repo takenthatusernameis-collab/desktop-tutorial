@@ -577,6 +577,7 @@ jobs:
       - name: Verify durable research-program handoff
         id: research_handoff
         if: always()
+        continue-on-error: true
         env:
           KILO_OUTCOME: ${{ steps.kilo.outcome }}
         run: |
@@ -631,6 +632,7 @@ jobs:
       - name: Evaluate hidden benchmark independently
         id: evaluate
         if: always() && steps.benchmark.outcome == 'success' && steps.start_benchmark.outcome == 'success' && steps.kilo.outcome == 'success'
+        continue-on-error: true
         run: |
           set -euo pipefail
           LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
@@ -906,6 +908,7 @@ jobs:
           RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
           RESEARCH_VALIDATION_OUTCOME: ${{ steps.pre_persist_research_validate.outcome }}
           RESEARCH_HANDOFF_OUTCOME: ${{ steps.research_handoff.outcome }}
+          PERSIST_OUTCOME: ${{ steps.persist.outcome }}
         run: |
           set -euo pipefail
           echo "::group::REPORT OUTCOME DEBUG — run metadata"
@@ -925,6 +928,7 @@ jobs:
           printf 'RESEARCH_PORTFOLIO_OUTCOME=%q\n' "${RESEARCH_PORTFOLIO_OUTCOME:-<unset>}"
           printf 'RESEARCH_VALIDATION_OUTCOME=%q\n' "${RESEARCH_VALIDATION_OUTCOME:-<unset>}"
           printf 'RESEARCH_HANDOFF_OUTCOME=%q\n' "${RESEARCH_HANDOFF_OUTCOME:-<unset>}"
+          printf 'PERSIST_OUTCOME=%q\n' "${PERSIST_OUTCOME:-<unset>}"
           echo "::endgroup::"
 
           echo "::group::REPORT OUTCOME DEBUG — reporter integrity"
@@ -981,6 +985,7 @@ jobs:
             --portfolio "$RESEARCH_PORTFOLIO_OUTCOME" \
             --research-validation "$RESEARCH_VALIDATION_OUTCOME" \
             --research-handoff "${RESEARCH_HANDOFF_OUTCOME:-failure}" \
+            --persist "${PERSIST_OUTCOME:-failure}" \
             --findings-path "reports/benchmark_findings.json" \
             --research-report-path "reports/benchmark_research.md"
 
