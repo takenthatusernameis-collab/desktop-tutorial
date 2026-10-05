@@ -416,6 +416,8 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
             raise ProgramError(f"surface {sid} has invalid status {status}")
         if not isinstance(surface.get("history"), list):
             raise ProgramError(f"surface {sid} must retain a history list")
+        _surface_score_value(surface.get("priority"), f"{sid}.priority", 0.5)
+        _surface_score_value(surface.get("uncertainty"), f"{sid}.uncertainty", 0.5)
         if status == "ARCHIVED" and not surface.get("archive_reason"):
             raise ProgramError(f"archived surface {sid} requires archive_reason")
         reject_forbidden(surface, f"surface {sid}")
@@ -533,9 +535,38 @@ def archive_active_program(state_dir: Path, benchmark_id: str) -> None:
     )
 
 
+def _surface_score_value(value: Any, field: str, default: float) -> float:
+    """Convert numeric or human-readable priority/uncertainty values deterministically."""
+    if isinstance(value, bool):
+        raise ProgramError(f"surface {field} must not be boolean")
+    if isinstance(value, (int, float)):
+        score = float(value)
+    elif isinstance(value, str):
+        raw = value.strip()
+        match = re.match(r"^(HIGH|MEDIUM|LOW)\\b", raw.upper())
+        if match:
+            score = {"HIGH": 1.0, "MEDIUM": 0.6, "LOW": 0.2}[match.group(1)]
+        else:
+            try:
+                score = float(raw)
+            except ValueError as exc:
+                raise ProgramError(
+                    f"surface {field} must be numeric or start with HIGH/MEDIUM/LOW"
+                ) from exc
+    elif value is None:
+        score = default
+    else:
+        raise ProgramError(
+            f"surface {field} must be numeric, a qualitative label, or omitted"
+        )
+    if not 0.0 <= score <= 1.0:
+        raise ProgramError(f"surface {field} score must be in [0,1]")
+    return score
+
+
 def surface_priority(surface: dict[str, Any]) -> float:
-    priority = float(surface.get("priority", 0.5))
-    uncertainty = float(surface.get("uncertainty", 0.5))
+    priority = _surface_score_value(surface.get("priority"), "priority", 0.5)
+    uncertainty = _surface_score_value(surface.get("uncertainty"), "uncertainty", 0.5)
     status = str(surface.get("status"))
     bonus = 0.2 if status in {"ACTIVE_HIGH_INTENSITY", "REOPENED", "READY_FOR_REVIEW"} else 0.0
     maintenance = 0.03 if status in {"DEPRIORITIZED", "EXHAUSTED_FOR_NOW"} else 0.0
