@@ -1,0 +1,85 @@
+{
+  "behavioral_differences": 8,
+  "candidate_count": 12,
+  "family_id": "fam_5_security_question_enum",
+  "generation": 1,
+  "generation_id": "gen-0001-fam_5_security_question_enum",
+  "information_gain": 0.5417,
+  "observed_at": "2026-10-05T09:32:11Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-44ebd07ad613d9164ac4",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "email",
+        "value": "1"
+      },
+      "parent_candidate_id": "cand-62709dfccabaa8f67f6d",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question",
+        "query": {
+          "email": [
+            "1"
+          ]
+        }
+      },
+      "response_signature": [
+        200,
+        "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "application/json; charset=utf-8",
+        2,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-5ec525f8e2a40fc2d586",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "644baf6d8ed5b62f924263b45c7cbc772126482aaae429330887beef4f6499f2",
+        "text/html; charset=utf-8",
+        2460,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-19458c61962eb66616ba",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-62709dfccabaa8f67f6d",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {
+          "email": [
+            "bjoern@owasp.org"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "ee1b5fe2c3d20395cda3404c6f53aae856220d0708a1da5c1467079d096b0645",
+        "text/html; charset=utf-8",
+        2510,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 8,
+  "surface_id": "surf_5_security_question"
+}
