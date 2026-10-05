@@ -415,6 +415,29 @@ def test_portfolio_budget_preserves_surface_breadth(tmp: Path):
     assert {item["surface_id"] for item in plan} == {"surface-a", "surface-b"}
 
 
+def test_validate_state_rejects_generation_divergence(tmp: Path):
+    program = sample_program("continuity")
+    rp.write_json(tmp / rp.PROGRAM, program)
+    rp.write_json(
+        tmp / rp.RUNTIME,
+        {
+            "schema_version": rp.PROGRAM_VERSION,
+            "controller_version": rp.CONTROLLER_VERSION,
+            "benchmark_id": "continuity",
+            "families": {
+                "family-a": {"last_executed_generation": 2}
+            },
+            "surfaces": {},
+        },
+    )
+    try:
+        rp.validate_state(tmp, "continuity", "resumed")
+    except rp.ProgramError as exc:
+        assert "generation continuity divergence" in str(exc)
+    else:
+        raise AssertionError("generation divergence was accepted")
+
+
 def test_materialize_string_effort_evidence(tmp: Path):
     program = sample_program("materialize")
     program["surfaces"][0]["reasonable_effort_evidence"] = "fresh prose evidence"
@@ -475,6 +498,7 @@ def main():
         test_validation_rejects_zero_candidate_family(root / "h")
         test_method_variant_is_seed_safe()
         test_materialize_string_effort_evidence(root / "i")
+        test_validate_state_rejects_generation_divergence(root / "j")
         test_post_kilo_execution_regression(root / "post-kilo")
     print("research program tests: PASS")
 
