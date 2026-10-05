@@ -141,6 +141,14 @@ def self_test() -> int:
         assert data["status"] == "PARTIAL"
         assert data["failure_stage"] == "worker"
 
+        parser.portfolio = "failure"
+        parser.worker = "skipped"
+        assert record(parser) == 0
+        rows = path.read_text(encoding="utf-8").splitlines()
+        data = json.loads(rows[-1])
+        assert data["status"] == "FAILED"
+        assert data["failure_stage"] == "research_portfolio"
+
     print("failure memory self-test: PASS")
     return 0
 
