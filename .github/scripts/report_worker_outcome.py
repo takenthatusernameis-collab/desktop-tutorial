@@ -147,7 +147,7 @@ def main() -> int:
         findings_path=args.findings_path,
         research_report_path=args.research_report_path,
     )
-    print(f"WORKER_OUTCOME_STATUS={outcome}")
+    print(f"WORKER_OUTCOME={outcome}")
     if outcome == "COMPLETED_WITH_WORKER_CLI_ERROR":
         print(
             "Worker CLI ended non-zero, but the research reports and independent "
