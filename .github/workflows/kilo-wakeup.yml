@@ -379,7 +379,7 @@ jobs:
                 --findings-path "$regression_dir/benchmark_findings.json" \
                 --research-report-path "$regression_dir/benchmark_research.md" \
                 | tee "$regression_dir/positive.out"
-              grep -q 'WORKER_OUTCOME_STATUS=COMPLETED_WITH_WORKER_CLI_ERROR' "$regression_dir/positive.out"
+              grep -q 'WORKER_OUTCOME=COMPLETED_WITH_WORKER_CLI_ERROR' "$regression_dir/positive.out"
 
               set +e
               python3 /tmp/report_worker_outcome.py \
