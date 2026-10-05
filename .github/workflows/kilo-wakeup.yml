@@ -15,6 +15,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   worker:
@@ -41,7 +42,8 @@ jobs:
             lab/generate_benchmark.py \
             lab/evaluate_benchmark.py \
             lab/mutator.py \
-            lab/test_benchmark.py
+            lab/test_benchmark.py \
+            lab/benchmark_campaign.py
 
       - name: Discover current free model
         id: discover_model
@@ -175,28 +177,33 @@ jobs:
         run: |
           set -euo pipefail
           docker build --pull -t "$EHB_KILO_IMAGE" -f lab/kilo-worker.Dockerfile lab
-      - name: Generate fresh hidden benchmark
+      - name: Restore or create persistent benchmark campaign
         id: benchmark
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
           EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
-          mkdir -p "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
+          ACTIVE_BENCHMARK_DIR="$RUNNER_TEMP/ehb-active-benchmark"
+          rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR" "$ACTIVE_BENCHMARK_DIR"
+          mkdir -p "$LAB_SECRET_DIR" "$EHB_WORKER_DIR" "$ACTIVE_BENCHMARK_DIR"
           chmod 700 "$LAB_SECRET_DIR"
-          export LAB_SECRET_DIR EHB_WORKER_DIR
-          echo "LAB_SECRET_DIR=$LAB_SECRET_DIR" >> "$GITHUB_ENV"
-          echo "EHB_WORKER_DIR=$EHB_WORKER_DIR" >> "$GITHUB_ENV"
-          python3 lab/generate_benchmark.py --secret-dir "$LAB_SECRET_DIR" --history "lab/benchmark_history.jsonl"
+
+          python3 lab/benchmark_campaign.py restore             --secret-dir "$LAB_SECRET_DIR"             --active-dir "$ACTIVE_BENCHMARK_DIR"             --history "lab/benchmark_history.jsonl"
+
           python3 - <<'PY' >> "$GITHUB_ENV"
-          import json, os
+          import json
           from pathlib import Path
-          data = json.loads(Path(os.environ["LAB_SECRET_DIR"], "public.json").read_text(encoding="utf-8"))
-          print(f"BENCHMARK_ID={data['benchmark_id']}")
-          print(f"BENCHMARK_COMMITMENT={data['commitment']}")
-          print(f"BENCHMARK_DIFFICULTY={data['difficulty']}")
+
+          secret_dir = Path("$RUNNER_TEMP/ehb-secret")
+          public = json.loads((secret_dir / "public.json").read_text(encoding="utf-8"))
+          print(f"BENCHMARK_ID={public['benchmark_id']}")
+          print(f"BENCHMARK_COMMITMENT={public['commitment']}")
+          print(f"BENCHMARK_DIFFICULTY={public['difficulty']}")
           print("SECURITY_RESEARCH_TARGET=http://lab-mutator:3000")
-          print(f"LAB_SECRET_DIR={os.environ['LAB_SECRET_DIR']}")
-          print(f"EHB_WORKER_DIR={os.environ['EHB_WORKER_DIR']}")
+          print(f"LAB_SECRET_DIR={secret_dir}")
+          print(f"EHB_WORKER_DIR={Path('$RUNNER_TEMP') / 'ehb-worker'}")
           PY
 
       - name: Start isolated benchmark environment
@@ -505,18 +512,8 @@ jobs:
           path: |
             ${{ runner.temp }}/ehb-secret/**
             reports/benchmark_*.json
-      - name: Cleanup isolated benchmark environment
-        if: always()
-        run: |
-          set +e
-          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
-          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
-          docker rm -f ehb-kilo ehb-kilo-egress lab-mutator juice-shop >/dev/null 2>&1 || true
-          docker network rm ehb-target-net ehb-worker-net ehb-egress-net >/dev/null 2>&1 || true
-          docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
-          rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
-
       - name: Persist safe repository changes
+        id: persist
         if: always()
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -525,7 +522,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/kilo-worker.Dockerfile lab/kilo_gateway_proxy.py lab/README.md 2>/dev/null || true
+          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/benchmark_campaign.py lab/kilo-worker.Dockerfile lab/kilo_gateway_proxy.py lab/README.md 2>/dev/null || true
           git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/README.md 2>/dev/null || true
 
           if [ "${FEEDBACK_OUTCOME:-failure}" != "success" ]; then
@@ -539,7 +536,7 @@ jobs:
             ":(glob)**/*.pyc" \
             ":(glob)**/*.py.c" 2>/dev/null || true
 
-          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|kilo-worker\.Dockerfile|kilo_gateway_proxy\.py|README\.md)$' >/tmp/protected; then
+          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|benchmark_campaign\.py|kilo-worker\.Dockerfile|kilo_gateway_proxy\.py|README\.md)$' >/tmp/protected; then
             echo "Protected paths unexpectedly staged:"
             cat /tmp/protected
             exit 1
@@ -577,6 +574,42 @@ jobs:
           git push origin "HEAD:$GITHUB_REF_NAME"
 
           echo "Worker activation outcome: $KILO_OUTCOME"
+
+      - name: Prepare persistent benchmark campaign state
+        id: persist_campaign
+        if: always() && steps.benchmark.outcome == 'success'
+        continue-on-error: true
+        env:
+          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+          PERSIST_OUTCOME: ${{ steps.persist.outcome }}
+        run: |
+          set -euo pipefail
+          OUT="$RUNNER_TEMP/ehb-active-benchmark-final"
+          rm -rf "$OUT"
+          mkdir -p "$OUT"
+
+          python3 lab/benchmark_campaign.py prepare-state             --secret-dir "$LAB_SECRET_DIR"             --output-dir "$OUT"             --result "reports/benchmark_$BENCHMARK_ID.json"             --evaluate-outcome "$EVALUATE_OUTCOME"             --persist-outcome "$PERSIST_OUTCOME"             --run-id "$GITHUB_RUN_ID"
+
+      - name: Upload persistent benchmark campaign state
+        if: always() && steps.persist_campaign.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-tutorial-active-benchmark
+          path: ${{ runner.temp }}/ehb-active-benchmark-final/*
+          if-no-files-found: error
+          retention-days: 90
+          overwrite: true
+
+      - name: Cleanup isolated benchmark environment
+        if: always()
+        run: |
+          set +e
+          LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+          docker rm -f ehb-kilo ehb-kilo-egress lab-mutator juice-shop >/dev/null 2>&1 || true
+          docker network rm ehb-target-net ehb-worker-net ehb-egress-net >/dev/null 2>&1 || true
+          docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
+          rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
 
       - name: Report worker outcome
         if: always()
