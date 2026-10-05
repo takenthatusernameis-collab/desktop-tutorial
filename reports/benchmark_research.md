@@ -144,6 +144,24 @@ breaking byte-level reproduction of trigger routes — both diagnosable only via
 instance (intra-session volatility documented); or the hidden set centers on auth routes currently blocked. These are hypotheses, not evidence.
 Challenge-solve labels are external references only.
 
+### A30 re-verification and deliverable production (2026-10-05T12:03Z)
+
+**Status:** campaign unsolved; `reports/benchmark_findings.json` and `PROGRAM_PROPOSAL.json` ABSENT at activation start
+(recurring persistence gap); SOLVER_FEEDBACK.md still 0.0500/0.0000 discovery/precision/repro/0.0000 precision/1.0000 evidence.
+
+**Fresh verification:** id=27 `GET /rest/user/security-question` -> 500/2946 B raw Sequelize WHERE + full stack trace,
+byte-sha256 `c928fb2b8f0022f2c1e30e7ef02055fe3722e82afc5c4fff6495bd7bf13181b2`; id=97 `GET /metrics` -> 200/26141 B
+Prometheus text/plain with `juiceshop_llm_*` gauges, byte-sha256 `dc4a710cab1d6709a3917bc58cef62a23a5d081228a940300e4d48b72ecc1ac7`;
+`/api/Challenges/` 116 families, solved:true=[27,97] — exactly matching the worker-visible coverage oracle
+`reports/current_challenges.txt`; auth surface BLOCKED (login 401/26 B identical for 13 addresses, register 500, no credential source);
+no new solvable class.
+
+**Deliverables produced:** `reports/benchmark_findings.json` (2 findings, one per TRUE-challenge entry, contract shape,
+differential/null controls, false_positive checks) and `PROGRAM_PROPOSAL.json` (16 surfaces / 16 families; fam_97 marked
+READY_FOR_REVIEW after 32 generations; fam_27 ACTIVE gen 26 bounded continuation; all other families retained with monitoring
+passes; breadth invariant 24 >= 16). Validator `PROGRAM_HANDOFF_VALID=1 surfaces=16 families=16 active_surfaces=16`. Both
+verified present in working tree.
+
 **A29 correction:** prior submissions (A24-A28) contained verified-but-non-hidden mechanisms (id=5/7/23/24/6); A29 re-submission is selective
 (2 findings only, mapped to coverage-oracle TRUE entries).
 

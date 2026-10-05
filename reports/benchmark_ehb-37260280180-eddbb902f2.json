@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated raw error exposure: inconsistent, non-graceful error responses leak raw SQL WHERE errors and full Node/Express stack traces",
+      "title": "Raw, non-graceful and inconsistent error exposure on an unauthenticated API route (errorHandlingChallenge, id=27)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated exposed Prometheus metrics endpoint leaks internal observability data",
+      "title": "Unauthenticated exposure of Prometheus-format observability telemetry including LLM usage gauges (exposedMetricsChallenge, id=97)",
       "valid_reproduction": false
     }
   ],
