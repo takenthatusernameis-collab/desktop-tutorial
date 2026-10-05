@@ -469,6 +469,18 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
     if not 0.0 <= exploration <= 1.0:
         raise ProgramError("exploration_reserve_fraction must be in [0,1]")
 
+    required_breadth = {
+        surface["surface_id"]
+        for surface in surfaces
+        if surface.get("status") in SURFACE_STATUSES
+        and family_counts.get(surface["surface_id"], 0) > 0
+    }
+    if max_generations < len(required_breadth):
+        raise ProgramError(
+            "portfolio generation budget is smaller than required surface breadth: "
+            f"{len(required_breadth)} surfaces > {max_generations} generations"
+        )
+
     for surface in surfaces:
         if surface.get("status") in SURFACE_STATUSES and family_counts.get(surface["surface_id"], 0) == 0:
             if surface.get("status") != "CANDIDATE":
