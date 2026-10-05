@@ -6,11 +6,14 @@ worker can catch invalid program state before ending an activation.
 """
 from __future__ import annotations
 
+import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 
 SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
+ID_RE = re.compile(r"^cand-[0-9a-f]{20}$")
 ACTIVE_STATUSES = {
     "ACTIVE", "ACTIVE_HIGH_INTENSITY", "ACTIVE_LOW_INTENSITY",
     "DEPRIORITIZED", "READY_FOR_REVIEW", "SUBSTANTIAL_EFFORT",
@@ -37,6 +40,30 @@ def validate_request(value, label: str) -> None:
         fail(f"{label}.headers must be an object")
     if value.get("body") not in (None, "", {}, []):
         fail(f"{label}.body is forbidden")
+
+
+def canonical(value) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+
+
+def candidate_id(request_value: dict) -> str:
+    return "cand-" + hashlib.sha256(canonical(request_value).encode("utf-8")).hexdigest()[:20]
+
+
+def normalize_candidate_request(value, label: str) -> dict:
+    validate_request(value, label)
+    method = str(value.get("method", "GET")).upper()
+    raw_query = value.get("query") or {}
+    query = {}
+    for key, raw in raw_query.items():
+        if not isinstance(key, str) or not key:
+            fail(f"{label}.query contains an invalid key")
+        vals = raw if isinstance(raw, list) else [raw]
+        if len(vals) > 4:
+            fail(f"{label}.query.{key} has too many duplicate values")
+        query[key] = [str(item) for item in vals]
+    headers = {str(k): str(v) for k, v in (value.get("headers") or {}).items()}
+    return {"method": method, "path": value["path"], "query": query, "headers": headers}
 
 
 def main() -> int:
@@ -81,7 +108,17 @@ def main() -> int:
             for field in ("candidate_id", "parent_candidate_id", "mutation", "response_signature"):
                 if field not in candidate:
                     fail(f"family {fid} candidate {j} missing {field}")
-            validate_request(candidate.get("request"), f"family {fid} candidate {j}.request")
+            normalized_candidate = normalize_candidate_request(
+                candidate.get("request"), f"family {fid} candidate {j}.request"
+            )
+            expected_candidate_id = candidate_id(normalized_candidate)
+            if candidate.get("candidate_id") != expected_candidate_id:
+                fail(
+                    f"family {fid} candidate {j} has inconsistent candidate_id "
+                    f"(expected {expected_candidate_id}, got {candidate.get('candidate_id')!r})"
+                )
+            if not isinstance(candidate.get("parent_candidate_id"), str):
+                fail(f"family {fid} candidate {j}.parent_candidate_id must be a string")
 
     for i, surface in enumerate(surfaces):
         if not isinstance(surface, dict):
