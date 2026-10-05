@@ -128,7 +128,7 @@ def self_test() -> int:
             findings_path=findings,
             research_report_path=research,
         )
-        assert (rc, outcome) == (0, "COMPLETED_WITH_WORKER_CLI_ERROR")
+        assert (rc, outcome) == (0, "PARTIAL")
 
     print("worker outcome self-test: PASS")
     return 0
