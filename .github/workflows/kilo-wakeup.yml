@@ -305,11 +305,14 @@ jobs:
           set -euo pipefail
           docker run --rm \
             --name ehb-kilo \
+            --user "$(id -u):$(id -g)" \
             --network ehb-worker-net \
             --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
             --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
             --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
-            -e HOME=/root \
+            -e HOME=/tmp/kilo-home \
+            -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
+            -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
             -e KILO_DISABLE_EXTERNAL_SKILLS=true \
             -e BENCHMARK_ID="$BENCHMARK_ID" \
             -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
@@ -317,9 +320,9 @@ jobs:
             bash -lc '
               set -euo pipefail
               cd /workspace
-              mkdir -p /root/.config/kilo
-              cp /tmp/kilo.json /root/.config/kilo/kilo.json
-              chmod 600 /root/.config/kilo/kilo.json
+              mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
+              cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
+              chmod 600 "$HOME/.config/kilo/kilo.json"
               kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)"
             '
 
@@ -388,13 +391,7 @@ jobs:
           EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
           docker rm -f ehb-kilo ehb-kilo-egress lab-mutator juice-shop >/dev/null 2>&1 || true
           docker network rm ehb-target-net ehb-worker-net ehb-egress-net >/dev/null 2>&1 || true
-          if [ -n "${EHB_KILO_IMAGE:-}" ] && [ -d "$EHB_WORKER_DIR" ]; then
-            docker run --rm --user 0 \
-              --mount type=bind,source="$EHB_WORKER_DIR",target=/cleanup \
-              "$EHB_KILO_IMAGE" \
-              bash -lc 'chown -R 0:0 /cleanup' >/dev/null 2>&1 || true
-            docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
-          fi
+          docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
           rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
 
       - name: Persist safe repository changes
