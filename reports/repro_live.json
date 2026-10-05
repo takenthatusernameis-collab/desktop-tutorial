@@ -1,0 +1,215 @@
+{
+ "observed_at": "2026-10-05T03:48:39Z",
+ "target": "http://lab-mutator:3000",
+ "baseline": {
+  "root_get": {
+   "status": 200,
+   "content_type": "text/html; charset=UTF-8",
+   "length": 9393
+  },
+  "robots": {
+   "status": 200,
+   "body": "User-agent: *\nDisallow: /ftp"
+  },
+  "metrics": {
+   "status": 200,
+   "content_type": "text/plain; version=0.0.4; charset=utf-8",
+   "length": 26059
+  },
+  "metrics_secrets": [],
+  "challenges": {
+   "count": 116,
+   "keys": [
+    "accessLogDisclosureChallenge",
+    "adminSectionChallenge",
+    "aiDebuggingChallenge",
+    "basketAccessChallenge",
+    "basketManipulateChallenge",
+    "captchaBypassChallenge",
+    "changePasswordBenderChallenge",
+    "changeProductChallenge",
+    "chatbotGreedyInjectionChallenge",
+    "chatbotPromptInjectionChallenge",
+    "christmasSpecialChallenge",
+    "closeNotificationsChallenge",
+    "continueCodeChallenge",
+    "csafChallenge",
+    "csrfChallenge",
+    "dataExportChallenge",
+    "dbSchemaChallenge",
+    "deprecatedInterfaceChallenge",
+    "directoryListingChallenge",
+    "dlpPasswordSprayingChallenge",
+    "dlpPastebinDataLeakChallenge",
+    "easterEggLevelOneChallenge",
+    "easterEggLevelTwoChallenge",
+    "emailLeakChallenge",
+    "emptyUserRegistration",
+    "ephemeralAccountantChallenge",
+    "errorHandlingChallenge",
+    "exposedCredentialsChallenge",
+    "exposedMetricsChallenge",
+    "extraLanguageChallenge"
+   ]
+  },
+  "products": {
+   "status": 200,
+   "length": 16005
+  },
+  "whoami": {
+   "status": 200,
+   "body_len": 11
+  }
+ },
+ "findings": {
+  "F23": {
+   "GET_status": 200,
+   "GET_ct": "application/json; charset=utf-8",
+   "GET_length": 6134,
+   "controls": {
+    "/rest/wallet/balance": 401,
+    "/rest/basket": 401,
+    "/rest/user/authentication-details": 401
+   },
+   "record_count": 10,
+   "sample_user_fields": [
+    "UserId",
+    "id",
+    "caption",
+    "imagePath",
+    "createdAt",
+    "updatedAt",
+    "User"
+   ],
+   "sample": {
+    "UserId": 13,
+    "id": 1,
+    "caption": "\ud83d\ude3c #zatschi #whoneedsfourlegs",
+    "imagePath": "assets/public/images/uploads/\u14da\u160f\u15e2-#zatsch",
+    "createdAt": "2026-10-05T03:46:54.327Z",
+    "updatedAt": "2026-10-05T03:46:54.327Z",
+    "User": "{'id': 13, 'username': '', 'email': 'bjo"
+   },
+   "has_password": false,
+   "has_deluxe_token": false,
+   "has_totp_secret": false,
+   "bogus_bearer_status": 200,
+   "bogus_bearer_identical": true
+  },
+  "F24": {
+   "GET_status": 401,
+   "POST1_status": 201,
+   "POST1_id": 26,
+   "POST_empty_status": 201,
+   "POST_empty_id": 27,
+   "POST2_status": 201,
+   "POST2_id": 28
+  },
+  "F25": {
+   "q_Apple_status": 200,
+   "q_Apple_length": 921,
+   "q_Apple_ids": [
+    1,
+    24,
+    47
+   ],
+   "tautology_status": 200,
+   "tautology_length": 16557,
+   "tautology_ids": [
+    1,
+    24,
+    6,
+    52,
+    51,
+    42,
+    53,
+    30,
+    50,
+    3,
+    54,
+    25,
+    49,
+    22,
+    41,
+    5,
+    33,
+    48,
+    38,
+    8,
+    43,
+    34,
+    37,
+    19,
+    13,
+    45,
+    26,
+    14,
+    18,
+    15,
+    16,
+    7,
+    17,
+    20,
+    9,
+    36,
+    35,
+    2,
+    47,
+    56,
+    32,
+    23,
+    4,
+    55,
+    29,
+    21
+   ],
+   "catalog_names_count": 46,
+   "tautology_in_catalog_names": false,
+   "tautology_returns_all": true,
+   "malformed_status": 500,
+   "malformed_preview": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;UNION&quot;: syntax error</title>     <style>* {   margin: 0;  ",
+   "comment_status": 500,
+   "comment_length": 942
+  },
+  "F26": {
+   "GET_status": 200,
+   "GET_ct": "text/plain; version=0.0.4; charset=utf-8",
+   "GET_length": 26113,
+   "metrics_secrets": [],
+   "gauges_seen": [
+    "juiceshop_llm_input_tokens_total",
+    "juiceshop_llm_input_tokens_total",
+    "juiceshop_llm_input_tokens_total",
+    "juiceshop_llm_input_tokens",
+    "juiceshop_llm_input_tokens",
+    "juiceshop_llm_output_tokens_total",
+    "juiceshop_llm_output_tokens_total",
+    "juiceshop_llm_output_tokens_total",
+    "juiceshop_llm_output_tokens",
+    "juiceshop_llm_output_tokens",
+    "juiceshop_llm_tool_calls_total",
+    "juiceshop_llm_tool_calls_total",
+    "juiceshop_startup_duration_seconds",
+    "juiceshop_startup_duration_seconds",
+    "juiceshop_startup_duration_seconds"
+   ]
+  }
+ },
+ "auth_probe": {
+  "login_POST_status": 401,
+  "login_POST_body": "Invalid email or password."
+ },
+ "other": {
+  "captcha": {
+   "GET_status": 200,
+   "GET_ct": "application/json; charset=utf-8",
+   "GET_length": 47,
+   "body": {
+    "captchaId": 0,
+    "captcha": "8*1*9",
+    "answer": "72"
+   },
+   "answer_visible": true
+  }
+ }
+}

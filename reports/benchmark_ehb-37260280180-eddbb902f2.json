@@ -7,7 +7,7 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated GET /rest/memories exposes all user accounts with password hashes, deluxe tokens and TOTP secrets",
+      "title": "Unauthenticated GET /rest/memories exposes all user accounts (password hashes, deluxe tokens, email, role) with no authorization check",
       "valid_reproduction": false
     },
     {

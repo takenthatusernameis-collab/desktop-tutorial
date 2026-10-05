@@ -1,0 +1,117 @@
+total: 116
+1 | passwordHashLeakChallenge | Sensitive Data Exposure | Password Hash Leak
+2 | restfulXssChallenge | XSS | API-only XSS
+3 | accessLogDisclosureChallenge | Observability Failures | Access Log
+4 | registerAdminChallenge | Improper Input Validation | Admin Registration
+5 | adminSectionChallenge | Broken Access Control | Admin Section
+6 | fileWriteChallenge | Vulnerable Components | Arbitrary File Write
+7 | resetPasswordBjoernOwaspChallenge | Broken Authentication | Bjoern's Favorite Pet
+8 | tokenSaleChallenge | Security through Obscurity | Blockchain Hype
+9 | nftUnlockChallenge | Sensitive Data Exposure | NFT Takeover
+10 | nftMintChallenge | Improper Input Validation | Mint the Honey Pot
+11 | web3WalletChallenge | Miscellaneous | Wallet Depletion
+12 | web3SandboxChallenge | Broken Access Control | Web3 Sandbox
+13 | rceChallenge | Insecure Deserialization | Blocked RCE DoS
+14 | captchaBypassChallenge | Broken Anti Automation | CAPTCHA Bypass
+15 | changePasswordBenderChallenge | Broken Authentication | Change Bender's Password
+16 | christmasSpecialChallenge | Injection | Christmas Special
+17 | usernameXssChallenge | XSS | CSP Bypass
+18 | persistedXssUserChallenge | XSS | Client-side XSS Protection
+19 | directoryListingChallenge | Sensitive Data Exposure | Confidential Document
+20 | localXssChallenge | XSS | DOM XSS
+21 | dbSchemaChallenge | Injection | Database Schema
+22 | deprecatedInterfaceChallenge | Security Misconfiguration | Deprecated Interface
+23 | easterEggLevelOneChallenge | Broken Access Control | Easter Egg
+24 | emailLeakChallenge | Sensitive Data Exposure | Email Leak
+25 | emptyUserRegistration | Improper Input Validation | Empty User Registration
+26 | ephemeralAccountantChallenge | Injection | Ephemeral Accountant
+27 | errorHandlingChallenge | Security Misconfiguration | Error Handling
+28 | manipulateClockChallenge | Improper Input Validation | Expired Coupon
+29 | extraLanguageChallenge | Broken Anti Automation | Extra Language
+30 | feedbackChallenge | Broken Access Control | Five-Star Feedback
+31 | forgedCouponChallenge | Cryptographic Issues | Forged Coupon
+32 | forgedFeedbackChallenge | Broken Access Control | Forged Feedback
+33 | forgedReviewChallenge | Broken Access Control | Forged Review
+34 | jwtForgedChallenge | Vulnerable Components | Forged Signed JWT
+35 | forgottenDevBackupChallenge | Sensitive Data Exposure | Forgotten Developer Backup
+36 | forgottenBackupChallenge | Sensitive Data Exposure | Forgotten Sales Backup
+37 | typosquattingAngularChallenge | Vulnerable Components | Frontend Typosquatting
+38 | ghostLoginChallenge | Broken Authentication | GDPR Data Erasure
+39 | dataExportChallenge | Sensitive Data Exposure | GDPR Data Theft
+40 | httpHeaderXssChallenge | XSS | HTTP-Header XSS
+41 | continueCodeChallenge | Cryptographic Issues | Imaginary Challenge
+42 | dlpPasswordSprayingChallenge | Observability Failures | Leaked Access Logs
+43 | dlpPastebinDataLeakChallenge | Sensitive Data Exposure | Leaked Unsafe Product
+44 | typosquattingNpmChallenge | Vulnerable Components | Legacy Typosquatting
+45 | loginAdminChallenge | Injection | Login Admin
+46 | loginAmyChallenge | Sensitive Data Exposure | Login Amy
+47 | loginBenderChallenge | Injection | Login Bender
+48 | oauthUserPasswordChallenge | Broken Authentication | Login Bjoern
+49 | loginJimChallenge | Injection | Login Jim
+50 | loginRapperChallenge | Sensitive Data Exposure | Login MC SafeSearch
+51 | loginSupportChallenge | Security Misconfiguration | Login Support Team
+52 | basketManipulateChallenge | Broken Access Control | Manipulate Basket
+53 | misplacedSignatureFileChallenge | Observability Failures | Misplaced Signature File
+54 | timingAttackChallenge | Broken Anti Automation | Multiple Likes
+55 | easterEggLevelTwoChallenge | Cryptographic Issues | Nested Easter Egg
+56 | noSqlCommandChallenge | Injection | NoSQL DoS
+57 | noSqlOrdersChallenge | Injection | NoSQL Exfiltration
+58 | noSqlReviewsChallenge | Injection | NoSQL Manipulation
+59 | redirectCryptoCurrencyChallenge | Unvalidated Redirects | Outdated Allowlist
+60 | weakPasswordChallenge | Broken Authentication | Password Strength
+61 | negativeOrderChallenge | Improper Input Validation | Payback Time
+62 | premiumPaywallChallenge | Cryptographic Issues | Premium Paywall
+63 | privacyPolicyChallenge | Miscellaneous | Privacy Policy
+64 | privacyPolicyProofChallenge | Security through Obscurity | Privacy Policy Inspection
+65 | changeProductChallenge | Broken Access Control | Product Tampering
+66 | reflectedXssChallenge | XSS | Reflected XSS
+67 | passwordRepeatChallenge | Improper Input Validation | Repetitive Registration
+68 | resetPasswordBenderChallenge | Broken Authentication | Reset Bender's Password
+69 | resetPasswordBjoernChallenge | Broken Authentication | Reset Bjoern's Password
+70 | resetPasswordJimChallenge | Broken Authentication | Reset Jim's Password
+71 | resetPasswordMortyChallenge | Broken Anti Automation | Reset Morty's Password
+72 | retrieveBlueprintChallenge | Sensitive Data Exposure | Retrieve Blueprint
+73 | ssrfChallenge | Broken Access Control | SSRF
+74 | sstiChallenge | Injection | SSTi
+75 | scoreBoardChallenge | Miscellaneous | Score Board
+76 | securityPolicyChallenge | Miscellaneous | Security Policy
+77 | persistedXssFeedbackChallenge | XSS | Server-side XSS Protection
+78 | hiddenImageChallenge | Security through Obscurity | Steganography
+79 | rceOccupyChallenge | Insecure Deserialization | Successful RCE DoS
+80 | supplyChainAttackChallenge | Vulnerable Components | Supply Chain Attack
+81 | twoFactorAuthUnsafeSecretStorageChallenge | Broken Authentication | Two Factor Authentication
+82 | jwtUnsignedChallenge | Vulnerable Components | Unsigned JWT
+83 | uploadSizeChallenge | Improper Input Validation | Upload Size
+84 | uploadTypeChallenge | Improper Input Validation | Upload Type
+85 | unionSqlInjectionChallenge | Injection | User Credentials
+86 | videoXssChallenge | XSS | Video XSS
+87 | basketAccessChallenge | Broken Access Control | View Basket
+88 | knownVulnerableComponentChallenge | Vulnerable Components | Vulnerable Library
+89 | weirdCryptoChallenge | Cryptographic Issues | Weird Crypto
+90 | redirectChallenge | Unvalidated Redirects | Allowlist Bypass
+91 | xxeFileDisclosureChallenge | XXE | XXE Data Access
+92 | xxeDosChallenge | XXE | XXE DoS
+93 | yamlBombChallenge | Insecure Deserialization | Memory Bomb
+94 | zeroStarsChallenge | Improper Input Validation | Zero Stars
+95 | missingEncodingChallenge | Improper Input Validation | Missing Encoding
+96 | svgInjectionChallenge | Security Misconfiguration | Cross-Site Imaging
+97 | exposedMetricsChallenge | Observability Failures | Exposed Metrics
+98 | misplacedIacFiles | Security Misconfiguration | Misplaced IaC Files
+99 | freeDeluxeChallenge | Improper Input Validation | Deluxe Fraud
+100 | csrfChallenge | Broken Access Control | CSRF
+101 | xssBonusChallenge | XSS | Bonus Payload
+102 | resetPasswordUvoginChallenge | Sensitive Data Exposure | Reset Uvogin's Password
+103 | geoStalkingMetaChallenge | Sensitive Data Exposure | Meta Geo Stalking
+104 | geoStalkingVisualChallenge | Sensitive Data Exposure | Visual Geo Stalking
+105 | nullByteChallenge | Improper Input Validation | Poison Null Byte
+106 | lfrChallenge | Vulnerable Components | Local File Read
+107 | closeNotificationsChallenge | Miscellaneous | Mass Dispel
+108 | csafChallenge | Miscellaneous | Security Advisory
+109 | exposedCredentialsChallenge | Sensitive Data Exposure | Exposed Credentials
+110 | leakedApiKeyChallenge | Sensitive Data Exposure | Leaked API Key
+111 | chatbotPromptInjectionChallenge | Injection | Chatbot Prompt Injection
+112 | chatbotGreedyInjectionChallenge | Injection | Greedy Chatbot Manipulation
+113 | aiDebuggingChallenge | Broken Access Control | AI Debugging
+114 | systemPromptExtractionChallenge | Injection | System Prompt Extraction
+115 | iacLeakedKeyChallenge | Sensitive Data Exposure | Login Cloud Admin
+116 | vulnerableDockerImageChallenge | Vulnerable Components | Vulnerable Infrastructure
