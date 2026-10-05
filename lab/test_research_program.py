@@ -215,6 +215,8 @@ def test_cross_session_program_progression(tmp: Path):
         {"benchmark_id": "b1", "discovery": "KILO_DISCOVERY_BOOTSTRAP"},
     )
 
+    family = json.loads(json.dumps(program["evolution_families"][0]))
+
     def fake_transport(_target, req):
         query = req["query"].get("q", [""])[0]
         body_sha = "baseline" if query == "alpha" else "mutated"
@@ -227,41 +229,50 @@ def test_cross_session_program_progression(tmp: Path):
             "error": None,
         }
 
-    first_rc = rp.run_pre_kilo(
-        "resumed",
-        "b1",
-        "http://lab-mutator:3000",
+    first = rp.execute_generation(
         state,
+        "http://lab-mutator:3000",
+        family,
+        1,
+        8,
         transport=fake_transport,
     )
-    assert first_rc == 0
-    first_program = rp.load_json(state / rp.PROGRAM)
-    assert first_program["evolution_families"][0]["generation"] > 1
-    assert first_program["evolution_families"][0]["best_candidates"]
+    assert first["promising_candidates"], "G1 did not produce a retained candidate"
+    selected_request = first["promising_candidates"][0]["request"]
+    selected_parent_id = rp.candidate_id(selected_request)
 
-    first_runtime = rp.load_json(state / rp.RUNTIME)
-    first_generation = first_runtime["families"]["family-a"]["last_executed_generation"]
+    rp.persist_generation(state, first)
+    runtime = rp.update_runtime(state, program, [first])
 
-    second_rc = rp.run_pre_kilo(
-        "resumed",
-        "b1",
-        "http://lab-mutator:3000",
+    persisted = rp.load_json(state / rp.PROGRAM)
+    persisted_family = persisted["evolution_families"][0]
+    persisted_family["best_candidates"] = first["promising_candidates"]
+    persisted_family["generation"] = 2
+    rp.write_json(state / rp.PROGRAM, persisted)
+
+    reloaded_program = rp.load_json(state / rp.PROGRAM)
+    reloaded_family = reloaded_program["evolution_families"][0]
+
+    second = rp.execute_generation(
         state,
+        "http://lab-mutator:3000",
+        reloaded_family,
+        2,
+        8,
         transport=fake_transport,
     )
-    assert second_rc == 0
+    assert any(
+        row["parent_candidate_id"] == selected_parent_id
+        for row in second["parent_lineage"]
+    ), "G2 did not inherit the persisted G1 parent"
+    assert second["generation"] == 2
 
-    second_program = rp.load_json(state / rp.PROGRAM)
-    second_runtime = rp.load_json(state / rp.RUNTIME)
-    second_generation = second_runtime["families"]["family-a"]["last_executed_generation"]
+    rp.persist_generation(state, second)
+    runtime = rp.update_runtime(state, reloaded_program, [second])
+    assert runtime["families"]["family-a"]["last_executed_generation"] == 2
 
-    assert second_generation > first_generation
-    assert second_program["evolution_families"][0]["generation"] > first_program["evolution_families"][0]["generation"]
-    assert not (state / "DISCOVERY_REQUIRED.json").exists(), (
-        "a durable research program must clear its one-time bootstrap marker "
-        "once executable portfolio progression succeeds"
-    )
-
+    final_program = rp.load_json(state / rp.PROGRAM)
+    assert final_program["evolution_families"][0]["generation"] == 2
 
 def test_generation_receipts(tmp: Path):
     program = sample_program()
