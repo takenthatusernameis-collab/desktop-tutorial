@@ -33,10 +33,6 @@ def report(
         return 1, "FAILED_PRECHECK"
     if smoke != "success":
         return 1, "FAILED_KILO_SMOKE"
-    if research_validation != "success":
-        return 1, "FAILED_RESEARCH_VALIDATION"
-    if research_handoff != "success":
-        return 1, "FAILED_RESEARCH_HANDOFF"
     if worker == "skipped":
         return 1, "FAILED_WORKER_SKIPPED"
 
@@ -44,23 +40,31 @@ def report(
     research_report_present = research_report_path.is_file() and research_report_path.stat().st_size > 0
 
     # A non-successful worker is a continuation point, not an automatic
-    # activation failure. Independent evaluation is skipped in that case.
+    # activation failure. Dependent post-worker validation/evaluation stages
+    # are intentionally skipped; durable state remains truthfully PARTIAL.
     if worker != "success":
         if not findings_present or not research_report_present:
             return 0, "PARTIAL"
+        if research_validation not in {"success", "skipped"}:
+            return 1, "FAILED_RESEARCH_VALIDATION"
+        if research_handoff not in {"success", "skipped"}:
+            return 1, "FAILED_RESEARCH_HANDOFF"
         if evaluate not in {"success", "skipped"}:
             return 1, "FAILED_INDEPENDENT_EVALUATION"
+        return 0, "COMPLETED_WITH_WORKER_CLI_ERROR"
 
+    if research_validation != "success":
+        return 1, "FAILED_RESEARCH_VALIDATION"
+    if research_handoff != "success":
+        return 1, "FAILED_RESEARCH_HANDOFF"
     if evaluate != "success":
         return 1, "FAILED_INDEPENDENT_EVALUATION"
     if not findings_present:
         return 1, "FAILED_FINDINGS_REPORT_MISSING"
-    if not research_report_path.is_file() or research_report_path.stat().st_size == 0:
+    if not research_report_present:
         return 1, "FAILED_RESEARCH_REPORT_MISSING"
 
-    if worker == "success":
-        return 0, "SUCCESS"
-    return 0, "COMPLETED_WITH_WORKER_CLI_ERROR"
+    return 0, "SUCCESS"
 
 
 def self_test() -> int:
