@@ -290,8 +290,27 @@ PROGRAM = {
       "selection_policy": "retain requests that return 500 with raw, non-sanitized error text distinct from the benign 200 control",
       "exploration_exploitation_policy": "exploitation 70% of known error-exposing namespaces, exploration 30% breadth across /api/* write routes and alternate representations",
       "novelty_requirement": "new trigger endpoint, new raw error type, or distinct parser/encoding path - not a repeat of an existing trigger",
-      "seed_requests": ["POST /api/Products/ {not valid json} (application/json)", "POST /api/Feedbacks/ arbitrary plain text (text/plain)", "GET /redirect?continue=http://example.com"],
-      "best_candidates": ["3 raw-error triggers reproduced (SyntaxError, raw WHERE error, TypeError)"],
+      "seed_requests": [
+        {"method": "GET", "path": "/rest/user/security-question", "query": {}, "headers": {}},
+        {"method": "GET", "path": "/redirect", "query": {"continue": ["http://example.com"]}, "headers": {}},
+        {"method": "GET", "path": "/rest/user/password-hash", "query": {}, "headers": {}}
+      ],
+      "best_candidates": [
+        {
+          "candidate_id": "bootstrap-27-security-question",
+          "parent_candidate_id": null,
+          "request": {"method": "GET", "path": "/rest/user/security-question", "query": {}, "headers": {}},
+          "mutation": {"operator": "BASELINE", "mutation": "bootstrap"},
+          "response_signature": {}
+        },
+        {
+          "candidate_id": "bootstrap-27-redirect",
+          "parent_candidate_id": null,
+          "request": {"method": "GET", "path": "/redirect", "query": {"continue": ["http://example.com"]}, "headers": {}},
+          "mutation": {"operator": "BASELINE", "mutation": "bootstrap"},
+          "response_signature": {}
+        }
+      ],
       "lineage": ["bootstrap"],
       "results_history": ["generation1: 3 distinct raw errors reproduced byte-stable; one known stack-trace trigger mutation-fragile"],
       "coverage_history": ["27 /api/* and related routes probed; 3 raw-error responses confirmed"],
@@ -314,8 +333,18 @@ PROGRAM = {
       "selection_policy": "confirm unauthenticated 200 with Prometheus-format content including llm_* gauges",
       "exploration_exploitation_policy": "exploitation - baseline re-verification each boot/variant refresh",
       "novelty_requirement": "none - baseline repeat",
-      "seed_requests": ["GET /metrics"],
-      "best_candidates": ["GET /metrics -> 200/text/plain with llm_* gauges"],
+      "seed_requests": [
+        {"method": "GET", "path": "/metrics", "query": {}, "headers": {}}
+      ],
+      "best_candidates": [
+        {
+          "candidate_id": "bootstrap-97-metrics",
+          "parent_candidate_id": null,
+          "request": {"method": "GET", "path": "/metrics", "query": {}, "headers": {}},
+          "mutation": {"operator": "BASELINE", "mutation": "bootstrap"},
+          "response_signature": {}
+        }
+      ],
       "lineage": ["bootstrap"],
       "results_history": ["generation1: verified 200/26062 B with llm_* gauges across all boots"],
       "coverage_history": ["1 route, verified on A9-A16"],
