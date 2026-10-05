@@ -1,1 +1,34 @@
-PLACEHOLDER
+name: Bug Bounty Research Enterprise Wake
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/kilo-wakeup.yml"
+      - "lab/kilo_gateway_proxy.py"
+      - "lab/benchmark_campaign.py"
+      - "lab/research_program.py"
+      - "lab/test_research_program.py"
+      - ".github/scripts/research_portfolio_runner.py"
+      - ".github/scripts/report_worker_outcome.py"
+      - ".github/scripts/deep_workflow_audit.py"
+      - ".kilo/wakeup-prompt.md"
+      - ".kilo/validate-program-handoff.py"
+
+concurrency:
+  group: bug-bounty-research-enterprise
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  worker:
+    name: Autonomous security-research activation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    env:
+      EHB_KILO_IMAGE: ehb-kilo-${{ github.run_id }}
