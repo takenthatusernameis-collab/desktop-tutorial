@@ -219,7 +219,7 @@ PROGRAM = {
       "name": "Web3/NFT wallet unlock (rejected)",
       "description": "Web3 key submission and NFT unlock.",
       "origin": "sweep (A14-A19)",
-      "status": "REJECTED",
+      "status": "NEGATED",
       "priority": "LOW",
       "current_intensity": "minimal",
       "coverage_estimate": "low-medium",
