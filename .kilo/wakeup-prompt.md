@@ -105,6 +105,7 @@ Treat controller-owned execution artifacts as read-only evidence.
 - archive only with an explicit reason while retaining its full history;
 - ADD, EXPAND, SPLIT, MERGE, REACTIVATE, and DEPRIORITIZE remain available;
 - every newly discovered surface needs provenance and reopen triggers.
+- controller lifecycle status values are declarative: CANDIDATE, ACTIVE, ACTIVE_HIGH_INTENSITY, ACTIVE_LOW_INTENSITY, DEPRIORITIZED, READY_FOR_REVIEW, SUBSTANTIAL_EFFORT, EXHAUSTED_FOR_NOW, REOPENED, VERIFIED, or ARCHIVED (ARCHIVED requires an explicit archive_reason).
 
 7. Evolutionary-family lifecycle:
 - families are persistent search mechanisms attached to surfaces;
