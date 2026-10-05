@@ -1006,12 +1006,19 @@ def persist_generation(state_dir: Path, result: dict[str, Any]) -> None:
     )
 
 
-def update_runtime(state_dir: Path, program: dict[str, Any], results: list[dict[str, Any]]) -> dict[str, Any]:
+def update_runtime(
+    state_dir: Path,
+    program: dict[str, Any],
+    results: list[dict[str, Any]],
+    *,
+    increment_cycle: bool = True,
+) -> dict[str, Any]:
     runtime = load_runtime(state_dir)
     runtime["schema_version"] = PROGRAM_VERSION
     runtime["controller_version"] = CONTROLLER_VERSION
     runtime["benchmark_id"] = program["benchmark_id"]
-    runtime["cycles"] = int(runtime.get("cycles", 0)) + 1
+    if increment_cycle:
+        runtime["cycles"] = int(runtime.get("cycles", 0)) + 1
     runtime["last_execution"] = now_utc()
     runtime.setdefault("families", {})
     runtime.setdefault("surfaces", {})
@@ -1201,7 +1208,8 @@ def run_pre_kilo(
     )
 
     results = []
-    for item in plan:
+    runtime = load_runtime(state_dir)
+    for index, item in enumerate(plan):
         family = next(f for f in program["evolution_families"] if f["family_id"] == item["family_id"])
         result = execute_generation(
             state_dir,
@@ -1216,12 +1224,16 @@ def run_pre_kilo(
         family["best_candidates"] = result["promising_candidates"]
         family["generation"] = int(family.get("generation", 1)) + 1
 
-    runtime = update_runtime(state_dir, program, results)
-
-    # Commit the coupled PROGRAM/RUNTIME generation state before derived registries
-    # so a later reporting/materialization failure cannot strand runtime ahead of
-    # durable program lineage.
-    write_json(program_path, program)
+        # Advance runtime immediately so a second round for the same family sees
+        # the newly executed generation. Persist PROGRAM/RUNTIME together after
+        # every successful generation.
+        runtime = update_runtime(
+            state_dir,
+            program,
+            [result],
+            increment_cycle=(index == 0),
+        )
+        write_json(program_path, program)
 
     materialize_registries(state_dir, program, runtime)
     append_checklist(state_dir, results)
