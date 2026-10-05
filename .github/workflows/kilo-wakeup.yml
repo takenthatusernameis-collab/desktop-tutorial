@@ -1,1 +1,18 @@
-SEE_FILE
+name: Bug Bounty Research Enterprise Wake
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: bug-bounty-research-enterprise
+  cancel-in-progress: false
+
+jobs:
+  worker:
+    name: Autonomous security-research activation
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Placeholder while full workflow is restored
+        run: |
+          echo "Workflow temporarily stubbed during restore. Full content coming in next commit."
+          exit 1
