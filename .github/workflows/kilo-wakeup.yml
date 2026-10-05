@@ -190,17 +190,10 @@ jobs:
           mkdir -p "$LAB_SECRET_DIR" "$EHB_WORKER_DIR" "$ACTIVE_BENCHMARK_DIR"
           chmod 700 "$LAB_SECRET_DIR"
 
-          python3 lab/benchmark_campaign.py restore             --secret-dir "$LAB_SECRET_DIR"             --active-dir "$ACTIVE_BENCHMARK_DIR"             --history "lab/benchmark_history.jsonl"
-
-          secret_dir = Path("$RUNNER_TEMP/ehb-secret")
-          public = json.loads((secret_dir / "public.json").read_text(encoding="utf-8"))
-          print(f"BENCHMARK_ID={public['benchmark_id']}")
-          print(f"BENCHMARK_COMMITMENT={public['commitment']}")
-          print(f"BENCHMARK_DIFFICULTY={public['difficulty']}")
-          print("SECURITY_RESEARCH_TARGET=http://lab-mutator:3000")
-          print(f"LAB_SECRET_DIR={secret_dir}")
-          print(f"EHB_WORKER_DIR={Path('$RUNNER_TEMP') / 'ehb-worker'}")
-          PY
+          python3 lab/benchmark_campaign.py restore \
+            --secret-dir "$LAB_SECRET_DIR" \
+            --active-dir "$ACTIVE_BENCHMARK_DIR" \
+            --history "lab/benchmark_history.jsonl"
 
       - name: Start isolated benchmark environment
         id: start_benchmark
