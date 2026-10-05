@@ -945,25 +945,8 @@ jobs:
             state/research/GENERATIONS \
             state/research/RESULTS \
             state/research/REVIEWS; do
-            if [ -e "$research_path" ]; then
+            if [ -e "$durable_path" ]; then
               git add -f -- "$durable_path"
-            fi
-          done
-
-          for research_path in \
-            state/research/PROGRAM.json \
-            state/research/RUNTIME.json \
-            state/research/SURFACES.json \
-            state/research/EVOLUTION_FAMILIES.json \
-            state/research/EXECUTION_RECEIPTS.jsonl \
-            state/research/PORTFOLIO_CHECKLIST.md \
-            state/research/PORTFOLIO_SUMMARY.json \
-            state/research/COMPILED_PORTFOLIO.json \
-            state/research/GENERATIONS \
-            state/research/RESULTS \
-            state/research/REVIEWS; do
-            if [ -e "$research_path" ]; then
-              git add -f -- "$research_path"
             fi
           done
 
