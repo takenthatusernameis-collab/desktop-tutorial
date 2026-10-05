@@ -1,3 +1,7 @@
+## Campaign continuity
+
+The benchmark target is persistent across activations until the controller records a validated solve. Treat activation boundaries as continuation/checkpoint boundaries, not as automatic benchmark resets.
+
 # Security Research Learning State
 
 This is the compact durable learning layer connecting benchmark feedback to the next worker activation.
