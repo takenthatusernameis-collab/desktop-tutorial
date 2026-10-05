@@ -1,0 +1,71 @@
+{
+  "actual_execution": true,
+  "candidate_count": 1,
+  "family_id": "fam_29_extra_language",
+  "generation": 9,
+  "generation_id": "gen-0009-fam_29_extra_language",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 4215,
+        "body_sha256": "aa8dfff3ff3ffa3166f7852bff713b816c30ce8d13c230bbff7986615c957b9f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 36.93,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-bb33bfb21bc503a5f740",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 4215,
+        "body_sha256": "aa8dfff3ff3ffa3166f7852bff713b816c30ce8d13c230bbff7986615c957b9f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 34.26,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-bb33bfb21bc503a5f740",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/languages",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-05T11:30:30Z",
+  "operators": [
+    "BASELINE",
+    "QUERY_EDGE_VALUES",
+    "PARAMETER_OMISSION"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-bb33bfb21bc503a5f740",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-bb33bfb21bc503a5f740"
+    }
+  ],
+  "promising_candidates": [],
+  "results": {
+    "behavioral_differences": 0,
+    "error_observations": 0,
+    "information_gain": 0.5,
+    "repeat_reproductions": 0,
+    "unique_response_signatures": 1
+  },
+  "stopping_reason": "operator candidate set exhausted",
+  "surface_id": "surf_29_extra_language"
+}

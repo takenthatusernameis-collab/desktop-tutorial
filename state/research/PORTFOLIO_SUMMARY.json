@@ -1,8 +1,8 @@
 {
   "actual_execution": true,
-  "behavioral_differences": 74,
+  "behavioral_differences": 70,
   "benchmark_id": "ehb-37260280180-eddbb902f2",
-  "candidate_requests": 149,
+  "candidate_requests": 158,
   "compiled_generations": 24,
   "controller_version": "1.0.0",
   "executed_generations": 24,
@@ -21,10 +21,11 @@
     "fam_blocked_auth_sweep",
     "fam_chatbot_monitor",
     "fam_non_viable_500_monitor",
+    "fam_origin_header_variants",
     "fam_redirect_ssrf_monitor"
   ],
-  "observed_at": "2026-10-05T11:21:35Z",
-  "repeat_reproductions": 69,
+  "observed_at": "2026-10-05T11:30:32Z",
+  "repeat_reproductions": 66,
   "schema_version": "1.0.0",
   "surfaces_represented": [
     "surf_23_memories",
@@ -41,6 +42,7 @@
     "surf_blocked_auth",
     "surf_chatbot",
     "surf_non_viable_500",
+    "surf_origin_header_variants",
     "surf_redirect"
   ]
 }
