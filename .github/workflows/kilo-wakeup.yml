@@ -35,7 +35,13 @@ jobs:
         run: |
           set -euo pipefail
           python3 lab/test_benchmark.py
-          python3 -m py_compile lab/kilo_gateway_proxy.py lab/generate_solver_feedback.py
+          python3 -m py_compile \
+            lab/kilo_gateway_proxy.py \
+            lab/generate_solver_feedback.py \
+            lab/generate_benchmark.py \
+            lab/evaluate_benchmark.py \
+            lab/mutator.py \
+            lab/test_benchmark.py
 
       - name: Discover current free model
         id: discover_model
@@ -295,6 +301,76 @@ jobs:
             --exclude="reports/benchmark_*.json" \
             "$GITHUB_WORKSPACE/" "$EHB_WORKER_DIR/"
 
+      - name: Preflight infrastructure health check
+        id: preflight
+        run: |
+          set -euo pipefail
+
+          echo "Checking final worker workspace and permissions..."
+          docker run --rm \
+            --network ehb-worker-net \
+            --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
+            --user "$(id -u):$(id -g)" \
+            --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
+            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
+            -e HOME=/tmp/kilo-home \
+            -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
+            -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
+            "$EHB_KILO_IMAGE" \
+            bash -lc '
+              set -euo pipefail
+              cd /workspace
+
+              mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
+              cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
+              chmod 600 "$HOME/.config/kilo/kilo.json"
+
+              test -s .kilo/wakeup-prompt.md
+              test -s SOLVER_FEEDBACK.md
+              test ! -e lab
+              test ! -e .git
+              test ! -e /workspace/spec.json
+
+              test "$(id -u)" = "$(stat -c "%u" /workspace)"
+              if find /workspace -xdev -uid 0 -print -quit | grep -q .; then
+                echo "Preflight found root-owned files in the worker workspace."
+                find /workspace -xdev -uid 0 -print
+                exit 1
+              fi
+
+              probe=/workspace/.preflight-write-test
+              printf "ok\n" > "$probe"
+              test "$(cat "$probe")" = "ok"
+              rm -f "$probe"
+              test ! -e "$probe"
+
+              command -v kilo >/dev/null
+              kilo --version >/dev/null
+
+              echo "Checking allowed mutation-gateway connectivity..."
+              curl --fail --silent --show-error --connect-timeout 5 --max-time 10 \
+                http://lab-mutator:3000/__lab__/health >/dev/null
+
+              echo "Checking allowed Kilo relay connectivity..."
+              curl --fail --silent --show-error --connect-timeout 10 --max-time 20 \
+                https://api.kilo.ai/api/gateway/models >/dev/null
+
+              echo "Checking worker cannot reach the hidden target directly..."
+              if curl --fail --silent --show-error --connect-timeout 3 --max-time 5 \
+                http://juice-shop:3000/ >/dev/null 2>&1; then
+                echo "Worker unexpectedly reached Juice Shop directly."
+                exit 1
+              fi
+
+              echo "Checking worker cannot use arbitrary Internet egress..."
+              if curl --fail --silent --show-error --connect-timeout 3 --max-time 5 \
+                https://github.com/ >/dev/null 2>&1; then
+                echo "Worker unexpectedly reached arbitrary Internet egress."
+                exit 1
+              fi
+
+              echo "Preflight infrastructure health check passed."
+            '
       - name: Run isolated Kilo worker
         id: kilo
         continue-on-error: true
@@ -459,13 +535,20 @@ jobs:
       - name: Report worker outcome
         if: always()
         env:
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           KILO_OUTCOME: ${{ steps.kilo.outcome }}
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
         run: |
           set -euo pipefail
 
+          echo "Preflight infrastructure outcome: $PREFLIGHT_OUTCOME"
           echo "Raw Kilo worker outcome: $KILO_OUTCOME"
           echo "Independent evaluator outcome: $EVALUATE_OUTCOME"
+
+          if [ "$PREFLIGHT_OUTCOME" != "success" ]; then
+            echo "Campaign did not start because the deterministic infrastructure preflight failed."
+            exit 1
+          fi
 
           if [ "$KILO_OUTCOME" = "skipped" ]; then
             echo "Worker activation was skipped."
