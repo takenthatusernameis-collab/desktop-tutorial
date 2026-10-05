@@ -536,28 +536,33 @@ def archive_active_program(state_dir: Path, benchmark_id: str) -> None:
 
 
 def _surface_score_value(value: Any, field: str, default: float) -> float:
-    """Convert numeric or human-readable priority/uncertainty values deterministically."""
+    """Convert controller score inputs without rejecting worker prose."""
     if isinstance(value, bool):
         raise ProgramError(f"surface {field} must not be boolean")
     if isinstance(value, (int, float)):
         score = float(value)
     elif isinstance(value, str):
         raw = value.strip()
-        match = re.match(r"^(HIGH|MEDIUM|LOW)\\b", raw.upper())
-        if match:
-            score = {"HIGH": 1.0, "MEDIUM": 0.6, "LOW": 0.2}[match.group(1)]
+        if not raw:
+            score = default
         else:
             try:
                 score = float(raw)
-            except ValueError as exc:
-                raise ProgramError(
-                    f"surface {field} must be numeric or start with HIGH/MEDIUM/LOW"
-                ) from exc
+            except ValueError:
+                upper = raw.upper()
+                match = re.match(r"^(HIGH|MEDIUM|LOW)\\b", upper)
+                if match:
+                    score = {"HIGH": 1.0, "MEDIUM": 0.6, "LOW": 0.2}[match.group(1)]
+                else:
+                    # Worker state may preserve explanatory prose in uncertainty.
+                    # Treat unlabelled prose as an explicit-but-neutral score rather
+                    # than crashing the trusted portfolio compiler.
+                    score = default
     elif value is None:
         score = default
     else:
         raise ProgramError(
-            f"surface {field} must be numeric, a qualitative label, or omitted"
+            f"surface {field} must be numeric, text, or omitted"
         )
     if not 0.0 <= score <= 1.0:
         raise ProgramError(f"surface {field} score must be in [0,1]")
