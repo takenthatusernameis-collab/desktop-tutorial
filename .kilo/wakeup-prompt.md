@@ -92,10 +92,13 @@ Treat controller-owned execution artifacts as read-only evidence.
 - perform targeted interpretation, reproduction, composition, and novel discovery when they add information, but do not replace deterministic portfolio execution with repetitive manual probing.
 
 5. Kilo owns strategic program decisions, not low-level execution:
-- edit state/research/PROGRAM.json as the next declarative research program;
-- optionally write a human-readable strategic review under state/research/REVIEWS/;
+- state/research/ is a READ-ONLY controller snapshot during the worker session;
+- write the next declarative research program only to repository-root PROGRAM_PROPOSAL.json;
+- optionally write human-readable strategic review notes only under repository-root WORKER_REVIEWS/;
+- never edit, chmod, rename, delete, or otherwise mutate anything under state/research/;
 - never edit controller-owned runtime/receipt/generation/result artifacts;
-- never write shell commands, Python code, arbitrary URLs, or executable payloads into the program;
+- never write shell commands, Python code, arbitrary URLs, or executable payloads into the proposal;
+- PROGRAM_PROPOSAL.json is not authoritative until the trusted controller validates and promotes it;
 - use only declarative, read-only research operators accepted by the controller.
 
 6. Surface lifecycle:
@@ -136,11 +139,11 @@ Machine-readable handoff invariants (mandatory, not stylistic):
 - seed_requests MUST be a list of executable request objects, never strings or prose. Each object MUST have the safe request shape: {method, path, query, headers}; method MUST be GET, HEAD, or OPTIONS; path MUST be relative; query and headers MUST be JSON objects.
 - best_candidates MUST be a list of executable candidate objects, never strings or prose. Each candidate MUST contain candidate_id, parent_candidate_id (null allowed for bootstrap), request (same executable request-object shape), mutation, and response_signature.
 - Candidate IDs are references, not executables. Never replace a request object with a human-readable description.
-- Do NOT create or use a second PROGRAM writer under reports/. state/research/PROGRAM.json is the only handoff artifact and the trusted controller schema is authoritative.
+- Do NOT create or use a second PROGRAM writer under reports/. PROGRAM_PROPOSAL.json is the only worker-to-controller program handoff artifact; state/research/PROGRAM.json remains controller-owned authoritative state.
 - Every non-archived ACTIVE/ACTIVE_HIGH_INTENSITY/ACTIVE_LOW_INTENSITY/DEPRIORITIZED/READY_FOR_REVIEW/SUBSTANTIAL_EFFORT/EXHAUSTED_FOR_NOW/REOPENED/VERIFIED/NEGATED surface MUST have at least one non-archived evolutionary family pointing to that exact surface. A surface without a durable family MUST remain CANDIDATE until a family is created.
 - Every non-archived family MUST compile to at least one executable candidate from its declared seed_requests and mutation_operators. Never hand off a family whose operators all produce zero children for its seeds; use BASELINE as the universal fallback when a mutation operator is inapplicable to the current seed shape.
 - Every family referenced by a surface must exist in evolution_families; every non-archived family must point to an existing non-archived surface. Keep the surface-level evolutionary_families references consistent with the actual family registry.
-- Before finishing, run `python3 .kilo/validate-program-handoff.py`. Repair every reported issue before handing off. Then load state/research/PROGRAM.json as JSON and verify that every seed_requests item and every best_candidates item satisfies the object-shape invariants above. Do not report the handoff complete until this check passes.
+- Before finishing, ensure PROGRAM_PROPOSAL.json exists when a program is required, then run python3 .kilo/validate-program-handoff.py --path PROGRAM_PROPOSAL.json. Repair every reported issue before handing off. Then load PROGRAM_PROPOSAL.json as JSON and verify that every seed_requests item and every best_candidates item satisfies the object-shape invariants above. Do not report the handoff complete until this check passes.
 
 Allowed mutation_operators are declarative only:
 BASELINE, QUERY_EDGE_VALUES, DUPLICATE_QUERY, ENCODING_VARIANTS, PATH_VARIANTS, METHOD_VARIANTS, HEADER_ORIGIN_VARIANTS, PARAMETER_OMISSION.
