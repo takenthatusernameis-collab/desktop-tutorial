@@ -210,6 +210,10 @@ def test_cross_session_program_progression(tmp: Path):
     program = sample_program()
     state = tmp / "controller"
     rp.write_json(state / rp.PROGRAM, program)
+    rp.write_json(
+        state / "DISCOVERY_REQUIRED.json",
+        {"benchmark_id": "b1", "discovery": "KILO_DISCOVERY_BOOTSTRAP"},
+    )
 
     original_transport = rp.perform_request
 
@@ -256,8 +260,8 @@ def test_cross_session_program_progression(tmp: Path):
         assert second_generation > first_generation
         assert second_program["evolution_families"][0]["generation"] > first_program["evolution_families"][0]["generation"]
         assert not (state / "DISCOVERY_REQUIRED.json").exists(), (
-            "a durable research program must not regress to bootstrap state "
-            "once a prior activation has executed it"
+            "a durable research program must clear its one-time bootstrap marker "
+            "once executable portfolio progression succeeds"
         )
     finally:
         rp.perform_request = original_transport
