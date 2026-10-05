@@ -9,9 +9,9 @@
     {
       "baseline_observation": {
         "body_length": 6183,
-        "body_sha256": "7bf6c3cabe524f82dfa7f6a6bdcb407dbce933e78e9ce7a7a9e4dee8b5b64364",
+        "body_sha256": "b6b9612346f676e5f1ff6a8557929a986d8ab382f282598196ad52775f1667ab",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 43.91,
+        "elapsed_ms": 32.05,
         "error": null,
         "location": "",
         "status": 200
@@ -24,9 +24,9 @@
       },
       "observation": {
         "body_length": 6183,
-        "body_sha256": "7bf6c3cabe524f82dfa7f6a6bdcb407dbce933e78e9ce7a7a9e4dee8b5b64364",
+        "body_sha256": "b6b9612346f676e5f1ff6a8557929a986d8ab382f282598196ad52775f1667ab",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 42.02,
+        "elapsed_ms": 18.62,
         "error": null,
         "location": "",
         "status": 200
@@ -44,9 +44,9 @@
     {
       "baseline_observation": {
         "body_length": 6183,
-        "body_sha256": "7bf6c3cabe524f82dfa7f6a6bdcb407dbce933e78e9ce7a7a9e4dee8b5b64364",
+        "body_sha256": "b6b9612346f676e5f1ff6a8557929a986d8ab382f282598196ad52775f1667ab",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 43.91,
+        "elapsed_ms": 32.05,
         "error": null,
         "location": "",
         "status": 200
@@ -59,9 +59,9 @@
       },
       "observation": {
         "body_length": 6183,
-        "body_sha256": "7bf6c3cabe524f82dfa7f6a6bdcb407dbce933e78e9ce7a7a9e4dee8b5b64364",
+        "body_sha256": "b6b9612346f676e5f1ff6a8557929a986d8ab382f282598196ad52775f1667ab",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 22.66,
+        "elapsed_ms": 14.86,
         "error": null,
         "location": "",
         "status": 200
@@ -79,9 +79,9 @@
     {
       "baseline_observation": {
         "body_length": 6183,
-        "body_sha256": "7bf6c3cabe524f82dfa7f6a6bdcb407dbce933e78e9ce7a7a9e4dee8b5b64364",
+        "body_sha256": "b6b9612346f676e5f1ff6a8557929a986d8ab382f282598196ad52775f1667ab",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 43.91,
+        "elapsed_ms": 32.05,
         "error": null,
         "location": "",
         "status": 200
@@ -96,7 +96,7 @@
         "body_length": 2432,
         "body_sha256": "3ad603b3c33f217e147a8f620848ddc2596b27cf097eeac0a6b7e3172b5988cd",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 5.64,
+        "elapsed_ms": 4.66,
         "error": null,
         "location": "",
         "status": 500
@@ -106,7 +106,7 @@
         "body_length": 2432,
         "body_sha256": "3ad603b3c33f217e147a8f620848ddc2596b27cf097eeac0a6b7e3172b5988cd",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 11.65,
+        "elapsed_ms": 8.65,
         "error": null,
         "location": "",
         "status": 500
@@ -120,7 +120,7 @@
       }
     }
   ],
-  "observed_at": "2026-10-05T09:40:42Z",
+  "observed_at": "2026-10-05T09:41:49Z",
   "operators": [
     "PATH_VARIANTS",
     "QUERY_EDGE_VALUES"
