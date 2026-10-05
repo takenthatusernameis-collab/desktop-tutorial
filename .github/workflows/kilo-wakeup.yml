@@ -41,18 +41,6 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Deep audit — after Checkout repository
-        id: deep_audit_1_checkout_repository
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_1_checkout_repository.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Checkout repository"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Synchronize with latest branch tip
         id: audit_source_2_synchronize_with_latest_branch_tip
         run: |
@@ -61,18 +49,6 @@ jobs:
           git reset --hard "origin/$GITHUB_REF_NAME"
           echo "Activation workspace synchronized to origin/$GITHUB_REF_NAME at $(git rev-parse HEAD)."
 
-      - name: Deep audit — after Synchronize with latest branch tip
-        id: deep_audit_2_synchronize_with_latest_branch_tip
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_2_synchronize_with_latest_branch_tip.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Synchronize with latest branch tip"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Self-test benchmark harness
         id: audit_source_3_self_test_benchmark_harness
         run: |
@@ -93,7 +69,7 @@ jobs:
             .github/scripts/research_portfolio_runner.py
 
       - name: Deep audit — after Self-test benchmark harness
-        id: deep_audit_3_self_test_benchmark_harness
+        id: deep_audit_1_self_test_benchmark_harness
         if: always()
         continue-on-error: true
         env:
@@ -160,18 +136,6 @@ jobs:
           print(f"Selected current free model: {model_id}")
           '
 
-      - name: Deep audit — after Discover current free model
-        id: deep_audit_4_discover_current_free_model
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.discover_model.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Discover current free model"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Prepare trusted Kilo configuration
         id: audit_source_5_prepare_trusted_kilo_configuration
         run: |
@@ -224,18 +188,6 @@ jobs:
           os.chmod(path, 0o600)
           '
 
-      - name: Deep audit — after Prepare trusted Kilo configuration
-        id: deep_audit_5_prepare_trusted_kilo_configuration
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_5_prepare_trusted_kilo_configuration.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Prepare trusted Kilo configuration"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Validate trusted Kilo configuration
         id: audit_source_6_validate_trusted_kilo_configuration
         run: |
@@ -258,35 +210,11 @@ jobs:
           print("Trusted Kilo configuration validated.")
           '
 
-      - name: Deep audit — after Validate trusted Kilo configuration
-        id: deep_audit_6_validate_trusted_kilo_configuration
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_6_validate_trusted_kilo_configuration.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Validate trusted Kilo configuration"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Build isolated Kilo worker image
         id: audit_source_7_build_isolated_kilo_worker_image
         run: |
           set -euo pipefail
           docker build --pull -t "$EHB_KILO_IMAGE" -f lab/kilo-worker.Dockerfile lab
-      - name: Deep audit — after Build isolated Kilo worker image
-        id: deep_audit_7_build_isolated_kilo_worker_image
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_7_build_isolated_kilo_worker_image.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Build isolated Kilo worker image"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Restore or create persistent benchmark campaign
         id: benchmark
         env:
@@ -305,18 +233,6 @@ jobs:
             --active-dir "$ACTIVE_BENCHMARK_DIR" \
             --history "lab/benchmark_history.jsonl"
 
-      - name: Deep audit — after Restore or create persistent benchmark campaign
-        id: deep_audit_8_restore_or_create_persistent_benchmark_campaign
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.benchmark.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Restore or create persistent benchmark campaign"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Start isolated benchmark environment
         id: start_benchmark
         run: |
@@ -407,36 +323,12 @@ jobs:
             sleep 2
           done
 
-      - name: Deep audit — after Start isolated benchmark environment
-        id: deep_audit_9_start_isolated_benchmark_environment
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.start_benchmark.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Start isolated benchmark environment"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Execute deterministic pre-Kilo research portfolio
         id: research_portfolio
         run: |
           set -euo pipefail
           python3 .github/scripts/research_portfolio_runner.py
 
-      - name: Deep audit — after Execute deterministic pre-Kilo research portfolio
-        id: deep_audit_10_execute_deterministic_pre_kilo_research_portfoli
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.research_portfolio.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Execute deterministic pre-Kilo research portfolio"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Snapshot controller research state before Kilo
         id: audit_source_11_snapshot_controller_research_state_before_kilo
         run: |
@@ -449,18 +341,6 @@ jobs:
           fi
           echo "Controller research-state snapshot prepared at $SNAP."
 
-      - name: Deep audit — after Snapshot controller research state before Kilo
-        id: deep_audit_11_snapshot_controller_research_state_before_kilo
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_11_snapshot_controller_research_state_before_kilo.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Snapshot controller research state before Kilo"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Prepare blind worker workspace
         id: audit_source_12_prepare_blind_worker_workspace
         run: |
@@ -474,18 +354,6 @@ jobs:
             --exclude="reports/benchmark_*.json" \
             "$GITHUB_WORKSPACE/" "$EHB_WORKER_DIR/"
 
-      - name: Deep audit — after Prepare blind worker workspace
-        id: deep_audit_12_prepare_blind_worker_workspace
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_12_prepare_blind_worker_workspace.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Prepare blind worker workspace"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Preflight infrastructure health check
         id: preflight
         run: |
@@ -590,18 +458,6 @@ jobs:
 
               echo "Preflight infrastructure health check passed."
             '
-      - name: Deep audit — after Preflight infrastructure health check
-        id: deep_audit_13_preflight_infrastructure_health_check
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.preflight.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Preflight infrastructure health check"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Smoke-test real Kilo execution path
         id: kilo_smoke
         if: steps.preflight.outcome == 'success'
@@ -647,36 +503,12 @@ jobs:
           test -f "$SMOKE_DIR/kilo-smoke-sentinel.txt"
           test "$(cat "$SMOKE_DIR/kilo-smoke-sentinel.txt")" = "KILO_SMOKE_OK"
           echo "Real Kilo execution-path smoke test passed."
-      - name: Deep audit — after Smoke-test real Kilo execution path
-        id: deep_audit_14_smoke_test_real_kilo_execution_path
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.kilo_smoke.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Smoke-test real Kilo execution path"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Deterministic post-Kilo execution regression
         id: post_kilo_regression
         if: steps.kilo_smoke.outcome == 'success'
         run: |
           set -euo pipefail
           python3 lab/test_research_program.py --post-kilo-regression
-      - name: Deep audit — after Deterministic post-Kilo execution regression
-        id: deep_audit_15_deterministic_post_kilo_execution_regression
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.post_kilo_regression.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Deterministic post-Kilo execution regression"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Run isolated Kilo worker
         if: steps.preflight.outcome == 'success' && steps.kilo_smoke.outcome == 'success'
         id: kilo
@@ -710,7 +542,7 @@ jobs:
             '
 
       - name: Deep audit — after Run isolated Kilo worker
-        id: deep_audit_16_run_isolated_kilo_worker
+        id: deep_audit_2_run_isolated_kilo_worker
         if: always()
         continue-on-error: true
         env:
@@ -740,18 +572,6 @@ jobs:
             --exclude="HARDCORE_BENCHMARK.md" \
             "$EHB_WORKER_DIR/" "$GITHUB_WORKSPACE/"
 
-      - name: Deep audit — after Merge safe worker results back
-        id: deep_audit_17_merge_safe_worker_results_back
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_17_merge_safe_worker_results_back.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Merge safe worker results back"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Verify durable research-program handoff
         id: research_handoff
         if: always()
@@ -784,7 +604,7 @@ jobs:
           echo "RESEARCH_HANDOFF=READY"
 
       - name: Deep audit — after Verify durable research-program handoff
-        id: deep_audit_18_verify_durable_research_program_handoff
+        id: deep_audit_3_verify_durable_research_program_handoff
         if: always()
         continue-on-error: true
         env:
@@ -807,18 +627,6 @@ jobs:
             --state-dir "state/research" \
             --snapshot-dir "$RUNNER_TEMP/ehb-research-snapshot"
 
-      - name: Deep audit — after Validate Kilo research program and controller-owned evidence
-        id: deep_audit_19_validate_kilo_research_program_and_controller_ow
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.research_validate.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Validate Kilo research program and controller-owned evidence"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Evaluate hidden benchmark independently
         id: evaluate
         if: always() && steps.benchmark.outcome == 'success' && steps.start_benchmark.outcome == 'success' && steps.kilo.outcome != 'skipped'
@@ -835,18 +643,6 @@ jobs:
               --public /run/lab/public.json \
               --workspace /workspace
 
-      - name: Deep audit — after Evaluate hidden benchmark independently
-        id: deep_audit_20_evaluate_hidden_benchmark_independently
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.evaluate.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Evaluate hidden benchmark independently"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Generate safe solver feedback
         id: feedback
         if: always() && steps.evaluate.outcome == 'success'
@@ -860,18 +656,6 @@ jobs:
           test -s SOLVER_FEEDBACK.md
           echo "Trusted aggregate solver feedback generated."
 
-      - name: Deep audit — after Generate safe solver feedback
-        id: deep_audit_21_generate_safe_solver_feedback
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.feedback.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Generate safe solver feedback"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Preserve manual-dispatch forensic benchmark
         id: audit_source_22_preserve_manual_dispatch_forensic_benchmark
         if: always() && github.event_name == 'workflow_dispatch'
@@ -883,18 +667,6 @@ jobs:
           path: |
             ${{ runner.temp }}/ehb-secret/**
             reports/benchmark_*.json
-      - name: Deep audit — after Preserve manual-dispatch forensic benchmark
-        id: deep_audit_22_preserve_manual_dispatch_forensic_benchmark
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_22_preserve_manual_dispatch_forensic_benchmark.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Preserve manual-dispatch forensic benchmark"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Persist safe repository changes
         id: persist
         if: always()
@@ -1059,7 +831,7 @@ jobs:
           echo "Worker activation outcome: $KILO_OUTCOME"
 
       - name: Deep audit — after Persist safe repository changes
-        id: deep_audit_23_persist_safe_repository_changes
+        id: deep_audit_4_persist_safe_repository_changes
         if: always()
         continue-on-error: true
         env:
@@ -1087,18 +859,6 @@ jobs:
 
           python3 lab/benchmark_campaign.py prepare-state             --secret-dir "$LAB_SECRET_DIR"             --output-dir "$OUT"             --result "reports/benchmark_$BENCHMARK_ID.json"             --evaluate-outcome "$EVALUATE_OUTCOME"             --persist-outcome "$PERSIST_OUTCOME"             --run-id "$GITHUB_RUN_ID"
 
-      - name: Deep audit — after Prepare persistent benchmark campaign state
-        id: deep_audit_24_prepare_persistent_benchmark_campaign_state
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.persist_campaign.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Prepare persistent benchmark campaign state"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Upload persistent benchmark campaign state
         id: upload_persistent_campaign
         if: always() && steps.persist_campaign.outcome == 'success'
@@ -1110,18 +870,6 @@ jobs:
           retention-days: 90
           overwrite: false
 
-      - name: Deep audit — after Upload persistent benchmark campaign state
-        id: deep_audit_25_upload_persistent_benchmark_campaign_state
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.upload_persistent_campaign.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Upload persistent benchmark campaign state"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Retire superseded benchmark campaign artifact
         id: audit_source_26_retire_superseded_benchmark_campaign_artifact
         if: always() && steps.upload_persistent_campaign.outcome == 'success' && env.PREVIOUS_BENCHMARK_ARTIFACT_ID != ''
@@ -1132,18 +880,6 @@ jobs:
           set -euo pipefail
           curl --fail --silent --show-error             -X DELETE             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GITHUB_TOKEN"             -H "X-GitHub-Api-Version: 2026-03-10"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$PREVIOUS_BENCHMARK_ARTIFACT_ID"
 
-      - name: Deep audit — after Retire superseded benchmark campaign artifact
-        id: deep_audit_26_retire_superseded_benchmark_campaign_artifact
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_26_retire_superseded_benchmark_campaign_artifact.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Retire superseded benchmark campaign artifact"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Cleanup isolated benchmark environment
         id: audit_source_27_cleanup_isolated_benchmark_environment
         if: always()
@@ -1156,18 +892,6 @@ jobs:
           docker image rm "$EHB_KILO_IMAGE" >/dev/null 2>&1 || true
           rm -rf "$LAB_SECRET_DIR" "$EHB_WORKER_DIR"
 
-      - name: Deep audit — after Cleanup isolated benchmark environment
-        id: deep_audit_27_cleanup_isolated_benchmark_environment
-        if: always()
-        continue-on-error: true
-        env:
-          AUDIT_PREV_OUTCOME: ${{ steps.audit_source_27_cleanup_isolated_benchmark_environment.outcome }}
-        run: |
-          set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Cleanup isolated benchmark environment"
-          rc=$?
-          echo "DEEP_AUDIT_RC=$rc"
-          exit 0
       - name: Report worker outcome
         id: audit_source_28_report_worker_outcome
         if: always()
@@ -1258,7 +982,7 @@ jobs:
             --research-report-path "reports/benchmark_research.md"
 
       - name: Deep audit — after Report worker outcome
-        id: deep_audit_28_report_worker_outcome
+        id: deep_audit_5_report_worker_outcome
         if: always()
         continue-on-error: true
         env:
