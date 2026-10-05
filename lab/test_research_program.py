@@ -215,8 +215,6 @@ def test_cross_session_program_progression(tmp: Path):
         {"benchmark_id": "b1", "discovery": "KILO_DISCOVERY_BOOTSTRAP"},
     )
 
-    original_transport = rp.perform_request
-
     def fake_transport(_target, req):
         query = req["query"].get("q", [""])[0]
         body_sha = "baseline" if query == "alpha" else "mutated"
@@ -229,42 +227,40 @@ def test_cross_session_program_progression(tmp: Path):
             "error": None,
         }
 
-    rp.perform_request = fake_transport
-    try:
-        first_rc = rp.run_pre_kilo(
-            "resumed",
-            "b1",
-            "http://lab-mutator:3000",
-            state,
-        )
-        assert first_rc == 0
-        first_program = rp.load_json(state / rp.PROGRAM)
-        assert first_program["evolution_families"][0]["generation"] > 1
-        assert first_program["evolution_families"][0]["best_candidates"]
+    first_rc = rp.run_pre_kilo(
+        "resumed",
+        "b1",
+        "http://lab-mutator:3000",
+        state,
+        transport=fake_transport,
+    )
+    assert first_rc == 0
+    first_program = rp.load_json(state / rp.PROGRAM)
+    assert first_program["evolution_families"][0]["generation"] > 1
+    assert first_program["evolution_families"][0]["best_candidates"]
 
-        first_runtime = rp.load_json(state / rp.RUNTIME)
-        first_generation = first_runtime["families"]["family-a"]["last_executed_generation"]
+    first_runtime = rp.load_json(state / rp.RUNTIME)
+    first_generation = first_runtime["families"]["family-a"]["last_executed_generation"]
 
-        second_rc = rp.run_pre_kilo(
-            "resumed",
-            "b1",
-            "http://lab-mutator:3000",
-            state,
-        )
-        assert second_rc == 0
+    second_rc = rp.run_pre_kilo(
+        "resumed",
+        "b1",
+        "http://lab-mutator:3000",
+        state,
+        transport=fake_transport,
+    )
+    assert second_rc == 0
 
-        second_program = rp.load_json(state / rp.PROGRAM)
-        second_runtime = rp.load_json(state / rp.RUNTIME)
-        second_generation = second_runtime["families"]["family-a"]["last_executed_generation"]
+    second_program = rp.load_json(state / rp.PROGRAM)
+    second_runtime = rp.load_json(state / rp.RUNTIME)
+    second_generation = second_runtime["families"]["family-a"]["last_executed_generation"]
 
-        assert second_generation > first_generation
-        assert second_program["evolution_families"][0]["generation"] > first_program["evolution_families"][0]["generation"]
-        assert not (state / "DISCOVERY_REQUIRED.json").exists(), (
-            "a durable research program must clear its one-time bootstrap marker "
-            "once executable portfolio progression succeeds"
-        )
-    finally:
-        rp.perform_request = original_transport
+    assert second_generation > first_generation
+    assert second_program["evolution_families"][0]["generation"] > first_program["evolution_families"][0]["generation"]
+    assert not (state / "DISCOVERY_REQUIRED.json").exists(), (
+        "a durable research program must clear its one-time bootstrap marker "
+        "once executable portfolio progression succeeds"
+    )
 
 
 def test_generation_receipts(tmp: Path):
