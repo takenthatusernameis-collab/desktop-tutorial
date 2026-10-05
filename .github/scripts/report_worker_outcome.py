@@ -11,6 +11,7 @@ def report(
     *,
     preflight: str,
     smoke: str,
+    post_kilo_regression: str = "success",
     worker: str,
     evaluate: str,
     portfolio: str,
@@ -38,6 +39,8 @@ def report(
         return 1, "FAILED_PRECHECK"
     if smoke != "success":
         return 1, "FAILED_KILO_SMOKE"
+    if post_kilo_regression != "success":
+        return 1, "FAILED_POST_KILO_REGRESSION"
     if worker == "skipped":
         return 1, "FAILED_WORKER_SKIPPED"
 
@@ -73,6 +76,7 @@ def self_test() -> int:
         rc, outcome = report(
             preflight="success",
             smoke="success",
+            post_kilo_regression="success",
             worker="success",
             evaluate="success",
             portfolio="success",
@@ -85,6 +89,20 @@ def self_test() -> int:
         rc, outcome = report(
             preflight="success",
             smoke="success",
+            post_kilo_regression="failure",
+            worker="success",
+            evaluate="success",
+            portfolio="success",
+            research_validation="success",
+            findings_path=findings,
+            research_report_path=research,
+        )
+        assert (rc, outcome) == (1, "FAILED_POST_KILO_REGRESSION")
+
+        rc, outcome = report(
+            preflight="success",
+            smoke="success",
+            post_kilo_regression="success",
             worker="failure",
             evaluate="failure",
             portfolio="success",
@@ -156,6 +174,7 @@ def main() -> int:
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--preflight")
     parser.add_argument("--smoke")
+    parser.add_argument("--post-kilo-regression", default="success")
     parser.add_argument("--worker")
     parser.add_argument("--evaluate")
     parser.add_argument("--portfolio")
@@ -172,6 +191,7 @@ def main() -> int:
     required = {
         "preflight": args.preflight,
         "smoke": args.smoke,
+        "post-kilo-regression": args.post_kilo_regression,
         "worker": args.worker,
         "evaluate": args.evaluate,
         "portfolio": args.portfolio,
@@ -186,6 +206,7 @@ def main() -> int:
     rc, outcome = report(
         preflight=args.preflight,
         smoke=args.smoke,
+        post_kilo_regression=args.post_kilo_regression,
         worker=args.worker,
         evaluate=args.evaluate,
         portfolio=args.portfolio,
