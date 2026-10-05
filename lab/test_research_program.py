@@ -144,8 +144,12 @@ def test_portfolio_compiler_and_continuity(tmp: Path):
         "whether the evaluator expects the current response type; "
         "text can drift between requests"
     )
+    prose["surfaces"][0]["current_intensity"] = "full"
+    prose["surfaces"][1]["current_intensity"] = "minimal"
     rp.validate_program(prose, "b1")
-    assert rp.compile_portfolio(prose, rp.load_runtime(tmp))
+    plan = rp.compile_portfolio(prose, rp.load_runtime(tmp))
+    assert plan
+    assert max(item["round"] for item in plan) == 4
     program["surfaces"][0]["status"] = "VERIFIED"
     rp.validate_program(program, "b1")
     program["surfaces"][0]["status"] = "NEGATED"
