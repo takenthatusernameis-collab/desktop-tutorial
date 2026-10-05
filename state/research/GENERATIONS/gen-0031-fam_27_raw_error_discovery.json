@@ -1,0 +1,764 @@
+{
+  "actual_execution": true,
+  "candidate_count": 12,
+  "family_id": "fam_27_raw_error_discovery",
+  "generation": 31,
+  "generation_id": "gen-0031-fam_27_raw_error_discovery",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 2.54,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-6f21ed00b30133c8c5ef",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 2.32,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-6c2e9e03cc0c0e942a05",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "OPTIONS",
+        "path": "/rest/user/security-question/./",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 2.54,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-faba095630579e135696",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 2.04,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-6c2e9e03cc0c0e942a05",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "OPTIONS",
+        "path": "//rest/user/security-question/.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 2.54,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-9c2dded26421ccbd63db",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.96,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-6c2e9e03cc0c0e942a05",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "OPTIONS",
+        "path": "/rest/user/security-question/./.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2464,
+        "body_sha256": "58bb320f8fb9bafdbab580800269781ba2d4215b48d98e1e20a83b712b8783e3",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.37,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-75045e80184f91b5f446",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 1.33,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 2.97,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "HEAD",
+        "path": "/rest/user/security-question/./.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2464,
+        "body_sha256": "58bb320f8fb9bafdbab580800269781ba2d4215b48d98e1e20a83b712b8783e3",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.37,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-240b62a452e764c50ab9",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "observation": {
+        "body_length": 2466,
+        "body_sha256": "5d393b8986b112a7cd1873306077b55e5da521693918719c5477e40d9b2fa4df",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.76,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1",
+      "repeat_observation": {
+        "body_length": 2466,
+        "body_sha256": "5d393b8986b112a7cd1873306077b55e5da521693918719c5477e40d9b2fa4df",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 7.23,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/././",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2464,
+        "body_sha256": "58bb320f8fb9bafdbab580800269781ba2d4215b48d98e1e20a83b712b8783e3",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.37,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-358cabd568e6a73a8225",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "observation": {
+        "body_length": 2464,
+        "body_sha256": "58bb320f8fb9bafdbab580800269781ba2d4215b48d98e1e20a83b712b8783e3",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 6.11,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "GET",
+        "path": "//rest/user/security-question/./.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2464,
+        "body_sha256": "58bb320f8fb9bafdbab580800269781ba2d4215b48d98e1e20a83b712b8783e3",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.37,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-e7eea4d287e79f00949e",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "observation": {
+        "body_length": 2468,
+        "body_sha256": "72cf15b636a4886ebc67c808f59fc2d09ee331667d5a5c331b7ceb4d0e0a8616",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 6.16,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1",
+      "repeat_observation": {
+        "body_length": 2468,
+        "body_sha256": "72cf15b636a4886ebc67c808f59fc2d09ee331667d5a5c331b7ceb4d0e0a8616",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 6.35,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/././.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 1370,
+        "body_sha256": "792fe6933f636e255294bc4ee392094d0d42bef6d65b5301e53383781fc00e6f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 15.6,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-a83c78afbca87689ccef",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 1.62,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 1.26,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "HEAD",
+        "path": "/rest/user/security-question/./",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 1370,
+        "body_sha256": "792fe6933f636e255294bc4ee392094d0d42bef6d65b5301e53383781fc00e6f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 15.6,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-813372b64aab09c7402c",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 3.23,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 2.03,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "OPTIONS",
+        "path": "/rest/user/security-question/./",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 1370,
+        "body_sha256": "792fe6933f636e255294bc4ee392094d0d42bef6d65b5301e53383781fc00e6f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 15.6,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-11e3bdd55d265bc94523",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "observation": {
+        "body_length": 1368,
+        "body_sha256": "cd7fc6e7b3c4afbb2035483769aa9a64e42206ed644566502c9a89011cc454e2",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 3.55,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6",
+      "repeat_observation": {
+        "body_length": 1368,
+        "body_sha256": "cd7fc6e7b3c4afbb2035483769aa9a64e42206ed644566502c9a89011cc454e2",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 6.7,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 1370,
+        "body_sha256": "792fe6933f636e255294bc4ee392094d0d42bef6d65b5301e53383781fc00e6f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 15.6,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-dee34542b58166cb1630",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "observation": {
+        "body_length": 1370,
+        "body_sha256": "792fe6933f636e255294bc4ee392094d0d42bef6d65b5301e53383781fc00e6f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 6.37,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "GET",
+        "path": "//rest/user/security-question/./",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 1370,
+        "body_sha256": "792fe6933f636e255294bc4ee392094d0d42bef6d65b5301e53383781fc00e6f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 15.6,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-f182f1efd196b7017e52",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "observation": {
+        "body_length": 1372,
+        "body_sha256": "9472cae6b610200ba4bab0541a126265eb9a3c7dd74c06607bd5be7bed665028",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 6.16,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6",
+      "repeat_observation": {
+        "body_length": 1372,
+        "body_sha256": "9472cae6b610200ba4bab0541a126265eb9a3c7dd74c06607bd5be7bed665028",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 7.4,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/./.",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-05T13:48:34Z",
+  "operators": [
+    "METHOD_VARIANTS",
+    "PATH_VARIANTS",
+    "ENCODING_VARIANTS",
+    "PARAMETER_OMISSION"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-6f21ed00b30133c8c5ef",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-6c2e9e03cc0c0e942a05"
+    },
+    {
+      "candidate_id": "cand-faba095630579e135696",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "parent_candidate_id": "cand-6c2e9e03cc0c0e942a05"
+    },
+    {
+      "candidate_id": "cand-9c2dded26421ccbd63db",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-6c2e9e03cc0c0e942a05"
+    },
+    {
+      "candidate_id": "cand-75045e80184f91b5f446",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1"
+    },
+    {
+      "candidate_id": "cand-240b62a452e764c50ab9",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1"
+    },
+    {
+      "candidate_id": "cand-358cabd568e6a73a8225",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1"
+    },
+    {
+      "candidate_id": "cand-e7eea4d287e79f00949e",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1"
+    },
+    {
+      "candidate_id": "cand-a83c78afbca87689ccef",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6"
+    },
+    {
+      "candidate_id": "cand-813372b64aab09c7402c",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6"
+    },
+    {
+      "candidate_id": "cand-11e3bdd55d265bc94523",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6"
+    },
+    {
+      "candidate_id": "cand-dee34542b58166cb1630",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6"
+    },
+    {
+      "candidate_id": "cand-f182f1efd196b7017e52",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6"
+    }
+  ],
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-813372b64aab09c7402c",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6",
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "OPTIONS",
+        "path": "/rest/user/security-question/./",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-240b62a452e764c50ab9",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1",
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/././",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "5d393b8986b112a7cd1873306077b55e5da521693918719c5477e40d9b2fa4df",
+        "text/html; charset=utf-8",
+        2466,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-e7eea4d287e79f00949e",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1",
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "72cf15b636a4886ebc67c808f59fc2d09ee331667d5a5c331b7ceb4d0e0a8616",
+        "text/html; charset=utf-8",
+        2468,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-f182f1efd196b7017e52",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6",
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/./.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "9472cae6b610200ba4bab0541a126265eb9a3c7dd74c06607bd5be7bed665028",
+        "application/json; charset=utf-8",
+        1372,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-11e3bdd55d265bc94523",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "parent_candidate_id": "cand-b021af33d510def41ab6",
+      "request": {
+        "headers": {
+          "Accept": "application/json"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "cd7fc6e7b3c4afbb2035483769aa9a64e42206ed644566502c9a89011cc454e2",
+        "application/json; charset=utf-8",
+        1368,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-75045e80184f91b5f446",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1",
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "HEAD",
+        "path": "/rest/user/security-question/./.",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "results": {
+    "behavioral_differences": 7,
+    "error_observations": 0,
+    "information_gain": 0.625,
+    "repeat_reproductions": 7,
+    "unique_response_signatures": 8
+  },
+  "stopping_reason": "candidate budget reached",
+  "surface_id": "surf_27_error_handling"
+}

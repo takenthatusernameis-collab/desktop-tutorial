@@ -1,116 +1,118 @@
-  1 passwordHashLeakChallenge           Password Hash Leak               Sensitive Data Exposure      d2 False
-  2 restfulXssChallenge                 API-only XSS                     XSS                          d3 False
-  3 accessLogDisclosureChallenge        Access Log                       Observability Failures       d4 False
-  4 registerAdminChallenge              Admin Registration               Improper Input Validation    d3 False
-  5 adminSectionChallenge               Admin Section                    Broken Access Control        d2 False
-  6 fileWriteChallenge                  Arbitrary File Write             Vulnerable Components        d6 False
-  7 resetPasswordBjoernOwaspChallenge   Bjoern's Favorite Pet            Broken Authentication        d3 False
-  8 tokenSaleChallenge                  Blockchain Hype                  Security through Obscurity   d5 False
-  9 nftUnlockChallenge                  NFT Takeover                     Sensitive Data Exposure      d2 False
- 10 nftMintChallenge                    Mint the Honey Pot               Improper Input Validation    d3 False
- 11 web3WalletChallenge                 Wallet Depletion                 Miscellaneous                d6 False
- 12 web3SandboxChallenge                Web3 Sandbox                     Broken Access Control        d1 False
- 13 rceChallenge                        Blocked RCE DoS                  Insecure Deserialization     d5 False
- 14 captchaBypassChallenge              CAPTCHA Bypass                   Broken Anti Automation       d3 False
- 15 changePasswordBenderChallenge       Change Bender's Password         Broken Authentication        d5 False
- 16 christmasSpecialChallenge           Christmas Special                Injection                    d4 False
- 17 usernameXssChallenge                CSP Bypass                       XSS                          d4 False
- 18 persistedXssUserChallenge           Client-side XSS Protection       XSS                          d3 False
- 19 directoryListingChallenge           Confidential Document            Sensitive Data Exposure      d1 False
- 20 localXssChallenge                   DOM XSS                          XSS                          d1 False
- 21 dbSchemaChallenge                   Database Schema                  Injection                    d3 False
- 22 deprecatedInterfaceChallenge        Deprecated Interface             Security Misconfiguration    d2 False
- 23 easterEggLevelOneChallenge          Easter Egg                       Broken Access Control        d4 False
- 24 emailLeakChallenge                  Email Leak                       Sensitive Data Exposure      d5 False
- 25 emptyUserRegistration               Empty User Registration          Improper Input Validation    d2 False
- 26 ephemeralAccountantChallenge        Ephemeral Accountant             Injection                    d4 False
- 27 errorHandlingChallenge              Error Handling                   Security Misconfiguration    d1 True
- 28 manipulateClockChallenge            Expired Coupon                   Improper Input Validation    d4 False
- 29 extraLanguageChallenge              Extra Language                   Broken Anti Automation       d5 False
- 30 feedbackChallenge                   Five-Star Feedback               Broken Access Control        d2 False
- 31 forgedCouponChallenge               Forged Coupon                    Cryptographic Issues         d6 False
- 32 forgedFeedbackChallenge             Forged Feedback                  Broken Access Control        d3 False
- 33 forgedReviewChallenge               Forged Review                    Broken Access Control        d3 False
- 34 jwtForgedChallenge                  Forged Signed JWT                Vulnerable Components        d6 False
- 35 forgottenDevBackupChallenge         Forgotten Developer Backup       Sensitive Data Exposure      d4 False
- 36 forgottenBackupChallenge            Forgotten Sales Backup           Sensitive Data Exposure      d4 False
- 37 typosquattingAngularChallenge       Frontend Typosquatting           Vulnerable Components        d5 False
- 38 ghostLoginChallenge                 GDPR Data Erasure                Broken Authentication        d3 False
- 39 dataExportChallenge                 GDPR Data Theft                  Sensitive Data Exposure      d4 False
- 40 httpHeaderXssChallenge              HTTP-Header XSS                  XSS                          d4 False
- 41 continueCodeChallenge               Imaginary Challenge              Cryptographic Issues         d6 False
- 42 dlpPasswordSprayingChallenge        Leaked Access Logs               Observability Failures       d5 False
- 43 dlpPastebinDataLeakChallenge        Leaked Unsafe Product            Sensitive Data Exposure      d4 False
- 44 typosquattingNpmChallenge           Legacy Typosquatting             Vulnerable Components        d4 False
- 45 loginAdminChallenge                 Login Admin                      Injection                    d2 False
- 46 loginAmyChallenge                   Login Amy                        Sensitive Data Exposure      d3 False
- 47 loginBenderChallenge                Login Bender                     Injection                    d3 False
- 48 oauthUserPasswordChallenge          Login Bjoern                     Broken Authentication        d4 False
- 49 loginJimChallenge                   Login Jim                        Injection                    d3 False
- 50 loginRapperChallenge                Login MC SafeSearch              Sensitive Data Exposure      d2 False
- 51 loginSupportChallenge               Login Support Team               Security Misconfiguration    d6 False
- 52 basketManipulateChallenge           Manipulate Basket                Broken Access Control        d3 False
- 53 misplacedSignatureFileChallenge     Misplaced Signature File         Observability Failures       d4 False
- 54 timingAttackChallenge               Multiple Likes                   Broken Anti Automation       d6 False
- 55 easterEggLevelTwoChallenge          Nested Easter Egg                Cryptographic Issues         d4 False
- 56 noSqlCommandChallenge               NoSQL DoS                        Injection                    d4 False
- 57 noSqlOrdersChallenge                NoSQL Exfiltration               Injection                    d5 False
- 58 noSqlReviewsChallenge               NoSQL Manipulation               Injection                    d4 False
- 59 redirectCryptoCurrencyChallenge     Outdated Allowlist               Unvalidated Redirects        d1 False
- 60 weakPasswordChallenge               Password Strength                Broken Authentication        d2 False
- 61 negativeOrderChallenge              Payback Time                     Improper Input Validation    d3 False
- 62 premiumPaywallChallenge             Premium Paywall                  Cryptographic Issues         d6 False
- 63 privacyPolicyChallenge              Privacy Policy                   Miscellaneous                d1 False
- 64 privacyPolicyProofChallenge         Privacy Policy Inspection        Security through Obscurity   d3 False
- 65 changeProductChallenge              Product Tampering                Broken Access Control        d3 False
- 66 reflectedXssChallenge               Reflected XSS                    XSS                          d2 False
- 67 passwordRepeatChallenge             Repetitive Registration          Improper Input Validation    d1 False
- 68 resetPasswordBenderChallenge        Reset Bender's Password          Broken Authentication        d4 False
- 69 resetPasswordBjoernChallenge        Reset Bjoern's Password          Broken Authentication        d5 False
- 70 resetPasswordJimChallenge           Reset Jim's Password             Broken Authentication        d3 False
- 71 resetPasswordMortyChallenge         Reset Morty's Password           Broken Anti Automation       d5 False
- 72 retrieveBlueprintChallenge          Retrieve Blueprint               Sensitive Data Exposure      d5 False
- 73 ssrfChallenge                       SSRF                             Broken Access Control        d6 False
- 74 sstiChallenge                       SSTi                             Injection                    d6 False
- 75 scoreBoardChallenge                 Score Board                      Miscellaneous                d1 False
- 76 securityPolicyChallenge             Security Policy                  Miscellaneous                d2 False
- 77 persistedXssFeedbackChallenge       Server-side XSS Protection       XSS                          d4 False
- 78 hiddenImageChallenge                Steganography                    Security through Obscurity   d4 False
- 79 rceOccupyChallenge                  Successful RCE DoS               Insecure Deserialization     d6 False
- 80 supplyChainAttackChallenge          Supply Chain Attack              Vulnerable Components        d5 False
- 81 twoFactorAuthUnsafeSecretStorageChallenge Two Factor Authentication        Broken Authentication        d5 False
- 82 jwtUnsignedChallenge                Unsigned JWT                     Vulnerable Components        d5 False
- 83 uploadSizeChallenge                 Upload Size                      Improper Input Validation    d3 False
- 84 uploadTypeChallenge                 Upload Type                      Improper Input Validation    d3 False
- 85 unionSqlInjectionChallenge          User Credentials                 Injection                    d4 False
- 86 videoXssChallenge                   Video XSS                        XSS                          d6 False
- 87 basketAccessChallenge               View Basket                      Broken Access Control        d2 False
- 88 knownVulnerableComponentChallenge   Vulnerable Library               Vulnerable Components        d4 False
- 89 weirdCryptoChallenge                Weird Crypto                     Cryptographic Issues         d2 False
- 90 redirectChallenge                   Allowlist Bypass                 Unvalidated Redirects        d4 False
- 91 xxeFileDisclosureChallenge          XXE Data Access                  XXE                          d3 False
- 92 xxeDosChallenge                     XXE DoS                          XXE                          d5 False
- 93 yamlBombChallenge                   Memory Bomb                      Insecure Deserialization     d5 False
- 94 zeroStarsChallenge                  Zero Stars                       Improper Input Validation    d1 False
- 95 missingEncodingChallenge            Missing Encoding                 Improper Input Validation    d1 False
- 96 svgInjectionChallenge               Cross-Site Imaging               Security Misconfiguration    d5 False
- 97 exposedMetricsChallenge             Exposed Metrics                  Observability Failures       d1 True
- 98 misplacedIacFiles                   Misplaced IaC Files              Security Misconfiguration    d2 False
- 99 freeDeluxeChallenge                 Deluxe Fraud                     Improper Input Validation    d3 False
-100 csrfChallenge                       CSRF                             Broken Access Control        d3 False
-101 xssBonusChallenge                   Bonus Payload                    XSS                          d1 False
-102 resetPasswordUvoginChallenge        Reset Uvogin's Password          Sensitive Data Exposure      d4 False
-103 geoStalkingMetaChallenge            Meta Geo Stalking                Sensitive Data Exposure      d2 False
-104 geoStalkingVisualChallenge          Visual Geo Stalking              Sensitive Data Exposure      d2 False
-105 nullByteChallenge                   Poison Null Byte                 Improper Input Validation    d4 False
-106 lfrChallenge                        Local File Read                  Vulnerable Components        d5 False
-107 closeNotificationsChallenge         Mass Dispel                      Miscellaneous                d1 False
-108 csafChallenge                       Security Advisory                Miscellaneous                d3 False
-109 exposedCredentialsChallenge         Exposed Credentials              Sensitive Data Exposure      d2 False
-110 leakedApiKeyChallenge               Leaked API Key                   Sensitive Data Exposure      d5 False
-111 chatbotPromptInjectionChallenge     Chatbot Prompt Injection         Injection                    d2 False
-112 chatbotGreedyInjectionChallenge     Greedy Chatbot Manipulation      Injection                    d3 False
-113 aiDebuggingChallenge                AI Debugging                     Broken Access Control        d2 False
-114 systemPromptExtractionChallenge     System Prompt Extraction         Injection                    d3 False
-115 iacLeakedKeyChallenge               Login Cloud Admin                Sensitive Data Exposure      d4 False
-116 vulnerableDockerImageChallenge      Vulnerable Infrastructure        Vulnerable Components        d3 False
+# Coverage oracle: worker-visible /api/Challenges/ solved set (live-generated)
+# Format: <id> <challengeId> <name> <category> <difficulty> <solved>
+1 passwordHashLeakChallenge        Password Hash Leak           Sensitive Data Exposure  d2 False
+2 restfulXssChallenge              API-only XSS                 XSS                      d3 False
+3 accessLogDisclosureChallenge     Access Log                   Observability Failures   d4 False
+4 registerAdminChallenge           Admin Registration           Improper Input Validation d3 False
+5 adminSectionChallenge            Admin Section                Broken Access Control    d2 False
+6 fileWriteChallenge               Arbitrary File Write         Vulnerable Components    d6 False
+7 resetPasswordBjoernOwaspChallenge Bjoern's Favorite Pet        Broken Authentication    d3 False
+8 tokenSaleChallenge               Blockchain Hype              Security through Obscurity d5 False
+9 nftUnlockChallenge               NFT Takeover                 Sensitive Data Exposure  d2 False
+10 nftMintChallenge                 Mint the Honey Pot           Improper Input Validation d3 False
+11 web3WalletChallenge              Wallet Depletion             Miscellaneous            d6 False
+12 web3SandboxChallenge             Web3 Sandbox                 Broken Access Control    d1 False
+13 rceChallenge                     Blocked RCE DoS              Insecure Deserialization d5 False
+14 captchaBypassChallenge           CAPTCHA Bypass               Broken Anti Automation   d3 False
+15 changePasswordBenderChallenge    Change Bender's Password     Broken Authentication    d5 False
+16 christmasSpecialChallenge        Christmas Special            Injection                d4 False
+17 usernameXssChallenge             CSP Bypass                   XSS                      d4 False
+18 persistedXssUserChallenge        Client-side XSS Protection   XSS                      d3 False
+19 directoryListingChallenge        Confidential Document        Sensitive Data Exposure  d1 False
+20 localXssChallenge                DOM XSS                      XSS                      d1 False
+21 dbSchemaChallenge                Database Schema              Injection                d3 False
+22 deprecatedInterfaceChallenge     Deprecated Interface         Security Misconfiguration d2 False
+23 easterEggLevelOneChallenge       Easter Egg                   Broken Access Control    d4 False
+24 emailLeakChallenge               Email Leak                   Sensitive Data Exposure  d5 False
+25 emptyUserRegistration            Empty User Registration      Improper Input Validation d2 False
+26 ephemeralAccountantChallenge     Ephemeral Accountant         Injection                d4 False
+27 errorHandlingChallenge           Error Handling               Security Misconfiguration d1 True
+28 manipulateClockChallenge         Expired Coupon               Improper Input Validation d4 False
+29 extraLanguageChallenge           Extra Language               Broken Anti Automation   d5 False
+30 feedbackChallenge                Five-Star Feedback           Broken Access Control    d2 False
+31 forgedCouponChallenge            Forged Coupon                Cryptographic Issues     d6 False
+32 forgedFeedbackChallenge          Forged Feedback              Broken Access Control    d3 False
+33 forgedReviewChallenge            Forged Review                Broken Access Control    d3 False
+34 jwtForgedChallenge               Forged Signed JWT            Vulnerable Components    d6 False
+35 forgottenDevBackupChallenge      Forgotten Developer Backup   Sensitive Data Exposure  d4 False
+36 forgottenBackupChallenge         Forgotten Sales Backup       Sensitive Data Exposure  d4 False
+37 typosquattingAngularChallenge    Frontend Typosquatting       Vulnerable Components    d5 False
+38 ghostLoginChallenge              GDPR Data Erasure            Broken Authentication    d3 False
+39 dataExportChallenge              GDPR Data Theft              Sensitive Data Exposure  d4 False
+40 httpHeaderXssChallenge           HTTP-Header XSS              XSS                      d4 False
+41 continueCodeChallenge            Imaginary Challenge          Cryptographic Issues     d6 False
+42 dlpPasswordSprayingChallenge     Leaked Access Logs           Observability Failures   d5 False
+43 dlpPastebinDataLeakChallenge     Leaked Unsafe Product        Sensitive Data Exposure  d4 False
+44 typosquattingNpmChallenge        Legacy Typosquatting         Vulnerable Components    d4 False
+45 loginAdminChallenge              Login Admin                  Injection                d2 False
+46 loginAmyChallenge                Login Amy                    Sensitive Data Exposure  d3 False
+47 loginBenderChallenge             Login Bender                 Injection                d3 False
+48 oauthUserPasswordChallenge       Login Bjoern                 Broken Authentication    d4 False
+49 loginJimChallenge                Login Jim                    Injection                d3 False
+50 loginRapperChallenge             Login MC SafeSearch          Sensitive Data Exposure  d2 False
+51 loginSupportChallenge            Login Support Team           Security Misconfiguration d6 False
+52 basketManipulateChallenge        Manipulate Basket            Broken Access Control    d3 False
+53 misplacedSignatureFileChallenge  Misplaced Signature File     Observability Failures   d4 False
+54 timingAttackChallenge            Multiple Likes               Broken Anti Automation   d6 False
+55 easterEggLevelTwoChallenge       Nested Easter Egg            Cryptographic Issues     d4 False
+56 noSqlCommandChallenge            NoSQL DoS                    Injection                d4 False
+57 noSqlOrdersChallenge             NoSQL Exfiltration           Injection                d5 False
+58 noSqlReviewsChallenge            NoSQL Manipulation           Injection                d4 False
+59 redirectCryptoCurrencyChallenge  Outdated Allowlist           Unvalidated Redirects    d1 False
+60 weakPasswordChallenge            Password Strength            Broken Authentication    d2 False
+61 negativeOrderChallenge           Payback Time                 Improper Input Validation d3 False
+62 premiumPaywallChallenge          Premium Paywall              Cryptographic Issues     d6 False
+63 privacyPolicyChallenge           Privacy Policy               Miscellaneous            d1 False
+64 privacyPolicyProofChallenge      Privacy Policy Inspection    Security through Obscurity d3 False
+65 changeProductChallenge           Product Tampering            Broken Access Control    d3 False
+66 reflectedXssChallenge            Reflected XSS                XSS                      d2 False
+67 passwordRepeatChallenge          Repetitive Registration      Improper Input Validation d1 False
+68 resetPasswordBenderChallenge     Reset Bender's Password      Broken Authentication    d4 False
+69 resetPasswordBjoernChallenge     Reset Bjoern's Password      Broken Authentication    d5 False
+70 resetPasswordJimChallenge        Reset Jim's Password         Broken Authentication    d3 False
+71 resetPasswordMortyChallenge      Reset Morty's Password       Broken Anti Automation   d5 False
+72 retrieveBlueprintChallenge       Retrieve Blueprint           Sensitive Data Exposure  d5 False
+73 ssrfChallenge                    SSRF                         Broken Access Control    d6 False
+74 sstiChallenge                    SSTi                         Injection                d6 False
+75 scoreBoardChallenge              Score Board                  Miscellaneous            d1 False
+76 securityPolicyChallenge          Security Policy              Miscellaneous            d2 False
+77 persistedXssFeedbackChallenge    Server-side XSS Protection   XSS                      d4 False
+78 hiddenImageChallenge             Steganography                Security through Obscurity d4 False
+79 rceOccupyChallenge               Successful RCE DoS           Insecure Deserialization d6 False
+80 supplyChainAttackChallenge       Supply Chain Attack          Vulnerable Components    d5 False
+81 twoFactorAuthUnsafeSecretStorageChallenge Two Factor Authentication    Broken Authentication    d5 False
+82 jwtUnsignedChallenge             Unsigned JWT                 Vulnerable Components    d5 False
+83 uploadSizeChallenge              Upload Size                  Improper Input Validation d3 False
+84 uploadTypeChallenge              Upload Type                  Improper Input Validation d3 False
+85 unionSqlInjectionChallenge       User Credentials             Injection                d4 False
+86 videoXssChallenge                Video XSS                    XSS                      d6 False
+87 basketAccessChallenge            View Basket                  Broken Access Control    d2 False
+88 knownVulnerableComponentChallenge Vulnerable Library           Vulnerable Components    d4 False
+89 weirdCryptoChallenge             Weird Crypto                 Cryptographic Issues     d2 False
+90 redirectChallenge                Allowlist Bypass             Unvalidated Redirects    d4 False
+91 xxeFileDisclosureChallenge       XXE Data Access              XXE                      d3 False
+92 xxeDosChallenge                  XXE DoS                      XXE                      d5 False
+93 yamlBombChallenge                Memory Bomb                  Insecure Deserialization d5 False
+94 zeroStarsChallenge               Zero Stars                   Improper Input Validation d1 False
+95 missingEncodingChallenge         Missing Encoding             Improper Input Validation d1 False
+96 svgInjectionChallenge            Cross-Site Imaging           Security Misconfiguration d5 False
+97 exposedMetricsChallenge          Exposed Metrics              Observability Failures   d1 True
+98 misplacedIacFiles                Misplaced IaC Files          Security Misconfiguration d2 False
+99 freeDeluxeChallenge              Deluxe Fraud                 Improper Input Validation d3 False
+100 csrfChallenge                    CSRF                         Broken Access Control    d3 False
+101 xssBonusChallenge                Bonus Payload                XSS                      d1 False
+102 resetPasswordUvoginChallenge     Reset Uvogin's Password      Sensitive Data Exposure  d4 False
+103 geoStalkingMetaChallenge         Meta Geo Stalking            Sensitive Data Exposure  d2 False
+104 geoStalkingVisualChallenge       Visual Geo Stalking          Sensitive Data Exposure  d2 False
+105 nullByteChallenge                Poison Null Byte             Improper Input Validation d4 False
+106 lfrChallenge                     Local File Read              Vulnerable Components    d5 False
+107 closeNotificationsChallenge      Mass Dispel                  Miscellaneous            d1 False
+108 csafChallenge                    Security Advisory            Miscellaneous            d3 False
+109 exposedCredentialsChallenge      Exposed Credentials          Sensitive Data Exposure  d2 False
+110 leakedApiKeyChallenge            Leaked API Key               Sensitive Data Exposure  d5 False
+111 chatbotPromptInjectionChallenge  Chatbot Prompt Injection     Injection                d2 False
+112 chatbotGreedyInjectionChallenge  Greedy Chatbot Manipulation  Injection                d3 False
+113 aiDebuggingChallenge             AI Debugging                 Broken Access Control    d2 False
+114 systemPromptExtractionChallenge  System Prompt Extraction     Injection                d3 False
+115 iacLeakedKeyChallenge            Login Cloud Admin            Sensitive Data Exposure  d4 False
+116 vulnerableDockerImageChallenge   Vulnerable Infrastructure    Vulnerable Components    d3 False

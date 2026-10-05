@@ -1,0 +1,55 @@
+{
+  "behavioral_differences": 2,
+  "candidate_count": 2,
+  "family_id": "fam_blocked_auth_sweep",
+  "generation": 14,
+  "generation_id": "gen-0014-fam_blocked_auth_sweep",
+  "information_gain": 1.0,
+  "observed_at": "2026-10-05T13:48:33Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-cc14ae035b141fc44c6e",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/user/login",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-9097d7b864d1382984ce",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/user/login",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 2,
+  "surface_id": "surf_blocked_auth"
+}

@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated raw SQL error diagnostics and full stack traces exposed via inconsistent, non-graceful error handling (errorHandlingChallenge, id=27)",
+      "title": "Raw, inconsistent unauthenticated error responses (error handling)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated Prometheus /metrics endpoint exposes application telemetry including LLM usage counters and challenge-solved state (exposedMetricsChallenge, id=97)",
+      "title": "Unauthenticated Prometheus-format observability endpoint exposing internal telemetry",
       "valid_reproduction": false
     }
   ],
