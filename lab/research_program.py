@@ -470,7 +470,9 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
         if surface.get("status") in SURFACE_STATUSES and family_counts.get(surface["surface_id"], 0) == 0:
             if surface.get("status") != "CANDIDATE":
                 raise ProgramError(
-                    f"active surface {surface['surface_id']} has no durable non-archived family"
+                    f"active surface {surface['surface_id']} has no durable non-archived family; "
+                    "keep the surface CANDIDATE until a non-archived evolutionary family "
+                    "is attached, or persist the required family before handoff"
                 )
     return program
 
