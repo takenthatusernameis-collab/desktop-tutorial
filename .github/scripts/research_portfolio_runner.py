@@ -15,12 +15,13 @@ def main() -> int:
     image = os.environ.get("EHB_KILO_IMAGE")
     if not image:
         raise SystemExit("EHB_KILO_IMAGE is required")
+    research_program = root / "lab" / "research_program.py"
     cmd = [
         "docker", "run", "--rm",
         "--network", "ehb-worker-net",
         "--user", f"{os.getuid()}:{os.getgid()}",
         "--mount", f"type=bind,source={state_dir},target=/workspace/state",
-        "--mount", f"type=bind,source={root / "lab" / "research_program.py"},target=/workspace/research_program.py,readonly",
+        "--mount", f"type=bind,source={research_program},target=/workspace/research_program.py,readonly",
         "-w", "/workspace", image,
         "python3", "/workspace/research_program.py", "pre-kilo",
         "--mode", os.environ["BENCHMARK_CAMPAIGN_MODE"],
