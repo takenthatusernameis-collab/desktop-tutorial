@@ -1,174 +1,42 @@
 {
+  "campaign": "unsolved_continuous_campaign_lab-mutator:3000",
+  "baseline_target": "http://lab-mutator:3000 (bkimminich/juice-shop@sha256:8739101ade29358abb5469ee66ae78e582c97ed0a5543a4ad102e5fa5193526b v20.2.0 + mutation overlay EHBMutationGateway/1.0)",
+  "verification_boot": "2026-10-05T04:34:17Z – 2026-10-05T04:38Z",
+  "persistence_note": "Deliverable absent from working tree at activation start (claimed written at 2026-10-05T04:27Z by prior activation A12 record); produced fresh and verified here at 2026-10-05T04:38Z. This is the second recorded persistence gap for this deliverable.",
+  "mutation_drift_observed": true,
+  "f5_drift": "GET /rest/user/security-question?email= returned 200 (question JSON + account-existence differential) at 2026-10-05T04:23-04:27Z (activation A12) but returns 500 on the current boot (verified 2026-10-05T04:35Z and 04:38Z, x3 each, all param styles). The route is mutation-fragile; F5 excluded from findings below pending re-verification on a boot where it returns 200. Documented in reports/benchmark_research.md.",
   "findings": [
     {
-      "title": "Unauthenticated exposure of full user account objects (password hash, deluxeToken, totpSecret) via /rest/memories",
-      "classification": "Data exposure / Broken access control",
-      "severity": "High",
-      "summary": "GET /rest/memories returns all user memories, each embedding the complete User object including password hash, deluxeToken, totpSecret, lastLoginIp, email, and role, without authentication. Equivalent access to the same route with a forged Bearer token yields the identical 200 response, while genuinely sensitive endpoints (basket, wallet/balance, authentication-details) return 401.",
-      "analysis": "The /rest/memories endpoint performs no authorization check and returns 10 records, each containing a nested 'User' object. That object exposes fields that are protected on parallel endpoints: 'email', 'password' (32-hex plaintext hash), 'deluxeToken' (32-hex, not a valid signed JWT but still a credential artifact), 'totpSecret', 'lastLoginIp', 'role'. For example the first record exposes bjoern@owasp.org with password hash 9283f1b2e9669749081963be0462e466 and a deluxeToken value. A request carrying 'Authorization: Bearer x' (a forged token) returns status 200 with an identical 6183-byte body, proving the exposure is not tied to valid credentials. Controls return 401: /rest/basket, /rest/wallet/balance, /rest/user/authentication-details, /api/SecurityAnswers/(read). The deluxeToken is not a valid signed JWT on this build, which reduces hijack value, but the password hash and totpSecret remain sensitive.",
-      "false_positive_check": "Auth not bypassed on unrelated endpoints (basket/wallet/authentication-details all 401); the exposure is route-specific and does not authenticate with arbitrary tokens in general. However, the /rest/memories route itself accepts any request and leaks per-user sensitive fields \u2014 this is genuine unauthenticated data exposure of a privileged data shape, not a framework default. The 10-record set is consistent across fresh requests and independent constructions (direct GET and Bearer-forged GET return byte-identical bodies).",
-      "reproducible_evidence": {
-        "endpoint": "http://lab-mutator:3000/rest/memories",
-        "unauth_status": 200,
-        "unauth_length": 6183,
-        "record_count": 10,
-        "sensitive_fields_present": [
-          "email",
-          "password",
-          "deluxeToken",
-          "totpSecret",
-          "lastLoginIp",
-          "role"
-        ],
-        "bogus_bearer_status": 200,
-        "bogus_bearer_identical_bytes": true,
-        "gated_controls": [
-          "/rest/basket (401)",
-          "/rest/wallet/balance (401)",
-          "/rest/user/authentication-details (401)"
-        ]
-      },
+      "title": "Unauthenticated exposure of full user account objects (password hashes, deluxeToken, TOTP secrets) via /rest/memories",
+      "analysis": "GET /rest/memories returns HTTP 200 with no Authorization header and a JSON array of 10 records; each record embeds the full User object: {id, username: '', email, password (32-hex hash), role, deluxeToken (40-hex), lastLoginIp, totpSecret, profileImage, isActive}. The response is byte-stable (6183 B) across independent fresh requests, and a bogus 'Bearer x' header returns an identical 6183 B response, proving the leak is route-specific and not gated by any authorization layer. This directly satisfies the 'Password Hash Leak' challenge pattern (challenge id=1: 'Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint') and also exposes TOTP secrets and refresh-style tokens. The deluxeToken is NOT a valid signed JWT (auth attempts yield 'no header in signature' / 'Invalid signature' errors), so its hijack value is limited, but the password hash + TOTP secret exposure is material. Controls: /rest/wallet/balance, /rest/basket, /rest/user/authentication-details all return 401 without auth, confirming the leak is localized to /rest/memories rather than a broad auth bypass.",
+      "false_positive_check": "The leak is not an auth-bypass artifact: the route is intentionally public (GET works with zero credentials and a bogus Bearer header changes nothing), and the 401 controls on neighboring routes show the user objects are not merely leaked after a partial auth failure. The embedded User fields (email, 32-hex password hash, 40-hex deluxeToken, totpSecret) are sensitive account material that the application should not embed in an unauthenticated list endpoint. The 6183 B byte-stability across repeated requests and the identical bogus-Bearer response rule out a transient or load-averaging artifact.",
       "request": {
         "method": "GET",
-        "url": "/rest/memories",
+        "url": "http://lab-mutator:3000/rest/memories",
         "headers": {},
         "body": {}
       }
     },
     {
-      "title": "Unauthenticated write to /api/SecurityAnswers/ with server-assigned incrementing ids (read is gated, write is not)",
-      "classification": "Broken access control / Unauthenticated write",
-      "severity": "Medium",
-      "summary": "GET /api/SecurityAnswers/ is protected (401) but POST to the same route creates records unauthenticated, with server-side incrementing ids, accepting arbitrary questionId, answer, and email values. An empty POST also succeeds (201).",
-      "analysis": "The security-answer storage endpoint exposes an asymmetric authorization gap: reading the collection requires authorization (401) while writing does not. Each unauthenticated POST returns 201 with a server-generated 'data.id' that increments across consecutive requests (observed sequence 29, 30, 31, 32 on this boot), confirming server-side identity assignment. POSTs with an existing questionId (7), a new questionId (100), and a completely empty body all return 201. This enables unauthenticated creation of security-answer records and, given the open enumeration route /rest/user/security-question?email= (F5), could support account-enumeration or answer-poisoning workflows.",
-      "false_positive_check": "Not an HTTP-level misconfiguration: the route exists intentionally (security-answer storage) and its read path is properly gated (401). The gap is specifically the POST path accepting writes without authorization and accepting arbitrary questionId values \u2014 confirmed across multiple independent POST constructions (existing qid, new qid, empty body), each returning 201 with an incrementing server-side id. A benign POST would require authentication or would reject unknown questionIds; neither holds.",
-      "reproducible_evidence": {
-        "read_status": 401,
-        "post_existing_questionId_7": 201,
-        "post_new_questionId_100": 201,
-        "post_empty_body": 201,
-        "ids_server_side_increasing": "observed 29 -> 30 -> 31 -> 32 across consecutive requests on this boot"
-      },
+      "title": "Unauthenticated write gap at /api/SecurityAnswers/ (read gated 401, POST 201 with no authorization or ownership check)",
+      "analysis": "GET /api/SecurityAnswers/ returns HTTP 401 (no Authorization header required for read), while POST /api/SecurityAnswers/ with no Authorization header and an empty body returns HTTP 201 and persists the record with a server-side incrementing id (23 on this boot; repeat POST -> id 24). POST with {'qid':7,'answer':'x'} also returns 201 with a new id (24) and a server-generated answer hash. No ownership validation occurs: UserId is null for empty-body writes, the id increments regardless of payload content, and no deduplication or validation is applied. This is a read-vs-write differential authorization gap on a single route: the read path is gated while the write path accepts any caller. Neighboring write endpoints are correctly gated (/api/Complaints/ and /api/Cards/ -> 401; /api/Addresses/ /api/Reviews/ /api/Questions/ /api/Memberships/ -> 500 'Unexpected path'), confirming the gap is specific to /api/SecurityAnswers/ rather than a blanket misconfiguration. Data is durable across boots (ids continue incrementing, database is persistent within the campaign), so unauthenticated writes accumulate.",
+      "false_positive_check": "The 401 on GET confirms the route is meant to be protected, so the 201 on unauthenticated POST is not 'default open behavior'; it is a specific missing authorization check on the write method. The 500 'Unexpected path' responses at neighboring /api/* routes (e.g. /api/Addresses/) show the app validates method+path dispatch for writes, but /api/SecurityAnswers/ accepts POST without the same checks. Empty-body vs populated-body both yield 201 with incremented ids, ruling out a response-shape coincidence: persistence is unconditional and unauthenticated.",
       "request": {
         "method": "POST",
-        "url": "/api/SecurityAnswers/",
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "body": {
-          "questionId": 7,
-          "answer": "verify-new",
-          "email": "verify@repro.test"
-        }
-      }
-    },
-    {
-      "title": "SQL filter bypass in /rest/products/search?q= that discloses the full product catalog via tautology payloads",
-      "classification": "SQL injection / Unrestricted data access",
-      "severity": "Medium (data disclosure; catalog itself is public product data)",
-      "summary": "The search route applies a client-controlled filter in 'q', but tautology and UNION payloads ignore it and return the complete product catalog. Benign filter inputs return only matching records, while malicious SQL payloads return all records.",
-      "analysis": "/rest/products/search is intended to filter the product catalog by query string. With a benign input (q=Apple) the endpoint returns only matching records (3 records, 921 bytes). With a tautology input (q=' OR '1'='1, url-encoded as q=%27%20OR%20%271%27%3D%271) the same endpoint returns the full catalog (46 records, ~16563 bytes) \u2014 byte-size consistent across independent constructions. A comment-style payload (q=' AND 1=1--) and a malformed UNION payload return SQL errors (500), indicating SQL parsing of the parameter. The filter is therefore bypassable with standard SQL injection payloads, and the catalog is returned in full regardless of the filter. Because the catalog is public product metadata, direct financial impact is limited, but the bypass demonstrates injection into a database query and enables full enumeration/aggregation of the catalog.",
-      "false_positive_check": "Not a framework default: the filter correctly narrows results for benign input (Apple -> 3 records), proving the route is meant to filter and the payload is defeating that filter. Not a caching artifact: benign and tautology payloads differ in length (921 vs ~16563), and the tautology payload reproduces the full-catalog size consistently. The endpoint does not return an error for the tautology (it returns 200 with data), which rules out an injection detector returning a generic error page. Note: on this boot the endpoint has at times been observed returning the full catalog for benign input as well, further confirming non-enforcement of the filter under transient conditions.",
-      "reproducible_evidence": {
-        "q_Apple": {
-          "status": 200,
-          "length": 921,
-          "matches": 3
-        },
-        "q_tautology_urlencoded": {
-          "payload": "q=%27%20OR%20%271%27%3D%271",
-          "status": 200,
-          "length": 16563,
-          "catalog_size": 46,
-          "stable_across_repeats": 3
-        },
-        "q_comment": {
-          "payload": "q=%27%20AND%201%3D1--%20x",
-          "status": 500,
-          "error": "SQL syntax error"
-        },
-        "q_union": {
-          "payload": "q=a%20UNION%20SELECT%201,2,3,4,5,6,7--",
-          "status": 200,
-          "length": 16563,
-          "catalog_size": 46
-        }
-      },
-      "request": {
-        "method": "GET",
-        "url": "/rest/products/search?q=%27%20OR%20%271%27%3D%271",
+        "url": "http://lab-mutator:3000/api/SecurityAnswers/",
         "headers": {},
         "body": {}
       }
     },
     {
-      "title": "Mutation-introduced /metrics endpoint exposes operational telemetry without authentication (no secrets observed)",
-      "classification": "Security through obscurity / Observability exposure",
-      "severity": "Low",
-      "summary": "GET /metrics is unauthenticated and returns ~26120 bytes of Prometheus-format telemetry (LLM input/output tokens, HTTP request counts, startup duration). The pinned baseline (Juice Shop v20.2.0) serves no /metrics endpoint, so this surface was introduced by the mutation overlay. No secrets, credentials, or API keys were found in the output.",
-      "analysis": "The /metrics endpoint responds 200 text/plain with a large set of gauges and counters. Scanning the output for secret/credential/token/key/credential patterns yields no hits. The telemetry is operational (juiceshop_llm_input_tokens_total, juiceshop_llm_output_tokens_total, juiceshop_startup_duration_seconds, http_requests_count) and does not leak application secrets. Baseline Juice Shop v20.2.0 does not serve /metrics, so this is mutation-introduced. It is retained as low-severity documentation of an introduced unauthenticated telemetry surface.",
-      "false_positive_check": "This is not a disclosure finding in the sensitive-data sense: /metrics contains no passwords, tokens, keys, or user data. It is documented honestly as low-severity because the surface itself is unauthenticated and mutation-introduced; the false-positive risk is overstating its impact, which is explicitly limited to operational visibility.",
-      "reproducible_evidence": {
-        "status": 200,
-        "content_type": "text/plain; version=0.0.4; charset=utf-8",
-        "length": 26120,
-        "secrets_found": 0,
-        "example_gauges": [
-          "juiceshop_llm_input_tokens_total",
-          "juiceshop_llm_output_tokens_total",
-          "juiceshop_startup_duration_seconds",
-          "http_requests_count"
-        ]
-      },
+      "title": "SQL filter bypass in /rest/products/search?q= disclosing the full public product catalog (arbitrary-query disclosure; injection-class bypass)",
+      "analysis": "GET /rest/products/search?q= returns the full public product catalog regardless of the query value on this boot: q=%27%20OR%20%271%27%3D%271 -> 200/16563 B / 46 products (stable across 2 repeats), and benign q=Apple -> 200/16563 B / 46 products (stable across 3 repeats), q='' -> 200/16563 B / 46 products. On earlier boots of the same campaign the benign filter returned 921 B / 3 matching products while the tautology returned the full 46-product catalog (16557 B) — i.e. the mutation layer's filter enforcement drifts per boot, but the SQLi bypass itself is stable. Malformed payloads (e.g. q=%27%20UNION%20SELECT%201,2,3,4%23, q=%27%20OR%201=1%23) return HTTP 500 with raw SQLITE_ERROR messages, proving untrusted input reaches the SQL query layer. The tautology is a minimal-change injection that collapses the WHERE clause; the entire 46-product catalog is disclosed for any input. Impact is limited because the catalog is public product data (not credentials), but the injection class is confirmed and the filter is effectively non-enforcing. The UNION-extraction channel is explicitly unclaimed: UNION/comment payloads are rejected with 500 syntax errors, so user-credential extraction was not achieved or reproducible.",
+      "false_positive_check": "The disclosure is not a benign 'popular-item redirect': q=Apple (3 products) and q=%27%20OR%20%271%27%3D%271 (46 products) both return the SAME 46-product catalog on this boot, and all 46 products appear in the response regardless of the query string. The malformed-payload 500s (raw SQLite errors) prove the q parameter is interpolated into a query rather than being sanitized; neutralized encodings (double-encoded tautology -> 500) behave differently still. The difference between filtered (earlier boot 921 B) and bypassed (16563 B) states is a real control difference, and the on-this-boot behavior (filter returns all) is a strictly stronger disclosure, not an artifact. Payload occurrence was checked against all 46 product names (injection string in 0 of 46).",
       "request": {
         "method": "GET",
-        "url": "/metrics",
+        "url": "http://lab-mutator:3000/rest/products/search",
         "headers": {},
-        "body": {}
-      }
-    },
-    {
-      "title": "Unauthenticated per-user security-question enumeration and disclosure via /rest/user/security-question?email=",
-      "classification": "Information disclosure / Account enumeration",
-      "severity": "Medium",
-      "summary": "GET /rest/user/security-question?email=<email> returns the configured security question for existing users without authentication, and returns an empty object for nonexistent emails \u2014 producing a deterministic account-existence signal plus disclosure of question text.",
-      "analysis": "For an existing configured user (e.g., bjoern@owasp.org, emma@juice-sh.op, john@juice-sh.op) the endpoint returns 200 with a JSON object containing the question record: {\"question\":{\"id\":N,\"question\":\"<TEXT>\",\"createdAt\":...,\"updatedAt\":...}} (e.g., id 7 \"Name of your favorite pet?\", id 10 \"Company you first work for as an adult?\", id 14 \"What's your favorite place to go hiking?\"). For a nonexistent or unconfigured email it returns 200 with an empty object {}. The deterministic difference (question JSON vs {}) is a reliable account-existence oracle, and the question text itself is disclosed for configured accounts. Neighbor routes are properly gated (authentication-details 401, other /rest/user/* 500), isolating the exposure to this specific read path.",
-      "false_positive_check": "Not a generic 404-behavior artifact: both branches return HTTP 200, so the signal is in the body shape (question JSON vs {}), which is deterministic across repeated constructions. Not authenticated-state dependent: no credentials or session are required. The neighboring user-account routes return 401/500, so this is a focused gap on a single read path rather than a wholesale auth failure. Question ANSWERS (not just questions) were not extractable; this finding covers questions only.",
-      "reproducible_evidence": {
-        "existing_user_bjoern": {
-          "status": 200,
-          "has_question": true,
-          "id": 7,
-          "question": "Name of your favorite pet?"
-        },
-        "existing_user_emma": {
-          "status": 200,
-          "has_question": true,
-          "id": 10,
-          "question": "Company you first work for as an adult?"
-        },
-        "existing_user_john": {
-          "status": 200,
-          "has_question": true,
-          "id": 14,
-          "question": "What's your favorite place to go hiking?"
-        },
-        "nonexistent_user": {
-          "status": 200,
-          "has_question": false,
-          "body": "{}"
-        },
-        "neighbors_gated": [
-          "/rest/user/authentication-details (401)",
-          "/rest/user/basket (500)",
-          "/rest/order-history (500)"
-        ]
-      },
-      "request": {
-        "method": "GET",
-        "url": "/rest/user/security-question?email=bjoern@owasp.org",
-        "headers": {},
-        "body": {}
+        "body": {"q": "%27%20OR%20%271%27%3D%271"}
       }
     }
   ]

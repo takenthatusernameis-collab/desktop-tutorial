@@ -1,0 +1,572 @@
+===== L0-root [status=200 len=9393 ct=text/html; charset=UTF-8] =====
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<!doctype html>
+<html lang="en" data-beasties-container>
+<head>
+  <meta charset="utf-8">
+  <title>OWASP Juice Shop</title>
+  <meta name="description" content="Probably the most modern and sophisticated insecure web application">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>@font-face{font-family:'VT323';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/vt323/v18/pxiKyp0ihIEF2isQFJXGdg.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'VT323';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/vt323/v18/pxiKyp0ihIEF2isRFJXGdg.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'VT323';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/vt323/v18/pxiKyp0ihIEF2isfFJU.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}</style>
+  <link id="favicon" rel="icon" type="image/x-icon" href="assets/public/favicon_js.ico">
+  <script>
+    window.addEventListener("load", function(){
+      window.cookieconsent.initialise({
+        "palette": {
+          "popup": { "background": "var(--theme-primary)", "text": "var(--theme-text)" },
+          "button": { "background": "var(--theme-accent)", "text": "var(--theme-text)" }
+        },
+        "theme": "classic",
+        "position": "bottom-right",
+        "content": { "message": "This website uses fruit cookies to ensure you get the juiciest tracking experience.", "dismiss": "Me want it!", "link": "But me wait!", "href": "https://www.youtube.com/watch?v=9PnbKL3wuH4" }
+      })});
+  </script>
+<style>.bluegrey-lightgreen-theme{--mat-sys-background:#121316;--mat-sys-error:#ffb4ab;--mat-sys-error-container:#93000a;--m
+
+===== L0-metrics [status=200 len=26111 ct=text/plain; version=0.0.4; charset=utf-8] =====
+# HELP juiceshop_llm_input_tokens_total Number of total input tokens processed
+# TYPE juiceshop_llm_input_tokens_total counter
+juiceshop_llm_input_tokens_total{app="juiceshop"} 0
+
+# HELP juiceshop_llm_input_tokens Number of input tokens processed
+# TYPE juiceshop_llm_input_tokens counter
+
+# HELP juiceshop_llm_output_tokens_total Number of total output tokens processed
+# TYPE juiceshop_llm_output_tokens_total counter
+juiceshop_llm_output_tokens_total{app="juiceshop"} 0
+
+# HELP juiceshop_llm_output_tokens Number of output tokens processed
+# TYPE juiceshop_llm_output_tokens counter
+
+# HELP juiceshop_llm_tool_calls_total Number of tool calls made
+# TYPE juiceshop_llm_tool_calls_total counter
+
+# HELP file_uploads_count Total number of successful file uploads grouped by file type.
+# TYPE file_uploads_count counter
+
+# HELP file_upload_errors Total number of failed file uploads grouped by file type.
+# TYPE file_upload_errors counter
+
+# HELP http_requests_count Total HTTP request count grouped by status code.
+# TYPE http_requests_count counter
+http_requests_count{status_code="2XX",app="juiceshop"} 5
+http_requests_count{status_code="4XX",app="juiceshop"} 1
+http_requests_count{status_code="5XX",app="juiceshop"} 1
+
+# HELP juiceshop_startup_duration_seconds Duration juiceshop required to perform a certain task during startup
+# TYPE juiceshop_startup_duration_seconds gauge
+juiceshop_startup_duration_seconds{task="validateConfig",app="juiceshop"} 0.037028039
+juiceshop_startup_duration_seconds{task="cleanupFtpFolder",app="juiceshop"} 0.164761927
+juiceshop_startup_duration_seconds{task="validatePreconditions",app="juiceshop"} 0.204393432
+juiceshop_startup_duration_seconds{task="datacreator",app="juiceshop"} 1.6066391439999999
+juiceshop_startup_duration_seconds{task="customizeApplication",app="juiceshop"} 0.005975117
+juiceshop_startup_duration_seconds{task="customizeEasterEgg",app="juiceshop"} 0.003007569
+juiceshop_startup_duration_seconds{task="ready",app="juiceshop"} 1.676
+
+# HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.
+# TYPE process_cpu_user_seconds_total counter
+process_cpu_user_seconds_total{app="juiceshop"} 0.961655
+
+# HELP process_cpu_system_seconds_total Total system CPU time spent in seconds.
+# TYPE process_cpu_system_seconds_total counter
+process_cpu_system_seconds_total{app="juiceshop"} 0.340272
+
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seco
+
+===== L0-memories [status=200 len=6183 ct=application/json; charset=utf-8] =====
+{"status":"success","data":[{"UserId":13,"id":1,"caption":"😼 #zatschi #whoneedsfourlegs","imagePath":"assets/public/images/uploads/ᓚᘏᗢ-#zatschi-#whoneedsfourlegs-1572600969477.jpg","createdAt":"2026-10-05T04:33:26.825Z","updatedAt":"2026-10-05T04:33:26.825Z","User":{"id":13,"username":"","email":"bjoern@owasp.org","password":"9283f1b2e9669749081963be0462e466","role":"deluxe","deluxeToken":"efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4","lastLoginIp":"","profileImage":"assets/public/images/uploads/13.jpg","totpSecret":"","isActive":true,"createdAt":"2026-10-05T04:33:25.632Z","updatedAt":"2026-10-05T04:33:25.632Z","deletedAt":null}},{"UserId":4,"id":2,"caption":"Magn(et)ificent!","imagePath":"assets/public/images/uploads/magn(et)ificent!-1571814229653.jpg","createdAt":"2026-10-05T04:33:26.825Z","updatedAt":"2026-10-05T04:33:26.825Z","User":{"id":4,"username":"bkimminich","email":"bjoern.kimminich@gmail.com","password":"6edd9d726cbdc873c539e41ae8757b8c","role":"admin","deluxeToken":"","lastLoginIp":"","profileImage":"assets/public/images/uploads/defaultAdmin.png","totpSecret":"","isActive":true,"createdAt":"2026-10-05T04:33:25.631Z","updatedAt":"2026-10-05T04:33:25.631Z","deletedAt":null}},{"UserId":4,"id":3,"caption":"My rare collectors item! [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]","imagePath":"assets/public/images/uploads/my-rare-collectors-item!-[̲̅$̲̅(̲̅-͡°-͜ʖ-͡°̲̅)̲̅$̲̅]-1572603645543.jpg","createdAt":"2026-10-05T04:33:26.825Z","updatedAt":"2026-10-05T04:33:26.825Z","User":{"id":4,"username":"bkimminich","email":"bjoern.kimminich@gmail.com","password":"6edd9d726cbdc873c539e41ae8757b8c","role":"admin","deluxeToken":"","lastLoginIp":"","profileImage":"assets/public/images/uploads/defaultAdmin.png","totpSecret":"","isActive":true,"createdAt":"2026-10-05T04:33:25.631Z","updatedAt":"2026-10-05T04:33:25.631Z","deletedAt":null}},{"UserId":21,"id":4,"caption":"Welcome to the Bee Haven (/#/bee-haven)🐝","imagePath":"assets/public/images/uploads/BeeHaven.png","createdAt":"2026-10-05T04:33:26.825Z","updatedAt":"2026-10-05T04:33:26.825Z","User":{"id":21,"username":"evmrox","email":"ethereum@juice-sh.op","password":"2c17c6393771ee3048ae34d6b380c5ec","role":"deluxe","deluxeToken":"b49b30b294d8c76f5a34fc243b9b9cccb057b3f675b07a5782276a547957f8ff","lastLoginIp":"","profileImage":"assets/public/images/uploads/default.svg","totpSecret":"","isActive":true,"createdAt":"2026-10-05T04:33:25.632Z","updatedAt":"2026-10-05T04:33:25.632Z","deletedAt":null}},{"UserId":13,"i
+
+===== L0-search-benign [status=200 len=16563 ct=application/json; charset=utf-8] =====
+{"status":"success","data":[{"id":1,"name":"Apple Juice (1000ml)","description":"The all-time classic.","price":1.99,"deluxePrice":0.99,"image":"apple_juice.jpg","createdAt":"2026-10-05 04:33:26.078 +00:00","updatedAt":"2026-10-05 04:33:26.078 +00:00","deletedAt":null},{"id":24,"name":"Apple Pomace","description":"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\"/#recycle\">sent back to us</a> for recycling.","price":0.89,"deluxePrice":0.89,"image":"apple_pressings.jpg","createdAt":"2026-10-05 04:33:26.082 +00:00","updatedAt":"2026-10-05 04:33:26.082 +00:00","deletedAt":null},{"id":6,"name":"Banana Juice (1000ml)","description":"Monkeys love it the most.","price":1.99,"deluxePrice":1.99,"image":"banana_juice.jpg","createdAt":"2026-10-05 04:33:26.078 +00:00","updatedAt":"2026-10-05 04:33:26.078 +00:00","deletedAt":null},{"id":52,"name":"Basil Smoothie","description":"A unique blend of fresh basil and ginger for a healthy kick.","price":2.99,"deluxePrice":2.99,"image":"basil_smoothie.png","createdAt":"2026-10-05 04:33:26.084 +00:00","updatedAt":"2026-10-05 04:33:26.084 +00:00","deletedAt":null},{"id":51,"name":"Berry Juice (1000ml)","description":"A delicious blend of fresh forest berries.","price":3.49,"deluxePrice":3.49,"image":"berry_juice.png","createdAt":"2026-10-05 04:33:26.084 +00:00","updatedAt":"2026-10-05 04:33:26.084 +00:00","deletedAt":null},{"id":42,"name":"Best Juice Shop Salesman Artwork","description":"Unique digital painting depicting Stan, our most qualified and almost profitable salesman. He made a succesful carreer in selling used ships, coffins, krypts, crosses, real estate, life insurance, restaurant supplies, voodoo enhanced asbestos and courtroom souvenirs before <em>finally</em> adding his expertise to the Juice Shop marketing team.","price":5000,"deluxePrice":5000,"image":"artwork2.jpg","createdAt":"2026-10-05 04:33:26.083 +00:00","updatedAt":"2026-10-05 04:33:26.083 +00:00","deletedAt":null},{"id":53,"name":"Bragă (500ml)","description":"Traditional Balkan drink made from fermented millet. Lightly sweet-sour, refreshing, and naturally energizing.","price":2.49,"deluxePrice":2.49,"image":"braga.jpg","createdAt":"2026-10-05 04:33:26.084 +00:00","updatedAt":"2026-10-05 04:33:26.084 +00:00","deletedAt":null},{"id":30,"name":"Carrot Juice (1000ml)","description":"As the old German saying goes: \"Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?\"","price":2.99,"d
+
+===== L0-search-taut [status=200 len=16563 ct=application/json; charset=utf-8] =====
+{"status":"success","data":[{"id":1,"name":"Apple Juice (1000ml)","description":"The all-time classic.","price":1.99,"deluxePrice":0.99,"image":"apple_juice.jpg","createdAt":"2026-10-05 04:33:26.078 +00:00","updatedAt":"2026-10-05 04:33:26.078 +00:00","deletedAt":null},{"id":24,"name":"Apple Pomace","description":"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\"/#recycle\">sent back to us</a> for recycling.","price":0.89,"deluxePrice":0.89,"image":"apple_pressings.jpg","createdAt":"2026-10-05 04:33:26.082 +00:00","updatedAt":"2026-10-05 04:33:26.082 +00:00","deletedAt":null},{"id":6,"name":"Banana Juice (1000ml)","description":"Monkeys love it the most.","price":1.99,"deluxePrice":1.99,"image":"banana_juice.jpg","createdAt":"2026-10-05 04:33:26.078 +00:00","updatedAt":"2026-10-05 04:33:26.078 +00:00","deletedAt":null},{"id":52,"name":"Basil Smoothie","description":"A unique blend of fresh basil and ginger for a healthy kick.","price":2.99,"deluxePrice":2.99,"image":"basil_smoothie.png","createdAt":"2026-10-05 04:33:26.084 +00:00","updatedAt":"2026-10-05 04:33:26.084 +00:00","deletedAt":null},{"id":51,"name":"Berry Juice (1000ml)","description":"A delicious blend of fresh forest berries.","price":3.49,"deluxePrice":3.49,"image":"berry_juice.png","createdAt":"2026-10-05 04:33:26.084 +00:00","updatedAt":"2026-10-05 04:33:26.084 +00:00","deletedAt":null},{"id":42,"name":"Best Juice Shop Salesman Artwork","description":"Unique digital painting depicting Stan, our most qualified and almost profitable salesman. He made a succesful carreer in selling used ships, coffins, krypts, crosses, real estate, life insurance, restaurant supplies, voodoo enhanced asbestos and courtroom souvenirs before <em>finally</em> adding his expertise to the Juice Shop marketing team.","price":5000,"deluxePrice":5000,"image":"artwork2.jpg","createdAt":"2026-10-05 04:33:26.083 +00:00","updatedAt":"2026-10-05 04:33:26.083 +00:00","deletedAt":null},{"id":53,"name":"Bragă (500ml)","description":"Traditional Balkan drink made from fermented millet. Lightly sweet-sour, refreshing, and naturally energizing.","price":2.49,"deluxePrice":2.49,"image":"braga.jpg","createdAt":"2026-10-05 04:33:26.084 +00:00","updatedAt":"2026-10-05 04:33:26.084 +00:00","deletedAt":null},{"id":30,"name":"Carrot Juice (1000ml)","description":"As the old German saying goes: \"Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?\"","price":2.99,"d
+
+===== L0-secans-get [status=401 len=972 ct=text/html; charset=utf-8] =====
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+
+
+===== L0-secans-post-empty [status=201 len=169 ct=application/json; charset=utf-8] =====
+{"status":"success","data":{"id":23,"updatedAt":"2026-10-05T04:34:58.280Z","createdAt":"2026-10-05T04:34:58.280Z","UserId":null,"SecurityQuestionId":null,"answer":null}}
+
+===== L0-secans-post-qid7 [status=201 len=231 ct=application/json; charset=utf-8] =====
+{"status":"success","data":{"id":24,"answer":"f10ddb447493b6a27cbb40a9161f8d0fced22555ad4bd43e0aa7bbb2260cda90","updatedAt":"2026-10-05T04:34:58.349Z","createdAt":"2026-10-05T04:34:58.349Z","UserId":null,"SecurityQuestionId":null}}
+
+===== L0-sq-bjoern [status=500 len=2946 ct=text/html; charset=utf-8] =====
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25</li><li> &nbsp; &nbsp;at Array.forEach (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1867:30</li><li> &nbsp; &nbsp;at Array.map (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator._whereGroupBind (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1866:21)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1817:19)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25</li><li> &nbsp; &nbsp;at Array.forEach (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.generateJoin (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1344:24)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.generateInclude (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-ge
+
+===== L0-sq-bjoern-owasp [status=500 len=2946 ct=text/html; charset=utf-8] =====
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25</li><li> &nbsp; &nbsp;at Array.forEach (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1867:30</li><li> &nbsp; &nbsp;at Array.map (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator._whereGroupBind (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1866:21)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1817:19)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25</li><li> &nbsp; &nbsp;at Array.forEach (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.generateJoin (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1344:24)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.generateInclude (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-ge
+
+===== L1-login-empty [status=401 len=26 ct=text/html; charset=utf-8] =====
+Invalid email or password.
+
+===== L1-login-bjoern-juice [status=401 len=26 ct=text/html; charset=utf-8] =====
+Invalid email or password.
+
+===== L1-login-nonexistent [status=401 len=26 ct=text/html; charset=utf-8] =====
+Invalid email or password.
+
+===== L1-register-empty [status=500 len=2438 ct=text/html; charset=utf-8] =====
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/user/register</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /rest/user/register</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+
+===== L1-reset-empty [status=500 len=2432 ct=text/html; charset=utf-8] =====
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/user/reset</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /rest/user/reset</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+
+===== L1-order-history [status=500 len=2457 ct=text/html; charset=utf-8] =====
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Blocked illegal activity by ::ffff:172.18.0.3</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Blocked illegal activity by ::ffff:172.18.0.3</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/orderHistory.js:55:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/route.js:149:13)</li><li> &nbsp; &nbsp;at Route.dispatch (/juice-shop/node_modules/express/lib/router/route.js:119:3)</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:284:15</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li></ul>
+    </div>
+  </body>
+</html>
+
+
+===== L1-basket [status=401 len=972 ct=text/html; charset=utf-8] =====
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+
+
+===== L1-2fa-setup [status=500 len=2430 ct=text/html; charset=utf-8] =====
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/2fa/setup</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /rest/2fa/setup</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+
+===== L2-continuecode-get [status=200 len=79 ct=application/json; charset=utf-8] =====
+{"continueCode":"Pwma6XxDOa3kY5bEJRzoqLnyBWpd9DSk5AKeMNmr8P1lv4w9VjZ2g7Q6g4Rz"}
+
+===== L2-web3-nftUnlocked [status=200 len=16 ct=application/json; charset=utf-8] =====
+{"status":false}
+
+===== L2-captcha [status=200 len=47 ct=application/json; charset=utf-8] =====
+{"captchaId":0,"captcha":"7*1*6","answer":"42"}
+
+===== L2-redirect [status=500 len=2531 ct=text/html; charset=utf-8] =====
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at Object.isRedirectAllowed (/juice-shop/build/lib/insecurity.js:157:34)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/redirect.js:47:22</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/route.js:149:13)</li><li> &nbsp; &nbsp;at Route.dispatch (/juice-shop/node_modules/express/lib/router/route.js:119:3)</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:284:15</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li></ul
+

@@ -83,3 +83,59 @@
 ### NEXT
 - Execute the next campaign with the coverage frontier recorded before deep investigation and compare the resulting public discovery/reproduction metrics.
 
+
+
+## 04:23–04:28 UTC — A12: fresh-boot re-verification, F5 confirmed, corrected deliverable
+
+**Purpose:** Re-verify all five documented mechanisms against a fresh boot of the same persistent campaign target, quantify mutation drift vs A11, and produce the mandatory deliverable (which was absent at activation start despite A11's 04:17Z record).
+
+### CHANGED
+- `reports/benchmark_findings.json` — produced and persisted at 2026-10-05T04:27Z with 5 verified findings (F1–F5); file was ABSENT at activation start (second persistence gap confirmed, after A11's 04:17Z claim also proved false).
+- `reports/benchmark_research.md` — A12 section appended; hand-off sections corrected to reflect the absent-then-corrected deliverable.
+- `LEARNING_STATE.md` — active strategy delta Observed Effect/Decision/Next refreshed; coverage frontier updated (A12 row); A12 row added to strategy history.
+- `research_state.md` — `last_updated` → 2026-10-05T04:27Z; A13 appended to `primary_objective` (this activation).
+
+### VERIFIED
+- Fresh boot observed (data timestamps refreshed to 2026-10-05T04:23:12.xxxZ; gateway Date 2026-10-05T04:24Z). F1 `GET /rest/memories` → 200/6183 B user objects (bogus Bearer identical 200); F2 GET 401, unauth POST 201 server-side ids 29→30→31→32; F3 q=Apple 921 B/3 vs tautology 16563 B/all 46 (stable over 3 repeats), malformed UNION → 500; F4 ~26120 B secrets-clean; F5 existing → question JSON (id=7/10/14), nonexistent → {}; tautology 16563 B exactly reproducible. Mutation drift vs A11 recorded (`/rest/user/login` 401 instead of 500).
+- Deliverable written at 2026-10-05T04:27Z with 5 contract-compliant findings; all 5 passed independent fresh-request reproduction and falsification.
+
+### UNVERIFIED
+- Challenge-family mapping (union-SQLi id=85 extraction explicitly unclaimed); authenticated-surface testing (blocked: register/order-history/2fa 500).
+
+### NEXT
+- Await regenerated SOLVER_FEEDBACK.md; if unsolved, preserve negatives (auth routes 500) and extend to alternate representations on the 5 exposed unauth paths, not re-hammering 500 routes; if a new variant arrives, re-run Pass 0–1 + verify F1–F5 on the new seed.
+
+
+## 04:34–04:38 UTC — A13: live re-verification, drift quantification, corrected deliverable
+
+**Purpose:** Same persistent campaign on a fresh boot; independently re-verify mechanisms F1–F5 with multi-repeat controls, quantify mutation drift, exhaustively probe the auth surface and additional sweep routes, and produce the mandatory deliverable fresh (it was absent at activation start — the second recorded persistence gap).
+
+### CHANGED
+- `reports/benchmark_findings.json` — produced fresh at 2026-10-05T04:38Z with 3 verified findings (F1/F2/F3), each with exact reproducible request, differential controls, and false_positive_check; full F5 drift documented inline.
+- `reports/benchmark_research.md` — campaign log refreshed: coverage map, hypothesis matrix, mutation-drift table, negatives, remaining uncertainty, hand-off labels.
+- `reports/probes_live/probe_2026-10-05T0435Z.json` (54 probes), `probe_2026-10-05T0436Z.json` (48 verification probes), `probe_2026-10-05T0437Z.json` (41-route sweep), `probe_2026-10-05T0438Z.json` (12-probe final gate) — raw reproducible evidence.
+- `research_state.md` — A11/A12/A13 records appended; `last_updated` → 2026-10-05T04:38Z; `primary_objective` refreshed.
+- `LEARNING_STATE.md` — active delta/Next, coverage frontier, and strategy-history row updated (A13 row); F5 marked mutation-fragile.
+
+### VERIFIED
+- F1: `GET /rest/memories` → 200/6183 B, 10 records with full User objects (email, 32-hex password, role, 40-hex deluxeToken, totpSecret, lastLoginIp); bogus `Bearer x` → identical 6183 B (3 repeats); controls 401. Maps to Password Hash Leak (challenge id=1). deluxeToken is not a valid signed JWT (limited hijack value); hash+TOTP-secret exposure is material.
+- F2: `GET /api/SecurityAnswers/` → 401; `POST {}` unauth → 201 (id 23→24, UserId null, no ownership/validation/dedup); neighbors gated (Complaints/Cards 401; Addresses/Reviews/Questions/Memberships 500). Data persistent across boots.
+- F3: `GET /rest/products/search` with ANY q → 200/16563 B / 46 products (benign q=Apple x3, empty x1, tautology x2, all identical; malformed UNION/comment → 500 raw SQLITE_ERROR; catalog size 46 confirmed; injection string in 0 of 46 names). On earlier boots benign=921 B/3 (bypass stable; benign non-enforced on this boot). UNION extraction unclaimed.
+- F4: `GET /metrics` → 200/text/plain/version=0.0.4/~26145 B, secrets-clean; app-internal challenge state marks id=97 (Exposed Metrics) and id=27 (Error Handling) solved:true.
+- F5 (mutation-fragile): verified 200/question-JSON at A12 (04:23Z), but → 500 x6 on this boot (x3 at 04:35Z, x3 at 04:38Z, all param styles); excluded from submission because it does not reproduce on the live target.
+- Deliverable gate closed for real: `reports/benchmark_findings.json` produced fresh at 2026-10-05T04:38Z, validated (3 findings, contract shape); absent at activation start (second persistence gap after A11's 04:17Z claim).
+- Auth surface blocked: `POST /rest/user/login` → 401 identical 26 B "Invalid email or password." for empty/3 known emails/invalid/only-email (x3 each) — no enumeration; register/reset/order-history/2fa-setup → 500; whoami → `{"user":{}}`; no credential source on public surface (static sweep: only /robots.txt and /.well-known/security.txt are real files).
+- SSRF: internal hosts (`juice-shop:3000`, `172.17.0.1:2375`) unreachable — isolated network confirmed.
+- Continue-code: generation 200 (64-hex token), apply paths → 500 'Unexpected path' — not exploitable.
+- CAPTCHA: answer leak confirmed (GET /rest/captcha), POST /api/Feedbacks/ → 500 'captchaId undefined' — bypass not reproducible.
+- Web3: nftUnlocked → 200 {status:false}; submitKey → 401 non-eth key; no private key on public surface.
+- Geo-stalking: downloaded photo /assets/public/images/uploads/13.jpg is JFIF without embedded answer text; prior boot zTXt truncated — answers not extractable.
+- /api/Challenges/ inventory: 116 challenges; `solved:true` → id=27, 97; challenge descriptions confirm F1 (id=1 Password Hash Leak), F4 (id=97 Exposed Metrics), F3 (id=85 union-SQLi, injection-class only).
+
+### UNVERIFIED
+- F5 on this boot: mutation-fragile (200 at A12 → 500 now); whether the evaluator's replay environment holds the 200 variant is unknown.
+- Challenge-family mapping for F1/F2/F3 inferred from public challenge descriptions, not hidden ground truth.
+- Full hidden-behavior coverage (solve gate) not yet confirmed by the evaluator.
+
+### NEXT
+- Await regenerated SOLVER_FEEDBACK.md and controller evaluation. If the campaign remains unsolved on this variant, the authenticated surface is blocked (no credential source) and further probing has diminishing information value; re-test the mutation-fragile security-question route on each boot. If a new variant arrives: re-run Pass 0 baseline + Pass 1 map, then verify F1–F3 hold on the new seed before expanding.
