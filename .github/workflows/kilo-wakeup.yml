@@ -397,36 +397,9 @@ jobs:
 
               python3 /tmp/report_worker_outcome.py --self-test
 
-              regression_dir=/tmp/worker-outcome-regression
-              rm -rf "$regression_dir"
-              mkdir -p "$regression_dir"
-              printf "{}\n" > "$regression_dir/benchmark_findings.json"
-              printf "# regression\n" > "$regression_dir/benchmark_research.md"
-              python3 /tmp/report_worker_outcome.py \
-                --preflight success \
-                --smoke success \
-                --worker failure \
-                --evaluate success \
-                --portfolio success \
-                --research-validation success \
-                --findings-path "$regression_dir/benchmark_findings.json" \
-                --research-report-path "$regression_dir/benchmark_research.md" \
-                | tee "$regression_dir/positive.out"
-              grep -q 'WORKER_OUTCOME=COMPLETED_WITH_WORKER_CLI_ERROR' "$regression_dir/positive.out"
-
-              set +e
-              python3 /tmp/report_worker_outcome.py \
-                --preflight success \
-                --smoke success \
-                --worker failure \
-                --evaluate success \
-                --portfolio success \
-                --research-validation success \
-                --findings-path "$regression_dir/missing.json" \
-                --research-report-path "$regression_dir/benchmark_research.md"
-              missing_report_rc=$?
-              set -e
-              test "$missing_report_rc" -ne 0
+              # The reporter owns its complete contract regression suite. Keep one source of truth here
+              # so workflow expectations cannot drift from the classifier semantics.
+              python3 /tmp/report_worker_outcome.py --self-test
 
               test "$(id -u)" = "$(stat -c "%u" /workspace)"
               if find /workspace -xdev -uid 0 -print -quit | grep -q .; then
