@@ -22,6 +22,7 @@ The autonomous worker must not modify or persist changes to:
 - AUTHORIZED_TARGET.md
 - HARDCORE_BENCHMARK.md
 - lab/generate_benchmark.py
+- lab/generate_solver_feedback.py
 - lab/mutator.py
 - lab/evaluate_benchmark.py
 - lab/test_benchmark.py
@@ -29,7 +30,9 @@ The autonomous worker must not modify or persist changes to:
 - lab/kilo_gateway_proxy.py
 - lab/README.md
 
-The trusted workflow restores these paths before persistence. The benchmark history file and evaluator-generated aggregate reports are durable evidence and may persist.
+ `SOLVER_FEEDBACK.md` is a trusted workflow-generated aggregate learning packet. The worker may read it but must not modify it; after a successful independent evaluation the trusted workflow may regenerate and persist it. If feedback generation fails, the previous trusted version must be restored before persistence.
+
+The trusted workflow restores protected control-plane paths before persistence. The benchmark history file and evaluator-generated aggregate reports are durable evidence and may persist.
 
 ## Never persist
 
