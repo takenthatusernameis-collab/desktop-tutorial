@@ -395,10 +395,8 @@ jobs:
                 exit 1
               fi
 
-              python3 /tmp/report_worker_outcome.py --self-test
-
-              # The reporter owns its complete contract regression suite. Keep one source of truth here
-              # so workflow expectations cannot drift from the classifier semantics.
+              # The reporter owns the complete worker-outcome contract regression suite.
+              # Keep one source of truth here so workflow expectations cannot drift.
               python3 /tmp/report_worker_outcome.py --self-test
 
               test "$(id -u)" = "$(stat -c "%u" /workspace)"
