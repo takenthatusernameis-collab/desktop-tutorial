@@ -43,15 +43,7 @@ def report(
     # activation failure. Dependent post-worker validation/evaluation stages
     # are intentionally skipped; durable state remains truthfully PARTIAL.
     if worker != "success":
-        if not findings_present or not research_report_present:
-            return 0, "PARTIAL"
-        if research_validation not in {"success", "skipped"}:
-            return 1, "FAILED_RESEARCH_VALIDATION"
-        if research_handoff not in {"success", "skipped"}:
-            return 1, "FAILED_RESEARCH_HANDOFF"
-        if evaluate not in {"success", "skipped"}:
-            return 1, "FAILED_INDEPENDENT_EVALUATION"
-        return 0, "COMPLETED_WITH_WORKER_CLI_ERROR"
+        return 0, "PARTIAL"
 
     if research_validation != "success":
         return 1, "FAILED_RESEARCH_VALIDATION"
@@ -99,7 +91,7 @@ def self_test() -> int:
             findings_path=findings,
             research_report_path=research,
         )
-        assert (rc, outcome) == (0, "COMPLETED_WITH_WORKER_CLI_ERROR")
+        assert (rc, outcome) == (0, "PARTIAL")
 
         rc, outcome = report(
             preflight="success",
@@ -184,10 +176,10 @@ def main() -> int:
         research_handoff=args.research_handoff,
     )
     print(f"WORKER_OUTCOME={outcome}")
-    if outcome == "COMPLETED_WITH_WORKER_CLI_ERROR":
+    if outcome == "PARTIAL":
         print(
-            "Worker CLI ended non-zero, but the research reports and independent "
-            "evaluation are valid; recording the activation as completed-with-worker-cli-error."
+            "Worker activation did not complete; preserving truthful partial state "
+            "without converting the continuation point into a workflow failure."
         )
     return rc
 
