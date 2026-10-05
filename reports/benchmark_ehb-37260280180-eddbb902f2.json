@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=27 errorHandlingChallenge \u2014 unauthenticated raw error exposure that is neither graceful nor consistent",
+      "title": "[id=27] Error Handling \u2014 inconsistent unauthenticated 500 responses leaking full server-side stack traces with internal source paths",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=97 exposedMetricsChallenge \u2014 unauthenticated Prometheus-format telemetry endpoint (exposed usage/observability data)",
+      "title": "[id=97] Exposed Metrics \u2014 unauthenticated Prometheus-format telemetry endpoint exposing application and AI/LLM usage metrics",
       "valid_reproduction": false
     }
   ],
