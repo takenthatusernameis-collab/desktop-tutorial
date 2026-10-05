@@ -110,6 +110,8 @@ Treat controller-owned execution artifacts as read-only evidence.
 7. Evolutionary-family lifecycle:
 - families are persistent search mechanisms attached to surfaces;
 - preserve family IDs, lineage, prior generations, results, and reasonable-effort evidence;
+- when the controller selects parents, persist the actual selected request objects plus their candidate IDs and mutation provenance; candidate IDs alone are audit references, not executable parents;
+- the next generation must derive its executable seeds from the controller-selected retained parents before falling back to original seed requests;
 - a family may be redesigned or superseded, but the old family remains represented in the program/history;
 - propose new families whenever the current operator set leaves a materially different unexplored search mechanism;
 - distinguish exploration from exploitation and reserve breadth so one promising branch cannot starve the portfolio.
