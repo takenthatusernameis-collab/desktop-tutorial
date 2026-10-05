@@ -528,6 +528,29 @@ def test_validate_state_repairs_ahead_generation_cursor(tmp: Path):
     assert persisted["evolution_families"][0]["generation"] == 4
 
 
+def test_wakeup_report_debug_does_not_use_sigpipe_head_pipeline():
+    workflow = Path(__file__).resolve().parents[1] / ".github" / "workflows" / "kilo-wakeup.yml"
+    text = workflow.read_text(encoding="utf-8")
+    assert "sort | head" not in text
+    assert "truncated" in text
+    assert "set -euo pipefail" in text
+
+
+def test_capped_research_inventory_listing_does_not_fail_on_large_trees(tmp: Path):
+    root = tmp / "state" / "research" / "GENERATIONS"
+    root.mkdir(parents=True)
+    for i in range(250):
+        (root / f"gen-{i:04d}-fam.json").write_text("{}", encoding="utf-8")
+    files = sorted(
+        path for path in (tmp / "state" / "research").rglob("*")
+        if path.is_file() and len(path.relative_to(tmp / "state" / "research").parts) <= 2
+    )
+    listing = [f"{path} | bytes={path.stat().st_size}" for path in files[:200]]
+    extra = len(files) - 200
+    assert len(listing) == 200
+    assert extra == 50
+
+
 def test_validate_state_rejects_generation_divergence(tmp: Path):
     program = sample_program("continuity")
     rp.write_json(tmp / rp.PROGRAM, program)
@@ -614,6 +637,9 @@ def main():
         test_method_variant_is_seed_safe()
         test_materialize_string_effort_evidence(root / "i")
         test_validate_state_rejects_generation_divergence(root / "j")
+        test_validate_state_repairs_ahead_generation_cursor(root / "repair")
+        test_wakeup_report_debug_does_not_use_sigpipe_head_pipeline()
+        test_capped_research_inventory_listing_does_not_fail_on_large_trees(root / "inventory")
         test_multi_round_pre_kilo_advances_runtime_per_generation(root / "k")
         test_post_kilo_execution_regression(root / "post-kilo")
     print("research program tests: PASS")

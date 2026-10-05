@@ -989,11 +989,22 @@ jobs:
           echo "::endgroup::"
 
           echo "::group::REPORT OUTCOME DEBUG — research-state inventory"
-          if [ -d state/research ]; then
-            find state/research -maxdepth 2 -type f -printf '%p | bytes=%s\n' | sort | head -200
-          else
-            echo "MISSING | state/research"
-          fi
+          python3 - <<'PY'
+          from pathlib import Path
+          root = Path("state/research")
+          if not root.is_dir():
+              print("MISSING | state/research")
+          else:
+              files = sorted(
+                  path for path in root.rglob("*")
+                  if path.is_file() and len(path.relative_to(root).parts) <= 2
+              )
+              for path in files[:200]:
+                  print(f"{path} | bytes={path.stat().st_size}")
+              extra = len(files) - 200
+              if extra > 0:
+                  print(f"... truncated {extra} more files")
+          PY
           echo "::endgroup::"
 
           echo "::group::REPORT OUTCOME DEBUG — Git persistence state"
