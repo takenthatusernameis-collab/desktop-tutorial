@@ -207,6 +207,31 @@ def audit_workspace() -> list[str]:
     rc, diff = sh("git", "diff", "--cached", "--binary")
     if rc == 0 and SECRET_TEXT_RE.search(diff):
         issues.append("staged diff contains credential-like secret material")
+
+    rc, staged_names = sh("git", "diff", "--cached", "--name-only")
+    if rc == 0:
+        generated = [
+            p for p in staged_names.splitlines()
+            if re.search(r"(^|/)__pycache__/|\\.(?:pyc|pyo|py\\.c)$", p)
+        ]
+        if generated:
+            issues.append(
+                "generated Python bytecode staged: " + ", ".join(generated[:20])
+            )
+
+    # Persistence can commit a forbidden generated artifact before this
+    # checkpoint runs, so inspect the resulting HEAD as well.
+    rc, head_names = sh("git", "show", "--format=", "--name-only", "HEAD")
+    if rc == 0:
+        generated = [
+            p for p in head_names.splitlines()
+            if re.search(r"(^|/)__pycache__/|\\.(?:pyc|pyo|py\\.c)$", p)
+        ]
+        if generated:
+            issues.append(
+                "latest commit contains generated Python bytecode: "
+                + ", ".join(generated[:20])
+            )
     return issues
 
 
