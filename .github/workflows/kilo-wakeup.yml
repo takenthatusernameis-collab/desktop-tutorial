@@ -530,6 +530,36 @@ jobs:
             --exclude="HARDCORE_BENCHMARK.md" \
             "$EHB_WORKER_DIR/" "$GITHUB_WORKSPACE/"
 
+      - name: Verify durable research-program handoff
+        id: research_handoff
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" != "resumed" ]; then
+            echo "RESEARCH_HANDOFF=NOT_APPLICABLE"
+            exit 0
+          fi
+
+          test -s state/research/PROGRAM.json
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("state/research/PROGRAM.json")
+          program = json.loads(path.read_text(encoding="utf-8"))
+          assert program.get("program_version") == "1.0.0"
+          assert program.get("benchmark_id") == os.environ["BENCHMARK_ID"]
+          assert isinstance(program.get("evolution_families"), list)
+          assert program["evolution_families"], "persisted program has no evolutionary families"
+          for family in program["evolution_families"]:
+              assert int(family.get("generation", 0)) >= 1
+              assert isinstance(family.get("seed_requests"), list)
+              assert isinstance(family.get("best_candidates", []), list)
+          PY
+
+          echo "RESEARCH_HANDOFF=READY"
+
       - name: Validate Kilo research program and controller-owned evidence
         id: research_validate
         if: always() && steps.research_portfolio.outcome == 'success'
@@ -598,7 +628,35 @@ jobs:
             git restore --worktree --staged -- SOLVER_FEEDBACK.md 2>/dev/null || true
           fi
 
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
+            test -s state/research/PROGRAM.json
+          fi
+
           git add -A
+
+          # Research continuity is authoritative state. Force-add the explicit
+          # controller and strategy artifacts even if a runner-level ignore rule
+          # hides newly generated files.
+          for research_path in \
+            state/research/PROGRAM.json \
+            state/research/RUNTIME.json \
+            state/research/SURFACES.json \
+            state/research/EVOLUTION_FAMILIES.json \
+            state/research/EXECUTION_RECEIPTS.jsonl \
+            state/research/PORTFOLIO_CHECKLIST.md \
+            state/research/PORTFOLIO_SUMMARY.json \
+            state/research/COMPILED_PORTFOLIO.json \
+            state/research/GENERATIONS \
+            state/research/RESULTS \
+            state/research/REVIEWS; do
+            if [ -e "$research_path" ]; then
+              git add -f -- "$research_path"
+            fi
+          done
+
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
+            git diff --cached --name-only | grep -Fxq "state/research/PROGRAM.json"
+          fi
 
           git reset -- \
             ":(glob)**/__pycache__/**" \
@@ -638,9 +696,19 @@ jobs:
           git config user.email "security-research-enterprise@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
           git commit -m "Persist security research activation"
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
+            test -n "$(git ls-tree -r --name-only HEAD -- state/research/PROGRAM.json)"
+          fi
+
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"
+
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
+            git fetch origin "$GITHUB_REF_NAME"
+            test -n "$(git ls-tree -r --name-only "origin/$GITHUB_REF_NAME" -- state/research/PROGRAM.json)"
+            echo "Durable research program is present on origin/$GITHUB_REF_NAME."
+          fi
 
           echo "Worker activation outcome: $KILO_OUTCOME"
 
