@@ -1,0 +1,97 @@
+{
+  "behavioral_differences": 5,
+  "candidate_count": 12,
+  "family_id": "fam_41_continue_code_apply_enum",
+  "generation": 2,
+  "generation_id": "gen-0002-fam_41_continue_code_apply_enum",
+  "information_gain": 0.4583,
+  "observed_at": "2026-10-05T14:15:05Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-ccbd9bb80448e594af46",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-10841ecc12990cc86739",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/continue-code/.",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-378abc8a685936c98cd5",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-c4019da3c22bb90e36a1",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/./.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "8cefc8d6435aa960125f47461a5cedfa1a02286d78bfa857f5219c33e1a4e931",
+        "text/html; charset=utf-8",
+        2470,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-ebf27376073088dd79a9",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-c4019da3c22bb90e36a1",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/./",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "906f504726b0c2ff93e001f7104179c62463daeaeb9f9c64aad02dbcab23efc8",
+        "text/html; charset=utf-8",
+        2468,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-085213a6b4b4600a59cd",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-c4019da3c22bb90e36a1",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/continue-code/apply/token/.",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 5,
+  "surface_id": "surf_41_continue_code"
+}

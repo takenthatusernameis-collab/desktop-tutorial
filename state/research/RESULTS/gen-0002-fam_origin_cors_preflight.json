@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 0,
+  "candidate_count": 12,
+  "family_id": "fam_origin_cors_preflight",
+  "generation": 2,
+  "generation_id": "gen-0002-fam_origin_cors_preflight",
+  "information_gain": 0.0833,
+  "observed_at": "2026-10-05T14:15:06Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_origin_header_variants"
+}

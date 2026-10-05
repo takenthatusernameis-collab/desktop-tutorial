@@ -1,0 +1,571 @@
+=== 27_primary ===
+status=500 size= ct=text/html; charset=utf-8 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b md5=2aa969a19d722117bd9b4ce8f4b6ed8e
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25</li><li> &nbsp; &nbsp;at Array.forEach (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1867:30</li><li> &nbsp; &nbsp;at Array.map (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator._whereGroupBind (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1866:21)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1817:19)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25</li><li> &nbsp; &nbsp;at Array.forEach (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.generateJoin (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1344:24)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.generateInclude (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1218:24)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.selectQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:915:34)</li><li> &nbsp; &nbsp;at SQLiteQueryInterface.select (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-interface.js:407:59)</li><li> &nbsp; &nbsp;at SecurityAnswer.findAll (/juice-shop/node_modules/sequelize/lib/model.js:1140:47)</li></ul>
+    </div>
+  </body>
+</html>
+
+
+=== 27_accept_json ===
+status=500 size= ct=application/json; charset=utf-8 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e md5=114b575d71383ad4cd10fc57b6abce7d
+{
+  "error": {
+    "message": "WHERE parameter \"email\" has invalid \"undefined\" value",
+    "stack": "Error: WHERE parameter \"email\" has invalid \"undefined\" value\n    at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13)\n    at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25\n    at Array.forEach (<anonymous>)\n    at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)\n    at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1867:30\n    at Array.map (<anonymous>)\n    at SQLiteQueryGenerator._whereGroupBind (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1866:21)\n    at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1817:19)\n    at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25\n    at Array.forEach (<anonymous>)\n    at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)\n    at SQLiteQueryGenerator.generateJoin (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1344:24)\n    at SQLiteQueryGenerator.generateInclude (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1218:24)\n    at SQLiteQueryGenerator.selectQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:915:34)\n    at SQLiteQueryInterface.select (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-interface.js:407:59)\n    at SecurityAnswer.findAll (/juice-shop/node_modules/sequelize/lib/model.js:1140:47)"
+  }
+}
+
+=== 27_redirect ===
+status=500 size= ct=text/html; charset=utf-8 sha256=020023ff4f9ae2b934531ecd4f7f04d012a055a23b67e99de52dbc3f7ec4ec48 md5=39ea1953ca299a8bebf46f05ffceeba0
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at Object.isRedirectAllowed (/juice-shop/build/lib/insecurity.js:157:34)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/redirect.js:47:22</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/route.js:149:13)</li><li> &nbsp; &nbsp;at Route.dispatch (/juice-shop/node_modules/express/lib/router/route.js:119:3)</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:284:15</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li></ul>
+    </div>
+  </body>
+</html>
+
+
+=== 27_control ===
+status=500 size= ct=text/html; charset=utf-8 sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718 md5=f8768839b2b03880ddf0e91afcbd69da
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Nonexistent/1</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /api/Nonexistent/1</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+
+=== 97_metrics ===
+status=200 size= ct=text/plain; version=0.0.4; charset=utf-8 sha256=14bdc394e96c06b0bd1a662ae879f0cfc5142d04bb6c065e1afe52d3abbae7bc md5=a4e2999ddba476566a58e882ac46652e
+# HELP juiceshop_llm_input_tokens_total Number of total input tokens processed
+# TYPE juiceshop_llm_input_tokens_total counter
+juiceshop_llm_input_tokens_total{app="juiceshop"} 0
+
+# HELP juiceshop_llm_input_tokens Number of input tokens processed
+# TYPE juiceshop_llm_input_tokens counter
+
+# HELP juiceshop_llm_output_tokens_total Number of total output tokens processed
+# TYPE juiceshop_llm_output_tokens_total counter
+juiceshop_llm_output_tokens_total{app="juiceshop"} 0
+
+# HELP juiceshop_llm_output_tokens Number of output tokens processed
+# TYPE juiceshop_llm_output_tokens counter
+
+# HELP juiceshop_llm_tool_calls_total Number of tool calls made
+# TYPE juiceshop_llm_tool_calls_total counter
+
+# HELP file_uploads_count Total number of successful file uploads grouped by file type.
+# TYPE file_uploads_count counter
+
+# HELP file_upload_errors Total number of failed file uploads grouped by file type.
+# TYPE file_upload_errors counter
+
+# HELP http_requests_count Total HTTP request count grouped by status code.
+# TYPE http_requests_count counter
+http_requests_count{status_code="2XX",app="juiceshop"} 43
+http_requests_count{status_code="5XX",app="juiceshop"} 190
+http_requests_count{status_code="4XX",app="juiceshop"} 4
+http_requests_count{status_code="3XX",app="juiceshop"} 1
+
+# HELP juiceshop_startup_duration_seconds Duration juiceshop required to perform a certain task during startup
+# TYPE juiceshop_startup_duration_seconds gauge
+juiceshop_startup_duration_seconds{task="validateConfig",app="juiceshop"} 0.022875481
+juiceshop_startup_duration_seconds{task="cleanupFtpFolder",app="juiceshop"} 0.118986299
+juiceshop_startup_duration_seconds{task="validatePreconditions",app="juiceshop"} 0.139965327
+juiceshop_startup_duration_seconds{task="datacreator",app="juiceshop"} 1.294431342
+juiceshop_startup_duration_seconds{task="customizeApplication",app="juiceshop"} 0.006975404
+juiceshop_startup_duration_seconds{task="customizeEasterEgg",app="juiceshop"} 0.00314253
+juiceshop_startup_duration_seconds{task="ready",app="juiceshop"} 1.345
+
+# HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.
+# TYPE process_cpu_user_seconds_total counter
+process_cpu_user_seconds_total{app="juiceshop"} 5.411003000000001
+
+# HELP process_cpu_system_seconds_total Total system CPU time spent in seconds.
+# TYPE process_cpu_system_seconds_total counter
+process_cpu_system_seconds_total{app="juiceshop"} 1.096102
+
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total{app="juiceshop"} 6.507105
+
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds{app="juiceshop"} 1791209699
+
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes{app="juiceshop"} 172810240
+
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes{app="juiceshop"} 1882783744
+
+# HELP process_heap_bytes Process heap size in bytes.
+# TYPE process_heap_bytes gauge
+process_heap_bytes{app="juiceshop"} 780541952
+
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds{app="juiceshop"} 23
+
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds{app="juiceshop"} 65536
+
+# HELP nodejs_eventloop_lag_seconds Lag of event loop in seconds.
+# TYPE nodejs_eventloop_lag_seconds gauge
+nodejs_eventloop_lag_seconds{app="juiceshop"} 0.001563582
+
+# HELP nodejs_eventloop_lag_min_seconds The minimum recorded event loop delay.
+# TYPE nodejs_eventloop_lag_min_seconds gauge
+nodejs_eventloop_lag_min_seconds{app="juiceshop"} 0.007753728
+
+# HELP nodejs_eventloop_lag_max_seconds The maximum recorded event loop delay.
+# TYPE nodejs_eventloop_lag_max_seconds gauge
+nodejs_eventloop_lag_max_seconds{app="juiceshop"} 0.017432575
+
+# HELP nodejs_eventloop_lag_mean_seconds The mean of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_mean_seconds gauge
+nodejs_eventloop_lag_mean_seconds{app="juiceshop"} 0.01014562445940594
+
+# HELP nodejs_eventloop_lag_stddev_seconds The standard deviation of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_stddev_seconds gauge
+nodejs_eventloop_lag_stddev_seconds{app="juiceshop"} 0.00026489460685917343
+
+# HELP nodejs_eventloop_lag_p50_seconds The 50th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p50_seconds gauge
+nodejs_eventloop_lag_p50_seconds{app="juiceshop"} 0.010084351
+
+# HELP nodejs_eventloop_lag_p90_seconds The 90th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p90_seconds gauge
+nodejs_eventloop_lag_p90_seconds{app="juiceshop"} 0.010141695
+
+# HELP nodejs_eventloop_lag_p99_seconds The 99th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p99_seconds gauge
+nodejs_eventloop_lag_p99_seconds{app="juiceshop"} 0.011165695
+
+# HELP nodejs_active_resources Number of active resources that are currently keeping the event loop alive, grouped by async resource type.
+# TYPE nodejs_active_resources gauge
+nodejs_active_resources{type="PipeWrap",app="juiceshop"} 2
+nodejs_active_resources{type="FSEventWrap",app="juiceshop"} 1
+nodejs_active_resources{type="TCPServerWrap",app="juiceshop"} 1
+nodejs_active_resources{type="TCPSocketWrap",app="juiceshop"} 1
+nodejs_active_resources{type="Timeout",app="juiceshop"} 1
+nodejs_active_resources{type="Immediate",app="juiceshop"} 1
+
+# HELP nodejs_active_resources_total Total number of active resources.
+# TYPE nodejs_active_resources_total gauge
+nodejs_active_resources_total{app="juiceshop"} 7
+
+# HELP nodejs_active_handles Number of active libuv handles grouped by handle type. Every handle type is C++ class name.
+# TYPE nodejs_active_handles gauge
+nodejs_active_handles{type="Socket",app="juiceshop"} 3
+nodejs_active_handles{type="FSWatcher",app="juiceshop"} 1
+nodejs_active_handles{type="Server",app="juiceshop"} 1
+
+# HELP nodejs_active_handles_total Total number of active handles.
+# TYPE nodejs_active_handles_total gauge
+nodejs_active_handles_total{app="juiceshop"} 5
+
+# HELP nodejs_active_requests Number of active libuv requests grouped by request type. Every request type is C++ class name.
+# TYPE nodejs_active_requests gauge
+
+# HELP nodejs_active_requests_total Total number of active requests.
+# TYPE nodejs_active_requests_total gauge
+nodejs_active_requests_total{app="juiceshop"} 0
+
+# HELP nodejs_heap_size_total_bytes Process heap size from Node.js in bytes.
+# TYPE nodejs_heap_size_total_bytes gauge
+nodejs_heap_size_total_bytes{app="juiceshop"} 68472832
+
+# HELP nodejs_heap_size_used_bytes Process heap size used from Node.js in bytes.
+# TYPE nodejs_heap_size_used_bytes gauge
+nodejs_heap_size_used_bytes{app="juiceshop"} 58358792
+
+# HELP nodejs_external_memory_bytes Node.js external memory size in bytes.
+# TYPE nodejs_external_memory_bytes gauge
+nodejs_external_memory_bytes{app="juiceshop"} 4133683
+
+# HELP nodejs_heap_space_size_total_bytes Process heap space size total from Node.js in bytes.
+# TYPE nodejs_heap_space_size_total_bytes gauge
+nodejs_heap_space_size_total_bytes{space="read_only",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="new",app="juiceshop"} 8388608
+nodejs_heap_space_size_total_bytes{space="old",app="juiceshop"} 45756416
+nodejs_heap_space_size_total_bytes{space="code",app="juiceshop"} 4456448
+nodejs_heap_space_size_total_bytes{space="shared",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="trusted",app="juiceshop"} 5877760
+nodejs_heap_space_size_total_bytes{space="shared_trusted",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="new_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="large_object",app="juiceshop"} 3829760
+nodejs_heap_space_size_total_bytes{space="code_large_object",app="juiceshop"} 163840
+nodejs_heap_space_size_total_bytes{space="shared_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="shared_trusted_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_total_bytes{space="trusted_large_object",app="juiceshop"} 0
+
+# HELP nodejs_heap_space_size_used_bytes Process heap space size used from Node.js in bytes.
+# TYPE nodejs_heap_space_size_used_bytes gauge
+nodejs_heap_space_size_used_bytes{space="read_only",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="new",app="juiceshop"} 780512
+nodejs_heap_space_size_used_bytes{space="old",app="juiceshop"} 44864264
+nodejs_heap_space_size_used_bytes{space="code",app="juiceshop"} 3942016
+nodejs_heap_space_size_used_bytes{space="shared",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="trusted",app="juiceshop"} 4809792
+nodejs_heap_space_size_used_bytes{space="shared_trusted",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="new_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="large_object",app="juiceshop"} 3802496
+nodejs_heap_space_size_used_bytes{space="code_large_object",app="juiceshop"} 163584
+nodejs_heap_space_size_used_bytes{space="shared_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="shared_trusted_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_used_bytes{space="trusted_large_object",app="juiceshop"} 0
+
+# HELP nodejs_heap_space_size_available_bytes Process heap space size available from Node.js in bytes.
+# TYPE nodejs_heap_space_size_available_bytes gauge
+nodejs_heap_space_size_available_bytes{space="read_only",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="new",app="juiceshop"} 3413536
+nodejs_heap_space_size_available_bytes{space="old",app="juiceshop"} 699304
+nodejs_heap_space_size_available_bytes{space="code",app="juiceshop"} 513888
+nodejs_heap_space_size_available_bytes{space="shared",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="trusted",app="juiceshop"} 1057456
+nodejs_heap_space_size_available_bytes{space="shared_trusted",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="new_large_object",app="juiceshop"} 4194304
+nodejs_heap_space_size_available_bytes{space="large_object",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="code_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="shared_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="shared_trusted_large_object",app="juiceshop"} 0
+nodejs_heap_space_size_available_bytes{space="trusted_large_object",app="juiceshop"} 0
+
+# HELP nodejs_version_info Node.js version info.
+# TYPE nodejs_version_info gauge
+nodejs_version_info{version="v24.19.0",major="24",minor="19",patch="0",app="juiceshop"} 1
+
+# HELP nodejs_gc_duration_seconds Garbage collection duration by kind, one of major, minor, incremental or weakcb.
+# TYPE nodejs_gc_duration_seconds histogram
+nodejs_gc_duration_seconds_bucket{le="0.001",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="0.01",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="0.1",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="1",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="2",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="5",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="+Inf",app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_sum{app="juiceshop",kind="incremental"} 0.002916493999975501
+nodejs_gc_duration_seconds_count{app="juiceshop",kind="incremental"} 5
+nodejs_gc_duration_seconds_bucket{le="0.001",app="juiceshop",kind="major"} 0
+nodejs_gc_duration_seconds_bucket{le="0.01",app="juiceshop",kind="major"} 2
+nodejs_gc_duration_seconds_bucket{le="0.1",app="juiceshop",kind="major"} 5
+nodejs_gc_duration_seconds_bucket{le="1",app="juiceshop",kind="major"} 5
+nodejs_gc_duration_seconds_bucket{le="2",app="juiceshop",kind="major"} 5
+nodejs_gc_duration_seconds_bucket{le="5",app="juiceshop",kind="major"} 5
+nodejs_gc_duration_seconds_bucket{le="+Inf",app="juiceshop",kind="major"} 5
+nodejs_gc_duration_seconds_sum{app="juiceshop",kind="major"} 0.06016112200001954
+nodejs_gc_duration_seconds_count{app="juiceshop",kind="major"} 5
+nodejs_gc_duration_seconds_bucket{le="0.001",app="juiceshop",kind="minor"} 71
+nodejs_gc_duration_seconds_bucket{le="0.01",app="juiceshop",kind="minor"} 93
+nodejs_gc_duration_seconds_bucket{le="0.1",app="juiceshop",kind="minor"} 93
+nodejs_gc_duration_seconds_bucket{le="1",app="juiceshop",kind="minor"} 93
+nodejs_gc_duration_seconds_bucket{le="2",app="juiceshop",kind="minor"} 93
+nodejs_gc_duration_seconds_bucket{le="5",app="juiceshop",kind="minor"} 93
+nodejs_gc_duration_seconds_bucket{le="+Inf",app="juiceshop",kind="minor"} 93
+nodejs_gc_duration_seconds_sum{app="juiceshop",kind="minor"} 0.1368239730004133
+nodejs_gc_duration_seconds_count{app="juiceshop",kind="minor"} 93
+
+# HELP juiceshop_version_info Release version of OWASP Juice Shop.
+# TYPE juiceshop_version_info gauge
+juiceshop_version_info{version="20.2.0",major="20",minor="2",patch="0",app="juiceshop"} 1
+
+# HELP juiceshop_challenges_solved Number of solved challenges grouped by difficulty and category.
+# TYPE juiceshop_challenges_solved gauge
+juiceshop_challenges_solved{difficulty="2",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Observability Failures",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Improper Input Validation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Vulnerable Components",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Broken Authentication",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Security through Obscurity",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Miscellaneous",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Insecure Deserialization",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Broken Anti Automation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Broken Authentication",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Security Misconfiguration",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Improper Input Validation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Security Misconfiguration",app="juiceshop"} 1
+juiceshop_challenges_solved{difficulty="4",category="Improper Input Validation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Broken Anti Automation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Cryptographic Issues",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Vulnerable Components",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Observability Failures",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Vulnerable Components",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Sensitive Data Exposure",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Broken Authentication",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Security Misconfiguration",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Broken Anti Automation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Cryptographic Issues",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Unvalidated Redirects",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Broken Authentication",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Miscellaneous",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Security through Obscurity",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Improper Input Validation",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Broken Access Control",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Injection",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Miscellaneous",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Security through Obscurity",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="Insecure Deserialization",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="6",category="XSS",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="2",category="Cryptographic Issues",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="4",category="Unvalidated Redirects",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="XXE",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="XXE",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="5",category="Security Misconfiguration",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="1",category="Observability Failures",app="juiceshop"} 1
+juiceshop_challenges_solved{difficulty="3",category="Miscellaneous",app="juiceshop"} 0
+juiceshop_challenges_solved{difficulty="3",category="Vulnerable Components",app="juiceshop"} 0
+
+# HELP juiceshop_challenges_total Total number of challenges grouped by difficulty and category.
+# TYPE juiceshop_challenges_total gauge
+juiceshop_challenges_total{difficulty="2",category="Sensitive Data Exposure",app="juiceshop"} 6
+juiceshop_challenges_total{difficulty="3",category="XSS",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="4",category="Observability Failures",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Improper Input Validation",app="juiceshop"} 6
+juiceshop_challenges_total{difficulty="2",category="Broken Access Control",app="juiceshop"} 4
+juiceshop_challenges_total{difficulty="6",category="Vulnerable Components",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Broken Authentication",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="5",category="Security through Obscurity",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="Miscellaneous",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Broken Access Control",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Insecure Deserialization",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Broken Anti Automation",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Broken Authentication",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="4",category="Injection",app="juiceshop"} 5
+juiceshop_challenges_total{difficulty="4",category="XSS",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="1",category="Sensitive Data Exposure",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="XSS",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Injection",app="juiceshop"} 5
+juiceshop_challenges_total{difficulty="2",category="Security Misconfiguration",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="4",category="Broken Access Control",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Sensitive Data Exposure",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="2",category="Improper Input Validation",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Security Misconfiguration",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Improper Input Validation",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="5",category="Broken Anti Automation",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="6",category="Cryptographic Issues",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="3",category="Broken Access Control",app="juiceshop"} 5
+juiceshop_challenges_total{difficulty="4",category="Sensitive Data Exposure",app="juiceshop"} 6
+juiceshop_challenges_total{difficulty="5",category="Vulnerable Components",app="juiceshop"} 4
+juiceshop_challenges_total{difficulty="5",category="Observability Failures",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Vulnerable Components",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="2",category="Injection",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="3",category="Sensitive Data Exposure",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Broken Authentication",app="juiceshop"} 2
+juiceshop_challenges_total{difficulty="6",category="Security Misconfiguration",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="Broken Anti Automation",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Cryptographic Issues",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Injection",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Unvalidated Redirects",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="2",category="Broken Authentication",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Miscellaneous",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="3",category="Security through Obscurity",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="2",category="XSS",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Improper Input Validation",app="juiceshop"} 3
+juiceshop_challenges_total{difficulty="6",category="Broken Access Control",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="Injection",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="2",category="Miscellaneous",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Security through Obscurity",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="Insecure Deserialization",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="6",category="XSS",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="2",category="Cryptographic Issues",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="4",category="Unvalidated Redirects",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="3",category="XXE",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="XXE",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="5",category="Security Misconfiguration",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="1",category="Observability Failures",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="3",category="Miscellaneous",app="juiceshop"} 1
+juiceshop_challenges_total{difficulty="3",category="Vulnerable Components",app="juiceshop"} 1
+
+# HELP juiceshop_coding_challenges_progress Number of coding challenges grouped by progression phase.
+# TYPE juiceshop_coding_challenges_progress gauge
+juiceshop_coding_challenges_progress{phase="find it",app="juiceshop"} 0
+juiceshop_coding_challenges_progress{phase="fix it",app="juiceshop"} 0
+juiceshop_coding_challenges_progress{phase="unsolved",app="juiceshop"} 35
+
+# HELP juiceshop_cheat_score Overall probability that any hacking or coding challenges were solved by cheating.
+# TYPE juiceshop_cheat_score gauge
+juiceshop_cheat_score{app="juiceshop"} 0
+
+# HELP juiceshop_coding_challenges_accuracy Overall accuracy while solving coding challenges grouped by phase.
+# TYPE juiceshop_coding_challenges_accuracy gauge
+juiceshop_coding_challenges_accuracy{phase="find it",app="juiceshop"} Nan
+juiceshop_coding_challenges_accuracy{phase="fix it",app="juiceshop"} Nan
+
+# HELP juiceshop_orders_placed_total Number of orders placed in OWASP Juice Shop.
+# TYPE juiceshop_orders_placed_total gauge
+juiceshop_orders_placed_total{app="juiceshop"} 3
+
+# HELP juiceshop_users_registered Number of registered users grouped by customer type.
+# TYPE juiceshop_users_registered gauge
+juiceshop_users_registered{type="standard",app="juiceshop"} 10
+juiceshop_users_registered{type="deluxe",app="juiceshop"} 4
+
+# HELP juiceshop_users_registered_total Total number of registered users.
+# TYPE juiceshop_users_registered_total gauge
+juiceshop_users_registered_total{app="juiceshop"} 23
+
+# HELP juiceshop_wallet_balance_total Total balance of all users' digital wallets.
+# TYPE juiceshop_wallet_balance_total gauge
+juiceshop_wallet_balance_total{app="juiceshop"} 13887
+
+# HELP juiceshop_user_social_interactions Number of social interactions with users grouped by type.
+# TYPE juiceshop_user_social_interactions gauge
+juiceshop_user_social_interactions{type="review",app="juiceshop"} 29
+juiceshop_user_social_interactions{type="feedback",app="juiceshop"} 8
+juiceshop_user_social_interactions{type="complaint",app="juiceshop"} 1
+
+
+=== oracle ===
+status=200 size= ct=application/json; charset=utf-8 sha256=d4ba6306c8515bd097fa057bd1894bec2bc275ebbb6074fcee23a7cc88b4e6a4 md5=d08130d557a89264f0ff8437571d1fec
+{"status":"success","data":[{"id":1,"key":"passwordHashLeakChallenge","name":"Password Hash Leak","category":"Sensitive Data Exposure","tags":null,"description":"Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint.","difficulty":2,"mitigationUrl":"https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":2,"key":"restfulXssChallenge","name":"API-only XSS","category":"XSS","tags":"Danger Zone,With Coding Challenge","description":"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":3,"key":"accessLogDisclosureChallenge","name":"Access Log","category":"Observability Failures","tags":"With Coding Challenge","description":"Gain access to any access log file of the server.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":4,"key":"registerAdminChallenge","name":"Admin Registration","category":"Improper Input Validation","tags":"With Coding Challenge","description":"Register as a user with administrator privileges.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":5,"key":"adminSectionChallenge","name":"Admin Section","category":"Broken Access Control","tags":"Good for Demos,With Coding Challenge","description":"Access the administration section of the store.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":8,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":6,"key":"fileWriteChallenge","name":"Arbitrary File Write","category":"Vulnerable Components","tags":"Danger Zone,Prerequisite","description":"Overwrite the <a href=\"/ftp/legal.md\">Legal Information</a> file. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":6,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":7,"key":"resetPasswordBjoernOwaspChallenge","name":"Bjoern's Favorite Pet","category":"Broken Authentication","tags":"OSINT,With Coding Challenge","description":"Reset the password of Bjoern's OWASP account via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":8,"key":"tokenSaleChallenge","name":"Blockchain Hype","category":"Security through Obscurity","tags":"Contraption,Code Analysis,Web3,With Coding Challenge","description":"Learn about the Token Sale before its official announcement.","difficulty":5,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":9,"key":"nftUnlockChallenge","name":"NFT Takeover","category":"Sensitive Data Exposure","tags":"Contraption,Good for Demos,Web3,With Coding Challenge","description":"Take over the wallet containing our official Soul Bound Token (NFT).","difficulty":2,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":10,"key":"nftMintChallenge","name":"Mint the Honey Pot","category":"Improper Input Validation","tags":"Web3,With Coding Challenge,Requires Alchemy API Key,Requires Alchemy API","description":"Mint the Honey Pot NFT by gathering BEEs from the bee haven.","difficulty":3,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[{"ChallengeId":10,"id":2,"name":"Alchemy API","documentation":"https://howto-web3.owasp-juice.shop","key":"https://www.alchemy.com/","missing":true,"createdAt":"2026-10-05T14:15:00.623Z","updatedAt":"2026-10-05T14:15:00.623Z"},{"ChallengeId":10,"id":1,"name":"Alchemy API Key","documentation":"https://howto-web3.owasp-juice.shop","key":"ALCHEMY_API_KEY","missing":true,"createdAt":"2026-10-05T14:15:00.623Z","updatedAt":"2026-10-05T14:15:00.623Z"}]},{"id":11,"key":"web3WalletChallenge","name":"Wallet Depletion","category":"Miscellaneous","tags":"Web3,With Coding Challenge,Requires Alchemy API Key,Requires Alchemy API","description":"Withdraw more ETH from the new wallet than you deposited.","difficulty":6,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[{"ChallengeId":11,"id":4,"name":"Alchemy API","documentation":"https://howto-web3.owasp-juice.shop","key":"https://www.alchemy.com/","missing":true,"createdAt":"2026-10-05T14:15:00.623Z","updatedAt":"2026-10-05T14:15:00.623Z"},{"ChallengeId":11,"id":3,"name":"Alchemy API Key","documentation":"https://howto-web3.owasp-juice.shop","key":"ALCHEMY_API_KEY","missing":true,"createdAt":"2026-10-05T14:15:00.623Z","updatedAt":"2026-10-05T14:15:00.623Z"}]},{"id":12,"key":"web3SandboxChallenge","name":"Web3 Sandbox","category":"Broken Access Control","tags":"Web3,With Coding Challenge","description":"Find an accidentally deployed code sandbox for writing smart contracts on the fly.","difficulty":1,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":13,"key":"rceChallenge","name":"Blocked RCE DoS","category":"Insecure Deserialization","tags":"Danger Zone","description":"Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":14,"key":"captchaBypassChallenge","name":"CAPTCHA Bypass","category":"Broken Anti Automation","tags":"Brute Force","description":"Submit 10 or more customer feedbacks within 20 seconds.","difficulty":3,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":15,"key":"changePasswordBenderChallenge","name":"Change Bender's Password","category":"Broken Authentication","tags":null,"description":"Change Bender's password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":16,"key":"christmasSpecialChallenge","name":"Christmas Special","category":"Injection","tags":null,"description":"Order the Christmas special offer of 2014.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":17,"key":"usernameXssChallenge","name":"CSP Bypass","category":"XSS","tags":"Danger Zone","description":"Bypass the Content Security Policy and perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":18,"key":"persistedXssUserChallenge","name":"Client-side XSS Protection","category":"XSS","tags":"Danger Zone","description":"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> bypassing a <i>client-side</i> security mechanism. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":19,"key":"directoryListingChallenge","name":"Confidential Document","category":"Sensitive Data Exposure","tags":"Good for Demos,With Coding Challenge","description":"Access a confidential document.","difficulty":1,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":20,"key":"localXssChallenge","name":"DOM XSS","category":"XSS","tags":"Tutorial,Good for Demos,With Coding Challenge","description":"Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code>.","difficulty":1,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":2,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":21,"key":"dbSchemaChallenge","name":"Database Schema","category":"Injection","tags":"With Coding Challenge","description":"Exfiltrate the entire DB schema definition via SQL Injection.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":22,"key":"deprecatedInterfaceChallenge","name":"Deprecated Interface","category":"Security Misconfiguration","tags":"Contraption,Prerequisite","description":"Use a deprecated B2B interface that was not properly shut down. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":23,"key":"easterEggLevelOneChallenge","name":"Easter Egg","category":"Broken Access Control","tags":"Shenanigans,Contraption,Good for Demos","description":"Find the hidden <a href=\"https://en.wikipedia.org/wiki/Easter_egg_(media)\" target=\"_blank\">easter egg</a>.","difficulty":4,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":24,"key":"emailLeakChallenge","name":"Email Leak","category":"Sensitive Data Exposure","tags":null,"description":"Perform an unwanted information disclosure by accessing data cross-domain.","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/XS_Leaks_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":25,"key":"emptyUserRegistration","name":"Empty User Registration","category":"Improper Input Validation","tags":null,"description":"Register a user with an empty email and password.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":26,"key":"ephemeralAccountantChallenge","name":"Ephemeral Accountant","category":"Injection","tags":null,"description":"Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":27,"key":"errorHandlingChallenge","name":"Error Handling","category":"Security Misconfiguration","tags":"Prerequisite","description":"Provoke an error that is neither very gracefully nor consistently handled.","difficulty":1,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html","solved":true,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:04.921Z","ChallengeDependencies":[]},{"id":28,"key":"manipulateClockChallenge","name":"Expired Coupon","category":"Improper Input Validation","tags":null,"description":"Successfully redeem an expired campaign coupon code.","difficulty":4,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":29,"key":"extraLanguageChallenge","name":"Extra Language","category":"Broken Anti Automation","tags":"Brute Force","description":"Retrieve the language file that never made it into production.","difficulty":5,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":30,"key":"feedbackChallenge","name":"Five-Star Feedback","category":"Broken Access Control","tags":null,"description":"Get rid of all 5-star customer feedback.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":31,"key":"forgedCouponChallenge","name":"Forged Coupon","category":"Cryptographic Issues","tags":"Good for Demos,Code Analysis","description":"Forge a coupon code that gives you a discount of at least 80%.","difficulty":6,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":32,"key":"forgedFeedbackChallenge","name":"Forged Feedback","category":"Broken Access Control","tags":"Tutorial","description":"Post some feedback in another user's name.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":11,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":33,"key":"forgedReviewChallenge","name":"Forged Review","category":"Broken Access Control","tags":"With Coding Challenge","description":"Post a product review as another user or edit any user's existing review.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":34,"key":"jwtForgedChallenge","name":"Forged Signed JWT","category":"Vulnerable Components","tags":null,"description":"Forge an almost properly RSA-signed JWT token that impersonates the (non-existing) user <i>rsa_lord@juice-sh.op</i>.","difficulty":6,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":35,"key":"forgottenDevBackupChallenge","name":"Forgotten Developer Backup","category":"Sensitive Data Exposure","tags":"Contraption,Good for Demos,Prerequisite","description":"Access a developer's forgotten backup file.","difficulty":4,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":36,"key":"forgottenBackupChallenge","name":"Forgotten Sales Backup","category":"Sensitive Data Exposure","tags":"Contraption","description":"Access a salesman's forgotten backup file.","difficulty":4,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":37,"key":"typosquattingAngularChallenge","name":"Frontend Typosquatting","category":"Vulnerable Components","tags":null,"description":"<a href=\"/#/contact\">Inform the shop</a> about a <i>typosquatting</i> imposter that dug itself deep into the frontend. (Mention the exact name of the culprit)","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":38,"key":"ghostLoginChallenge","name":"GDPR Data Erasure","category":"Broken Authentication","tags":null,"description":"Log in with Chris' erased user account.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/User_Privacy_Protection_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":39,"key":"dataExportChallenge","name":"GDPR Data Theft","category":"Sensitive Data Exposure","tags":null,"description":"Steal someone else's personal data without using Injection.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/User_Privacy_Protection_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":40,"key":"httpHeaderXssChallenge","name":"HTTP-Header XSS","category":"XSS","tags":"Danger Zone","description":"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> through an HTTP header. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":41,"key":"continueCodeChallenge","name":"Imaginary Challenge","category":"Cryptographic Issues","tags":"Shenanigans,Code Analysis","description":"Solve challenge #999. Unfortunately, this challenge does not exist.","difficulty":6,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":42,"key":"dlpPasswordSprayingChallenge","name":"Leaked Access Logs","category":"Observability Failures","tags":"OSINT","description":"Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":43,"key":"dlpPastebinDataLeakChallenge","name":"Leaked Unsafe Product","category":"Sensitive Data Exposure","tags":"Shenanigans,OSINT","description":"Identify an unsafe product that was removed from the shop and <a href=\"/#/contact\">inform the shop</a> which ingredients are dangerous.","difficulty":4,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":44,"key":"typosquattingNpmChallenge","name":"Legacy Typosquatting","category":"Vulnerable Components","tags":null,"description":"<a href=\"/#/contact\">Inform the shop</a> about a <i>typosquatting</i> trick it has been a victim of at least in <code>v6.2.0-SNAPSHOT</code>. (Mention the exact name of the culprit)","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":45,"key":"loginAdminChallenge","name":"Login Admin","category":"Injection","tags":"Tutorial,Good for Demos,With Coding Challenge","description":"Log in with the administrator's user account.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":7,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":46,"key":"loginAmyChallenge","name":"Login Amy","category":"Sensitive Data Exposure","tags":"OSINT","description":"Log in with Amy's original user credentials. (This could take 93.83 billion trillion trillion centuries to brute force, but luckily she did not read the \"One Important Final Note\")","difficulty":3,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":47,"key":"loginBenderChallenge","name":"Login Bender","category":"Injection","tags":"Tutorial,With Coding Challenge","description":"Log in with Bender's user account.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":13,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":48,"key":"oauthUserPasswordChallenge","name":"Login Bjoern","category":"Broken Authentication","tags":"Code Analysis","description":"Log in with Bjoern's Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":49,"key":"loginJimChallenge","name":"Login Jim","category":"Injection","tags":"Tutorial,With Coding Challenge","description":"Log in with Jim's user account.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":12,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":50,"key":"loginRapperChallenge","name":"Login MC SafeSearch","category":"Sensitive Data Exposure","tags":"Shenanigans,OSINT","description":"Log in with MC SafeSearch's original user credentials without applying SQL Injection or any other bypass.","difficulty":2,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":51,"key":"loginSupportChallenge","name":"Login Support Team","category":"Security Misconfiguration","tags":"Brute Force,Code Analysis","description":"Log in with the support team's original user credentials without applying SQL Injection or any other bypass.","difficulty":6,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":52,"key":"basketManipulateChallenge","name":"Manipulate Basket","category":"Broken Access Control","tags":null,"description":"Put an additional product into another user's shopping basket.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":53,"key":"misplacedSignatureFileChallenge","name":"Misplaced Signature File","category":"Observability Failures","tags":"Good Practice,Contraption","description":"Access a misplaced <a href=\"https://github.com/Neo23x0/sigma\">SIEM signature</a> file.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":54,"key":"timingAttackChallenge","name":"Multiple Likes","category":"Broken Anti Automation","tags":null,"description":"Like any review at least three times as the same user.","difficulty":6,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":55,"key":"easterEggLevelTwoChallenge","name":"Nested Easter Egg","category":"Cryptographic Issues","tags":"Shenanigans,Good for Demos","description":"Apply some advanced cryptanalysis to find <i>the real</i> easter egg.","difficulty":4,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":56,"key":"noSqlCommandChallenge","name":"NoSQL DoS","category":"Injection","tags":"Danger Zone","description":"Let the server sleep for some time. (It has done more than enough hard work for you) <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":57,"key":"noSqlOrdersChallenge","name":"NoSQL Exfiltration","category":"Injection","tags":"Danger Zone","description":"All your orders are belong to us! Even the ones which don't. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":58,"key":"noSqlReviewsChallenge","name":"NoSQL Manipulation","category":"Injection","tags":"With Coding Challenge","description":"Update multiple product reviews at the same time.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":59,"key":"redirectCryptoCurrencyChallenge","name":"Outdated Allowlist","category":"Unvalidated Redirects","tags":"Code Analysis,With Coding Challenge","description":"Let us redirect you to one of our crypto currency addresses which are not promoted any longer.","difficulty":1,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":60,"key":"weakPasswordChallenge","name":"Password Strength","category":"Broken Authentication","tags":"Brute Force,Tutorial,With Coding Challenge","description":"Log in with the administrator's user credentials without previously changing them or applying SQL Injection.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":9,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":61,"key":"negativeOrderChallenge","name":"Payback Time","category":"Improper Input Validation","tags":null,"description":"Place an order that makes you rich.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":62,"key":"premiumPaywallChallenge","name":"Premium Paywall","category":"Cryptographic Issues","tags":"Shenanigans","description":"💎💎💎💎💎<!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href=\"https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm\" target=\"_blank\">₿ Unlock Premium Challenge</a> to access exclusive content.","difficulty":6,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":63,"key":"privacyPolicyChallenge","name":"Privacy Policy","category":"Miscellaneous","tags":"Good Practice,Tutorial,Good for Demos","description":"Read our privacy policy.","difficulty":1,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":4,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":64,"key":"privacyPolicyProofChallenge","name":"Privacy Policy Inspection","category":"Security through Obscurity","tags":"Shenanigans,Good for Demos","description":"Prove that you actually read our privacy policy.","difficulty":3,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":65,"key":"changeProductChallenge","name":"Product Tampering","category":"Broken Access Control","tags":"With Coding Challenge","description":"Change the <code>href</code> of the link within the <a href=\"/#/search?q=OWASP SSL Advanced Forensic Tool (O-Saft)\">OWASP SSL Advanced Forensic Tool (O-Saft)</a> product description into <i>https://owasp.slack.com</i>.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":66,"key":"reflectedXssChallenge","name":"Reflected XSS","category":"XSS","tags":"Tutorial,Danger Zone,Good for Demos","description":"Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code>. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":5,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":67,"key":"passwordRepeatChallenge","name":"Repetitive Registration","category":"Improper Input Validation","tags":null,"description":"Follow the DRY principle while registering a user.","difficulty":1,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":68,"key":"resetPasswordBenderChallenge","name":"Reset Bender's Password","category":"Broken Authentication","tags":"OSINT,With Coding Challenge","description":"Reset Bender's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":69,"key":"resetPasswordBjoernChallenge","name":"Reset Bjoern's Password","category":"Broken Authentication","tags":"OSINT,With Coding Challenge","description":"Reset the password of Bjoern's internal account via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":70,"key":"resetPasswordJimChallenge","name":"Reset Jim's Password","category":"Broken Authentication","tags":"OSINT,With Coding Challenge","description":"Reset Jim's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":71,"key":"resetPasswordMortyChallenge","name":"Reset Morty's Password","category":"Broken Anti Automation","tags":"OSINT,Brute Force,With Coding Challenge","description":"Reset Morty's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>his obfuscated answer</i> to his security question.","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":72,"key":"retrieveBlueprintChallenge","name":"Retrieve Blueprint","category":"Sensitive Data Exposure","tags":null,"description":"Deprive the shop of earnings by downloading the blueprint for one of its products.","difficulty":5,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":73,"key":"ssrfChallenge","name":"SSRF","category":"Broken Access Control","tags":"Code Analysis","description":"Request a hidden resource on server through server.","difficulty":6,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":74,"key":"sstiChallenge","name":"SSTi","category":"Injection","tags":"Contraption,Danger Zone,Code Analysis","description":"Infect the server with juicy malware by abusing arbitrary command execution. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":6,"mitigationUrl":null,"solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":75,"key":"scoreBoardChallenge","name":"Score Board","category":"Miscellaneous","tags":"Tutorial,Code Analysis,With Coding Challenge","description":"Find the carefully hidden 'Score Board' page.","difficulty":1,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":1,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":76,"key":"securityPolicyChallenge","name":"Security Policy","category":"Miscellaneous","tags":"Good Practice","description":"Behave like any \"white-hat\" should before getting into the action.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":77,"key":"persistedXssFeedbackChallenge","name":"Server-side XSS Protection","category":"XSS","tags":"Danger Zone","description":"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> bypassing a <i>server-side</i> security mechanism. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":78,"key":"hiddenImageChallenge","name":"Steganography","category":"Security through Obscurity","tags":"Shenanigans","description":"<a href=\"/#/contact\">Rat out</a> a notorious character hiding in plain sight in the shop. (Mention the exact name of the character)","difficulty":4,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":79,"key":"rceOccupyChallenge","name":"Successful RCE DoS","category":"Insecure Deserialization","tags":"Danger Zone","description":"Perform a Remote Code Execution that occupies the server for a while without using infinite loops. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":6,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":80,"key":"supplyChainAttackChallenge","name":"Supply Chain Attack","category":"Vulnerable Components","tags":"OSINT","description":"<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)","difficulty":5,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":81,"key":"twoFactorAuthUnsafeSecretStorageChallenge","name":"Two Factor Authentication","category":"Broken Authentication","tags":null,"description":"Solve the 2FA challenge for user \"wurstbrot\". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":82,"key":"jwtUnsignedChallenge","name":"Unsigned JWT","category":"Vulnerable Components","tags":null,"description":"Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":83,"key":"uploadSizeChallenge","name":"Upload Size","category":"Improper Input Validation","tags":null,"description":"Upload a file larger than 100 kB.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":84,"key":"uploadTypeChallenge","name":"Upload Type","category":"Improper Input Validation","tags":null,"description":"Upload a file that has no .pdf or .zip extension.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":85,"key":"unionSqlInjectionChallenge","name":"User Credentials","category":"Injection","tags":"With Coding Challenge","description":"Retrieve a list of all user credentials via SQL Injection.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":86,"key":"videoXssChallenge","name":"Video XSS","category":"XSS","tags":"Danger Zone","description":"Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":6,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":87,"key":"basketAccessChallenge","name":"View Basket","category":"Broken Access Control","tags":"Tutorial,Good for Demos","description":"View another user's shopping basket.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":10,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":88,"key":"knownVulnerableComponentChallenge","name":"Vulnerable Library","category":"Vulnerable Components","tags":"OSINT","description":"<a href=\"/#/contact\">Inform the shop</a> about a high-severity vulnerability caused by one of its directly used dependencies. (Mention the exact library name and version in your comment)","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":89,"key":"weirdCryptoChallenge","name":"Weird Crypto","category":"Cryptographic Issues","tags":null,"description":"<a href=\"/#/contact\">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":90,"key":"redirectChallenge","name":"Allowlist Bypass","category":"Unvalidated Redirects","tags":"Prerequisite,With Coding Challenge","description":"Enforce a redirect to a page you are not supposed to redirect to.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":91,"key":"xxeFileDisclosureChallenge","name":"XXE Data Access","category":"XXE","tags":"Danger Zone","description":"Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":92,"key":"xxeDosChallenge","name":"XXE DoS","category":"XXE","tags":"Danger Zone","description":"Give the server something to chew on for quite a while. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":93,"key":"yamlBombChallenge","name":"Memory Bomb","category":"Insecure Deserialization","tags":"Danger Zone","description":"Drop some explosive data into a vulnerable file-handling endpoint. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html","solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":94,"key":"zeroStarsChallenge","name":"Zero Stars","category":"Improper Input Validation","tags":null,"description":"Give a devastating zero-star feedback to the store.","difficulty":1,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":95,"key":"missingEncodingChallenge","name":"Missing Encoding","category":"Improper Input Validation","tags":"Shenanigans","description":"Retrieve the photo of Bjoern's cat in \"melee combat-mode\".","difficulty":1,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":96,"key":"svgInjectionChallenge","name":"Cross-Site Imaging","category":"Security Misconfiguration","tags":"Contraption","description":"Stick <a href=\"https://cataas.com/cat\" target=\"_blank\">cute cross-domain kittens</a> all over our delivery boxes.","difficulty":5,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":97,"key":"exposedMetricsChallenge","name":"Exposed Metrics","category":"Observability Failures","tags":"Good Practice,With Coding Challenge","description":"Find the endpoint that serves usage data to be scraped by a <a href=\"https://github.com/prometheus/prometheus\">popular monitoring system</a>.","difficulty":1,"mitigationUrl":null,"solved":true,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:06.269Z","ChallengeDependencies":[]},{"id":98,"key":"misplacedIacFiles","name":"Misplaced IaC Files","category":"Security Misconfiguration","tags":"Prerequisite","description":"Access the misplaced Infrastructure as Code files that were accidentally included in the web application deliverable.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":99,"key":"freeDeluxeChallenge","name":"Deluxe Fraud","category":"Improper Input Validation","tags":null,"description":"Obtain a Deluxe Membership without paying for it.","difficulty":3,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":100,"key":"csrfChallenge","name":"CSRF","category":"Broken Access Control","tags":null,"description":"Change the name of a user by performing Cross-Site Request Forgery from <a href=\"http://htmledit.squarefree.com\">another origin</a>.","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":101,"key":"xssBonusChallenge","name":"Bonus Payload","category":"XSS","tags":"Shenanigans,Tutorial,With Coding Challenge","description":"Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.","difficulty":1,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":3,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":102,"key":"resetPasswordUvoginChallenge","name":"Reset Uvogin's Password","category":"Sensitive Data Exposure","tags":"OSINT,With Coding Challenge","description":"Reset Uvogin's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":103,"key":"geoStalkingMetaChallenge","name":"Meta Geo Stalking","category":"Sensitive Data Exposure","tags":"OSINT","description":"Determine the answer to John's security question by looking at an upload of him to the Photo Wall and use it to reset his password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":104,"key":"geoStalkingVisualChallenge","name":"Visual Geo Stalking","category":"Sensitive Data Exposure","tags":"OSINT","description":"Determine the answer to Emma's security question by looking at an upload of her to the Photo Wall and use it to reset her password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":105,"key":"nullByteChallenge","name":"Poison Null Byte","category":"Improper Input Validation","tags":"Prerequisite","description":"Bypass a security control with a <a href=\"https://hakipedia.com/index.php/Poison_Null_Byte\">Poison Null Byte</a> to access a file not meant for your eyes.","difficulty":4,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":106,"key":"lfrChallenge","name":"Local File Read","category":"Vulnerable Components","tags":"OSINT,Danger Zone","description":"Gain read access to an arbitrary local file on the web server. <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>","difficulty":5,"mitigationUrl":null,"solved":false,"disabledEnv":"Docker","tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":107,"key":"closeNotificationsChallenge","name":"Mass Dispel","category":"Miscellaneous","tags":null,"description":"Close multiple \"Challenge solved\"-notifications in one go.","difficulty":1,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":108,"key":"csafChallenge","name":"Security Advisory","category":"Miscellaneous","tags":null,"description":"The Juice Shop is susceptible to a known vulnerability in a library, for which an advisory has already been issued, marking the Juice Shop as <i>known affected</i>. A fix is still pending. <a href=\"/#/contact\">Inform the shop</a> about a suitable checksum as proof that you did your due diligence.","difficulty":3,"mitigationUrl":null,"solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":109,"key":"exposedCredentialsChallenge","name":"Exposed Credentials","category":"Sensitive Data Exposure","tags":null,"description":"A developer was careless with hardcoding unused, but still valid credentials for a testing account on the client-side.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":6,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":110,"key":"leakedApiKeyChallenge","name":"Leaked API Key","category":"Sensitive Data Exposure","tags":null,"description":"<a href=\"/#/contact\">Inform the shop</a> about a leaked API key. (Mention the exact key in your comment)","difficulty":5,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":111,"key":"chatbotPromptInjectionChallenge","name":"Chatbot Prompt Injection","category":"Injection","tags":"Good for Demos,AI/LLM,With Coding Challenge,Requires LLM API","description":"Trick the chatbot into generating a coupon code for you despite its coupon policy saying otherwise.","difficulty":2,"mitigationUrl":"https://genai.owasp.org/llmrisk/llm01-prompt-injection/","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[{"ChallengeId":111,"id":5,"name":"LLM API","documentation":"https://howto-llm.owasp-juice.shop","key":"http://localhost:11434/v1","missing":true,"createdAt":"2026-10-05T14:15:00.623Z","updatedAt":"2026-10-05T14:15:00.623Z"}]},{"id":112,"key":"chatbotGreedyInjectionChallenge","name":"Greedy Chatbot Manipulation","category":"Injection","tags":"AI/LLM,With Coding Challenge,Requires LLM API","description":"Convince the chatbot to give you a coupon of 50% or more. Because apparently a 10% max policy is just a suggestion when you ask nicely enough.","difficulty":3,"mitigationUrl":"https://genai.owasp.org/llmrisk/llm01-prompt-injection/","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[{"ChallengeId":112,"id":6,"name":"LLM API","documentation":"https://howto-llm.owasp-juice.shop","key":"http://localhost:11434/v1","missing":true,"createdAt":"2026-10-05T14:15:00.623Z","updatedAt":"2026-10-05T14:15:00.623Z"}]},{"id":113,"key":"aiDebuggingChallenge","name":"AI Debugging","category":"Broken Access Control","tags":"AI/LLM,Requires LLM API","description":"Reveal some behind-the-scenes information on the chatbot as a non-admin user.","difficulty":2,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Broken_Access_Control_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[{"ChallengeId":113,"id":7,"name":"LLM API","documentation":"https://howto-llm.owasp-juice.shop","key":"http://localhost:11434/v1","missing":true,"createdAt":"2026-10-05T14:15:00.623Z","updatedAt":"2026-10-05T14:15:00.623Z"}]},{"id":114,"key":"systemPromptExtractionChallenge","name":"System Prompt Extraction","category":"Injection","tags":"AI/LLM,Requires LLM API","description":"Extract the chatbot's system prompt using prompt injection, then submit your findings (including any confidential sections) via the <a href=\"/#/complain\">Customer Complaint form</a>.","difficulty":3,"mitigationUrl":"https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":false,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[{"ChallengeId":114,"id":8,"name":"LLM API","documentation":"https://howto-llm.owasp-juice.shop","key":"http://localhost:11434/v1","missing":true,"createdAt":"2026-10-05T14:15:00.623Z","updatedAt":"2026-10-05T14:15:00.623Z"}]},{"id":115,"key":"iacLeakedKeyChallenge","name":"Login Cloud Admin","category":"Sensitive Data Exposure","tags":"With Coding Challenge","description":"Log in with the cloud admin's user account <i>without</i> using SQL Injection.","difficulty":4,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]},{"id":116,"key":"vulnerableDockerImageChallenge","name":"Vulnerable Infrastructure","category":"Vulnerable Components","tags":"With Coding Challenge","description":"<a href=\"/#/complain\">Inform the shop</a> about the use of a known vulnerable infrastructure component. (Identify the component as specifically as possible in your complaint)","difficulty":3,"mitigationUrl":"https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html","solved":false,"disabledEnv":null,"tutorialOrder":null,"codingChallengeStatus":0,"hasCodingChallenge":true,"createdAt":"2026-10-05T14:15:00.608Z","updatedAt":"2026-10-05T14:15:00.608Z","ChallengeDependencies":[]}]}
+

@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated raw server errors with exposed internal stack traces; error rendering differs by Accept header (id=27 errorHandlingChallenge)",
+      "title": "id=27 \u2014 Unauthenticated raw server errors are neither graceful nor consistently handled (raw Sequelize WHERE errors and TypeError stack traces exposed)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated Prometheus-format telemetry endpoint exposing LLM usage counters (id=97 exposedMetricsChallenge)",
+      "title": "id=97 \u2014 Unauthenticated Prometheus-style metrics endpoint exposes application usage telemetry (LLM usage counters, request counts, solved-challenge counters)",
       "valid_reproduction": false
     }
   ],
