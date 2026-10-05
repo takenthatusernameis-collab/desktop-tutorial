@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Raw, inconsistent unauthenticated error responses (error handling)",
+      "title": "Unauthenticated raw error exposure with inconsistent, non-graceful error handling (Error Handling challenge id=27)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated Prometheus-format observability endpoint exposing internal telemetry",
+      "title": "Unauthenticated Prometheus metrics endpoint exposing usage telemetry (Exposed Metrics challenge id=97)",
       "valid_reproduction": false
     }
   ],
