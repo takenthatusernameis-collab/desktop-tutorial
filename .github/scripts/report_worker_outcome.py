@@ -1,0 +1,160 @@
+#!/usr/bin/env python3
+"""Deterministic worker-outcome reporter used both in preflight and at hand-off."""
+
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+
+def report(
+    *,
+    preflight: str,
+    smoke: str,
+    worker: str,
+    evaluate: str,
+    portfolio: str,
+    research_validation: str,
+    findings_path: Path,
+    research_report_path: Path,
+) -> tuple[int, str]:
+    print(f"Preflight infrastructure outcome: {preflight}")
+    print(f"Kilo execution smoke outcome: {smoke}")
+    print(f"Raw Kilo worker outcome: {worker}")
+    print(f"Independent evaluator outcome: {evaluate}")
+    print(f"Deterministic research portfolio outcome: {portfolio}")
+    print(f"Kilo research-program validation outcome: {research_validation}")
+
+    if portfolio != "success":
+        return 1, "FAILED_PRE_KILO_PORTFOLIO"
+    if preflight != "success":
+        return 1, "FAILED_PRECHECK"
+    if smoke != "success":
+        return 1, "FAILED_KILO_SMOKE"
+    if research_validation != "success":
+        return 1, "FAILED_RESEARCH_VALIDATION"
+    if worker == "skipped":
+        return 1, "FAILED_WORKER_SKIPPED"
+    if evaluate != "success":
+        return 1, "FAILED_INDEPENDENT_EVALUATION"
+    if not findings_path.is_file() or findings_path.stat().st_size == 0:
+        return 1, "FAILED_FINDINGS_REPORT_MISSING"
+    if not research_report_path.is_file() or research_report_path.stat().st_size == 0:
+        return 1, "FAILED_RESEARCH_REPORT_MISSING"
+
+    if worker == "success":
+        return 0, "SUCCESS"
+    return 0, "COMPLETED_WITH_WORKER_CLI_ERROR"
+
+
+def self_test() -> int:
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        findings = root / "benchmark_findings.json"
+        research = root / "benchmark_research.md"
+        findings.write_text("{}\n", encoding="utf-8")
+        research.write_text("# report\n", encoding="utf-8")
+
+        rc, outcome = report(
+            preflight="success",
+            smoke="success",
+            worker="success",
+            evaluate="success",
+            portfolio="success",
+            research_validation="success",
+            findings_path=findings,
+            research_report_path=research,
+        )
+        assert (rc, outcome) == (0, "SUCCESS")
+
+        rc, outcome = report(
+            preflight="success",
+            smoke="success",
+            worker="failure",
+            evaluate="success",
+            portfolio="success",
+            research_validation="success",
+            findings_path=findings,
+            research_report_path=research,
+        )
+        assert (rc, outcome) == (0, "COMPLETED_WITH_WORKER_CLI_ERROR")
+
+        rc, outcome = report(
+            preflight="success",
+            smoke="success",
+            worker="failure",
+            evaluate="success",
+            portfolio="success",
+            research_validation="success",
+            findings_path=root / "missing.json",
+            research_report_path=research,
+        )
+        assert rc != 0 and outcome == "FAILED_FINDINGS_REPORT_MISSING"
+
+        rc, outcome = report(
+            preflight="success",
+            smoke="success",
+            worker="failure",
+            evaluate="failure",
+            portfolio="success",
+            research_validation="success",
+            findings_path=findings,
+            research_report_path=research,
+        )
+        assert rc != 0 and outcome == "FAILED_INDEPENDENT_EVALUATION"
+
+    print("worker outcome self-test: PASS")
+    return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--self-test", action="store_true")
+    parser.add_argument("--preflight")
+    parser.add_argument("--smoke")
+    parser.add_argument("--worker")
+    parser.add_argument("--evaluate")
+    parser.add_argument("--portfolio")
+    parser.add_argument("--research-validation")
+    parser.add_argument("--findings-path", type=Path)
+    parser.add_argument("--research-report-path", type=Path)
+    args = parser.parse_args()
+
+    if args.self_test:
+        return self_test()
+
+    required = {
+        "preflight": args.preflight,
+        "smoke": args.smoke,
+        "worker": args.worker,
+        "evaluate": args.evaluate,
+        "portfolio": args.portfolio,
+        "research-validation": args.research_validation,
+    }
+    missing = [name for name, value in required.items() if value is None]
+    if missing or args.findings_path is None or args.research_report_path is None:
+        parser.error("all outcome fields and both report paths are required")
+
+    rc, outcome = report(
+        preflight=args.preflight,
+        smoke=args.smoke,
+        worker=args.worker,
+        evaluate=args.evaluate,
+        portfolio=args.portfolio,
+        research_validation=args.research_validation,
+        findings_path=args.findings_path,
+        research_report_path=args.research_report_path,
+    )
+    print(f"WORKER_OUTCOME_STATUS={outcome}")
+    if outcome == "COMPLETED_WITH_WORKER_CLI_ERROR":
+        print(
+            "Worker CLI ended non-zero, but the research reports and independent "
+            "evaluation are valid; recording the activation as completed-with-worker-cli-error."
+        )
+    return rc
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
