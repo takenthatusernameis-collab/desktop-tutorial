@@ -523,6 +523,20 @@ def validate_state(state_dir: Path, benchmark_id: str, mode: str) -> dict[str, A
     plan = compile_portfolio(program, runtime)
     if mode != "fresh" and not plan:
         raise ProgramError("persisted research program compiled to an empty portfolio")
+    for family in program.get("evolution_families", []):
+        if family.get("status") == "ARCHIVED" or family.get("dormant"):
+            continue
+        fid = family["family_id"]
+        runtime_generation = int(
+            ((runtime.get("families") or {}).get(fid, {})).get("last_executed_generation", 0)
+        )
+        program_generation = int(family.get("generation", 1))
+        if runtime_generation and program_generation != runtime_generation + 1:
+            raise ProgramError(
+                f"generation continuity divergence for {fid}: "
+                f"program expects {program_generation}, runtime last executed {runtime_generation}"
+            )
+
     print(
         f"RESEARCH_PROGRAM_VALIDATION=PASS surfaces={len(program.get('surfaces', []))} "
         f"families={len(program.get('evolution_families', []))} tickets={len(plan)}"
@@ -1203,6 +1217,12 @@ def run_pre_kilo(
         family["generation"] = int(family.get("generation", 1)) + 1
 
     runtime = update_runtime(state_dir, program, results)
+
+    # Commit the coupled PROGRAM/RUNTIME generation state before derived registries
+    # so a later reporting/materialization failure cannot strand runtime ahead of
+    # durable program lineage.
+    write_json(program_path, program)
+
     materialize_registries(state_dir, program, runtime)
     append_checklist(state_dir, results)
     write_json(
@@ -1222,7 +1242,6 @@ def run_pre_kilo(
             "observed_at": now_utc(),
         },
     )
-    write_json(program_path, program)
     (state_dir / "DISCOVERY_REQUIRED.json").unlink(missing_ok=True)
     print(f"RESEARCH_PORTFOLIO_STATUS=EXECUTED generations={len(results)}")
     return 0
