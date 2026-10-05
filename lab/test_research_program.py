@@ -360,6 +360,17 @@ def test_post_kilo_execution_regression(tmp: Path):
         rp.post_kilo("resumed", "b1", state, snapshot) == 0
     ), "post-Kilo validation rejected deterministic evolved PROGRAM.json"
 
+def test_portfolio_validation_rejects_budget_below_breadth(tmp: Path):
+    program = sample_program("budget")
+    program["portfolio_policy"]["max_generations_per_activation"] = 1
+    try:
+        rp.validate_program(program, "budget")
+    except rp.ProgramError as exc:
+        assert "surface breadth" in str(exc)
+    else:
+        raise AssertionError("undersized portfolio budget was accepted")
+
+
 def test_portfolio_budget_preserves_surface_breadth(tmp: Path):
     program = sample_program("breadth")
     # Simulate many high-priority families on one surface competing with a second
@@ -424,6 +435,7 @@ def main():
         test_cross_session_program_progression(root / "e")
         test_evolution_parent_carry_forward(root / "d")
         test_portfolio_budget_preserves_surface_breadth(root / "f")
+        test_portfolio_validation_rejects_budget_below_breadth(root / "g")
         test_post_kilo_execution_regression(root / "post-kilo")
     print("research program tests: PASS")
 
