@@ -16,6 +16,18 @@ def main() -> int:
     if not image:
         raise SystemExit("EHB_KILO_IMAGE is required")
     research_program = root / "lab" / "research_program.py"
+    controller = ["python3", str(research_program), "validate",
+        "--mode", os.environ["BENCHMARK_CAMPAIGN_MODE"],
+        "--benchmark-id", os.environ["BENCHMARK_ID"],
+        "--state-dir", str(root / "state" / "research")]
+    try:
+        subprocess.run(controller, check=True)
+    except subprocess.CalledProcessError as exc:
+        raise SystemExit(
+            f"Persisted research-program validation failed before Docker execution "
+            f"(exit {exc.returncode})."
+        ) from exc
+
     cmd = [
         "docker", "run", "--rm",
         "--network", "ehb-worker-net",
