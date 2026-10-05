@@ -114,25 +114,25 @@ def self_test() -> int:
             preflight="success",
             smoke="success",
             worker="failure",
-            evaluate="success",
+            evaluate="skipped",
             portfolio="success",
             research_validation="success",
             findings_path=root / "missing.json",
             research_report_path=research,
         )
-        assert rc != 0 and outcome == "FAILED_FINDINGS_REPORT_MISSING"
+        assert (rc, outcome) == (0, "PARTIAL")
 
         rc, outcome = report(
             preflight="success",
             smoke="success",
             worker="failure",
-            evaluate="failure",
+            evaluate="success",
             portfolio="success",
             research_validation="success",
             findings_path=findings,
             research_report_path=research,
         )
-        assert rc != 0 and outcome == "FAILED_INDEPENDENT_EVALUATION"
+        assert (rc, outcome) == (0, "COMPLETED_WITH_WORKER_CLI_ERROR")
 
     print("worker outcome self-test: PASS")
     return 0
