@@ -10,7 +10,19 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-def classify_pre_persist(*, worker: str, research_validation: str, research_handoff: str, evaluate: str) -> str:
+def classify_pre_persist(
+    *,
+    portfolio: str,
+    preflight: str,
+    smoke: str,
+    post_kilo_regression: str,
+    worker: str,
+    research_validation: str,
+    research_handoff: str,
+    evaluate: str,
+) -> str:
+    if portfolio != "success" or preflight != "success" or smoke != "success" or post_kilo_regression not in {"success", "skipped"}:
+        return "FAILED"
     if worker != "success":
         return "PARTIAL"
     if research_validation != "success":
@@ -60,6 +72,10 @@ def append_bounded(path: Path, record: dict, limit: int) -> None:
 
 def record(args: argparse.Namespace) -> int:
     status = classify_pre_persist(
+        portfolio=args.portfolio,
+        preflight=args.preflight,
+        smoke=args.smoke,
+        post_kilo_regression=args.post_kilo_regression,
         worker=args.worker,
         research_validation=args.research_validation,
         research_handoff=args.research_handoff,
