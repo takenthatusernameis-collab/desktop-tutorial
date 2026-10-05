@@ -5,7 +5,7 @@
   "generation": 1,
   "generation_id": "gen-0001-fam_redirect_ssrf_monitor",
   "information_gain": 0.4167,
-  "observed_at": "2026-10-05T09:32:11Z",
+  "observed_at": "2026-10-05T09:35:52Z",
   "promising_candidates": [
     {
       "candidate_id": "cand-e9a04a52f96d41173ff7",

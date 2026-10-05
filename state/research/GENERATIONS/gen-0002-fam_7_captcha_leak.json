@@ -2,16 +2,16 @@
   "actual_execution": true,
   "candidate_count": 1,
   "family_id": "fam_7_captcha_leak",
-  "generation": 1,
-  "generation_id": "gen-0001-fam_7_captcha_leak",
+  "generation": 2,
+  "generation_id": "gen-0002-fam_7_captcha_leak",
   "immutable_baseline": true,
   "observations": [
     {
       "baseline_observation": {
-        "body_length": 49,
-        "body_sha256": "a3204106d3548e405642880e42a23955e8845326bb25065839c9ffb02efe0ffe",
+        "body_length": 50,
+        "body_sha256": "6f70dc4cd9d95c95c4908f5251c02e6a8c0b8d20fa2f3b1795dcb1443f0350cf",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 16.22,
+        "elapsed_ms": 8.03,
         "error": null,
         "location": "",
         "status": 200
@@ -23,20 +23,20 @@
         "operator": "BASELINE"
       },
       "observation": {
-        "body_length": 49,
-        "body_sha256": "f359e81b199c35ec8144d483e4ac0bd4d21206edc4d0b814e0cc575be89fa42f",
+        "body_length": 48,
+        "body_sha256": "4bf1f3fa364447792e81e84d48817bb87c9f0610d7594d0e17548b8102906263",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 10.79,
+        "elapsed_ms": 7.74,
         "error": null,
         "location": "",
         "status": 200
       },
       "parent_candidate_id": "cand-815a0e415472fc3a2c2e",
       "repeat_observation": {
-        "body_length": 48,
-        "body_sha256": "784bca24865d42f5bfeb78deb220c3bfadb09a19e5f192a5cf19a0fe7faedf43",
+        "body_length": 47,
+        "body_sha256": "aceafa86061225c867f704f7018b2da2f30dfff12211310bc2babb4cfc5b1077",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 7.49,
+        "elapsed_ms": 8.8,
         "error": null,
         "location": "",
         "status": 200
@@ -50,7 +50,7 @@
       }
     }
   ],
-  "observed_at": "2026-10-05T09:35:52Z",
+  "observed_at": "2026-10-05T09:35:53Z",
   "operators": [
     "BASELINE",
     "QUERY_EDGE_VALUES"

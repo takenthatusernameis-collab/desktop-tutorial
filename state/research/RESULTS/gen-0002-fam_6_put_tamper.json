@@ -1,11 +1,11 @@
 {
-  "behavioral_differences": 3,
-  "candidate_count": 5,
+  "behavioral_differences": 5,
+  "candidate_count": 12,
   "family_id": "fam_6_put_tamper",
-  "generation": 1,
-  "generation_id": "gen-0001-fam_6_put_tamper",
-  "information_gain": 0.7,
-  "observed_at": "2026-10-05T09:35:52Z",
+  "generation": 2,
+  "generation_id": "gen-0002-fam_6_put_tamper",
+  "information_gain": 0.4583,
+  "observed_at": "2026-10-05T09:35:53Z",
   "promising_candidates": [
     {
       "candidate_id": "cand-e0d82cdefd37a09cffa4",
@@ -29,37 +29,58 @@
       ]
     },
     {
-      "candidate_id": "cand-4c5f7e107ecf5774f3cf",
+      "candidate_id": "cand-dc800e81490f7d63f21a",
       "mutation": {
         "operator": "PATH_VARIANTS",
-        "variant": "dot_suffix"
+        "variant": "trailing_slash"
       },
-      "parent_candidate_id": "cand-70afb496806146bc31f6",
+      "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
       "request": {
         "headers": {},
         "method": "GET",
-        "path": "/api/Products/1/.",
+        "path": "/api/Products/1/./",
         "query": {}
       },
       "response_signature": [
         500,
-        "32299ef7d2f892eb7fe9ecc68871e07ba10066b35fec0018fdefa8c202fe662d",
+        "2ace4c4a734cb2d9b588c875382a75e879204bf815e9119b7b1f57ce9ac4f2b9",
         "text/html; charset=utf-8",
-        2434,
+        2436,
         ""
       ]
     },
     {
-      "candidate_id": "cand-9660f7b79aa4367b560c",
+      "candidate_id": "cand-d7adfd5fc0f3d4dc9317",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/api/Products/1/./.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "39223cfdbd09601da7cef785dd8467d3d26e9df1728b2b6102ff9f4cac523af6",
+        "text/html; charset=utf-8",
+        2438,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-36f9de58f501a1a3b783",
       "mutation": {
         "method": "HEAD",
         "operator": "METHOD_VARIANTS"
       },
-      "parent_candidate_id": "cand-70afb496806146bc31f6",
+      "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
       "request": {
         "headers": {},
         "method": "HEAD",
-        "path": "/api/Products/1",
+        "path": "/api/Products/1/.",
         "query": {}
       },
       "response_signature": [
@@ -71,6 +92,6 @@
       ]
     }
   ],
-  "repeat_reproductions": 3,
+  "repeat_reproductions": 5,
   "surface_id": "surf_6_put_tamper"
 }

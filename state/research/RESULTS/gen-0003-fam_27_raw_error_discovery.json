@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 0,
+  "candidate_count": 12,
+  "family_id": "fam_27_raw_error_discovery",
+  "generation": 3,
+  "generation_id": "gen-0003-fam_27_raw_error_discovery",
+  "information_gain": 0.0833,
+  "observed_at": "2026-10-05T09:35:53Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_27_error_handling"
+}

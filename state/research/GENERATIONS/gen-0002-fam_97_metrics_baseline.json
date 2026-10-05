@@ -1,42 +1,42 @@
 {
   "actual_execution": true,
   "candidate_count": 1,
-  "family_id": "fam_7_captcha_leak",
-  "generation": 1,
-  "generation_id": "gen-0001-fam_7_captcha_leak",
+  "family_id": "fam_97_metrics_baseline",
+  "generation": 2,
+  "generation_id": "gen-0002-fam_97_metrics_baseline",
   "immutable_baseline": true,
   "observations": [
     {
       "baseline_observation": {
-        "body_length": 49,
-        "body_sha256": "a3204106d3548e405642880e42a23955e8845326bb25065839c9ffb02efe0ffe",
-        "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 16.22,
+        "body_length": 26135,
+        "body_sha256": "325644bad059a5e0e697020ad9faf70a5ab6c6bcc3d1d485be864a25ba24f213",
+        "content_type": "text/plain; version=0.0.4; charset=utf-8",
+        "elapsed_ms": 2.52,
         "error": null,
         "location": "",
         "status": 200
       },
       "behavioral_difference": true,
-      "candidate_id": "cand-815a0e415472fc3a2c2e",
+      "candidate_id": "cand-825cd6872fd58736323d",
       "mutation": {
         "mutation": "identity",
         "operator": "BASELINE"
       },
       "observation": {
-        "body_length": 49,
-        "body_sha256": "f359e81b199c35ec8144d483e4ac0bd4d21206edc4d0b814e0cc575be89fa42f",
-        "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 10.79,
+        "body_length": 26085,
+        "body_sha256": "a31399ba8f5f3c95d744b6a13fd2920d7c912b6c6ee65c7ed09c49eff5bf77ed",
+        "content_type": "text/plain; version=0.0.4; charset=utf-8",
+        "elapsed_ms": 2.13,
         "error": null,
         "location": "",
         "status": 200
       },
-      "parent_candidate_id": "cand-815a0e415472fc3a2c2e",
+      "parent_candidate_id": "cand-825cd6872fd58736323d",
       "repeat_observation": {
-        "body_length": 48,
-        "body_sha256": "784bca24865d42f5bfeb78deb220c3bfadb09a19e5f192a5cf19a0fe7faedf43",
-        "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 7.49,
+        "body_length": 26095,
+        "body_sha256": "5d99d068b7bc3f90cc18493f36c804e853343fe0bd7254691057b42890623fd6",
+        "content_type": "text/plain; version=0.0.4; charset=utf-8",
+        "elapsed_ms": 1.93,
         "error": null,
         "location": "",
         "status": 200
@@ -45,24 +45,23 @@
       "request": {
         "headers": {},
         "method": "GET",
-        "path": "/rest/captcha",
+        "path": "/metrics",
         "query": {}
       }
     }
   ],
-  "observed_at": "2026-10-05T09:35:52Z",
+  "observed_at": "2026-10-05T09:35:53Z",
   "operators": [
-    "BASELINE",
-    "QUERY_EDGE_VALUES"
+    "BASELINE"
   ],
   "parent_lineage": [
     {
-      "candidate_id": "cand-815a0e415472fc3a2c2e",
+      "candidate_id": "cand-825cd6872fd58736323d",
       "mutation": {
         "mutation": "identity",
         "operator": "BASELINE"
       },
-      "parent_candidate_id": "cand-815a0e415472fc3a2c2e"
+      "parent_candidate_id": "cand-825cd6872fd58736323d"
     }
   ],
   "promising_candidates": [],
@@ -74,5 +73,5 @@
     "unique_response_signatures": 1
   },
   "stopping_reason": "operator candidate set exhausted",
-  "surface_id": "surf_7_captcha_leak"
+  "surface_id": "surf_97_metrics"
 }

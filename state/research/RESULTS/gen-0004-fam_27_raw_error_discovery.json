@@ -2,10 +2,10 @@
   "behavioral_differences": 6,
   "candidate_count": 12,
   "family_id": "fam_27_raw_error_discovery",
-  "generation": 1,
-  "generation_id": "gen-0001-fam_27_raw_error_discovery",
+  "generation": 4,
+  "generation_id": "gen-0004-fam_27_raw_error_discovery",
   "information_gain": 0.5,
-  "observed_at": "2026-10-05T09:35:52Z",
+  "observed_at": "2026-10-05T09:35:53Z",
   "promising_candidates": [
     {
       "candidate_id": "cand-c3ab8fbb52e18b5345eb",

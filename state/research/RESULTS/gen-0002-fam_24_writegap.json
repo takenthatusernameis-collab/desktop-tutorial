@@ -1,10 +1,10 @@
 {
   "behavioral_differences": 2,
-  "candidate_count": 5,
+  "candidate_count": 11,
   "family_id": "fam_24_writegap",
-  "generation": 1,
-  "generation_id": "gen-0001-fam_24_writegap",
-  "information_gain": 0.5,
+  "generation": 2,
+  "generation_id": "gen-0002-fam_24_writegap",
+  "information_gain": 0.2273,
   "observed_at": "2026-10-05T09:35:52Z",
   "promising_candidates": [
     {

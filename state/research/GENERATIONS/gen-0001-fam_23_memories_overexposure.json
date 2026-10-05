@@ -9,9 +9,9 @@
     {
       "baseline_observation": {
         "body_length": 6183,
-        "body_sha256": "4bb2de7f14efd34c6b2ed8af7270bcf66448bf1287c7a80c520f85a891cad156",
+        "body_sha256": "0f46ca68bc5f6d39ed74fb94dff28ec25989818c043dd19d90fde7e12c89c089",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 30.72,
+        "elapsed_ms": 22.51,
         "error": null,
         "location": "",
         "status": 200
@@ -24,9 +24,9 @@
       },
       "observation": {
         "body_length": 6183,
-        "body_sha256": "4bb2de7f14efd34c6b2ed8af7270bcf66448bf1287c7a80c520f85a891cad156",
+        "body_sha256": "0f46ca68bc5f6d39ed74fb94dff28ec25989818c043dd19d90fde7e12c89c089",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 17.17,
+        "elapsed_ms": 33.31,
         "error": null,
         "location": "",
         "status": 200
@@ -44,9 +44,9 @@
     {
       "baseline_observation": {
         "body_length": 6183,
-        "body_sha256": "4bb2de7f14efd34c6b2ed8af7270bcf66448bf1287c7a80c520f85a891cad156",
+        "body_sha256": "0f46ca68bc5f6d39ed74fb94dff28ec25989818c043dd19d90fde7e12c89c089",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 30.72,
+        "elapsed_ms": 22.51,
         "error": null,
         "location": "",
         "status": 200
@@ -59,9 +59,9 @@
       },
       "observation": {
         "body_length": 6183,
-        "body_sha256": "4bb2de7f14efd34c6b2ed8af7270bcf66448bf1287c7a80c520f85a891cad156",
+        "body_sha256": "0f46ca68bc5f6d39ed74fb94dff28ec25989818c043dd19d90fde7e12c89c089",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 33.88,
+        "elapsed_ms": 14.83,
         "error": null,
         "location": "",
         "status": 200
@@ -79,9 +79,9 @@
     {
       "baseline_observation": {
         "body_length": 6183,
-        "body_sha256": "4bb2de7f14efd34c6b2ed8af7270bcf66448bf1287c7a80c520f85a891cad156",
+        "body_sha256": "0f46ca68bc5f6d39ed74fb94dff28ec25989818c043dd19d90fde7e12c89c089",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 30.72,
+        "elapsed_ms": 22.51,
         "error": null,
         "location": "",
         "status": 200
@@ -96,7 +96,7 @@
         "body_length": 2432,
         "body_sha256": "3ad603b3c33f217e147a8f620848ddc2596b27cf097eeac0a6b7e3172b5988cd",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 4.51,
+        "elapsed_ms": 4.32,
         "error": null,
         "location": "",
         "status": 500
@@ -106,7 +106,7 @@
         "body_length": 2432,
         "body_sha256": "3ad603b3c33f217e147a8f620848ddc2596b27cf097eeac0a6b7e3172b5988cd",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 7.76,
+        "elapsed_ms": 7.0,
         "error": null,
         "location": "",
         "status": 500
@@ -120,7 +120,7 @@
       }
     }
   ],
-  "observed_at": "2026-10-05T09:32:10Z",
+  "observed_at": "2026-10-05T09:35:52Z",
   "operators": [
     "PATH_VARIANTS",
     "QUERY_EDGE_VALUES"

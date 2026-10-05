@@ -11,7 +11,7 @@
         "body_length": 2946,
         "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 6.27,
+        "elapsed_ms": 4.46,
         "error": null,
         "location": "",
         "status": 500
@@ -26,7 +26,7 @@
         "body_length": 2946,
         "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 6.01,
+        "elapsed_ms": 4.39,
         "error": null,
         "location": "",
         "status": 500
@@ -46,7 +46,7 @@
         "body_length": 2946,
         "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 6.27,
+        "elapsed_ms": 4.46,
         "error": null,
         "location": "",
         "status": 500
@@ -61,7 +61,7 @@
         "body_length": 2946,
         "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 5.3,
+        "elapsed_ms": 4.29,
         "error": null,
         "location": "",
         "status": 500
@@ -81,7 +81,7 @@
         "body_length": 2946,
         "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 6.27,
+        "elapsed_ms": 4.46,
         "error": null,
         "location": "",
         "status": 500
@@ -96,7 +96,7 @@
         "body_length": 2460,
         "body_sha256": "644baf6d8ed5b62f924263b45c7cbc772126482aaae429330887beef4f6499f2",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 2.45,
+        "elapsed_ms": 2.1,
         "error": null,
         "location": "",
         "status": 500
@@ -106,7 +106,7 @@
         "body_length": 2460,
         "body_sha256": "644baf6d8ed5b62f924263b45c7cbc772126482aaae429330887beef4f6499f2",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 4.72,
+        "elapsed_ms": 3.61,
         "error": null,
         "location": "",
         "status": 500
@@ -122,9 +122,9 @@
     {
       "baseline_observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 120.3,
+        "elapsed_ms": 89.47,
         "error": null,
         "location": "",
         "status": 200
@@ -137,9 +137,9 @@
       },
       "observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 13.99,
+        "elapsed_ms": 11.68,
         "error": null,
         "location": "",
         "status": 200
@@ -161,9 +161,9 @@
     {
       "baseline_observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 120.3,
+        "elapsed_ms": 89.47,
         "error": null,
         "location": "",
         "status": 200
@@ -176,9 +176,9 @@
       },
       "observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 12.4,
+        "elapsed_ms": 9.81,
         "error": null,
         "location": "",
         "status": 200
@@ -200,9 +200,9 @@
     {
       "baseline_observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 120.3,
+        "elapsed_ms": 89.47,
         "error": null,
         "location": "",
         "status": 200
@@ -217,7 +217,7 @@
         "body_length": 2510,
         "body_sha256": "ee1b5fe2c3d20395cda3404c6f53aae856220d0708a1da5c1467079d096b0645",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 2.71,
+        "elapsed_ms": 2.37,
         "error": null,
         "location": "",
         "status": 500
@@ -227,7 +227,7 @@
         "body_length": 2510,
         "body_sha256": "ee1b5fe2c3d20395cda3404c6f53aae856220d0708a1da5c1467079d096b0645",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 6.0,
+        "elapsed_ms": 4.0,
         "error": null,
         "location": "",
         "status": 500
@@ -247,9 +247,9 @@
     {
       "baseline_observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 120.3,
+        "elapsed_ms": 89.47,
         "error": null,
         "location": "",
         "status": 200
@@ -265,7 +265,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 26.81,
+        "elapsed_ms": 19.28,
         "error": null,
         "location": "",
         "status": 200
@@ -275,7 +275,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 14.84,
+        "elapsed_ms": 10.77,
         "error": null,
         "location": "",
         "status": 200
@@ -295,9 +295,9 @@
     {
       "baseline_observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 120.3,
+        "elapsed_ms": 89.47,
         "error": null,
         "location": "",
         "status": 200
@@ -313,7 +313,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 11.5,
+        "elapsed_ms": 7.7,
         "error": null,
         "location": "",
         "status": 200
@@ -323,7 +323,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 10.28,
+        "elapsed_ms": 7.86,
         "error": null,
         "location": "",
         "status": 200
@@ -343,9 +343,9 @@
     {
       "baseline_observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 120.3,
+        "elapsed_ms": 89.47,
         "error": null,
         "location": "",
         "status": 200
@@ -361,7 +361,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 10.74,
+        "elapsed_ms": 7.64,
         "error": null,
         "location": "",
         "status": 200
@@ -371,7 +371,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 10.29,
+        "elapsed_ms": 7.86,
         "error": null,
         "location": "",
         "status": 200
@@ -391,9 +391,9 @@
     {
       "baseline_observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 120.3,
+        "elapsed_ms": 89.47,
         "error": null,
         "location": "",
         "status": 200
@@ -409,7 +409,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 10.69,
+        "elapsed_ms": 7.8,
         "error": null,
         "location": "",
         "status": 200
@@ -419,7 +419,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 11.32,
+        "elapsed_ms": 8.03,
         "error": null,
         "location": "",
         "status": 200
@@ -439,9 +439,9 @@
     {
       "baseline_observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 120.3,
+        "elapsed_ms": 89.47,
         "error": null,
         "location": "",
         "status": 200
@@ -457,7 +457,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 11.82,
+        "elapsed_ms": 8.86,
         "error": null,
         "location": "",
         "status": 200
@@ -467,7 +467,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 11.59,
+        "elapsed_ms": 8.65,
         "error": null,
         "location": "",
         "status": 200
@@ -487,9 +487,9 @@
     {
       "baseline_observation": {
         "body_length": 139,
-        "body_sha256": "a511a423081e666084a2b3fe64703838e72d9f69eef4a41768fa81c5a86b1f2c",
+        "body_sha256": "329a6e3782c4da54df3350cce5de9d100e820336968178eddae7a85e92fc7678",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 120.3,
+        "elapsed_ms": 89.47,
         "error": null,
         "location": "",
         "status": 200
@@ -505,7 +505,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 11.18,
+        "elapsed_ms": 8.76,
         "error": null,
         "location": "",
         "status": 200
@@ -515,7 +515,7 @@
         "body_length": 2,
         "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 12.32,
+        "elapsed_ms": 9.02,
         "error": null,
         "location": "",
         "status": 200
@@ -533,7 +533,7 @@
       }
     }
   ],
-  "observed_at": "2026-10-05T09:32:11Z",
+  "observed_at": "2026-10-05T09:35:52Z",
   "operators": [
     "PATH_VARIANTS",
     "QUERY_EDGE_VALUES",
