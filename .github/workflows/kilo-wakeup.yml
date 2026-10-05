@@ -8,6 +8,7 @@ on:
     paths:
       - ".github/workflows/kilo-wakeup.yml"
       - "lab/kilo_gateway_proxy.py"
+      - "lab/benchmark_campaign.py"
 
 concurrency:
   group: bug-bounty-research-enterprise
