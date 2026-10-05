@@ -779,6 +779,6 @@ jobs:
             --evaluate "$EVALUATE_OUTCOME" \
             --portfolio "$RESEARCH_PORTFOLIO_OUTCOME" \
             --research-validation "$RESEARCH_VALIDATION_OUTCOME" \
-            --research-handoff "$RESEARCH_HANDOFF_OUTCOME" \
+            --research-handoff "${RESEARCH_HANDOFF_OUTCOME:-failure}" \
             --findings-path "reports/benchmark_findings.json" \
             --research-report-path "reports/benchmark_research.md"
