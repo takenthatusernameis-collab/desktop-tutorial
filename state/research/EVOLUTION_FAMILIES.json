@@ -2,7 +2,58 @@
   "benchmark_id": "ehb-37260280180-eddbb902f2",
   "families": [
     {
-      "best_candidates": [],
+      "best_candidates": [
+        {
+          "candidate_id": "cand-95fea2849af95ec3257f",
+          "mutation": {
+            "method": "OPTIONS",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-c3ab8fbb52e18b5345eb",
+          "request": {
+            "headers": {},
+            "method": "OPTIONS",
+            "path": "/redirect/.",
+            "query": {
+              "continue": [
+                "http://example.com"
+              ]
+            }
+          },
+          "response_signature": [
+            204,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "",
+            0,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-e2422ea4c9ea9280bf30",
+          "mutation": {
+            "method": "HEAD",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-c3ab8fbb52e18b5345eb",
+          "request": {
+            "headers": {},
+            "method": "HEAD",
+            "path": "/redirect/.",
+            "query": {
+              "continue": [
+                "http://example.com"
+              ]
+            }
+          },
+          "response_signature": [
+            501,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "text/html;charset=utf-8",
+            0,
+            ""
+          ]
+        }
+      ],
       "coverage_history": [
         "27 /api/* and related routes probed; 4 raw-error responses confirmed",
         "2026-10-05T10:46-10:48Z A27 fresh boot: GET no-param -> 500/2946 B (0b84d83c...) and GET /redirect -> 500/2531 B (020023ff...) byte-stable; solved:[27,97]; benign control valid Feedbacks POST -> 401 graceful."
@@ -12,7 +63,7 @@
         "none - benign controls return 201 for valid submission, 401 for wrong-but-valid answer (graceful)"
       ],
       "family_id": "fam_27_raw_error_discovery",
-      "generation": 20,
+      "generation": 22,
       "independent_reproduction_history": [
         "fresh-request reproduction of all 4 triggers with byte-stable raw text and benign controls",
         "A26 (2026-10-05T10:37Z): fresh independent reproduction of the primary trigger with sha256 signatures, plus Accept-header variant body; benign controls verified.",
@@ -48,16 +99,67 @@
         "2026-10-05T10:46-10:48Z 2 byte-stable raw-error triggers reproduced; inconsistency proven against graceful 500 wrappers."
       ],
       "runtime": {
-        "best_candidates": [],
-        "last_active_generation": 19,
-        "last_behavioral_differences": 0,
+        "best_candidates": [
+          {
+            "candidate_id": "cand-95fea2849af95ec3257f",
+            "mutation": {
+              "method": "OPTIONS",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-c3ab8fbb52e18b5345eb",
+            "request": {
+              "headers": {},
+              "method": "OPTIONS",
+              "path": "/redirect/.",
+              "query": {
+                "continue": [
+                  "http://example.com"
+                ]
+              }
+            },
+            "response_signature": [
+              204,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "",
+              0,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-e2422ea4c9ea9280bf30",
+            "mutation": {
+              "method": "HEAD",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-c3ab8fbb52e18b5345eb",
+            "request": {
+              "headers": {},
+              "method": "HEAD",
+              "path": "/redirect/.",
+              "query": {
+                "continue": [
+                  "http://example.com"
+                ]
+              }
+            },
+            "response_signature": [
+              501,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "text/html;charset=utf-8",
+              0,
+              ""
+            ]
+          }
+        ],
+        "last_active_generation": 21,
+        "last_behavioral_differences": 2,
         "last_candidate_count": 12,
-        "last_executed_generation": 19,
-        "last_information_gain": 0.0833,
-        "last_repeat_reproductions": 0,
-        "novelty_seen": false,
+        "last_executed_generation": 21,
+        "last_information_gain": 0.2083,
+        "last_repeat_reproductions": 2,
+        "novelty_seen": true,
         "surface_id": "surf_27_error_handling",
-        "updated_at": "2026-10-05T11:10:07Z"
+        "updated_at": "2026-10-05T11:21:35Z"
       },
       "seed_requests": [
         {
@@ -95,7 +197,7 @@
         "graceful 'Unexpected path' wrappers on other routes do not apply to /security-policy (200 vs 500; solved:true tracked server-side only for this route)"
       ],
       "family_id": "fam_76_security_policy",
-      "generation": 7,
+      "generation": 9,
       "independent_reproduction_history": [
         "GET /security-policy -> 200/9393 B repeated x3 with identical sha256; GET /api/Challenges/ after fresh access returns solved:true ids [27, 76, 97]",
         "A26 (2026-10-05T10:37Z): fresh independent request sequence reproduced: access route, then /api/Challenges/ shows solved:true for id=76."
@@ -141,15 +243,15 @@
       ],
       "runtime": {
         "best_candidates": [],
-        "last_active_generation": 6,
+        "last_active_generation": 8,
         "last_behavioral_differences": 0,
         "last_candidate_count": 1,
-        "last_executed_generation": 6,
+        "last_executed_generation": 8,
         "last_information_gain": 0.5,
         "last_repeat_reproductions": 0,
         "novelty_seen": false,
         "surface_id": "surf_76_security_policy",
-        "updated_at": "2026-10-05T11:10:07Z"
+        "updated_at": "2026-10-05T11:21:35Z"
       },
       "seed_requests": [
         {
@@ -174,7 +276,7 @@
         "none"
       ],
       "family_id": "fam_97_metrics_baseline",
-      "generation": 25,
+      "generation": 28,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot",
         "A26 (2026-10-05T10:37Z): fresh independent reproduction of /metrics with telemetry and secret-clean scan.",
@@ -210,15 +312,15 @@
       ],
       "runtime": {
         "best_candidates": [],
-        "last_active_generation": 24,
+        "last_active_generation": 27,
         "last_behavioral_differences": 1,
         "last_candidate_count": 1,
-        "last_executed_generation": 24,
+        "last_executed_generation": 27,
         "last_information_gain": 1.0,
         "last_repeat_reproductions": 0,
         "novelty_seen": true,
         "surface_id": "surf_97_metrics",
-        "updated_at": "2026-10-05T11:10:07Z"
+        "updated_at": "2026-10-05T11:21:35Z"
       },
       "seed_requests": [
         {
@@ -273,27 +375,6 @@
             "3ad603b3c33f217e147a8f620848ddc2596b27cf097eeac0a6b7e3172b5988cd",
             "text/html; charset=utf-8",
             2432,
-            ""
-          ]
-        },
-        {
-          "candidate_id": "cand-bf870572825ae7291476",
-          "mutation": {
-            "operator": "PATH_VARIANTS",
-            "variant": "trailing_slash"
-          },
-          "parent_candidate_id": "cand-440916eab266f3425399",
-          "request": {
-            "headers": {},
-            "method": "GET",
-            "path": "/rest/memories/./././././",
-            "query": {}
-          },
-          "response_signature": [
-            500,
-            "566c1bc9e323b8a9bcd567b973c04fd79cbb61eb2579c4e706a626918515dfaf",
-            "text/html; charset=utf-8",
-            2450,
             ""
           ]
         },
@@ -359,6 +440,27 @@
             2448,
             ""
           ]
+        },
+        {
+          "candidate_id": "cand-9896acbed3e4665ecaf6",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "trailing_slash"
+          },
+          "parent_candidate_id": "cand-5d8728a0b581a9d8c15e",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/memories/././././././",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "e2347e25ac6cd9750563aac1efdf12d9c24cf0edda8e7796758a90d0de3c1490",
+            "text/html; charset=utf-8",
+            2454,
+            ""
+          ]
         }
       ],
       "coverage_history": [
@@ -370,7 +472,7 @@
         "none; bogus Bearer identical 200 proves lack of auth; deluxeToken not a valid signed JWT (documented)"
       ],
       "family_id": "fam_23_memories_overexposure",
-      "generation": 15,
+      "generation": 17,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot",
         "A26 (2026-10-05T10:37Z): fresh independent reproduction of the overexposure; authorization wholly absent (bogus Bearer byte-identical).",
@@ -448,27 +550,6 @@
             ]
           },
           {
-            "candidate_id": "cand-bf870572825ae7291476",
-            "mutation": {
-              "operator": "PATH_VARIANTS",
-              "variant": "trailing_slash"
-            },
-            "parent_candidate_id": "cand-440916eab266f3425399",
-            "request": {
-              "headers": {},
-              "method": "GET",
-              "path": "/rest/memories/./././././",
-              "query": {}
-            },
-            "response_signature": [
-              500,
-              "566c1bc9e323b8a9bcd567b973c04fd79cbb61eb2579c4e706a626918515dfaf",
-              "text/html; charset=utf-8",
-              2450,
-              ""
-            ]
-          },
-          {
             "candidate_id": "cand-7f7b2ff4f7faef04967d",
             "mutation": {
               "operator": "PATH_VARIANTS",
@@ -530,17 +611,38 @@
               2448,
               ""
             ]
+          },
+          {
+            "candidate_id": "cand-9896acbed3e4665ecaf6",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "trailing_slash"
+            },
+            "parent_candidate_id": "cand-5d8728a0b581a9d8c15e",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/rest/memories/././././././",
+              "query": {}
+            },
+            "response_signature": [
+              500,
+              "e2347e25ac6cd9750563aac1efdf12d9c24cf0edda8e7796758a90d0de3c1490",
+              "text/html; charset=utf-8",
+              2454,
+              ""
+            ]
           }
         ],
-        "last_active_generation": 14,
+        "last_active_generation": 16,
         "last_behavioral_differences": 8,
         "last_candidate_count": 12,
-        "last_executed_generation": 14,
-        "last_information_gain": 0.7083,
+        "last_executed_generation": 16,
+        "last_information_gain": 0.75,
         "last_repeat_reproductions": 8,
         "novelty_seen": true,
         "surface_id": "surf_23_memories",
-        "updated_at": "2026-10-05T11:10:07Z"
+        "updated_at": "2026-10-05T11:21:35Z"
       },
       "seed_requests": [
         {
@@ -608,7 +710,7 @@
         "none; GET gated, POST accepts null UserId"
       ],
       "family_id": "fam_24_writegap",
-      "generation": 15,
+      "generation": 17,
       "independent_reproduction_history": [
         "fresh-request id increment verified x3",
         "A26 (2026-10-05T10:37Z): fresh reproduction: empty-body POST -> 201 with server-generated id and timestamps; GET on same route -> 401.",
@@ -687,15 +789,15 @@
             ]
           }
         ],
-        "last_active_generation": 14,
+        "last_active_generation": 16,
         "last_behavioral_differences": 2,
         "last_candidate_count": 11,
-        "last_executed_generation": 14,
+        "last_executed_generation": 16,
         "last_information_gain": 0.2273,
         "last_repeat_reproductions": 2,
         "novelty_seen": true,
         "surface_id": "surf_24_securityanswers_write",
-        "updated_at": "2026-10-05T11:10:07Z"
+        "updated_at": "2026-10-05T11:21:35Z"
       },
       "seed_requests": [
         {
@@ -876,7 +978,7 @@
         "none; deterministic body shapes; neighbors gated proves specificity"
       ],
       "family_id": "fam_5_security_question_enum",
-      "generation": 15,
+      "generation": 17,
       "independent_reproduction_history": [
         "fresh-request reproduction of both body shapes",
         "A26 (2026-10-05T10:37Z): fresh reproduction of the binary differential; parameter-pollution variant captured.",
@@ -1068,15 +1170,15 @@
             ]
           }
         ],
-        "last_active_generation": 14,
+        "last_active_generation": 16,
         "last_behavioral_differences": 10,
         "last_candidate_count": 12,
-        "last_executed_generation": 14,
+        "last_executed_generation": 16,
         "last_information_gain": 0.875,
         "last_repeat_reproductions": 10,
         "novelty_seen": true,
         "surface_id": "surf_5_security_question",
-        "updated_at": "2026-10-05T11:10:06Z"
+        "updated_at": "2026-10-05T11:21:35Z"
       },
       "seed_requests": [
         {
@@ -1101,7 +1203,7 @@
         "none; arithmetic proof; captchaId server state proves non-static"
       ],
       "family_id": "fam_7_captcha_leak",
-      "generation": 15,
+      "generation": 17,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot",
         "A26 (2026-10-05T10:37Z): fresh reproduction of the cleartext answer leak with arithmetic verification; bypass path confirmed broken.",
@@ -1136,15 +1238,15 @@
       ],
       "runtime": {
         "best_candidates": [],
-        "last_active_generation": 14,
+        "last_active_generation": 16,
         "last_behavioral_differences": 1,
         "last_candidate_count": 1,
-        "last_executed_generation": 14,
+        "last_executed_generation": 16,
         "last_information_gain": 1.0,
         "last_repeat_reproductions": 0,
         "novelty_seen": true,
         "surface_id": "surf_7_captcha_leak",
-        "updated_at": "2026-10-05T11:10:07Z"
+        "updated_at": "2026-10-05T11:21:35Z"
       },
       "seed_requests": [
         {
@@ -1296,7 +1398,7 @@
         "none; fresh GET readback confirms persistence; values restored"
       ],
       "family_id": "fam_6_put_tamper",
-      "generation": 15,
+      "generation": 17,
       "independent_reproduction_history": [
         "fresh-request reproduction + readback; restore after verification",
         "A26 (2026-10-05T10:37Z): fresh reproduction: PUT + separate GET proves cross-request persistence; sibling methods blocked.",
@@ -1458,15 +1560,15 @@
             ]
           }
         ],
-        "last_active_generation": 14,
+        "last_active_generation": 16,
         "last_behavioral_differences": 7,
         "last_candidate_count": 12,
-        "last_executed_generation": 14,
+        "last_executed_generation": 16,
         "last_information_gain": 0.5833,
         "last_repeat_reproductions": 7,
         "novelty_seen": true,
         "surface_id": "surf_6_put_tamper",
-        "updated_at": "2026-10-05T11:10:07Z"
+        "updated_at": "2026-10-05T11:21:35Z"
       },
       "seed_requests": [
         {
@@ -1533,7 +1635,7 @@
         "none"
       ],
       "family_id": "fam_blocked_auth_sweep",
-      "generation": 8,
+      "generation": 9,
       "independent_reproduction_history": [
         "fresh-request observation each boot"
       ],
@@ -1604,15 +1706,15 @@
             ]
           }
         ],
-        "last_active_generation": 7,
+        "last_active_generation": 8,
         "last_behavioral_differences": 2,
         "last_candidate_count": 2,
-        "last_executed_generation": 7,
+        "last_executed_generation": 8,
         "last_information_gain": 1.0,
         "last_repeat_reproductions": 2,
         "novelty_seen": true,
         "surface_id": "surf_blocked_auth",
-        "updated_at": "2026-10-05T11:10:06Z"
+        "updated_at": "2026-10-05T11:21:34Z"
       },
       "seed_requests": [
         {
@@ -1629,86 +1731,65 @@
     {
       "best_candidates": [
         {
-          "candidate_id": "cand-f1cd3df795e2c4bd4ef2",
-          "mutation": {
-            "operator": "PATH_VARIANTS",
-            "variant": "without_trailing_slash"
-          },
-          "parent_candidate_id": "cand-9918604721aba5927208",
-          "request": {
-            "headers": {},
-            "method": "GET",
-            "path": "/rest/admin",
-            "query": {}
-          },
-          "response_signature": [
-            500,
-            "83416c79e5d32ac4f39fcc3865ba3a8413bf2946067653db6ccf76f2841aec2d",
-            "text/html; charset=utf-8",
-            2422,
-            ""
-          ]
-        },
-        {
-          "candidate_id": "cand-6397ad915de35d07e1f6",
-          "mutation": {
-            "operator": "PATH_VARIANTS",
-            "variant": "without_trailing_slash"
-          },
-          "parent_candidate_id": "cand-40be732c7ca3b2348ea9",
-          "request": {
-            "headers": {},
-            "method": "GET",
-            "path": "/rest/admin/./.",
-            "query": {}
-          },
-          "response_signature": [
-            500,
-            "97e27c763853186a8e8e21a685236997512232bce22c7eba730710811d9e1e72",
-            "text/html; charset=utf-8",
-            2430,
-            ""
-          ]
-        },
-        {
-          "candidate_id": "cand-43d4eb683f68c7d268e5",
+          "candidate_id": "cand-40be732c7ca3b2348ea9",
           "mutation": {
             "operator": "PATH_VARIANTS",
             "variant": "trailing_slash"
           },
-          "parent_candidate_id": "cand-fdb0ded710addf1930f0",
+          "parent_candidate_id": "cand-6397ad915de35d07e1f6",
           "request": {
             "headers": {},
             "method": "GET",
-            "path": "/rest/admin/./",
+            "path": "/rest/admin/././",
             "query": {}
           },
           "response_signature": [
             500,
-            "a3e19d4fb276b20ed1066c59ea37ae05424a20db8d0809f08f4fb1681e798831",
+            "74b1a631940bef2519e464f4416d45958875edbc3c82c5b547ce5759b50df435",
             "text/html; charset=utf-8",
-            2428,
+            2432,
             ""
           ]
         },
         {
-          "candidate_id": "cand-984e579d97aa46516071",
+          "candidate_id": "cand-fdb0ded710addf1930f0",
           "mutation": {
             "operator": "PATH_VARIANTS",
-            "variant": "trailing_slash"
+            "variant": "dot_suffix"
           },
-          "parent_candidate_id": "cand-4ff151307745b1f9c515",
+          "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
           "request": {
             "headers": {},
             "method": "GET",
-            "path": "/rest/admin/./././",
+            "path": "/rest/admin/.",
             "query": {}
           },
           "response_signature": [
             500,
-            "bb3cbb15d8d426c1ad406720c50825a37b6383e17be1068921c8afe159ab2f91",
+            "8e0ee913e2ac6c8519daa5fc4b9d68c6825af1eda9191784e1c13917608fbc05",
             "text/html; charset=utf-8",
-            2436,
+            2426,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-9918604721aba5927208",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "trailing_slash"
+          },
+          "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/admin/",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "9cf2952d85b121aa46bbd7f26d98f4350999d95f9a9c152de8ef24155be2d203",
+            "text/html; charset=utf-8",
+            2424,
             ""
           ]
         },
@@ -1718,7 +1799,7 @@
             "operator": "PATH_VARIANTS",
             "variant": "dot_suffix"
           },
-          "parent_candidate_id": "cand-40be732c7ca3b2348ea9",
+          "parent_candidate_id": "cand-6397ad915de35d07e1f6",
           "request": {
             "headers": {},
             "method": "GET",
@@ -1742,7 +1823,7 @@
         "none"
       ],
       "family_id": "fam_non_viable_500_monitor",
-      "generation": 8,
+      "generation": 9,
       "independent_reproduction_history": [
         "sweep reproduced each boot"
       ],
@@ -1771,86 +1852,65 @@
       "runtime": {
         "best_candidates": [
           {
-            "candidate_id": "cand-f1cd3df795e2c4bd4ef2",
-            "mutation": {
-              "operator": "PATH_VARIANTS",
-              "variant": "without_trailing_slash"
-            },
-            "parent_candidate_id": "cand-9918604721aba5927208",
-            "request": {
-              "headers": {},
-              "method": "GET",
-              "path": "/rest/admin",
-              "query": {}
-            },
-            "response_signature": [
-              500,
-              "83416c79e5d32ac4f39fcc3865ba3a8413bf2946067653db6ccf76f2841aec2d",
-              "text/html; charset=utf-8",
-              2422,
-              ""
-            ]
-          },
-          {
-            "candidate_id": "cand-6397ad915de35d07e1f6",
-            "mutation": {
-              "operator": "PATH_VARIANTS",
-              "variant": "without_trailing_slash"
-            },
-            "parent_candidate_id": "cand-40be732c7ca3b2348ea9",
-            "request": {
-              "headers": {},
-              "method": "GET",
-              "path": "/rest/admin/./.",
-              "query": {}
-            },
-            "response_signature": [
-              500,
-              "97e27c763853186a8e8e21a685236997512232bce22c7eba730710811d9e1e72",
-              "text/html; charset=utf-8",
-              2430,
-              ""
-            ]
-          },
-          {
-            "candidate_id": "cand-43d4eb683f68c7d268e5",
+            "candidate_id": "cand-40be732c7ca3b2348ea9",
             "mutation": {
               "operator": "PATH_VARIANTS",
               "variant": "trailing_slash"
             },
-            "parent_candidate_id": "cand-fdb0ded710addf1930f0",
+            "parent_candidate_id": "cand-6397ad915de35d07e1f6",
             "request": {
               "headers": {},
               "method": "GET",
-              "path": "/rest/admin/./",
+              "path": "/rest/admin/././",
               "query": {}
             },
             "response_signature": [
               500,
-              "a3e19d4fb276b20ed1066c59ea37ae05424a20db8d0809f08f4fb1681e798831",
+              "74b1a631940bef2519e464f4416d45958875edbc3c82c5b547ce5759b50df435",
               "text/html; charset=utf-8",
-              2428,
+              2432,
               ""
             ]
           },
           {
-            "candidate_id": "cand-984e579d97aa46516071",
+            "candidate_id": "cand-fdb0ded710addf1930f0",
             "mutation": {
               "operator": "PATH_VARIANTS",
-              "variant": "trailing_slash"
+              "variant": "dot_suffix"
             },
-            "parent_candidate_id": "cand-4ff151307745b1f9c515",
+            "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
             "request": {
               "headers": {},
               "method": "GET",
-              "path": "/rest/admin/./././",
+              "path": "/rest/admin/.",
               "query": {}
             },
             "response_signature": [
               500,
-              "bb3cbb15d8d426c1ad406720c50825a37b6383e17be1068921c8afe159ab2f91",
+              "8e0ee913e2ac6c8519daa5fc4b9d68c6825af1eda9191784e1c13917608fbc05",
               "text/html; charset=utf-8",
-              2436,
+              2426,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-9918604721aba5927208",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "trailing_slash"
+            },
+            "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/rest/admin/",
+              "query": {}
+            },
+            "response_signature": [
+              500,
+              "9cf2952d85b121aa46bbd7f26d98f4350999d95f9a9c152de8ef24155be2d203",
+              "text/html; charset=utf-8",
+              2424,
               ""
             ]
           },
@@ -1860,7 +1920,7 @@
               "operator": "PATH_VARIANTS",
               "variant": "dot_suffix"
             },
-            "parent_candidate_id": "cand-40be732c7ca3b2348ea9",
+            "parent_candidate_id": "cand-6397ad915de35d07e1f6",
             "request": {
               "headers": {},
               "method": "GET",
@@ -1876,15 +1936,15 @@
             ]
           }
         ],
-        "last_active_generation": 7,
-        "last_behavioral_differences": 5,
+        "last_active_generation": 8,
+        "last_behavioral_differences": 4,
         "last_candidate_count": 12,
-        "last_executed_generation": 7,
-        "last_information_gain": 0.5417,
-        "last_repeat_reproductions": 5,
+        "last_executed_generation": 8,
+        "last_information_gain": 0.5,
+        "last_repeat_reproductions": 4,
         "novelty_seen": true,
         "surface_id": "surf_non_viable_500",
-        "updated_at": "2026-10-05T11:10:06Z"
+        "updated_at": "2026-10-05T11:21:34Z"
       },
       "seed_requests": [
         {
@@ -1908,7 +1968,7 @@
         "none"
       ],
       "family_id": "fam_41_continue_code",
-      "generation": 8,
+      "generation": 9,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot"
       ],
@@ -1935,15 +1995,15 @@
       ],
       "runtime": {
         "best_candidates": [],
-        "last_active_generation": 7,
+        "last_active_generation": 8,
         "last_behavioral_differences": 0,
         "last_candidate_count": 1,
-        "last_executed_generation": 7,
+        "last_executed_generation": 8,
         "last_information_gain": 0.5,
         "last_repeat_reproductions": 0,
         "novelty_seen": false,
         "surface_id": "surf_41_continue_code",
-        "updated_at": "2026-10-05T11:10:05Z"
+        "updated_at": "2026-10-05T11:21:33Z"
       },
       "seed_requests": [
         {
@@ -1967,7 +2027,7 @@
         "none"
       ],
       "family_id": "fam_9_web3_nft",
-      "generation": 8,
+      "generation": 9,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot"
       ],
@@ -1994,15 +2054,15 @@
       ],
       "runtime": {
         "best_candidates": [],
-        "last_active_generation": 7,
+        "last_active_generation": 8,
         "last_behavioral_differences": 0,
         "last_candidate_count": 1,
-        "last_executed_generation": 7,
+        "last_executed_generation": 8,
         "last_information_gain": 0.5,
         "last_repeat_reproductions": 0,
         "novelty_seen": false,
         "surface_id": "surf_9_web3",
-        "updated_at": "2026-10-05T11:10:06Z"
+        "updated_at": "2026-10-05T11:21:34Z"
       },
       "seed_requests": [
         {
@@ -2026,7 +2086,7 @@
         "none"
       ],
       "family_id": "fam_29_extra_language",
-      "generation": 8,
+      "generation": 9,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot"
       ],
@@ -2055,15 +2115,15 @@
       ],
       "runtime": {
         "best_candidates": [],
-        "last_active_generation": 7,
+        "last_active_generation": 8,
         "last_behavioral_differences": 0,
         "last_candidate_count": 1,
-        "last_executed_generation": 7,
+        "last_executed_generation": 8,
         "last_information_gain": 0.5,
         "last_repeat_reproductions": 0,
         "novelty_seen": false,
         "surface_id": "surf_29_extra_language",
-        "updated_at": "2026-10-05T11:10:05Z"
+        "updated_at": "2026-10-05T11:21:33Z"
       },
       "seed_requests": [
         {
@@ -2078,7 +2138,58 @@
       "surface_id": "surf_29_extra_language"
     },
     {
-      "best_candidates": [],
+      "best_candidates": [
+        {
+          "candidate_id": "cand-e9a04a52f96d41173ff7",
+          "mutation": {
+            "method": "OPTIONS",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+          "request": {
+            "headers": {},
+            "method": "OPTIONS",
+            "path": "/redirect",
+            "query": {
+              "continue": [
+                "http://example.com"
+              ]
+            }
+          },
+          "response_signature": [
+            204,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "",
+            0,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-6eeb6387282211701c96",
+          "mutation": {
+            "method": "HEAD",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+          "request": {
+            "headers": {},
+            "method": "HEAD",
+            "path": "/redirect",
+            "query": {
+              "continue": [
+                "http://example.com"
+              ]
+            }
+          },
+          "response_signature": [
+            501,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "text/html;charset=utf-8",
+            0,
+            ""
+          ]
+        }
+      ],
       "coverage_history": [
         "redirect parameter + header variants, A14-A23"
       ],
@@ -2087,7 +2198,7 @@
         "none"
       ],
       "family_id": "fam_redirect_ssrf_monitor",
-      "generation": 8,
+      "generation": 9,
       "independent_reproduction_history": [
         "fresh-request reproduction each boot"
       ],
@@ -2115,16 +2226,67 @@
         "generation1: all scheme variants (http/https/file/gopher/data/javascript) and internal hosts (127.0.0.1:*) -> 500 TypeError; header injection changes nothing"
       ],
       "runtime": {
-        "best_candidates": [],
-        "last_active_generation": 7,
-        "last_behavioral_differences": 0,
-        "last_candidate_count": 12,
-        "last_executed_generation": 7,
-        "last_information_gain": 0.125,
-        "last_repeat_reproductions": 0,
-        "novelty_seen": false,
+        "best_candidates": [
+          {
+            "candidate_id": "cand-e9a04a52f96d41173ff7",
+            "mutation": {
+              "method": "OPTIONS",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+            "request": {
+              "headers": {},
+              "method": "OPTIONS",
+              "path": "/redirect",
+              "query": {
+                "continue": [
+                  "http://example.com"
+                ]
+              }
+            },
+            "response_signature": [
+              204,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "",
+              0,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-6eeb6387282211701c96",
+            "mutation": {
+              "method": "HEAD",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+            "request": {
+              "headers": {},
+              "method": "HEAD",
+              "path": "/redirect",
+              "query": {
+                "continue": [
+                  "http://example.com"
+                ]
+              }
+            },
+            "response_signature": [
+              501,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "text/html;charset=utf-8",
+              0,
+              ""
+            ]
+          }
+        ],
+        "last_active_generation": 8,
+        "last_behavioral_differences": 2,
+        "last_candidate_count": 6,
+        "last_executed_generation": 8,
+        "last_information_gain": 0.4167,
+        "last_repeat_reproductions": 2,
+        "novelty_seen": true,
         "surface_id": "surf_redirect",
-        "updated_at": "2026-10-05T11:10:06Z"
+        "updated_at": "2026-10-05T11:21:34Z"
       },
       "seed_requests": [
         {
@@ -2152,7 +2314,7 @@
         "none"
       ],
       "family_id": "fam_chatbot_monitor",
-      "generation": 8,
+      "generation": 9,
       "independent_reproduction_history": [
         "fresh-request observation each boot"
       ],
@@ -2180,15 +2342,15 @@
       ],
       "runtime": {
         "best_candidates": [],
-        "last_active_generation": 7,
+        "last_active_generation": 8,
         "last_behavioral_differences": 0,
         "last_candidate_count": 1,
-        "last_executed_generation": 7,
+        "last_executed_generation": 8,
         "last_information_gain": 0.5,
         "last_repeat_reproductions": 0,
         "novelty_seen": false,
         "surface_id": "surf_chatbot",
-        "updated_at": "2026-10-05T11:10:06Z"
+        "updated_at": "2026-10-05T11:21:34Z"
       },
       "seed_requests": [
         {
@@ -2203,6 +2365,6 @@
       "surface_id": "surf_chatbot"
     }
   ],
-  "generated_at": "2026-10-05T11:10:07Z",
+  "generated_at": "2026-10-05T11:21:35Z",
   "schema_version": "1.0.0"
 }

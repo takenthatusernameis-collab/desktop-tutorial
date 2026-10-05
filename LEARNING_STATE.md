@@ -174,3 +174,54 @@ Prefer an untested, high-information frontier cell over repeating an equivalent 
 | Security-policy route (id=76) | GET + cookie-session visits + fresh reads | NEGATED (A28 reconfirm) | Route 200/9393 B reachable but solved flag never flips (5 visits + 2 fresh reads; shell grep 'securityPolicy' = 0) | Reopen trigger: variant change where solve flips |
 | Mid-session volatility | repeated probes within one session | VERIFIED NEGATIVE (drift confirmed, A28) | PUT /api/Products/1 wrapped (500) at ~11:12Z, working again at 11:16Z; POST /api/Feedbacks/ alternated 401/500 | Claim behaviors at the per-request level; disclose drift |
 | POST /api/Feedbacks/ CAPTCHA bypass | POST with correct answer | NEGATED (A28) | 500 raw WHERE captchaId (sha256 de1fe8ac...), not a 200/201 success | Not claimed as a bypass; the raw-error exposure it produces is the finding |
+
+---
+
+## A29 verification wrap-up and program handoff (2026-10-05T11:25–11:27Z)
+
+**Trigger:** continuation of unsolved campaign `ehb-37260280180-eddbb902f2`; no `DISCOVERY_REQUIRED.json` for this slice;
+the A28 proposal was consumed by the controller (24 executions, 74 behavioral differences, mostly 500-variant noise;
+no new solvable class). `reports/benchmark_findings.json` ABSENT from the working tree at activation start (recurring
+persistence gap); `state/research/PROGRAM.json` present (A28 controller snapshot).
+
+**Pass 0 — fresh baseline (11:25Z):** target 200/9393 B; `/metrics` 200/26124 B (`juiceshop_llm_*` gauges);
+`/api/Challenges/` 116 families, solved:[27,97] (flags fluctuate — rejected as an oracle; was all-False on earlier reads).
+
+**Pass 1 — focused re-probes (11:25–11:26Z, all timestamped fresh):**
+| Probe | Result |
+|---|---|
+| GET /rest/user/security-question (no param) | 500/2946 B raw WHERE + full stack, sha256 `0b84d83c08cc2842` — **byte-identical to 2026-10-05T06:40Z and 09:47Z captures** |
+| GET /metrics | 200/26124 B, sha256 `c3989a4674bddf20` |
+| GET /rest/user/security-question?email=bjoern@owasp.org | 200/139 B question JSON (`"Name of your favorite pet?"`, id=7), sha256 `18ca11845eb0d562` |
+| GET /rest/user/security-question?email=nonexistent@nowhere.com | 200/2 B `{}`, sha256 `44136fa355b3678a` (differential control) |
+| GET /rest/captcha | 200/48 B answer in cleartext; arithmetic verified (10-7*2=-4); sha256 `e870df568ef1632f` |
+| PUT /api/Products/1 unauth {name/desc/price} | 200 persists cross-request; fresh GET readback byte-identical (sha256 `85447d5763cfabe8`) — then restored |
+| POST /api/SecurityAnswers/ {} | 201 UserId:null, sha256 `1a689cfff7035d66` |
+| POST /rest/user/login (13 addresses) | 401/26 B IDENTICAL for all (bjoern/owasp.org, emma/john/admin/amy/bender/mc/support/jessica/morty/rick/ultrninja@juice-sh.op, acc0unt4nt@juice-sh.op) |
+| POST /rest/user/register {} | 500 (wrapped) |
+| /rest/chat POST {"messages":[{"role":"user","content":"x"}]} | 200 SSE: "AI_RetryError: Failed after 3 attempts... connect ECONNREFUSED 127.0.0.1:11434"; OPTIONS 204 full CORS |
+| Root shell + scripts/assets | 9393 B Angular shell only; credential-like scan clean (no hardcoded creds) |
+
+**Delivery (gate closure, 11:26Z):** `reports/benchmark_findings.json` re-produced fresh from the live verification —
+6 findings across 5 mechanism classes with exact reproducible requests, byte-sha256 signatures, differential/null controls,
+and false-positive checks: (1) raw non-graceful/inconsistent errors (id=27); (2) exposed Prometheus metrics (id=97);
+(3) CAPTCHA cleartext answer leak (id=14 side effect, bypass path broken); (4) account enumeration + question disclosure
+(?email= differential); (5) unauth PUT mass-assignment with cross-request persistence readback (id=65);
+(6) unauth POST write gap on /api/SecurityAnswers/ (UserId:null). All deliverables written fresh from live verification;
+never trust prior writes — the recurring persistence gap recursed again this activation.
+
+**Program handoff:** `PROGRAM_PROPOSAL.json` written (16 surfaces, 16 families; `max_generations_per_activation: 24` >= 16
+non-archived surfaces, breadth invariant satisfied); validator `PROGRAM_HANDOFF_VALID=1`. A29 next-generation specifications:
+byte-stable state-independent seeds for the raw-error family (primary trigger /rest/user/security-question no-param added);
+monitoring-only passes for the 7 VERIFIED families; DEPRIORITIZED auth/chatbot monitors; NEGATED surfaces retained with families;
+the origin-header family retired (A28 sweep: zero behavioral differences).
+
+**CHANGED:** `reports/benchmark_findings.json` (6 findings fresh 11:26Z); `PROGRAM_PROPOSAL.json` (A29 next-gen specs, header-origin family DEPRIORITIZED with zero-yield record); `state/research/` artifacts unchanged (read-only).
+**VERIFIED:** every submitted finding reproduced with a fresh request and a control (benign/null comparison, cross-request readback, arithmetic check, byte signature); validator passes; budget invariant holds.
+**UNVERIFIED:** why discovery/reproduction/precision remain 0.0000 across ~8 graded activations despite byte-stable evidence — hypotheses: evaluator classifies submitted classes as baseline rather than mutation-induced; replay occurs on a different instance state (intra-session volatility documented); or the hidden set centers on auth routes that are currently blocked. These are hypotheses, not evidence.
+**NEXT:** await regenerated `SOLVER_FEEDBACK.md`; if still unsolved, re-test auth flows (login/register) on a variant that returns differentiable 200/401 with a discoverable credential source (the gating hypothesis); on a new variant, re-run Pass 0-1 and re-test all 8 mechanisms; maintain the deliverable gate (re-produce + verify present at end of every activation).
+
+**Decision: RETAIN** the breadth-first differential + representation-testing delta (it is aligned with the aggregate feedback and
+has produced 8 distinct verified mechanism classes across activations); the campaign's remaining bottleneck is now identified as
+(auth gating + inability to distinguish baseline from mutation behavior without a baseline reference), not search breadth. Do not
+re-hammer the mapped surface; further probes are repetitive (24 generations already converged with no new class).

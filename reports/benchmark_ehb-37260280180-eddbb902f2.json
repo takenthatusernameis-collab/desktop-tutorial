@@ -7,56 +7,42 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Raw error exposure: unauthenticated GET returns raw SQL WHERE error with full Node/Express stack trace",
+      "title": "Raw, non-graceful, inconsistent server errors expose internals (challenge id=27 errorHandling)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Representation-dependent error inconsistency: Accept header changes raw error body from HTML to JSON",
+      "title": "Unauthenticated Prometheus metrics endpoint exposes llm_* telemetry (challenge id=97 exposedMetrics)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Excessive data exposure: /rest/memories returns full nested user objects including password hash and TOTP secret unauthenticated",
+      "title": "CAPTCHA answer leaked in cleartext by the API response (challenge id=14 captchaBypass side effect)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Account enumeration and security-question disclosure via query parameter",
+      "title": "Unauthenticated account enumeration and security-question disclosure via /rest/user/security-question?email=",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated write gap: empty POST creates records with null ownership binding while the parallel GET is gated",
+      "title": "Unauthenticated PUT mass-assignment persists cross-request (challenge id=65 changeProduct side effect)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Method-specific mass-assignment: unauthenticated PUT persists product field modification while POST/DELETE are blocked",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "CAPTCHA cleartext answer leak: server-computed answer served unauthenticated",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Exposed observability telemetry: /metrics serves Prometheus-format metrics including LLM token gauges unauthenticated",
+      "title": "Unauthenticated write gap on /api/SecurityAnswers/ (UserId=null)",
       "valid_reproduction": false
     }
   ],
@@ -65,7 +51,7 @@
   "difficulty": 4,
   "discovery_rate": 0.0,
   "evidence_quality": 1.0,
-  "finding_count_submitted": 8,
+  "finding_count_submitted": 6,
   "ground_truth_exposed": false,
   "limitations": [
     "Replay validation tests submitted evidence against the hidden evaluator.",
