@@ -1,0 +1,4146 @@
+[
+ {
+  "path": "/rest/user/whoami",
+  "method": "GET",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"user\":{}}"
+ },
+ {
+  "path": "/rest/user/whoami",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/whoami",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/whoami",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/whoami",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/whoami",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/whoami",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/login",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/login",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/login",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/login",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/login",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/login",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/login",
+  "method": "POST",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "Invalid email or password."
+ },
+ {
+  "path": "/rest/user/register",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/register",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/register",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/register",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/register",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/register",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/register",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/change-password",
+  "method": "GET",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "Password cannot be empty."
+ },
+ {
+  "path": "/rest/user/change-password",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/change-password",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/change-password",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/change-password",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/change-password",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/change-password",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/forgot-password",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/forgot-password",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/forgot-password",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/forgot-password",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/forgot-password",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/forgot-password",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/forgot-password",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/security-question?email=test@example.com",
+  "method": "GET",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{}"
+ },
+ {
+  "path": "/rest/user/security-question?email=test@example.com",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/security-question?email=test@example.com",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/security-question?email=test@example.com",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/security-question?email=test@example.com",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/security-question?email=test@example.com",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/security-question?email=test@example.com",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/authentication-details",
+  "method": "GET",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/user/authentication-details",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/authentication-details",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/authentication-details",
+  "method": "PUT",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/user/authentication-details",
+  "method": "DELETE",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/user/authentication-details",
+  "method": "PATCH",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/user/authentication-details",
+  "method": "POST",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/user/address",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/address",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/address",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/address",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/address",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/address",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/address",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/addresses",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/addresses",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/addresses",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/addresses",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/addresses",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/addresses",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/addresses",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/order-history",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/order-history",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/order-history",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/order-history",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/order-history",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/order-history",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/order-history",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/basket",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/basket",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/basket",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/basket",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/basket",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/basket",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/basket",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/recovery-answer",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/recovery-answer",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/recovery-answer",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/recovery-answer",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/recovery-answer",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/recovery-answer",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/recovery-answer",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/security-answer",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/security-answer",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/security-answer",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/user/security-answer",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/security-answer",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/security-answer",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/user/security-answer",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/memories",
+  "method": "GET",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"😼 #zatschi #whoneedsf"
+ },
+ {
+  "path": "/rest/memories",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/memories",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/memories",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/memories",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/memories",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/memories",
+  "method": "POST",
+  "status": 400,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"error\":\"File is not passed\"}"
+ },
+ {
+  "path": "/rest/products",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/products",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/products",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products/search?q=test",
+  "method": "GET",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"status\":\"success\",\"data\":[{\"id\":9,\"name\":\"OWASP SSL Advanced Forensic Tool (O-"
+ },
+ {
+  "path": "/rest/products/search?q=test",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/products/search?q=test",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/products/search?q=test",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products/search?q=test",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products/search?q=test",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products/search?q=test",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products/1",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products/1",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/products/1",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/products/1",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products/1",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products/1",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/products/1",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/orders",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/orders",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/orders",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/orders",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/orders",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/orders",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/orders",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupons",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupons",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/coupons",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/coupons",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupons",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupons",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupons",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupon",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupon",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/coupon",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/coupon",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupon",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupon",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/coupon",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reviews",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reviews",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/reviews",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/reviews",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reviews",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reviews",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reviews",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/feedbacks",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/feedbacks",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/feedbacks",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/feedbacks",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/feedbacks",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/feedbacks",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/feedbacks",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/security-answers",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/security-answers",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/security-answers",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/security-answers",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/security-answers",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/security-answers",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/security-answers",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/addresses",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/addresses",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/addresses",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/addresses",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/addresses",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/addresses",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/addresses",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cards",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cards",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/cards",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/cards",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cards",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cards",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cards",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cart",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cart",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/cart",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/cart",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cart",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cart",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/cart",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/basket",
+  "method": "GET",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/basket",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/basket",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/basket",
+  "method": "PUT",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/basket",
+  "method": "DELETE",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/basket",
+  "method": "PATCH",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/basket",
+  "method": "POST",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/rest/web3/nftUnlocked",
+  "method": "GET",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"status\":false}"
+ },
+ {
+  "path": "/rest/web3/nftUnlocked",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/nftUnlocked",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/nftUnlocked",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftUnlocked",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftUnlocked",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftUnlocked",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftMint",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftMint",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/nftMint",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/nftMint",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftMint",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftMint",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftMint",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftClaim",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftClaim",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/nftClaim",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/nftClaim",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftClaim",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftClaim",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/nftClaim",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/collect",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/collect",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/collect",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/collect",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/collect",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/collect",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/collect",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/deposit",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/deposit",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/deposit",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/deposit",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/deposit",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/deposit",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/deposit",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/transfer",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/transfer",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/transfer",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/transfer",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/transfer",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/transfer",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/transfer",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/address",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/address",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/address",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/address",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/address",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/address",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/address",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/verifySignature",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/verifySignature",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/verifySignature",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/verifySignature",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/verifySignature",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/verifySignature",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/verifySignature",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/addressBalance",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/addressBalance",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/addressBalance",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/web3/addressBalance",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/addressBalance",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/addressBalance",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/web3/addressBalance",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code",
+  "method": "GET",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"continueCode\":\"O3VMEvaDgyX8LvJ4qo7EwW6m29xP0pOGzRkZKY1bB3MNjOVprl5QenrK4a2x\"}"
+ },
+ {
+  "path": "/rest/continue-code",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/continue-code",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/continue-code",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/apply?code=123456",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/apply?code=123456",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/continue-code/apply?code=123456",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/continue-code/apply?code=123456",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/apply?code=123456",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/apply?code=123456",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/apply?code=123456",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/list",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/list",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/continue-code/list",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/continue-code/list",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/list",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/list",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/continue-code/list",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/leaderboard",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/leaderboard",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/leaderboard",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/leaderboard",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/leaderboard",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/leaderboard",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/leaderboard",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/redirect?continue=http://example.com",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/redirect?continue=http://example.com",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/redirect?continue=http://example.com",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/redirect?continue=http://example.com",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/redirect?continue=http://example.com",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/redirect?continue=http://example.com",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/redirect?continue=http://example.com",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/chat",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/chat",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/chat",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/chat",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/chat",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/chat",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/chat",
+  "method": "POST",
+  "status": 200,
+  "content_type": "text/event-stream",
+  "cors": "*",
+  "body": "data: {\"error\":\"LLM error: AI_InvalidPromptError: Invalid prompt: messages must "
+ },
+ {
+  "path": "/rest/admin",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/admin",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/admin",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/admin",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/admin",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/admin",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/admin",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/score-board",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/score-board",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/score-board",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/score-board",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/score-board",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/score-board",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/score-board",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/photo-wall",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/photo-wall",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/photo-wall",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/photo-wall",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/photo-wall",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/photo-wall",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/photo-wall",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/recycle",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/recycle",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/recycle",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/recycle",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/recycle",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/recycle",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/recycle",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reset-password",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reset-password",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/reset-password",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/reset-password",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reset-password",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reset-password",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/reset-password",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/file-upload",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/file-upload",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/file-upload",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/file-upload",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/file-upload",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/file-upload",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/file-upload",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/captcha",
+  "method": "GET",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"captchaId\":1,\"captcha\":\"3+2+2\",\"answer\":\"7\"}"
+ },
+ {
+  "path": "/rest/captcha",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/rest/captcha",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/rest/captcha",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/captcha",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/captcha",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/rest/captcha",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Challenges/",
+  "method": "GET",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"key\":\"passwordHashLeakChallenge\",\"name\":\"Pa"
+ },
+ {
+  "path": "/api/Challenges/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Challenges/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Challenges/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Challenges/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Challenges/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Challenges/",
+  "method": "POST",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/api/Memories/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Memories/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Memories/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Memories/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Memories/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Memories/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Memories/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/RecoveryAnswers/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/RecoveryAnswers/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/RecoveryAnswers/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/RecoveryAnswers/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/RecoveryAnswers/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/RecoveryAnswers/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/RecoveryAnswers/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Questions/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Questions/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Questions/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Questions/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Questions/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Questions/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Questions/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Addresses/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Addresses/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Addresses/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Addresses/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Addresses/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Addresses/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Addresses/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Reviews/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Reviews/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Reviews/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Reviews/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Reviews/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Reviews/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Reviews/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Cards/",
+  "method": "GET",
+  "status": 401,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'"
+ },
+ {
+  "path": "/api/Cards/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Cards/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Cards/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Cards/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Cards/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Cards/",
+  "method": "POST",
+  "status": 401,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'"
+ },
+ {
+  "path": "/api/Orders/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Orders/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Orders/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Orders/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Orders/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Orders/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Orders/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Feedbacks/",
+  "method": "GET",
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"status\":\"success\",\"data\":[{\"UserId\":1,\"id\":1,\"comment\":\"I love this shop! Best"
+ },
+ {
+  "path": "/api/Feedbacks/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Feedbacks/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Feedbacks/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Feedbacks/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Feedbacks/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Feedbacks/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: WHERE parameter &q"
+ },
+ {
+  "path": "/api/Coupons/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Coupons/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Coupons/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Coupons/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Coupons/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Coupons/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Coupons/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Carts/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Carts/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Carts/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Carts/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Carts/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Carts/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Carts/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Baskets/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Baskets/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Baskets/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Baskets/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Baskets/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Baskets/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Baskets/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "GET",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "POST",
+  "status": 201,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"status\":\"success\",\"data\":{\"id\":25,\"updatedAt\":\"2026-10-05T02:14:15.076Z\",\"crea"
+ },
+ {
+  "path": "/api/Uploads/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Uploads/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Uploads/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Uploads/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Uploads/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Uploads/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Uploads/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Exports/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Exports/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Exports/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Exports/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Exports/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Exports/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Exports/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Jwt",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Jwt",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Jwt/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Jwt/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Jwt/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/User",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/User",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/User/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/User/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/User/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/0",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/0",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/CaptchaRiddle/0",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/CaptchaRiddle/0",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/0",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/0",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/0",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/3",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/3",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/CaptchaRiddle/3",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/CaptchaRiddle/3",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/3",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/3",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/CaptchaRiddle/3",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Captcha/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Captcha/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Captcha/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Captcha/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Captcha/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Captcha/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Captcha/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswer/",
+  "method": "GET",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswer/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/SecurityAnswer/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/SecurityAnswer/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswer/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswer/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswer/",
+  "method": "POST",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Complaints/",
+  "method": "GET",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/api/Complaints/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/Complaints/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/Complaints/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Complaints/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Complaints/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/Complaints/",
+  "method": "POST",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "GET",
+  "status": 401,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "HEAD",
+  "status": 501,
+  "content_type": "text/html;charset=utf-8",
+  "cors": "",
+  "body": ""
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "OPTIONS",
+  "status": 204,
+  "content_type": "",
+  "cors": "*",
+  "body": ""
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "PUT",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "DELETE",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "PATCH",
+  "status": 500,
+  "content_type": "text/html; charset=utf-8",
+  "cors": "*",
+  "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /"
+ },
+ {
+  "path": "/api/SecurityAnswers/",
+  "method": "POST",
+  "status": 201,
+  "content_type": "application/json; charset=utf-8",
+  "cors": "*",
+  "body": "{\"status\":\"success\",\"data\":{\"id\":26,\"updatedAt\":\"2026-10-05T02:14:15.653Z\",\"crea"
+ }
+]

