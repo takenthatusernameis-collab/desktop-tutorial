@@ -423,6 +423,14 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
         _surface_intensity_value(surface.get("current_intensity"), f"{sid}.current_intensity", 1)
         if status == "ARCHIVED" and not surface.get("archive_reason"):
             raise ProgramError(f"archived surface {sid} requires archive_reason")
+        declared_families = surface.get("evolutionary_families") or []
+        if not isinstance(declared_families, list):
+            raise ProgramError(f"surface {sid}.evolutionary_families must be a list")
+        for declared_family_id in declared_families:
+            if declared_family_id not in family_ids:
+                raise ProgramError(
+                    f"surface {sid} declares unknown evolutionary family {declared_family_id}"
+                )
         reject_forbidden(surface, f"surface {sid}")
 
     family_ids = set()
@@ -453,6 +461,34 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
             raise ProgramError(f"family {fid} has invalid seed_requests")
         for seed_index, seed in enumerate(seeds):
             normalize_request(seed, f"family {fid} seed {seed_index}")
+        best_candidates = family.get("best_candidates") or []
+        if not isinstance(best_candidates, list) or len(best_candidates) > 32:
+            raise ProgramError(f"family {fid} has invalid best_candidates")
+        for candidate_index, candidate in enumerate(best_candidates):
+            if not isinstance(candidate, dict):
+                raise ProgramError(f"family {fid} best_candidate {candidate_index} is not an object")
+            for field in ("candidate_id", "parent_candidate_id", "request", "mutation", "response_signature"):
+                if field not in candidate:
+                    raise ProgramError(
+                        f"family {fid} best_candidate {candidate_index} missing {field}"
+                    )
+            request_value = normalize_request(
+                candidate["request"],
+                f"family {fid} best_candidate {candidate_index}.request",
+            )
+            expected_id = candidate_id(request_value)
+            if candidate["candidate_id"] != expected_id:
+                raise ProgramError(
+                    f"family {fid} best_candidate {candidate_index} has inconsistent candidate_id"
+                )
+            if not isinstance(candidate["mutation"], dict):
+                raise ProgramError(
+                    f"family {fid} best_candidate {candidate_index}.mutation must be an object"
+                )
+            if not isinstance(candidate["response_signature"], (list, dict)):
+                raise ProgramError(
+                    f"family {fid} best_candidate {candidate_index}.response_signature must be JSON data"
+                )
         if not seeds:
             raise ProgramError(f"family {fid} has no executable seed requests")
         # Every family must compile to at least one deterministic candidate from
