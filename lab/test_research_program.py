@@ -116,7 +116,9 @@ def sample_program(benchmark_id="b1"):
 
 def test_new_and_bootstrap(tmp: Path):
     assert rp.run_pre_kilo("fresh", "new", "http://lab-mutator:3000", tmp) == 0
-    persisted = rp.load_json(tmp / rp.PROGRAM)
+    assert rp.validate_state(tmp, "new", "fresh") is None
+
+    rp.write_json(tmp / rp.PROGRAM, sample_program("new"))
     validated = rp.validate_state(tmp, "new", "fresh")
     assert validated["benchmark_id"] == "new"
     marker = rp.load_json(tmp / "DISCOVERY_REQUIRED.json")
