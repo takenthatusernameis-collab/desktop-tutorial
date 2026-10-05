@@ -934,6 +934,7 @@ jobs:
         env:
           PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           KILO_SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
+          POST_KILO_REGRESSION_OUTCOME: ${{ steps.post_kilo_regression.outcome }}
           KILO_OUTCOME: ${{ steps.kilo.outcome }}
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
           RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
@@ -954,6 +955,7 @@ jobs:
           echo "::group::REPORT OUTCOME DEBUG — exact classifier inputs"
           printf 'PREFLIGHT_OUTCOME=%q\n' "${PREFLIGHT_OUTCOME:-<unset>}"
           printf 'KILO_SMOKE_OUTCOME=%q\n' "${KILO_SMOKE_OUTCOME:-<unset>}"
+          printf 'POST_KILO_REGRESSION_OUTCOME=%q\n' "${POST_KILO_REGRESSION_OUTCOME:-<unset>}"
           printf 'KILO_OUTCOME=%q\n' "${KILO_OUTCOME:-<unset>}"
           printf 'EVALUATE_OUTCOME=%q\n' "${EVALUATE_OUTCOME:-<unset>}"
           printf 'RESEARCH_PORTFOLIO_OUTCOME=%q\n' "${RESEARCH_PORTFOLIO_OUTCOME:-<unset>}"
@@ -1011,6 +1013,7 @@ jobs:
           python3 .github/scripts/report_worker_outcome.py \
             --preflight "$PREFLIGHT_OUTCOME" \
             --smoke "$KILO_SMOKE_OUTCOME" \
+            --post-kilo-regression "$POST_KILO_REGRESSION_OUTCOME" \
             --worker "$KILO_OUTCOME" \
             --evaluate "$EVALUATE_OUTCOME" \
             --portfolio "$RESEARCH_PORTFOLIO_OUTCOME" \
