@@ -371,7 +371,53 @@ jobs:
 
               echo "Preflight infrastructure health check passed."
             '
+      - name: Smoke-test real Kilo execution path
+        id: kilo_smoke
+        if: steps.preflight.outcome == 'success'
+        timeout-minutes: 3
+        env:
+          KILO_DISABLE_EXTERNAL_SKILLS: "true"
+        run: |
+          set -euo pipefail
+          SMOKE_DIR="$RUNNER_TEMP/kilo-preflight-smoke"
+          rm -rf "$SMOKE_DIR"
+          mkdir -p "$SMOKE_DIR"
+          trap 'rm -rf "$SMOKE_DIR"' EXIT
+
+          cat > "$SMOKE_DIR/README.md" <<'EOF'
+          This is a disposable Kilo infrastructure smoke test.
+          Do not access the security target or any network resource.
+          Use the normal terminal/tooling path available to you.
+          Create a file named `kilo-smoke-sentinel.txt` containing exactly:
+          KILO_SMOKE_OK
+          Then finish immediately.
+          EOF
+
+          docker run --rm \
+            --network ehb-worker-net \
+            --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
+            --user "$(id -u):$(id -g)" \
+            --mount type=bind,source="$SMOKE_DIR",target=/workspace \
+            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
+            -e HOME=/tmp/kilo-home \
+            -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
+            -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
+            -e KILO_DISABLE_EXTERNAL_SKILLS=true \
+            "$EHB_KILO_IMAGE" \
+            bash -lc '
+              set -euo pipefail
+              cd /workspace
+              mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
+              cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
+              chmod 600 "$HOME/.config/kilo/kilo.json"
+              timeout 120s kilo run --model openai-compatible/free-kilo --auto "$(cat README.md)"
+            '
+
+          test -f "$SMOKE_DIR/kilo-smoke-sentinel.txt"
+          test "$(cat "$SMOKE_DIR/kilo-smoke-sentinel.txt")" = "KILO_SMOKE_OK"
+          echo "Real Kilo execution-path smoke test passed."
       - name: Run isolated Kilo worker
+        if: steps.preflight.outcome == 'success' && steps.kilo_smoke.outcome == 'success'
         id: kilo
         continue-on-error: true
         timeout-minutes: 315
@@ -536,17 +582,24 @@ jobs:
         if: always()
         env:
           PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          KILO_SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
           KILO_OUTCOME: ${{ steps.kilo.outcome }}
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
         run: |
           set -euo pipefail
 
           echo "Preflight infrastructure outcome: $PREFLIGHT_OUTCOME"
+          echo "Kilo execution smoke outcome: $KILO_SMOKE_OUTCOME"
           echo "Raw Kilo worker outcome: $KILO_OUTCOME"
           echo "Independent evaluator outcome: $EVALUATE_OUTCOME"
 
           if [ "$PREFLIGHT_OUTCOME" != "success" ]; then
             echo "Campaign did not start because the deterministic infrastructure preflight failed."
+            exit 1
+          fi
+
+          if [ "$KILO_SMOKE_OUTCOME" != "success" ]; then
+            echo "Campaign did not start because the real Kilo execution-path smoke test failed."
             exit 1
           fi
 
