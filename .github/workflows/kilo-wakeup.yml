@@ -699,7 +699,7 @@ jobs:
             reports/benchmark_*.json
       - name: Validate controller research state before persistence
         id: pre_persist_research_validate
-        if: always() && steps.research_portfolio.outcome == 'success'
+        if: always() && steps.research_portfolio.outcome == 'success' && steps.kilo.outcome == 'success'
         continue-on-error: true
         run: |
           set -euo pipefail
