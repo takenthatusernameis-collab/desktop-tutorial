@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 0,
+  "candidate_count": 4,
+  "family_id": "fam_origin_header_variants",
+  "generation": 4,
+  "generation_id": "gen-0004-fam_origin_header_variants",
+  "information_gain": 0.125,
+  "observed_at": "2026-10-05T12:51:58Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_origin_header_variants"
+}
