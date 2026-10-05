@@ -415,6 +415,17 @@ def test_portfolio_budget_preserves_surface_breadth(tmp: Path):
     assert {item["surface_id"] for item in plan} == {"surface-a", "surface-b"}
 
 
+def test_materialize_string_effort_evidence(tmp: Path):
+    program = sample_program("materialize")
+    program["surfaces"][0]["reasonable_effort_evidence"] = "fresh prose evidence"
+    rp.write_json(tmp / rp.PROGRAM, program)
+    rp.materialize_registries(tmp, program, rp.load_runtime(tmp))
+    surfaces = rp.load_json(tmp / rp.SURFACES)
+    effort = surfaces["surfaces"][0]["reasonable_effort_evidence"]
+    assert effort["evidence"] == "fresh prose evidence"
+    assert effort["generations"] == 0
+
+
 def test_generation_receipts(tmp: Path):
     program = sample_program()
     rp.write_json(tmp / rp.PROGRAM, program)
@@ -463,6 +474,7 @@ def main():
         test_portfolio_validation_rejects_budget_below_breadth(root / "g")
         test_validation_rejects_zero_candidate_family(root / "h")
         test_method_variant_is_seed_safe()
+        test_materialize_string_effort_evidence(root / "i")
         test_post_kilo_execution_regression(root / "post-kilo")
     print("research program tests: PASS")
 
