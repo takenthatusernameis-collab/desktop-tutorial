@@ -1450,7 +1450,7 @@
   }
  ],
  "portfolio_policy": {
-  "max_generations_per_activation": 2,
+  "max_generations_per_activation": 24,
   "max_candidates_per_generation": 12,
   "exploration_reserve_fraction": 0.3
  },
