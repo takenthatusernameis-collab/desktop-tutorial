@@ -192,10 +192,6 @@ jobs:
 
           python3 lab/benchmark_campaign.py restore             --secret-dir "$LAB_SECRET_DIR"             --active-dir "$ACTIVE_BENCHMARK_DIR"             --history "lab/benchmark_history.jsonl"
 
-          python3 - <<'PY' >> "$GITHUB_ENV"
-          import json
-          from pathlib import Path
-
           secret_dir = Path("$RUNNER_TEMP/ehb-secret")
           public = json.loads((secret_dir / "public.json").read_text(encoding="utf-8"))
           print(f"BENCHMARK_ID={public['benchmark_id']}")
@@ -523,7 +519,7 @@ jobs:
           set -euo pipefail
 
           git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/benchmark_campaign.py lab/kilo-worker.Dockerfile lab/kilo_gateway_proxy.py lab/README.md 2>/dev/null || true
-          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/README.md 2>/dev/null || true
+          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/benchmark_campaign.py lab/README.md 2>/dev/null || true
 
           if [ "${FEEDBACK_OUTCOME:-failure}" != "success" ]; then
             git restore --worktree --staged -- SOLVER_FEEDBACK.md 2>/dev/null || true
