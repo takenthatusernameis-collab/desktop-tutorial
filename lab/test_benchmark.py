@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 import generate_benchmark as generator
 import evaluate_benchmark as evaluator
 import mutator
+import benchmark_campaign
 
 
 def make_request(ch: dict) -> tuple[str, str, dict, dict]:
@@ -124,6 +125,19 @@ def main() -> int:
     assert empty_claims == []
     assert empty_score["overall_score"] == 0.0
     assert empty_score["precision_component"] == 0.0
+
+    perfect = {
+        "challenge_count": len(sample["families"]),
+        "unique_challenges_validated": len(sample["families"]),
+        "finding_count_submitted": len(sample["families"]),
+        "reproduction_rate": 1.0,
+        "precision_component": 1.0,
+        "evidence_quality": 1.0,
+        "challenge_solved": True,
+    }
+    assert benchmark_campaign.challenge_is_solved(perfect) is True
+    perfect["unique_challenges_validated"] -= 1
+    assert benchmark_campaign.challenge_is_solved(perfect) is False
     print("benchmark harness self-test: PASS")
     print(json.dumps({"variants": len(history), "unique_commitments": len(seen)}, sort_keys=True))
     return 0
