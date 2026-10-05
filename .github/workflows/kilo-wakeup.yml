@@ -66,7 +66,9 @@ jobs:
             lab/research_program.py \
             lab/test_research_program.py \
             .github/scripts/report_worker_outcome.py \
+            .github/scripts/record_failure_memory.py \
             .github/scripts/research_portfolio_runner.py
+          python3 .github/scripts/record_failure_memory.py --self-test
 
       - name: Deep audit — after Self-test benchmark harness
         id: deep_audit_1_self_test_benchmark_harness
@@ -683,6 +685,34 @@ jobs:
             --snapshot-dir "$RUNNER_TEMP/ehb-research-snapshot" \
             --proposal "PROGRAM_PROPOSAL.json"
 
+      - name: Record worker failure memory
+        id: failure_memory
+        if: always()
+        continue-on-error: true
+        env:
+          RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          KILO_SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
+          POST_KILO_REGRESSION_OUTCOME: ${{ steps.post_kilo_regression.outcome }}
+          KILO_OUTCOME: ${{ steps.kilo.outcome }}
+          RESEARCH_VALIDATION_OUTCOME: ${{ steps.pre_persist_research_validate.outcome }}
+          RESEARCH_HANDOFF_OUTCOME: ${{ steps.research_handoff.outcome }}
+          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+        run: |
+          set +e
+          python3 .github/scripts/record_failure_memory.py \
+            --portfolio "$RESEARCH_PORTFOLIO_OUTCOME" \
+            --preflight "$PREFLIGHT_OUTCOME" \
+            --smoke "$KILO_SMOKE_OUTCOME" \
+            --post-kilo-regression "$POST_KILO_REGRESSION_OUTCOME" \
+            --worker "$KILO_OUTCOME" \
+            --research-validation "$RESEARCH_VALIDATION_OUTCOME" \
+            --research-handoff "$RESEARCH_HANDOFF_OUTCOME" \
+            --evaluate "$EVALUATE_OUTCOME"
+          rc=$?
+          echo "FAILURE_MEMORY_RC=$rc"
+          exit 0
+
       - name: Persist safe repository changes
         id: persist
         if: always()
@@ -732,6 +762,7 @@ jobs:
             state/research/PORTFOLIO_CHECKLIST.md \
             state/research/PORTFOLIO_SUMMARY.json \
             state/research/COMPILED_PORTFOLIO.json \
+            state/research/FAILURE_MEMORY.jsonl \
             state/research/GENERATIONS \
             state/research/RESULTS \
             state/research/REVIEWS; do
