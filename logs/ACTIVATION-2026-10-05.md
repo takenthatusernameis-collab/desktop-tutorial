@@ -39,3 +39,20 @@
 
 ### NEXT
 - After the X worker reaches a terminal outcome, implement the same lightweight strategy-delta / coverage-frontier concept in the active worker prompts without creating a second autonomous evaluator.
+## 03:15 UTC — Learning-efficiency contract operationalized
+
+### CHANGED
+- Added durable `LEARNING_STATE.md` connecting aggregate benchmark feedback to one strategy delta and a coverage frontier per activation.
+- Updated the Kilo worker prompt to require a coverage-first delta while discovery remains the bottleneck.
+- Initialized the first delta: broad surface/hypothesis coverage, minimally changed representations, and differential testing before deepening anomalies.
+
+### VERIFIED
+- The learning state and prompt both contain the strategy-delta contract.
+- Current benchmark feedback remains explicitly separated from hidden evaluator details.
+
+### UNVERIFIED
+- Whether the new search-policy delta improves discovery/reproduction; no post-delta benchmark evaluation exists yet.
+
+### NEXT
+- Execute the next campaign with the coverage frontier recorded before deep investigation and compare the resulting public discovery/reproduction metrics.
+
