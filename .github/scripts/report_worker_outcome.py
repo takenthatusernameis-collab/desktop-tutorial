@@ -18,6 +18,7 @@ def report(
     findings_path: Path,
     research_report_path: Path,
     research_handoff: str = "success",
+    persist: str = "success",
 ) -> tuple[int, str]:
     print(f"Preflight infrastructure outcome: {preflight}")
     print(f"Kilo execution smoke outcome: {smoke}")
@@ -26,7 +27,11 @@ def report(
     print(f"Deterministic research portfolio outcome: {portfolio}")
     print(f"Kilo research-program validation outcome: {research_validation}")
     print(f"Research-program handoff outcome: {research_handoff}")
+    print(f"Persistence outcome: {persist}")
 
+    # Persistence is the durability boundary. If it fails, do not hide that failure.
+    if persist != "success":
+        return 1, "FAILED_PERSISTENCE"
     if portfolio != "success":
         return 1, "FAILED_PRE_KILO_PORTFOLIO"
     if preflight != "success":
@@ -39,22 +44,18 @@ def report(
     findings_present = findings_path.is_file() and findings_path.stat().st_size > 0
     research_report_present = research_report_path.is_file() and research_report_path.stat().st_size > 0
 
-    # A non-successful worker is a continuation point, not an automatic
-    # activation failure. Dependent post-worker validation/evaluation stages
-    # are intentionally skipped; durable state remains truthfully PARTIAL.
+    # Worker, validator, handoff, and evaluator failures are continuation points.
+    # They must remain truthful and visible, but they are not controller failures.
     if worker != "success":
         return 0, "PARTIAL"
-
     if research_validation != "success":
-        return 1, "FAILED_RESEARCH_VALIDATION"
+        return 0, "PARTIAL"
     if research_handoff != "success":
-        return 1, "FAILED_RESEARCH_HANDOFF"
+        return 0, "PARTIAL"
     if evaluate != "success":
-        return 1, "FAILED_INDEPENDENT_EVALUATION"
-    if not findings_present:
-        return 1, "FAILED_FINDINGS_REPORT_MISSING"
-    if not research_report_present:
-        return 1, "FAILED_RESEARCH_REPORT_MISSING"
+        return 0, "PARTIAL"
+    if not findings_present or not research_report_present:
+        return 0, "PARTIAL"
 
     return 0, "SUCCESS"
 
@@ -91,6 +92,7 @@ def self_test() -> int:
             findings_path=findings,
             research_report_path=research,
             research_handoff="failure",
+            persist="success",
         )
         assert (rc, outcome) == (0, "PARTIAL")
 
@@ -131,6 +133,20 @@ def self_test() -> int:
         )
         assert (rc, outcome) == (0, "PARTIAL")
 
+        rc, outcome = report(
+            preflight="success",
+            smoke="success",
+            worker="success",
+            evaluate="success",
+            portfolio="success",
+            research_validation="success",
+            research_handoff="success",
+            persist="failure",
+            findings_path=findings,
+            research_report_path=research,
+        )
+        assert (rc, outcome) == (1, "FAILED_PERSISTENCE")
+
     print("worker outcome self-test: PASS")
     return 0
 
@@ -145,6 +161,7 @@ def main() -> int:
     parser.add_argument("--portfolio")
     parser.add_argument("--research-validation")
     parser.add_argument("--research-handoff", default="success")
+    parser.add_argument("--persist", default="success")
     parser.add_argument("--findings-path", type=Path)
     parser.add_argument("--research-report-path", type=Path)
     args = parser.parse_args()
@@ -160,6 +177,7 @@ def main() -> int:
         "portfolio": args.portfolio,
         "research-validation": args.research_validation,
         "research-handoff": args.research_handoff,
+        "persist": args.persist,
     }
     missing = [name for name, value in required.items() if value is None]
     if missing or args.findings_path is None or args.research_report_path is None:
@@ -175,6 +193,7 @@ def main() -> int:
         findings_path=args.findings_path,
         research_report_path=args.research_report_path,
         research_handoff=args.research_handoff,
+        persist=args.persist,
     )
     print(f"WORKER_OUTCOME={outcome}")
     if outcome == "PARTIAL":
