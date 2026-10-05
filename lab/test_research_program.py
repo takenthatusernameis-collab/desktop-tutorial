@@ -501,6 +501,31 @@ def test_multi_round_pre_kilo_advances_runtime_per_generation(tmp: Path):
     assert runtime["families"]["family-b"]["last_executed_generation"] == 1
 
 
+def test_validate_state_repairs_ahead_generation_cursor(tmp: Path):
+    program = sample_program("repair")
+    program["evolution_families"][0]["generation"] = 5
+    rp.write_json(tmp / rp.PROGRAM, program)
+    rp.write_json(
+        tmp / rp.RUNTIME,
+        {
+            "schema_version": rp.PROGRAM_VERSION,
+            "controller_version": rp.CONTROLLER_VERSION,
+            "benchmark_id": "repair",
+            "families": {
+                "family-a": {"last_executed_generation": 3}
+            },
+            "surfaces": {},
+        },
+    )
+    validated = rp.validate_state(tmp, "repair", "resumed")
+    repaired_family = next(
+        f for f in validated["evolution_families"] if f["family_id"] == "family-a"
+    )
+    assert repaired_family["generation"] == 4
+    persisted = rp.load_json(tmp / rp.PROGRAM)
+    assert persisted["evolution_families"][0]["generation"] == 4
+
+
 def test_validate_state_rejects_generation_divergence(tmp: Path):
     program = sample_program("continuity")
     rp.write_json(tmp / rp.PROGRAM, program)
