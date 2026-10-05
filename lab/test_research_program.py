@@ -156,6 +156,19 @@ def test_portfolio_compiler_and_continuity(tmp: Path):
         pass
     else:
         raise AssertionError("exhaustive map was accepted")
+    orphan = json.loads(json.dumps(program))
+    orphan["surfaces"][0]["status"] = "CANDIDATE"
+    orphan["surfaces"][1]["status"] = "ACTIVE"
+    orphan["surfaces"][1]["evolutionary_families"] = []
+    orphan["evolution_families"] = [orphan["evolution_families"][0]]
+    try:
+        rp.validate_program(orphan, "b1")
+    except rp.ProgramError as exc:
+        assert "surface-b" in str(exc)
+        assert "CANDIDATE" in str(exc)
+    else:
+        raise AssertionError("orphan active surface was accepted")
+
 
 
 def test_evolution_parent_carry_forward(tmp: Path):
