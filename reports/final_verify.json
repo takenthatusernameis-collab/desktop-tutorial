@@ -1,98 +1,144 @@
 {
-  "timestamp": "2026-10-05T03:48:39Z",
-  "target": "http://lab-mutator:3000",
-  "f1": {
-    "request": {
-      "method": "GET",
-      "url": "/rest/memories",
-      "headers": {},
-      "body": null
-    },
-    "status": 200,
-    "content_type": "application/json; charset=utf-8",
-    "length": 6134,
-    "access_control_allow_origin": "*",
-    "user_fields": [
-      "UserId", "id", "caption", "imagePath", "createdAt", "updatedAt", "User"
-    ],
-    "sample": {
-      "UserId": 13,
-      "id": 1,
-      "email": "bjoern@owasp.org",
-      "password": "9283f1b2e9669749081963be0462e466",
-      "role": "deluxe",
-      "deluxeToken": "efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4",
-      "totpSecret": ""
-    },
-    "user_object_format": "stringified Python repr of full user object; contains email, 32-hex password, role, 32-hex deluxeToken, totpSecret",
-    "user_count": 10,
-    "controls": {
-      "/rest/wallet/balance": {"status": 401},
-      "/rest/basket": {"status": 401},
-      "/rest/user/authentication-details": {"status": 401}
-    },
-    "bogus_bearer": {"status": 200, "identical": true},
-    "token_as_auth_header": {
-      "url": "/rest/basket",
-      "status": 401,
-      "error": "UnauthorizedError: Invalid token: no header in signature"
-    }
+ "timestamp": "2026-10-05T04:06:20Z",
+ "target": "http://lab-mutator:3000",
+ "f1": {
+  "request": {
+   "method": "GET",
+   "url": "/rest/memories",
+   "headers": {},
+   "body": null
   },
-  "f2": {
-    "request": {
-      "method": "POST",
-      "url": "/api/SecurityAnswers/",
-      "headers": {"Content-Type": "application/json; charset=utf-8"},
-      "body": {"questionId": 7, "answer": "verify-new", "email": "verify@repro.test"}
-    },
-    "get_status": 401,
-    "post1_status": 201,
-    "post1_id": 26,
-    "post2_status": 201,
-    "post2_id": 28,
-    "empty_post_status": 201,
-    "empty_post_id": 27,
-    "cors_post_with_origin": {"status": 201, "id": 29}
+  "status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "length": 6134,
+  "access_control_allow_origin": "*",
+  "user_fields": [
+   "createdAt",
+   "deletedAt",
+   "deluxeToken",
+   "email",
+   "id",
+   "isActive",
+   "lastLoginIp",
+   "password",
+   "profileImage",
+   "role",
+   "totpSecret",
+   "updatedAt",
+   "username"
+  ],
+  "sample": {
+   "email": "bjoern@owasp.org",
+   "password": "9283f1b2e9669749081963be0462e466",
+   "role": "deluxe",
+   "deluxeToken": "efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4",
+   "totpSecret": ""
   },
-  "f3": {
-    "request": {
-      "method": "GET",
-      "url": "/rest/products/search?q=%27%20OR%20%271%27=%271",
-      "headers": {},
-      "body": null
-    },
-    "filtered_status": 200,
-    "filtered_len": 921,
-    "filtered_ids": [1, 24, 47],
-    "tautology_status": 200,
-    "tautology_len": 16557,
-    "tautology_ids": [1, 24, 6, 52, 51, 42, 53, 30, 50, 3, 54, 25, 49, 22, 41, 5, 33, 48, 38, 8, 43, 34, 37, 19, 13, 45, 26, 14, 18, 15, 16, 7, 17, 20, 9, 36, 35, 2, 47, 56, 32, 23, 4, 55, 29, 21],
-    "catalog_names_count": 46,
-    "payload_in_catalog_names": false,
-    "tautology_returns_all": true,
-    "malformed_status": 500,
-    "malformed_preview": "Error: SQLITE_ERROR: near \"UNION\": syntax error",
-    "comment_probe": {"q": "test'%2D%2D", "status": 500, "length": 942},
-    "pagination_order_params": {
-      "orderBy=id%26limit=3": {"status": 200, "length": 6183, "note": "ignored: full catalog returned"},
-      "skip=7%26limit=3": {"status": 200, "length": 6183, "note": "ignored: full catalog returned"},
-      "where": {"status": 200, "length": 6183, "note": "ignored"},
-      "skip=0%26limit=5": {"status": 500, "note": "wrapped path"},
-      "minPrice=0%26maxPrice=1000000": {"status": 500, "note": "wrapped path"}
-    }
-  },
-  "f4": {
-    "request": {
-      "method": "GET",
-      "url": "/metrics",
-      "headers": {},
-      "body": null
-    },
-    "status": 200,
-    "content_type": "text/plain; version=0.0.4; charset=utf-8",
-    "length": 26113,
-    "secrets_scanned": [],
-    "gauges": ["juiceshop_llm_input_tokens_total", "juiceshop_llm_output_tokens_total", "juiceshop_llm_tool_calls_total", "http_requests_count", "juiceshop_startup_duration_seconds"],
-    "baseline_v20.2.0_has_metrics": false
+  "user_count": 10,
+  "controls": {
+   "/rest/wallet/balance": {
+    "status": 401
+   },
+   "/rest/basket": {
+    "status": 401
+   },
+   "/rest/user/authentication-details": {
+    "status": 401
+   },
+   "/api/SecurityAnswers/": {
+    "status": 401
+   }
   }
+ },
+ "f2": {
+  "request": {
+   "method": "POST",
+   "url": "/api/SecurityAnswers/",
+   "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+   },
+   "body": {
+    "questionId": 7,
+    "answer": "verify-new",
+    "email": "verify@repro.test"
+   }
+  },
+  "get_status": 401,
+  "get_body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Authorization header was found</title>     <style>* {   margin: 0;   padd",
+  "post1_status": 201,
+  "post1_id": 25,
+  "post2_status": 201,
+  "post2_id": 26,
+  "empty_post_status": 201
+ },
+ "f3": {
+  "request": {
+   "method": "GET",
+   "url": "/rest/products/search?q=%27%20OR%20%271%27=%271",
+   "headers": {},
+   "body": null
+  },
+  "filtered_status": 200,
+  "filtered_len": 921,
+  "filtered_ids": [
+   1,
+   24,
+   47
+  ],
+  "tautology_status": 200,
+  "tautology_len": 16557,
+  "tautology_ids": [
+   1,
+   24,
+   6,
+   52,
+   51,
+   42,
+   53,
+   30,
+   50,
+   3,
+   54,
+   25,
+   49,
+   22,
+   41,
+   5,
+   33,
+   48,
+   38,
+   8,
+   43,
+   34,
+   37,
+   19,
+   13,
+   45,
+   26,
+   14,
+   18,
+   15,
+   16,
+   7,
+   17,
+   20,
+   9,
+   36,
+   35,
+   2,
+   47,
+   56,
+   32,
+   23,
+   4,
+   55,
+   29,
+   21
+  ],
+  "payload_in_catalog_names": false,
+  "malformed_status": 500,
+  "malformed_preview": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;UNION&quot;: syntax error</title>     <style>* {   margin: 0;  ",
+  "drop_status": 200,
+  "drop_len": 30
+ }
 }

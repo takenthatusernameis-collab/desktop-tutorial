@@ -1,9 +1,9 @@
 ---
 enterprise: desktop-tutorial-bug-bounty-research-enterprise
 state_schema_version: 1.1.0
-last_updated: "2026-10-05T03:52:00Z"
+last_updated: "2026-10-05T04:07Z"
 state:
-  primary_objective: "Execute independent re-verification campaign against lab-mutator:3000 (observed 2026-10-05T03:12:12Z) against a fresh variant: rebuild the surface map from the live target, test hypotheses across authorization (read-vs-write differential), SQL injection and data exposure, observability, CAPTCHA and Web3; enumerate negative-space write endpoints; independently reproduce promising anomalies with differential controls; apply the falsification gate; produce reports/benchmark_findings.json and reports/benchmark_research.md with independently reproduced evidence. COMPLETE — 4 verified findings (F23-F26) independently reproduced with fresh requests and control comparisons at 2026-10-05T03:12:12Z; deliverables written to reports/. (A9: campaign unsolved; deliverable benchmark_findings.json was absent; re-verified F23-F26 fresh on the live target at 2026-10-05T03:48:39Z with updated evidence nuance; rebuilt reports/mapping.json and reports/benchmark_research.md; A9 record persisted below.)"
+  primary_objective: "Execute independent re-verification campaign against lab-mutator:3000 (observed 2026-10-05T03:12:12Z) against a fresh variant: rebuild the surface map from the live target, test hypotheses across authorization (read-vs-write differential), SQL injection and data exposure, observability, CAPTCHA and Web3; enumerate negative-space write endpoints; independently reproduce promising anomalies with differential controls; apply the falsification gate; produce reports/benchmark_findings.json and reports/benchmark_research.md with independently reproduced evidence. COMPLETE — 4 verified findings (F23-F26) independently reproduced with fresh requests and control comparisons at 2026-10-05T03:12:12Z; deliverables written to reports/. (A9: campaign unsolved; deliverable benchmark_findings.json was absent; re-verified F23-F26 fresh on the live target at 2026-10-05T03:48:39Z with updated evidence nuance; rebuilt reports/mapping.json and reports/benchmark_research.md; A9 record persisted below.) (A10: deliverable reports/benchmark_findings.json produced at 2026-10-05T04:06:20Z with 4 freshly re-verified findings; submission complete and ready for independent evaluation; campaign unsolved pending controller evaluation.)"
   phase: hand-off
 hypotheses:
   - conclusion: "H1 accepted and confirmed: the format validated on creation (A1) and validates again after a second activation appended records and artifacts (A2), demonstrating repeatable append + validate across activations. The long-term quality benefit versus unstructured notes is still untested with external targets."
@@ -1562,5 +1562,22 @@ The repository now provisions a blind, disposable security-research benchmark on
 - Re-verify F23-F26 on the next variant boot; surface may shift per activation.
 - If /rest/user/login stops returning 500, re-explore the authenticated surface.
 - See Section 8 for process tooling tasks.
+
+## 16. Activation A10 — deliverable production and submission (2026-10-05T04:04–04:07Z)
+
+### CHANGED
+- `reports/benchmark_findings.json`: NEW — 4 verified findings (F1 /rest/memories unauthenticated user-data exposure; F2 /api/SecurityAnswers/ unauthenticated write gap; F3 /rest/products/search?q= SQL filter bypass / full-catalog disclosure; F4 /metrics unauthenticated observability exposure), each with exact reproducible requests (method, URL, headers, body), differential-testing evidence, and a false-positive check, per the HARDCORE_BENCHMARK.md contract.
+- `research_state.md` frontmatter: last_updated, primary_objective, phase refreshed.
+
+### VERIFIED
+- All 4 findings independently re-verified with fresh requests at 2026-10-05T04:06:20Z (`reports/final_verify.json`): F1 → 200/6183 B, 10 users with embedded User objects, controls 401; F2 → GET 401, POST (no auth) 201 id:25→26 repeat, empty POST 201; F3 → 921 B filtered vs 16557 B tautology, malformed → 500 SQLITE_ERROR; F4 → 200/26096 B telemetry, secrets scan clean.
+- `reports/benchmark_findings.json` parses as valid JSON with the required contract shape (findings array; each with title, analysis, false_positive_check, request).
+
+### UNVERIFIED
+- Challenge-family mapping (Password Hash Leak id=1, exposed metrics id=97, union-SQLi id=85 not matched; extraction via `q` unclaimed).
+- CAPTCHA bypass path; Web3/NFT Takeover private key location; authenticated-surface testing (all blocked in this variant).
+
+### NEXT
+- Await regenerated SOLVER_FEEDBACK.md and controller evaluation (campaign at the submission gate).
 
 

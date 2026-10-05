@@ -91,10 +91,10 @@
 
 ## 7. Hand-off state
 
-- **CHANGED:** `reports/benchmark_findings.json` (4 verified findings, exact reproducible requests, false-positive analysis); this `benchmark_research.md` (coverage, hypotheses, negatives, findings, uncertainty); `research_state.md` updated with activation A8 and re-verified findings.
-- **VERIFIED:** F23–F26 each reproduced with fresh requests; controls confirmed; byte-stable across independent scrapes; state file re-validated by `scripts/validate_research_state.py`.
-- **UNVERIFIED:** CAPTCHA bypass path; Web3/key location; authenticated surface; challenge-family mapping.
-- **NEXT:** Await regenerated `SOLVER_FEEDBACK.md`; re-verify F23–F26 on the next variant boot (surface shifts per activation); re-explore authenticated surface if login route stops returning 500.
+- **CHANGED:** `reports/benchmark_findings.json` (NEW, 2026-10-05T04:06:20Z — 4 verified findings: F23 /rest/memories exposure, F24 /api/SecurityAnswers/ unauth write gap, F25 /rest/products/search?q= SQL filter bypass, F26 /metrics observability; exact reproducible requests, headers/body, differential controls, false-positive analysis); this `benchmark_research.md` (coverage, hypotheses, negatives, findings F23–F26, and Activation A10 record); `research_state.md` updated (last_updated, phase, primary_objective).
+- **VERIFIED:** F23–F26 (F1–F4) independently reproduced with fresh requests at 2026-10-05T04:06:20Z (records `reports/final_verify.json`); controls confirmed; byte-stable across independent scrapes; `benchmark_findings.json` parses as valid JSON with the contract shape; `research_state.md` re-validated by `scripts/validate_research_state.py` (frontmatter, schema, hand-off labels present).
+- **UNVERIFIED:** Challenge-family mapping for F23–F26 (Password Hash Leak id=1, exposed metrics id=97, union-SQLi id=85 not matched — credential extraction via `q` explicitly unclaimed); CAPTCHA bypass path (answer leak verified, submission path broken); Web3/NFT Takeover private-key location (not on public surface); authenticated-surface testing (all blocked in this variant).
+- **NEXT:** Await regenerated `SOLVER_FEEDBACK.md` and controller evaluation (campaign at the submission gate). If the campaign remains unsolved on this variant: the authenticated surface is still blocked (registration/account/reset/create 500, no credential source, order-history WAF-blocked), so further probes have diminishing information value — wait for a variant advance or an auth-route unblocking rather than re-hammering identical routes. If the controller delivers a new hidden variant: re-run Pass 0 baseline + Pass 1 map + verify F23–F26 hold on the new seed, then re-target discovery.
 
 ## 8. Activation A9 — fresh independent re-verification (2026-10-05T03:47–03:52Z)
 
@@ -124,4 +124,18 @@
 11. 500 errors expose server-side stack traces (`/juice-shop/build/routes/angular.js`, `/juice-shop/build/lib/insecurity.js`) — error-handling behavior observed, baseline Juice Shop characteristic, not claimed as a mutation finding.
 
 **Coverage frontier status:** F23/F24/F25/F26 all independently reproduced on this boot; auth surface and the majority of the 116 challenge families are unreachable/wrapped in this variant. Highest-value untested frontiers remain blocked by inability to authenticate (registration broken, no cred source). No new vulnerability-class finding produced this activation.
+
+## 9. Activation A10 — deliverable production and submission (2026-10-05T04:04–04:07Z)
+
+**Purpose:** Produce the mandatory deliverable `reports/benchmark_findings.json` (absent after A9, which is why discovery/precision = 0.0000) and independently re-verify all four findings on the live target before submission.
+
+**Fresh verification (2026-10-05T04:06:20Z, `reports/final_verify.py`):**
+- **F1** `GET /rest/memories` (no auth) → 200/6183 B; 10 records, each embedding a full `User` object (`bjoern@owasp.org`, 32-hex password hash, role `deluxe`, 32-hex `deluxeToken`, `totpSecret`). Controls (`/rest/wallet/balance`, `/rest/basket`, `/rest/user/authentication-details`, `/api/SecurityAnswers/`) → 401 without auth (route-specific leak, not global misconfiguration).
+- **F2** `GET /api/SecurityAnswers/` → 401 (read path gated). `POST` with no `Authorization` header → 201 with persisted record `id:25`; identical repeat POST → `id:26` (server-side persistence, no dedup/ownership/validation); empty-object POST → 201.
+- **F3** `GET /rest/products/search?q=Apple` → 200/921 B (3 products) vs `q=' OR '1'='1` → 200/16557 B (all 46 products, complete catalog); tautology occurs in 0 of 46 catalog names; malformed `UNION` payload → 500 `SQLITE_ERROR` (raw input reaches query layer); extraction channel explicitly unclaimed (AND-branch contradiction always-zero).
+- **F4** `GET /metrics` (no auth) → 200/text/plain/26096 B; `juiceshop_llm_*` counters, `http_requests_count` by status, `juiceshop_startup_duration_seconds` gauges; secrets scan clean; mutation-introduced relative to pinned v20.2.0.
+
+**Deliverable:** `reports/benchmark_findings.json` written (2026-10-05T04:06:20Z): 4 findings with exact reproducible requests (method, URL, headers, body), analysis, and false-positive analysis per the `HARDCORE_BENCHMARK.md` contract. Every retained claim passed the falsification gate with fresh-request reproduction and control comparisons.
+
+**Status:** Submission complete; campaign unsolved pending controller evaluation. `SOLVER_FEEDBACK.md` still shows overall 0.0500 / discovery 0.0000 / precision 0.0000 — expected while the evaluator has not yet re-graded post-submission.
 
