@@ -1,0 +1,54 @@
+name: Restore kilo-wakeup workflow
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/restore-kilo-wakeup.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Restore full workflow from last good commit and apply fix
+        run: |
+          set -euo pipefail
+          git show 0b81140b2a8573f08ca2b035797b906d2bca82d3:.github/workflows/kilo-wakeup.yml > /tmp/orig.yml
+          test -s /tmp/orig.yml
+          python3 - <<'PY'
+          import base64
+          from pathlib import Path
+          orig = Path("/tmp/orig.yml").read_text()
+          old = base64.b64decode("ICAgICAgICAgIGVjaG8gIjo6Z3JvdXA6OlJFUE9SVCBPVVRDT01FIERFQlVHIOKAlCByZXNlYXJjaC1zdGF0ZSBpbnZlbnRvcnkiCiAgICAgICAgICBweXRob24zIC0gPDwnUFknCiAgICAgICAgICBmcm9tIHBhdGhsaWIgaW1wb3J0IFBhdGgKICAgICAgICAgIHJvb3QgPSBQYXRoKCJzdGF0ZS9yZXNlYXJjaCIpCiAgICAgICAgICBpZiBub3Qgcm9vdC5pc19kaXIoKToKICAgICAgICAgICAgICBwcmludCgiTUlTU0lORyB8IHN0YXRlL3Jlc2VhcmNoIikKICAgICAgICAgIGVsc2U6CiAgICAgICAgICAgICAgZmlsZXMgPSBzb3J0ZWQoCiAgICAgICAgICAgICAgICAgIHBhdGggZm9yIHBhdGggaW4gcm9vdC5yZ2xvYigiKiIpCiAgICAgICAgICAgICAgICAgIGlmIHBhdGguaXNfZmlsZSgpIGFuZCBsZW4ocGF0aC5yZWxhdGl2ZV90byhyb290KS5wYXJ0cykgPD0gMgogICAgICAgICAgICAgICkKICAgICAgICAgICAgICBmb3IgcGF0aCBpbiBmaWxlc1s6MjAwXToKICAgICAgICAgICAgICAgICAgcHJpbnQoZiJ7cGF0aH0gfCBieXRlcz17cGF0aC5zdGF0KCkuc3Rfc2l6ZX0iKQogICAgICAgICAgICAgIGV4dHJhID0gbGVuKGZpbGVzKSAtIDIwMAogICAgICAgICAgICAgIGlmIGV4dHJhID4gMDoKICAgICAgICAgICAgICAgICAgcHJpbnQoZiIuLi4gdHJ1bmNhdGVkIHtleHRyYX0gbW9yZSBmaWxlcyIpCiAgICAgICAgICBQWQogICAgICAgICAgZWNobyAiOjplbmRncm91cDo6IgoKICAgICAgICAgIGVjaG8gIjo6Z3JvdXA6OlJFUE9SVCBPVVRDT01FIERFQlVHIOKAlCBHaXQgcGVyc2lzdGVuY2Ugc3RhdGUiCiAgICAgICAgICBnaXQgcmV2LXBhcnNlIC0tc2hvcnQ9MTIgSEVBRAogICAgICAgICAgZ2l0IHN0YXR1cyAtLXNob3J0CiAgICAgICAgICBlY2hvICItLS0gdW5zdGFnZWQgbmFtZXMgLS0tIgogICAgICAgICAgZ2l0IGRpZmYgLS1uYW1lLXN0YXR1cwogICAgICAgICAgZWNobyAiLS0tIHN0YWdlZCBuYW1lcyAtLS0iCiAgICAgICAgICBnaXQgZGlmZiAtLWNhY2hlZCAtLW5hbWUtc3RhdHVzCiAgICAgICAgICBlY2hvICItLS0gcmVwb3NpdG9yeSBIRUFEIC0tLSIKICAgICAgICAgIGdpdCBsb2cgLTEgLS1mb3JtYXQ9JyVIJW4lY3QlbiVzJwogICAgICAgICAgZWNobyAiOjplbmRncm91cDo6IgoK").decode()
+          new = base64.b64decode("ICAgICAgICAgICMgRGVidWcgaW52ZW50b3J5L2dpdCBtdXN0IG5vdCBhYm9ydCB0aGUgY2xhc3NpZmllciAoR0VORVJBVElPTlMgZXhpdCAyKS4KICAgICAgICAgIHNldCArZQogICAgICAgICAgZWNobyAiOjpncm91cDo6UkVQT1JUIE9VVENPTUUgREVCVUcg4oCUIHJlc2VhcmNoLXN0YXRlIGludmVudG9yeSIKICAgICAgICAgIHB5dGhvbjMgLSA8PCdQWScKICAgICAgICAgIGZyb20gcGF0aGxpYiBpbXBvcnQgUGF0aAogICAgICAgICAgcm9vdCA9IFBhdGgoInN0YXRlL3Jlc2VhcmNoIikKICAgICAgICAgIGlmIG5vdCByb290LmlzX2RpcigpOgogICAgICAgICAgICAgIHByaW50KCJNSVNTSU5HIHwgc3RhdGUvcmVzZWFyY2giKQogICAgICAgICAgICAgIHJhaXNlIFN5c3RlbUV4aXQoMCkKICAgICAgICAgIGdlbmVyYXRpb25zID0gcm9vdCAvICJHRU5FUkFUSU9OUyIKICAgICAgICAgIGdlbl9jb3VudCA9IGdlbl9ieXRlcyA9IDAKICAgICAgICAgIG90aGVyID0gW10KICAgICAgICAgIHRyeToKICAgICAgICAgICAgICBpZiBnZW5lcmF0aW9ucy5pc19kaXIoKToKICAgICAgICAgICAgICAgICAgZm9yIHAgaW4gZ2VuZXJhdGlvbnMucmdsb2IoIioiKToKICAgICAgICAgICAgICAgICAgICAgIHRyeToKICAgICAgICAgICAgICAgICAgICAgICAgICBpZiBwLmlzX2ZpbGUoKToKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ2VuX2NvdW50ICs9IDEKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ2VuX2J5dGVzICs9IHAuc3RhdCgpLnN0X3NpemUKICAgICAgICAgICAgICAgICAgICAgIGV4Y2VwdCBPU0Vycm9yIGFzIGU6CiAgICAgICAgICAgICAgICAgICAgICAgICAgcHJpbnQoZiJXQVJOIHwge3B9IHwge2V9IikKICAgICAgICAgICAgICBmb3IgcCBpbiBzb3J0ZWQocm9vdC5pdGVyZGlyKCkpOgogICAgICAgICAgICAgICAgICBpZiBwLm5hbWUgPT0gIkdFTkVSQVRJT05TIjoKICAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgICAgICAgICAgIHRyeToKICAgICAgICAgICAgICAgICAgICAgIGlmIHAuaXNfZmlsZSgpOgogICAgICAgICAgICAgICAgICAgICAgICAgIG90aGVyLmFwcGVuZChwKQogICAgICAgICAgICAgICAgICAgICAgZWxpZiBwLmlzX2RpcigpOgogICAgICAgICAgICAgICAgICAgICAgICAgIGZvciBjIGluIHNvcnRlZChwLml0ZXJkaXIoKSlbOjIwXToKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgYy5pc19maWxlKCk6CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvdGhlci5hcHBlbmQoYykKICAgICAgICAgICAgICAgICAgZXhjZXB0IE9TRXJyb3IgYXMgZToKICAgICAgICAgICAgICAgICAgICAgIHByaW50KGYiV0FSTiB8IHtwfSB8IHtlfSIpCiAgICAgICAgICBleGNlcHQgT1NFcnJvciBhcyBlOgogICAgICAgICAgICAgIHByaW50KGYiV0FSTiB8IGludmVudG9yeSB3YWxrIGZhaWxlZDoge2V9IikKICAgICAgICAgIHByaW50KGYiR0VORVJBVElPTlMgfCBmaWxlcz17Z2VuX2NvdW50fSB8IGJ5dGVzPXtnZW5fYnl0ZXN9IikKICAgICAgICAgIGZvciBwIGluIG90aGVyWzo4MF06CiAgICAgICAgICAgICAgdHJ5OgogICAgICAgICAgICAgICAgICBwcmludChmIntwfSB8IGJ5dGVzPXtwLnN0YXQoKS5zdF9zaXplfSIpCiAgICAgICAgICAgICAgZXhjZXB0IE9TRXJyb3IgYXMgZToKICAgICAgICAgICAgICAgICAgcHJpbnQoZiJXQVJOIHwge3B9IHwge2V9IikKICAgICAgICAgIGlmIGxlbihvdGhlcikgPiA4MDoKICAgICAgICAgICAgICBwcmludChmIi4uLiB0cnVuY2F0ZWQge2xlbihvdGhlcikgLSA4MH0gbW9yZSBub24tR0VORVJBVElPTlMgZmlsZXMiKQogICAgICAgICAgUFkKICAgICAgICAgIGVjaG8gIklOVkVOVE9SWV9SQz0kPyIKICAgICAgICAgIGVjaG8gIjo6ZW5kZ3JvdXA6OiIKCiAgICAgICAgICBlY2hvICI6Omdyb3VwOjpSRVBPUlQgT1VUQ09NRSBERUJVRyDigJQgR2l0IHBlcnNpc3RlbmNlIHN0YXRlIgogICAgICAgICAgZ2l0IHJldi1wYXJzZSAtLXNob3J0PTEyIEhFQUQKICAgICAgICAgIGdpdCBzdGF0dXMgLS1zaG9ydCAtLXVudHJhY2tlZC1maWxlcz1ubyB8IGhlYWQgLW4gODAKICAgICAgICAgIGVjaG8gIi0tLSB1bnN0YWdlZCBuYW1lcyAoY2FwcGVkKSAtLS0iCiAgICAgICAgICBnaXQgZGlmZiAtLW5hbWUtc3RhdHVzIHwgaGVhZCAtbiA4MAogICAgICAgICAgZWNobyAiLS0tIHN0YWdlZCBuYW1lcyAoY2FwcGVkKSAtLS0iCiAgICAgICAgICBnaXQgZGlmZiAtLWNhY2hlZCAtLW5hbWUtc3RhdHVzIHwgaGVhZCAtbiA4MAogICAgICAgICAgZWNobyAiLS0tIHJlcG9zaXRvcnkgSEVBRCAtLS0iCiAgICAgICAgICBnaXQgbG9nIC0xIC0tZm9ybWF0PSclSCVuJWN0JW4lcycKICAgICAgICAgIGVjaG8gIjo6ZW5kZ3JvdXA6OiIKICAgICAgICAgIHNldCAtZQoK").decode()
+          if old not in orig:
+              raise SystemExit("old inventory block not found")
+          fixed = orig.replace(old, new, 1)
+          Path(".github/workflows/kilo-wakeup.yml").write_text(fixed)
+          print("wrote fixed kilo-wakeup.yml", len(fixed))
+          assert "INVENTORY_RC=" in fixed
+          assert "untracked-files=no" in fixed
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/workflows/kilo-wakeup.yml
+          git status --short
+          git commit -m "Harden Report worker outcome: GENERATIONS inventory must not exit 2"
+          git push origin HEAD:main
+      - name: Remove one-shot restore workflow
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main || true
+          if [ -f .github/workflows/restore-kilo-wakeup.yml ]; then
+            git rm -f .github/workflows/restore-kilo-wakeup.yml
+            git commit -m "Remove one-shot restore workflow" || exit 0
+            git push origin HEAD:main || true
+          fi
