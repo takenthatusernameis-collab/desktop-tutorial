@@ -7,49 +7,42 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated raw database error exposure - raw Sequelize WHERE error and TypeError served to clients (id=27 errorHandlingChallenge)",
+      "title": "Unauthenticated raw error exposure with inconsistent handling (id=27 errorHandlingChallenge)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated Prometheus metrics endpoint exposing internal AI/LLM usage telemetry (id=97 exposedMetricsChallenge)",
+      "title": "Unauthenticated exposure of Prometheus telemetry with LLM usage gauges (id=97 exposedMetricsChallenge)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated excessive data exposure - /rest/memories returns full user objects including password hashes and TOTP secrets",
+      "title": "Unauthenticated exposure of full nested user objects in a public collection (excessive data exposure)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated POST write gap on /api/SecurityAnswers/ - writes accepted without authentication",
+      "title": "Unauthenticated write-open / read-gated authorization gap on /api/SecurityAnswers/ (UserId=null)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated PUT mass-assignment on /api/Products/{id} - product properties modified without authentication",
+      "title": "Account-existence disclosure and question-text enumeration via unauthenticated security-question endpoint",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Account existence disclosure via /rest/user/security-question - different JSON vs empty-body responses for existing vs unknown emails",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "CAPTCHA cleartext answer leak - server returns the solved answer in the response body",
+      "title": "CAPTCHA answer revealed in cleartext on the public CAPTCHA endpoint (id=7 captchaBypassChallenge partial)",
       "valid_reproduction": false
     }
   ],
@@ -58,7 +51,7 @@
   "difficulty": 4,
   "discovery_rate": 0.0,
   "evidence_quality": 1.0,
-  "finding_count_submitted": 7,
+  "finding_count_submitted": 6,
   "ground_truth_exposed": false,
   "limitations": [
     "Replay validation tests submitted evidence against the hidden evaluator.",

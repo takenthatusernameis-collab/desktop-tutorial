@@ -1,17 +1,38 @@
 {
   "benchmark_id": "ehb-37260280180-eddbb902f2",
   "controller_version": "1.0.0",
-  "cycles": 2,
+  "cycles": 3,
   "families": {
     "fam_23_memories_overexposure": {
       "best_candidates": [
         {
-          "candidate_id": "cand-70ba40b5690a09853455",
+          "candidate_id": "cand-ad0fd63018de2cb1870f",
           "mutation": {
             "operator": "PATH_VARIANTS",
             "variant": "dot_suffix"
           },
-          "parent_candidate_id": "cand-596318f490f1d385550e",
+          "parent_candidate_id": "cand-28b40f886564efbc0244",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/memories/./././.",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "3ab536a76b6cc711f2ae8357fffc94368ae5a1613b26bfa1b439350ca344592b",
+            "text/html; charset=utf-8",
+            2444,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-70ba40b5690a09853455",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "without_trailing_slash"
+          },
+          "parent_candidate_id": "cand-7f7b2ff4f7faef04967d",
           "request": {
             "headers": {},
             "method": "GET",
@@ -67,17 +88,59 @@
             2436,
             ""
           ]
+        },
+        {
+          "candidate_id": "cand-47965f7537b077aa2f00",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "trailing_slash"
+          },
+          "parent_candidate_id": "cand-28b40f886564efbc0244",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/memories/./././",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "b3822bc4f7333e7f66834628c06cce71f13d3f14d7c6c37d5af0ee38b021d686",
+            "text/html; charset=utf-8",
+            2442,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-28b40f886564efbc0244",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "dot_suffix"
+          },
+          "parent_candidate_id": "cand-fe5ac4154b6fbe16ba61",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/memories/././.",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "cce49d154633ad2f60bd9a49d61b2c00dcf01a69dc28c07f9e17dca38340ee43",
+            "text/html; charset=utf-8",
+            2440,
+            ""
+          ]
         }
       ],
-      "last_active_generation": 4,
-      "last_behavioral_differences": 3,
-      "last_candidate_count": 6,
-      "last_executed_generation": 4,
+      "last_active_generation": 6,
+      "last_behavioral_differences": 7,
+      "last_candidate_count": 12,
+      "last_executed_generation": 6,
       "last_information_gain": 0.5833,
-      "last_repeat_reproductions": 3,
+      "last_repeat_reproductions": 7,
       "novelty_seen": true,
       "surface_id": "surf_23_memories",
-      "updated_at": "2026-10-05T09:45:10Z"
+      "updated_at": "2026-10-05T09:58:55Z"
     },
     "fam_24_writegap": {
       "best_candidates": [
@@ -124,61 +187,62 @@
           ]
         }
       ],
-      "last_active_generation": 4,
+      "last_active_generation": 6,
       "last_behavioral_differences": 2,
       "last_candidate_count": 11,
-      "last_executed_generation": 4,
+      "last_executed_generation": 6,
       "last_information_gain": 0.2273,
       "last_repeat_reproductions": 2,
       "novelty_seen": true,
       "surface_id": "surf_24_securityanswers_write",
-      "updated_at": "2026-10-05T09:45:10Z"
+      "updated_at": "2026-10-05T09:58:55Z"
     },
     "fam_27_raw_error_discovery": {
       "best_candidates": [],
-      "last_active_generation": 7,
+      "last_active_generation": 10,
       "last_behavioral_differences": 0,
       "last_candidate_count": 12,
-      "last_executed_generation": 7,
+      "last_executed_generation": 10,
       "last_information_gain": 0.0833,
       "last_repeat_reproductions": 0,
       "novelty_seen": false,
       "surface_id": "surf_27_error_handling",
-      "updated_at": "2026-10-05T09:45:10Z"
+      "updated_at": "2026-10-05T09:58:56Z"
     },
     "fam_29_extra_language": {
       "best_candidates": [],
-      "last_active_generation": 2,
+      "last_active_generation": 3,
       "last_behavioral_differences": 0,
       "last_candidate_count": 1,
-      "last_executed_generation": 2,
+      "last_executed_generation": 3,
       "last_information_gain": 0.5,
       "last_repeat_reproductions": 0,
       "novelty_seen": false,
       "surface_id": "surf_29_extra_language",
-      "updated_at": "2026-10-05T09:45:08Z"
+      "updated_at": "2026-10-05T09:58:54Z"
     },
     "fam_41_continue_code": {
       "best_candidates": [],
-      "last_active_generation": 2,
+      "last_active_generation": 3,
       "last_behavioral_differences": 0,
       "last_candidate_count": 1,
-      "last_executed_generation": 2,
+      "last_executed_generation": 3,
       "last_information_gain": 0.5,
       "last_repeat_reproductions": 0,
       "novelty_seen": false,
       "surface_id": "surf_41_continue_code",
-      "updated_at": "2026-10-05T09:45:09Z"
+      "updated_at": "2026-10-05T09:58:54Z"
     },
     "fam_5_security_question_enum": {
       "best_candidates": [
         {
           "candidate_id": "cand-d0b14de2276ac551bdf9",
           "mutation": {
-            "operator": "PATH_VARIANTS",
-            "variant": "dot_suffix"
+            "operator": "QUERY_EDGE_VALUES",
+            "parameter": "email",
+            "value": "1"
           },
-          "parent_candidate_id": "cand-44ebd07ad613d9164ac4",
+          "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
           "request": {
             "headers": {},
             "method": "GET",
@@ -196,31 +260,160 @@
             2476,
             ""
           ]
+        },
+        {
+          "candidate_id": "cand-d53281decdfcd0c426d4",
+          "mutation": {
+            "operator": "QUERY_EDGE_VALUES",
+            "parameter": "email",
+            "value": "null"
+          },
+          "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/user/security-question/.",
+            "query": {
+              "email": [
+                "null"
+              ]
+            }
+          },
+          "response_signature": [
+            500,
+            "4d72a1045e51481e7b51d6908ebc4bfd6ae82cc86c395d9c6fefeeb36d31aff0",
+            "text/html; charset=utf-8",
+            2482,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-7862c7fa248fd48d83fa",
+          "mutation": {
+            "operator": "QUERY_EDGE_VALUES",
+            "parameter": "email",
+            "value": "false"
+          },
+          "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/user/security-question/.",
+            "query": {
+              "email": [
+                "false"
+              ]
+            }
+          },
+          "response_signature": [
+            500,
+            "774d882396353b787373b0b16d0974fca49b74a7d3795628bae2276ea64e4155",
+            "text/html; charset=utf-8",
+            2484,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-56f8729c1e0bf9502e0e",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "trailing_slash"
+          },
+          "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/user/security-question/./",
+            "query": {
+              "email": [
+                "true"
+              ]
+            }
+          },
+          "response_signature": [
+            500,
+            "86d2b8bfb036d038cc2ebdf0e7ff7e67c04f21d88b57081f1b97c9e3d1937ddf",
+            "text/html; charset=utf-8",
+            2484,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-f63c06f5491f789a0686",
+          "mutation": {
+            "operator": "QUERY_EDGE_VALUES",
+            "parameter": "email",
+            "value": ""
+          },
+          "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/user/security-question/.",
+            "query": {
+              "email": [
+                ""
+              ]
+            }
+          },
+          "response_signature": [
+            500,
+            "b288fd96659831d7cbcb30ae4724089bd066eacfd2c921e85a43b35307407c69",
+            "text/html; charset=utf-8",
+            2474,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-c7e6201e9e6bfdf382f3",
+          "mutation": {
+            "operator": "QUERY_EDGE_VALUES",
+            "parameter": "email",
+            "value": "%"
+          },
+          "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/user/security-question/.",
+            "query": {
+              "email": [
+                "%"
+              ]
+            }
+          },
+          "response_signature": [
+            500,
+            "b4a1cb9d5e00a55c50c82ad58077316583ea87051ad7df65395c79e7041aa887",
+            "text/html; charset=utf-8",
+            2480,
+            ""
+          ]
         }
       ],
-      "last_active_generation": 4,
-      "last_behavioral_differences": 1,
+      "last_active_generation": 6,
+      "last_behavioral_differences": 10,
       "last_candidate_count": 12,
-      "last_executed_generation": 4,
-      "last_information_gain": 0.125,
-      "last_repeat_reproductions": 1,
+      "last_executed_generation": 6,
+      "last_information_gain": 0.875,
+      "last_repeat_reproductions": 10,
       "novelty_seen": true,
       "surface_id": "surf_5_security_question",
-      "updated_at": "2026-10-05T09:45:10Z"
+      "updated_at": "2026-10-05T09:58:56Z"
     },
     "fam_6_put_tamper": {
       "best_candidates": [
         {
-          "candidate_id": "cand-e0d82cdefd37a09cffa4",
+          "candidate_id": "cand-1275f6483d8c59cdb24a",
           "mutation": {
             "method": "OPTIONS",
             "operator": "METHOD_VARIANTS"
           },
-          "parent_candidate_id": "cand-70afb496806146bc31f6",
+          "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
           "request": {
             "headers": {},
             "method": "OPTIONS",
-            "path": "/api/Products/1",
+            "path": "/api/Products/1/.",
             "query": {}
           },
           "response_signature": [
@@ -256,9 +449,9 @@
           "candidate_id": "cand-d7adfd5fc0f3d4dc9317",
           "mutation": {
             "operator": "PATH_VARIANTS",
-            "variant": "dot_suffix"
+            "variant": "without_trailing_slash"
           },
-          "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+          "parent_candidate_id": "cand-f528212906452a7cde40",
           "request": {
             "headers": {},
             "method": "GET",
@@ -270,6 +463,27 @@
             "39223cfdbd09601da7cef785dd8467d3d26e9df1728b2b6102ff9f4cac523af6",
             "text/html; charset=utf-8",
             2438,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-ae49a0942561e1b2096b",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "dot_suffix"
+          },
+          "parent_candidate_id": "cand-f528212906452a7cde40",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/api/Products/1/././.",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "4ededa0f97bdfb536ef21461ab355d06ca0fe7ce99f318e15e6abadac2ad0abd",
+            "text/html; charset=utf-8",
+            2442,
             ""
           ]
         },
@@ -295,51 +509,51 @@
           ]
         }
       ],
-      "last_active_generation": 4,
-      "last_behavioral_differences": 5,
+      "last_active_generation": 6,
+      "last_behavioral_differences": 7,
       "last_candidate_count": 12,
-      "last_executed_generation": 4,
-      "last_information_gain": 0.4583,
-      "last_repeat_reproductions": 5,
+      "last_executed_generation": 6,
+      "last_information_gain": 0.5833,
+      "last_repeat_reproductions": 7,
       "novelty_seen": true,
       "surface_id": "surf_6_put_tamper",
-      "updated_at": "2026-10-05T09:45:10Z"
+      "updated_at": "2026-10-05T09:58:55Z"
     },
     "fam_7_captcha_leak": {
       "best_candidates": [],
-      "last_active_generation": 4,
+      "last_active_generation": 6,
       "last_behavioral_differences": 1,
       "last_candidate_count": 1,
-      "last_executed_generation": 4,
+      "last_executed_generation": 6,
       "last_information_gain": 1.0,
       "last_repeat_reproductions": 0,
       "novelty_seen": true,
       "surface_id": "surf_7_captcha_leak",
-      "updated_at": "2026-10-05T09:45:09Z"
+      "updated_at": "2026-10-05T09:58:55Z"
     },
     "fam_97_metrics_baseline": {
       "best_candidates": [],
-      "last_active_generation": 7,
+      "last_active_generation": 11,
       "last_behavioral_differences": 1,
       "last_candidate_count": 1,
-      "last_executed_generation": 7,
+      "last_executed_generation": 11,
       "last_information_gain": 1.0,
       "last_repeat_reproductions": 0,
       "novelty_seen": true,
       "surface_id": "surf_97_metrics",
-      "updated_at": "2026-10-05T09:45:10Z"
+      "updated_at": "2026-10-05T09:58:56Z"
     },
     "fam_9_web3_nft": {
       "best_candidates": [],
-      "last_active_generation": 2,
+      "last_active_generation": 3,
       "last_behavioral_differences": 0,
       "last_candidate_count": 1,
-      "last_executed_generation": 2,
+      "last_executed_generation": 3,
       "last_information_gain": 0.5,
       "last_repeat_reproductions": 0,
       "novelty_seen": false,
       "surface_id": "surf_9_web3",
-      "updated_at": "2026-10-05T09:45:09Z"
+      "updated_at": "2026-10-05T09:58:55Z"
     },
     "fam_blocked_auth_sweep": {
       "best_candidates": [
@@ -386,260 +600,230 @@
           ]
         }
       ],
-      "last_active_generation": 2,
+      "last_active_generation": 3,
       "last_behavioral_differences": 2,
       "last_candidate_count": 2,
-      "last_executed_generation": 2,
+      "last_executed_generation": 3,
       "last_information_gain": 1.0,
       "last_repeat_reproductions": 2,
       "novelty_seen": true,
       "surface_id": "surf_blocked_auth",
-      "updated_at": "2026-10-05T09:45:09Z"
+      "updated_at": "2026-10-05T09:58:55Z"
     },
     "fam_chatbot_monitor": {
       "best_candidates": [],
-      "last_active_generation": 2,
+      "last_active_generation": 3,
       "last_behavioral_differences": 0,
       "last_candidate_count": 1,
-      "last_executed_generation": 2,
+      "last_executed_generation": 3,
       "last_information_gain": 0.5,
       "last_repeat_reproductions": 0,
       "novelty_seen": false,
       "surface_id": "surf_chatbot",
-      "updated_at": "2026-10-05T09:45:09Z"
+      "updated_at": "2026-10-05T09:58:55Z"
     },
     "fam_non_viable_500_monitor": {
       "best_candidates": [
         {
-          "candidate_id": "cand-fdb0ded710addf1930f0",
+          "candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "without_trailing_slash"
+          },
+          "parent_candidate_id": "cand-9918604721aba5927208",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/admin",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "83416c79e5d32ac4f39fcc3865ba3a8413bf2946067653db6ccf76f2841aec2d",
+            "text/html; charset=utf-8",
+            2422,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-6397ad915de35d07e1f6",
           "mutation": {
             "operator": "PATH_VARIANTS",
             "variant": "dot_suffix"
           },
-          "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+          "parent_candidate_id": "cand-fdb0ded710addf1930f0",
           "request": {
             "headers": {},
             "method": "GET",
-            "path": "/rest/admin/.",
+            "path": "/rest/admin/./.",
             "query": {}
           },
           "response_signature": [
             500,
-            "8e0ee913e2ac6c8519daa5fc4b9d68c6825af1eda9191784e1c13917608fbc05",
+            "97e27c763853186a8e8e21a685236997512232bce22c7eba730710811d9e1e72",
             "text/html; charset=utf-8",
-            2426,
+            2430,
             ""
           ]
         },
         {
-          "candidate_id": "cand-9918604721aba5927208",
+          "candidate_id": "cand-43d4eb683f68c7d268e5",
           "mutation": {
             "operator": "PATH_VARIANTS",
             "variant": "trailing_slash"
           },
-          "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+          "parent_candidate_id": "cand-fdb0ded710addf1930f0",
           "request": {
             "headers": {},
             "method": "GET",
-            "path": "/rest/admin/",
+            "path": "/rest/admin/./",
             "query": {}
           },
           "response_signature": [
             500,
-            "9cf2952d85b121aa46bbd7f26d98f4350999d95f9a9c152de8ef24155be2d203",
+            "a3e19d4fb276b20ed1066c59ea37ae05424a20db8d0809f08f4fb1681e798831",
             "text/html; charset=utf-8",
-            2424,
+            2428,
             ""
           ]
         }
       ],
-      "last_active_generation": 2,
-      "last_behavioral_differences": 2,
-      "last_candidate_count": 4,
-      "last_executed_generation": 2,
-      "last_information_gain": 0.625,
-      "last_repeat_reproductions": 2,
+      "last_active_generation": 3,
+      "last_behavioral_differences": 3,
+      "last_candidate_count": 8,
+      "last_executed_generation": 3,
+      "last_information_gain": 0.5,
+      "last_repeat_reproductions": 3,
       "novelty_seen": true,
       "surface_id": "surf_non_viable_500",
-      "updated_at": "2026-10-05T09:45:09Z"
+      "updated_at": "2026-10-05T09:58:55Z"
     },
     "fam_redirect_ssrf_monitor": {
-      "best_candidates": [
-        {
-          "candidate_id": "cand-e9a04a52f96d41173ff7",
-          "mutation": {
-            "method": "OPTIONS",
-            "operator": "METHOD_VARIANTS"
-          },
-          "parent_candidate_id": "cand-13e2d676d9c2186b63da",
-          "request": {
-            "headers": {},
-            "method": "OPTIONS",
-            "path": "/redirect",
-            "query": {
-              "continue": [
-                "http://example.com"
-              ]
-            }
-          },
-          "response_signature": [
-            204,
-            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "",
-            0,
-            ""
-          ]
-        },
-        {
-          "candidate_id": "cand-6eeb6387282211701c96",
-          "mutation": {
-            "method": "HEAD",
-            "operator": "METHOD_VARIANTS"
-          },
-          "parent_candidate_id": "cand-13e2d676d9c2186b63da",
-          "request": {
-            "headers": {},
-            "method": "HEAD",
-            "path": "/redirect",
-            "query": {
-              "continue": [
-                "http://example.com"
-              ]
-            }
-          },
-          "response_signature": [
-            501,
-            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "text/html;charset=utf-8",
-            0,
-            ""
-          ]
-        }
-      ],
-      "last_active_generation": 2,
-      "last_behavioral_differences": 2,
-      "last_candidate_count": 6,
-      "last_executed_generation": 2,
-      "last_information_gain": 0.4167,
-      "last_repeat_reproductions": 2,
-      "novelty_seen": true,
+      "best_candidates": [],
+      "last_active_generation": 3,
+      "last_behavioral_differences": 0,
+      "last_candidate_count": 12,
+      "last_executed_generation": 3,
+      "last_information_gain": 0.125,
+      "last_repeat_reproductions": 0,
+      "novelty_seen": false,
       "surface_id": "surf_redirect",
-      "updated_at": "2026-10-05T09:45:09Z"
+      "updated_at": "2026-10-05T09:58:55Z"
     }
   },
-  "last_execution": "2026-10-05T09:45:10Z",
+  "last_execution": "2026-10-05T09:58:56Z",
   "schema_version": "1.0.0",
   "surfaces": {
     "surf_23_memories": {
-      "behavioral_differences": 8,
-      "candidate_requests": 18,
-      "families_executed": 4,
-      "generations": 4,
-      "last_execution": "2026-10-05T09:45:10Z",
-      "repeat_reproductions": 8
+      "behavioral_differences": 20,
+      "candidate_requests": 40,
+      "families_executed": 6,
+      "generations": 6,
+      "last_execution": "2026-10-05T09:58:55Z",
+      "repeat_reproductions": 20
     },
     "surf_24_securityanswers_write": {
-      "behavioral_differences": 8,
-      "candidate_requests": 32,
-      "families_executed": 4,
-      "generations": 4,
-      "last_execution": "2026-10-05T09:45:10Z",
-      "repeat_reproductions": 8
+      "behavioral_differences": 12,
+      "candidate_requests": 54,
+      "families_executed": 6,
+      "generations": 6,
+      "last_execution": "2026-10-05T09:58:55Z",
+      "repeat_reproductions": 12
     },
     "surf_27_error_handling": {
-      "behavioral_differences": 22,
-      "candidate_requests": 84,
-      "families_executed": 7,
-      "generations": 7,
-      "last_execution": "2026-10-05T09:45:10Z",
-      "repeat_reproductions": 22
+      "behavioral_differences": 30,
+      "candidate_requests": 120,
+      "families_executed": 10,
+      "generations": 10,
+      "last_execution": "2026-10-05T09:58:56Z",
+      "repeat_reproductions": 30
     },
     "surf_29_extra_language": {
       "behavioral_differences": 0,
-      "candidate_requests": 2,
-      "families_executed": 2,
-      "generations": 2,
-      "last_execution": "2026-10-05T09:45:08Z",
+      "candidate_requests": 3,
+      "families_executed": 3,
+      "generations": 3,
+      "last_execution": "2026-10-05T09:58:54Z",
       "repeat_reproductions": 0
     },
     "surf_41_continue_code": {
       "behavioral_differences": 0,
-      "candidate_requests": 2,
-      "families_executed": 2,
-      "generations": 2,
-      "last_execution": "2026-10-05T09:45:09Z",
+      "candidate_requests": 3,
+      "families_executed": 3,
+      "generations": 3,
+      "last_execution": "2026-10-05T09:58:54Z",
       "repeat_reproductions": 0
     },
     "surf_5_security_question": {
-      "behavioral_differences": 18,
-      "candidate_requests": 48,
-      "families_executed": 4,
-      "generations": 4,
-      "last_execution": "2026-10-05T09:45:10Z",
-      "repeat_reproductions": 18
+      "behavioral_differences": 38,
+      "candidate_requests": 72,
+      "families_executed": 6,
+      "generations": 6,
+      "last_execution": "2026-10-05T09:58:56Z",
+      "repeat_reproductions": 38
     },
     "surf_6_put_tamper": {
-      "behavioral_differences": 16,
-      "candidate_requests": 34,
-      "families_executed": 4,
-      "generations": 4,
-      "last_execution": "2026-10-05T09:45:10Z",
-      "repeat_reproductions": 16
+      "behavioral_differences": 30,
+      "candidate_requests": 58,
+      "families_executed": 6,
+      "generations": 6,
+      "last_execution": "2026-10-05T09:58:55Z",
+      "repeat_reproductions": 30
     },
     "surf_7_captcha_leak": {
-      "behavioral_differences": 4,
-      "candidate_requests": 4,
-      "families_executed": 4,
-      "generations": 4,
-      "last_execution": "2026-10-05T09:45:09Z",
+      "behavioral_differences": 6,
+      "candidate_requests": 6,
+      "families_executed": 6,
+      "generations": 6,
+      "last_execution": "2026-10-05T09:58:55Z",
       "repeat_reproductions": 0
     },
     "surf_97_metrics": {
-      "behavioral_differences": 7,
-      "candidate_requests": 7,
-      "families_executed": 7,
-      "generations": 7,
-      "last_execution": "2026-10-05T09:45:10Z",
+      "behavioral_differences": 11,
+      "candidate_requests": 11,
+      "families_executed": 11,
+      "generations": 11,
+      "last_execution": "2026-10-05T09:58:56Z",
       "repeat_reproductions": 0
     },
     "surf_9_web3": {
       "behavioral_differences": 0,
-      "candidate_requests": 2,
-      "families_executed": 2,
-      "generations": 2,
-      "last_execution": "2026-10-05T09:45:09Z",
+      "candidate_requests": 3,
+      "families_executed": 3,
+      "generations": 3,
+      "last_execution": "2026-10-05T09:58:55Z",
       "repeat_reproductions": 0
     },
     "surf_blocked_auth": {
-      "behavioral_differences": 4,
-      "candidate_requests": 4,
-      "families_executed": 2,
-      "generations": 2,
-      "last_execution": "2026-10-05T09:45:09Z",
-      "repeat_reproductions": 4
+      "behavioral_differences": 6,
+      "candidate_requests": 6,
+      "families_executed": 3,
+      "generations": 3,
+      "last_execution": "2026-10-05T09:58:55Z",
+      "repeat_reproductions": 6
     },
     "surf_chatbot": {
       "behavioral_differences": 0,
-      "candidate_requests": 2,
-      "families_executed": 2,
-      "generations": 2,
-      "last_execution": "2026-10-05T09:45:09Z",
+      "candidate_requests": 3,
+      "families_executed": 3,
+      "generations": 3,
+      "last_execution": "2026-10-05T09:58:55Z",
       "repeat_reproductions": 0
     },
     "surf_non_viable_500": {
-      "behavioral_differences": 4,
-      "candidate_requests": 8,
-      "families_executed": 2,
-      "generations": 2,
-      "last_execution": "2026-10-05T09:45:09Z",
-      "repeat_reproductions": 4
+      "behavioral_differences": 7,
+      "candidate_requests": 16,
+      "families_executed": 3,
+      "generations": 3,
+      "last_execution": "2026-10-05T09:58:55Z",
+      "repeat_reproductions": 7
     },
     "surf_redirect": {
       "behavioral_differences": 4,
-      "candidate_requests": 12,
-      "families_executed": 2,
-      "generations": 2,
-      "last_execution": "2026-10-05T09:45:09Z",
+      "candidate_requests": 24,
+      "families_executed": 3,
+      "generations": 3,
+      "last_execution": "2026-10-05T09:58:55Z",
       "repeat_reproductions": 4
     }
   }
