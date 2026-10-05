@@ -132,6 +132,13 @@ PROGRAM.json must contain, at minimum:
 - evolution_families: [{family_id, surface_id, name, purpose, status, generation, population_size, mutation_operators, selection_policy, exploration_exploitation_policy, novelty_requirement, seed_requests, best_candidates, lineage, results_history, coverage_history, information_gain_history, false_positive_history, independent_reproduction_history, reasonable_effort_contribution, last_kilo_review, next_generation_specification}]
 - portfolio_policy: {max_generations_per_activation, max_candidates_per_generation, exploration_reserve_fraction}
 
+Machine-readable handoff invariants (mandatory, not stylistic):
+- seed_requests MUST be a list of executable request objects, never strings or prose. Each object MUST have the safe request shape: {method, path, query, headers}; method MUST be GET, HEAD, or OPTIONS; path MUST be relative; query and headers MUST be JSON objects.
+- best_candidates MUST be a list of executable candidate objects, never strings or prose. Each candidate MUST contain candidate_id, parent_candidate_id (null allowed for bootstrap), request (same executable request-object shape), mutation, and response_signature.
+- Candidate IDs are references, not executables. Never replace a request object with a human-readable description.
+- Do NOT create or use a second PROGRAM writer under reports/. state/research/PROGRAM.json is the only handoff artifact and the trusted controller schema is authoritative.
+- Before finishing, load state/research/PROGRAM.json as JSON and verify that every seed_requests item and every best_candidates item satisfies the object-shape invariants above. Do not report the handoff complete until this check passes.
+
 Allowed mutation_operators are declarative only:
 BASELINE, QUERY_EDGE_VALUES, DUPLICATE_QUERY, ENCODING_VARIANTS, PATH_VARIANTS, METHOD_VARIANTS, HEADER_ORIGIN_VARIANTS, PARAMETER_OMISSION.
 
