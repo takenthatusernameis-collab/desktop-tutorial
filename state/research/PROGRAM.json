@@ -436,7 +436,7 @@
    "name": "Raw error discovery across API write routes",
    "purpose": "Bounded enumeration of additional unauthenticated raw-error triggers by varying HTTP method, path, encoding, and parameter presence, to strengthen the id=27 evidence and close any residual error-handling surface.",
    "status": "ACTIVE",
-   "generation": 1,
+   "generation": 5,
    "population_size": 12,
    "mutation_operators": [
     "METHOD_VARIANTS",
@@ -539,7 +539,7 @@
    "name": "Metrics exposure verification",
    "purpose": "Baseline verification that /metrics remains unauthenticated with observable telemetry gauges.",
    "status": "ACTIVE",
-   "generation": 1,
+   "generation": 4,
    "population_size": 1,
    "mutation_operators": [
     "BASELINE"
@@ -606,7 +606,7 @@
    "name": "Over-exposure enumeration across /rest/*",
    "purpose": "Bounded GET enumeration of /rest/* routes to find user-bearing over-exposure similar to /rest/memories.",
    "status": "ACTIVE_LOW_INTENSITY",
-   "generation": 1,
+   "generation": 3,
    "population_size": 8,
    "mutation_operators": [
     "PATH_VARIANTS",
@@ -674,7 +674,7 @@
    "name": "Write-open/read-gated gap sweep across /api/*",
    "purpose": "Enumerate /api/* write namespaces for unauthenticated write-open/read-gated authorization gaps.",
    "status": "ACTIVE_LOW_INTENSITY",
-   "generation": 1,
+   "generation": 3,
    "population_size": 12,
    "mutation_operators": [
     "METHOD_VARIANTS",
@@ -743,7 +743,7 @@
    "name": "Security-question disclosure and account enumeration",
    "purpose": "Re-verify the security-question disclosure + account-existence differential and sweep /rest/user/* for gated-read/open-write pairs.",
    "status": "ACTIVE_LOW_INTENSITY",
-   "generation": 1,
+   "generation": 3,
    "population_size": 8,
    "mutation_operators": [
     "PATH_VARIANTS",
@@ -835,7 +835,7 @@
    "name": "CAPTCHA answer-leak verification",
    "purpose": "Re-verify the cleartext answer leak and document the broken bypass path.",
    "status": "ACTIVE_LOW_INTENSITY",
-   "generation": 1,
+   "generation": 3,
    "population_size": 1,
    "mutation_operators": [
     "BASELINE",
@@ -903,7 +903,7 @@
    "name": "Unauthenticated mass-assignment sweep",
    "purpose": "Enumerate which HTTP methods accept unauthenticated writes on /api/* write routes and which do not.",
    "status": "ACTIVE_LOW_INTENSITY",
-   "generation": 1,
+   "generation": 3,
    "population_size": 12,
    "mutation_operators": [
     "METHOD_VARIANTS",
@@ -971,7 +971,7 @@
    "name": "Authentication surface monitoring",
    "purpose": "Monitor auth routes for re-enablement; the blocking constraint may gate hidden behaviors.",
    "status": "DEPRIORITIZED",
-   "generation": 1,
+   "generation": 2,
    "population_size": 4,
    "mutation_operators": [
     "METHOD_VARIANTS",
@@ -1039,7 +1039,7 @@
    "name": "Removed-route re-enablement monitoring",
    "purpose": "Monitor mutation-removed routes for re-enablement (potential new solvable surfaces).",
    "status": "EXHAUSTED_FOR_NOW",
-   "generation": 1,
+   "generation": 2,
    "population_size": 4,
    "mutation_operators": [
     "BASELINE",
@@ -1107,7 +1107,7 @@
    "name": "Continue-code generation/reconciliation",
    "purpose": "Verify continue-code generation works and consumption is removed (negative, not a vuln).",
    "status": "NEGATED",
-   "generation": 1,
+   "generation": 2,
    "population_size": 1,
    "mutation_operators": [
     "BASELINE"
@@ -1174,7 +1174,7 @@
    "name": "Web3/NFT unlock verification",
    "purpose": "Verify NFT unlock endpoint and absence of private keys on the public surface.",
    "status": "NEGATED",
-   "generation": 1,
+   "generation": 2,
    "population_size": 1,
    "mutation_operators": [
     "BASELINE"
@@ -1241,7 +1241,7 @@
    "name": "i18n/static exposure verification",
    "purpose": "Verify static assets and i18n files all proxy to the shell; /rest/languages is a real endpoint with baseline telemetry.",
    "status": "NEGATED",
-   "generation": 1,
+   "generation": 2,
    "population_size": 4,
    "mutation_operators": [
     "BASELINE",
@@ -1310,7 +1310,7 @@
    "name": "Redirect/SSRF monitoring",
    "purpose": "Monitor redirect parameter for SSRF-like internal resource reachability; currently only exposes a TypeError.",
    "status": "NEGATED",
-   "generation": 1,
+   "generation": 2,
    "population_size": 6,
    "mutation_operators": [
     "PARAMETER_OMISSION",
@@ -1387,7 +1387,7 @@
    "name": "Chatbot backend monitoring",
    "purpose": "Monitor the Ollama-backed chatbot for backend availability.",
    "status": "DEPRIORITIZED",
-   "generation": 1,
+   "generation": 2,
    "population_size": 1,
    "mutation_operators": [
     "BASELINE",
