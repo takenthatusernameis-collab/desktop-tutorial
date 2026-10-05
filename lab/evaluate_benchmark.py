@@ -177,6 +177,10 @@ def score_findings(
 
 
 def append_history(path: Path, public: dict[str, Any], score: dict[str, Any]) -> None:
+    # Only completed campaigns influence future benchmark selection.
+    if not bool(score.get("challenge_solved")):
+        return
+
     path.parent.mkdir(parents=True, exist_ok=True)
     row = {
         "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -189,6 +193,8 @@ def append_history(path: Path, public: dict[str, Any], score: dict[str, Any]) ->
         "discovery_rate": score["discovery_rate"],
         "reproduction_rate": score["reproduction_rate"],
         "precision_component": score["precision_component"],
+        "evidence_quality": score["evidence_quality"],
+        "challenge_solved": True,
     }
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(row, sort_keys=True) + "\n")
@@ -219,6 +225,16 @@ def main() -> int:
         findings,
         hidden_count=len(spec.get("families", [])),
     )
+
+    challenge_solved = (
+        len(spec.get("families", [])) > 0
+        and score["unique_challenges_validated"] >= len(spec.get("families", []))
+        and len(findings) >= len(spec.get("families", []))
+        and score["reproduction_rate"] >= 1.0
+        and score["precision_component"] >= 1.0
+        and score["evidence_quality"] >= 0.8
+    )
+    score["challenge_solved"] = challenge_solved
 
     result = {
         "schema_version": 1,
