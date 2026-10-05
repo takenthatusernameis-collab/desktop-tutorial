@@ -85,11 +85,12 @@ def self_test() -> int:
             preflight="success",
             smoke="success",
             worker="failure",
-            evaluate="success",
+            evaluate="failure",
             portfolio="success",
-            research_validation="success",
+            research_validation="failure",
             findings_path=findings,
             research_report_path=research,
+            research_handoff="failure",
         )
         assert (rc, outcome) == (0, "PARTIAL")
 
