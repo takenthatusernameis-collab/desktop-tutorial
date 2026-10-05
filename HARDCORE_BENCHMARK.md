@@ -19,6 +19,8 @@ The controller advances to a new hidden benchmark only after:
 2. the worker's repository results are successfully persisted; and
 3. the persistent controller state records the campaign as solved.
 
+The solve gate requires complete hidden-behavior coverage, at least one submitted finding per hidden behavior, perfect reproduction and precision components, and evidence quality of at least 0.8. An incomplete campaign remains the active campaign regardless of how many activations it consumes.
+
 This makes elapsed sessions a means of progressing toward a solution rather than the benchmark's primary success variable.
 
 The worker may use ordinary black-box discovery, request manipulation, application mapping, safe fuzzing, and evidence collection against that target.
