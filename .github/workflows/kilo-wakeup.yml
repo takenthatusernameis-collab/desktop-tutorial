@@ -634,9 +634,14 @@ jobs:
 
           git add -A
 
+          git reset -- \
+            ":(glob)**/__pycache__/**" \
+            ":(glob)**/*.pyc" \
+            ":(glob)**/*.py.c" 2>/dev/null || true
+
           # Research continuity is authoritative state. Force-add the explicit
-          # controller and strategy artifacts even if a runner-level ignore rule
-          # hides newly generated files.
+          # controller and strategy artifacts after all staging resets so that
+          # the authoritative state is guaranteed to be present in the index.
           for research_path in \
             state/research/PROGRAM.json \
             state/research/RUNTIME.json \
@@ -655,14 +660,9 @@ jobs:
           done
 
           if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
-            git diff --cached --name-only | grep -Fxq "state/research/PROGRAM.json"
+            test -s state/research/PROGRAM.json
+            git ls-files --stage -- state/research/PROGRAM.json | grep -Fq "state/research/PROGRAM.json"
           fi
-
-          git reset -- \
-            ":(glob)**/__pycache__/**" \
-            ":(glob)**/*.pyc" \
-            ":(glob)**/*.py.c" 2>/dev/null || true
-
           if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|benchmark_campaign\.py|research_program\.py|test_research_program\.py|kilo-worker\.Dockerfile|kilo_gateway_proxy\.py|README\.md)$' >/tmp/protected; then
             echo "Protected paths unexpectedly staged:"
             cat /tmp/protected
