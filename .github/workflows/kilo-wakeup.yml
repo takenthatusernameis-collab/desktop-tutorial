@@ -835,6 +835,71 @@ jobs:
           RESEARCH_HANDOFF_OUTCOME: ${{ steps.research_handoff.outcome }}
         run: |
           set -euo pipefail
+          echo "::group::REPORT OUTCOME DEBUG — run metadata"
+          printf 'GITHUB_RUN_ID=%s\n' "${GITHUB_RUN_ID:-unknown}"
+          printf 'GITHUB_RUN_ATTEMPT=%s\n' "${GITHUB_RUN_ATTEMPT:-unknown}"
+          printf 'GITHUB_REF_NAME=%s\n' "${GITHUB_REF_NAME:-unknown}"
+          printf 'GITHUB_SHA=%s\n' "${GITHUB_SHA:-unknown}"
+          printf 'GITHUB_EVENT_NAME=%s\n' "${GITHUB_EVENT_NAME:-unknown}"
+          printf 'GITHUB_WORKFLOW=%s\n' "${GITHUB_WORKFLOW:-unknown}"
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — exact classifier inputs"
+          printf 'PREFLIGHT_OUTCOME=%q\n' "${PREFLIGHT_OUTCOME:-<unset>}"
+          printf 'KILO_SMOKE_OUTCOME=%q\n' "${KILO_SMOKE_OUTCOME:-<unset>}"
+          printf 'KILO_OUTCOME=%q\n' "${KILO_OUTCOME:-<unset>}"
+          printf 'EVALUATE_OUTCOME=%q\n' "${EVALUATE_OUTCOME:-<unset>}"
+          printf 'RESEARCH_PORTFOLIO_OUTCOME=%q\n' "${RESEARCH_PORTFOLIO_OUTCOME:-<unset>}"
+          printf 'RESEARCH_VALIDATION_OUTCOME=%q\n' "${RESEARCH_VALIDATION_OUTCOME:-<unset>}"
+          printf 'RESEARCH_HANDOFF_OUTCOME=%q\n' "${RESEARCH_HANDOFF_OUTCOME:-<unset>}"
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — reporter integrity"
+          test -f .github/scripts/report_worker_outcome.py
+          sha256sum .github/scripts/report_worker_outcome.py
+          python3 -m py_compile .github/scripts/report_worker_outcome.py
+          python3 .github/scripts/report_worker_outcome.py --self-test
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — required artifacts"
+          for report_path in \
+            reports/benchmark_findings.json \
+            reports/benchmark_research.md \
+            state/research/PROGRAM.json \
+            state/research/RUNTIME.json \
+            state/research/EXECUTION_RECEIPTS.jsonl \
+            LEARNING_STATE.md \
+            research_state.md; do
+            if [ -e "$report_path" ]; then
+              stat -c '%n | type=%F | bytes=%s | mode=%a | mtime=%y' "$report_path"
+            else
+              echo "MISSING | $report_path"
+            fi
+          done
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — research-state inventory"
+          if [ -d state/research ]; then
+            find state/research -maxdepth 2 -type f -printf '%p | bytes=%s\n' | sort | head -200
+          else
+            echo "MISSING | state/research"
+          fi
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — Git persistence state"
+          git rev-parse --short=12 HEAD
+          git status --short
+          echo "--- unstaged names ---"
+          git diff --name-status
+          echo "--- staged names ---"
+          git diff --cached --name-status
+          echo "--- repository HEAD ---"
+          git log -1 --format='%H%n%ct%n%s'
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — classification execution begins"
+          echo "The deterministic reporter invocation follows with the exact arguments shown above."
+          echo "::endgroup::"
           python3 .github/scripts/report_worker_outcome.py \
             --preflight "$PREFLIGHT_OUTCOME" \
             --smoke "$KILO_SMOKE_OUTCOME" \
