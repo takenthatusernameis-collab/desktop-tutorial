@@ -44,6 +44,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 lab/test_benchmark.py
+          python3 lab/test_research_program.py
           python3 -m py_compile \
             lab/kilo_gateway_proxy.py \
             lab/generate_solver_feedback.py \
@@ -51,7 +52,9 @@ jobs:
             lab/evaluate_benchmark.py \
             lab/mutator.py \
             lab/test_benchmark.py \
-            lab/benchmark_campaign.py
+            lab/benchmark_campaign.py \
+            lab/research_program.py \
+            lab/test_research_program.py
 
       - name: Discover current free model
         id: discover_model
@@ -293,6 +296,27 @@ jobs:
             sleep 2
           done
 
+      - name: Execute deterministic pre-Kilo research portfolio
+        id: research_portfolio
+        run: |
+          set -euo pipefail
+          python3 lab/research_program.py pre-kilo \
+            --mode "$BENCHMARK_CAMPAIGN_MODE" \
+            --benchmark-id "$BENCHMARK_ID" \
+            --target "$SECURITY_RESEARCH_TARGET" \
+            --state-dir "state/research"
+
+      - name: Snapshot controller research state before Kilo
+        run: |
+          set -euo pipefail
+          SNAP="$RUNNER_TEMP/ehb-research-snapshot"
+          rm -rf "$SNAP"
+          mkdir -p "$SNAP"
+          if [ -d "state/research" ]; then
+            cp -a state/research/. "$SNAP/"
+          fi
+          echo "Controller research-state snapshot prepared at $SNAP."
+
       - name: Prepare blind worker workspace
         run: |
           set -euo pipefail
@@ -470,6 +494,18 @@ jobs:
             --exclude="HARDCORE_BENCHMARK.md" \
             "$EHB_WORKER_DIR/" "$GITHUB_WORKSPACE/"
 
+      - name: Validate Kilo research program and controller-owned evidence
+        id: research_validate
+        if: always()
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 lab/research_program.py post-kilo \
+            --mode "$BENCHMARK_CAMPAIGN_MODE" \
+            --benchmark-id "$BENCHMARK_ID" \
+            --state-dir "state/research" \
+            --snapshot-dir "$RUNNER_TEMP/ehb-research-snapshot"
+
       - name: Evaluate hidden benchmark independently
         id: evaluate
         if: always() && steps.benchmark.outcome == 'success' && steps.start_benchmark.outcome == 'success' && steps.kilo.outcome != 'skipped'
@@ -519,8 +555,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/benchmark_campaign.py lab/kilo-worker.Dockerfile lab/kilo_gateway_proxy.py lab/README.md 2>/dev/null || true
-          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/benchmark_campaign.py lab/README.md 2>/dev/null || true
+          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/benchmark_campaign.py lab/research_program.py lab/test_research_program.py lab/kilo-worker.Dockerfile lab/kilo_gateway_proxy.py lab/README.md 2>/dev/null || true
+          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/benchmark_campaign.py lab/research_program.py lab/test_research_program.py lab/README.md 2>/dev/null || true
 
           if [ "${FEEDBACK_OUTCOME:-failure}" != "success" ]; then
             git restore --worktree --staged -- SOLVER_FEEDBACK.md 2>/dev/null || true
@@ -533,7 +569,7 @@ jobs:
             ":(glob)**/*.pyc" \
             ":(glob)**/*.py.c" 2>/dev/null || true
 
-          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|benchmark_campaign\.py|kilo-worker\.Dockerfile|kilo_gateway_proxy\.py|README\.md)$' >/tmp/protected; then
+          if git diff --cached --name-only | grep -E '(^|/)(\.github/workflows/|\.kilo/)|^(AGENTS\.md|ENTERPRISE\.md|MANUAL_SETUP\.md|PERSISTENCE_POLICY\.md|AUTHORIZED_TARGET\.md|HARDCORE_BENCHMARK\.md)$|^lab/(generate_benchmark\.py|mutator\.py|evaluate_benchmark\.py|test_benchmark\.py|benchmark_campaign\.py|research_program\.py|test_research_program\.py|kilo-worker\.Dockerfile|kilo_gateway_proxy\.py|README\.md)$' >/tmp/protected; then
             echo "Protected paths unexpectedly staged:"
             cat /tmp/protected
             exit 1
@@ -578,6 +614,8 @@ jobs:
         continue-on-error: true
         env:
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+          RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
+          RESEARCH_VALIDATION_OUTCOME: ${{ steps.research_validate.outcome }}
           PERSIST_OUTCOME: ${{ steps.persist.outcome }}
         run: |
           set -euo pipefail
@@ -632,6 +670,13 @@ jobs:
           echo "Kilo execution smoke outcome: $KILO_SMOKE_OUTCOME"
           echo "Raw Kilo worker outcome: $KILO_OUTCOME"
           echo "Independent evaluator outcome: $EVALUATE_OUTCOME"
+          echo "Deterministic research portfolio outcome: $RESEARCH_PORTFOLIO_OUTCOME"
+          echo "Kilo research-program validation outcome: $RESEARCH_VALIDATION_OUTCOME"
+
+          if [ "$RESEARCH_PORTFOLIO_OUTCOME" != "success" ]; then
+            echo "Deterministic pre-Kilo research portfolio failed."
+            exit 1
+          fi
 
           if [ "$PREFLIGHT_OUTCOME" != "success" ]; then
             echo "Campaign did not start because the deterministic infrastructure preflight failed."
@@ -640,6 +685,11 @@ jobs:
 
           if [ "$KILO_SMOKE_OUTCOME" != "success" ]; then
             echo "Campaign did not start because the real Kilo execution-path smoke test failed."
+            exit 1
+          fi
+
+          if [ "$RESEARCH_VALIDATION_OUTCOME" != "success" ]; then
+            echo "Kilo did not leave a valid persistent research program; controller state was restored where applicable."
             exit 1
           fi
 
