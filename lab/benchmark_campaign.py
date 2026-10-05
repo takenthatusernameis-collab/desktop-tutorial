@@ -83,13 +83,38 @@ def latest_artifact(repo: str, token: str) -> dict[str, Any] | None:
     return candidates[-1] if candidates else None
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Expose GitHub's signed artifact redirect without forwarding auth headers."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
 def restore_archive(artifact: dict[str, Any], token: str, destination: Path) -> None:
     archive_url = artifact.get("archive_download_url")
     if not archive_url:
         raise RuntimeError("Persistent benchmark artifact has no download URL.")
+
     archive_path = Path(os.environ.get("RUNNER_TEMP", "/tmp")) / "previous-benchmark.zip"
-    with urllib.request.urlopen(artifact_request(archive_url, token), timeout=30) as response:
-        archive_path.write_bytes(response.read())
+    opener = urllib.request.build_opener(_NoRedirect())
+
+    try:
+        opener.open(artifact_request(archive_url, token), timeout=30)
+    except urllib.error.HTTPError as error:
+        if error.code not in {301, 302, 303, 307, 308}:
+            raise
+        location = error.headers.get("Location")
+        if not location:
+            raise RuntimeError(
+                f"Persistent benchmark artifact redirect returned HTTP {error.code} without a Location header."
+            ) from error
+        # The Location is a signed storage URL; deliberately do not send the
+        # GitHub API bearer token to that external host.
+        with urllib.request.urlopen(location, timeout=30) as response:
+            archive_path.write_bytes(response.read())
+    else:
+        raise RuntimeError("Persistent benchmark artifact endpoint did not redirect to a signed download URL.")
+
     destination.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(archive_path) as archive:
         archive.extractall(destination)
