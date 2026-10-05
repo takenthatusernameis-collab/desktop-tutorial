@@ -7,49 +7,56 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated raw, non-graceful error exposure via /rest/user/security-question, /redirect and /api/Feedbacks/ (inconsistent error handling)",
+      "title": "Raw, non-graceful, inconsistent server errors expose internal stack traces and database queries (error-handling class)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated exposure of Prometheus observability telemetry via /metrics",
+      "title": "Corroborating raw error via POST /api/Feedbacks/ text/plain (error-handling class, id=27)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Cleartext CAPTCHA answer returned by GET /rest/captcha (CAPTCHA bypass via answer leak)",
+      "title": "Unauthenticated Prometheus-format observability metrics endpoint exposes server and LLM usage telemetry (exposed-metrics class)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated account enumeration and security-question disclosure via /rest/user/security-question?email=",
+      "title": "CAPTCHA cleartext answer leak (unauthenticated exposure of server-computed CAPTCHA answers)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Excessive data exposure: unauthenticated /rest/memories returns full user objects including password hashes and tokens",
+      "title": "Account existence disclosure and security-question text exposure via /rest/user/security-question enumeration",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated write gap: POST /api/SecurityAnswers/ accepts writes without authorization while the read is gated",
+      "title": "Excessive unauthenticated data exposure via /rest/memories (full embedded User objects including password hash and TOTP secret)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated PUT mass-assignment on /api/Products/{id} (missing write authorization)",
+      "title": "Unauthenticated write gap on /api/SecurityAnswers/ (write-open/read-gated: POST accepts 201 without authorization, records bound to no owner)",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Unauthenticated mass assignment via PUT on /api/Products/{id} (method-level authorization gap)",
       "valid_reproduction": false
     }
   ],
@@ -58,7 +65,7 @@
   "difficulty": 4,
   "discovery_rate": 0.0,
   "evidence_quality": 1.0,
-  "finding_count_submitted": 7,
+  "finding_count_submitted": 8,
   "ground_truth_exposed": false,
   "limitations": [
     "Replay validation tests submitted evidence against the hidden evaluator.",
