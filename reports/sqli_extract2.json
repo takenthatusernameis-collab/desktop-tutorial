@@ -1,0 +1,57 @@
+[
+ {
+  "test": "q=Apple (benign baseline)",
+  "status": 200,
+  "body_length": 921
+ },
+ {
+  "test": "true: count(Users)>0",
+  "status": 200,
+  "body_length": 16563
+ },
+ {
+  "test": "false: count(Users)<1",
+  "status": 200,
+  "body_length": 16563
+ },
+ {
+  "test": "true: length(password)@uid13>30",
+  "status": 200,
+  "body_length": 16563
+ },
+ {
+  "test": "false: length(password)@uid13<10",
+  "status": 200,
+  "body_length": 16563
+ },
+ {
+  "test": "true: substr(password,1,1)@uid13='9'",
+  "status": 500,
+  "body_length": 974
+ },
+ {
+  "test": "false: substr(password,1,1)@uid13='0'",
+  "status": 500,
+  "body_length": 974
+ },
+ {
+  "test": "true: substr(email,1,6)@uid13='bjoer'",
+  "status": 500,
+  "body_length": 982
+ },
+ {
+  "test": "false: substr(email,1,6)@uid13='xjoer'",
+  "status": 500,
+  "body_length": 982
+ },
+ {
+  "test": "true: role@uid13='deluxe'",
+  "status": 500,
+  "body_length": 984
+ },
+ {
+  "test": "false: role@uid13='admin'",
+  "status": 500,
+  "body_length": 982
+ }
+]

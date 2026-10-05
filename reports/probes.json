@@ -1,0 +1,4789 @@
+{
+ "routes": [
+  "/api/Addresss",
+  "/api/BasketItems",
+  "/api/Cards",
+  "/api/Challenges",
+  "/api/Complaints",
+  "/api/Deliverys",
+  "/api/Feedbacks",
+  "/api/Hints",
+  "/api/Products",
+  "/api/Quantitys",
+  "/api/Recycles",
+  "/api/SecurityAnswers",
+  "/api/SecurityQuestions",
+  "/api/Users",
+  "/rest/2fa/disable",
+  "/rest/2fa/setup",
+  "/rest/2fa/status",
+  "/rest/2fa/verify",
+  "/rest/admin",
+  "/rest/basket",
+  "/rest/basket//checkout",
+  "/rest/basket//coupon",
+  "/rest/captcha",
+  "/rest/chat",
+  "/rest/continue-code",
+  "/rest/continue-code-findIt",
+  "/rest/continue-code-findIt/apply",
+  "/rest/continue-code-fixIt",
+  "/rest/continue-code-fixIt/apply",
+  "/rest/continue-code/apply",
+  "/rest/country-mapping",
+  "/rest/deluxe-membership",
+  "/rest/image-captcha",
+  "/rest/languages",
+  "/rest/memories",
+  "/rest/order-history",
+  "/rest/products",
+  "/rest/products/search",
+  "/rest/repeat-notification",
+  "/rest/saveLoginIp",
+  "/rest/track-order",
+  "/rest/user",
+  "/rest/user/authentication-details",
+  "/rest/user/change-password",
+  "/rest/user/login",
+  "/rest/user/reset-password",
+  "/rest/user/security-question",
+  "/rest/user/whoami",
+  "/rest/wallet/balance",
+  "/rest/web3"
+ ],
+ "details": {
+  "/api/Addresss": {
+   "GET": {
+    "status": 401,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/BasketItems": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Cards": {
+   "GET": {
+    "status": 401,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Challenges": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"key\":\"passwordHashLeakChallenge\",\"name\":\"Pa",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Complaints": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Deliverys": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"One Day Delivery\",\"price\":0.99,\"eta\"",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Feedbacks": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":[{\"UserId\":1,\"id\":1,\"comment\":\"I love this shop! Best",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Hints": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":[{\"ChallengeId\":1,\"id\":1,\"text\":\"You need to understa",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Products": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Quantitys": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":[{\"ProductId\":1,\"id\":1,\"quantity\":85,\"limitPerUser\":5",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Recycles": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":{\"err\":\"Sorry, this endpoint is not supported.\"}}",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/SecurityAnswers": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/SecurityQuestions": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"question\":\"Your eldest siblings middle name",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/api/Users": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/2fa/disable": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/2fa/setup": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/2fa/status": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/2fa/verify": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/admin": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/basket": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/basket//checkout": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/basket//coupon": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/captcha": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"captchaId\":1,\"captcha\":\"10-9-2\",\"answer\":\"-1\"}",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/chat": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/continue-code": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"continueCode\":\"O3VMEvaDgyX8LvJ4qo7EwW6m29xP0pOGzRkZKY1bB3MNjOVprl5QenrK4a2x\"}",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/continue-code-findIt": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{}",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/continue-code-findIt/apply": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/continue-code-fixIt": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{}",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/continue-code-fixIt/apply": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/continue-code/apply": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/country-mapping": {
+   "GET": {
+    "status": 500,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/deluxe-membership": {
+   "GET": {
+    "status": 400,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"error\",\"error\":\"You are not eligible for deluxe membership!\"}",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/image-captcha": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "You need to be logged in to request a CAPTCHA.",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/languages": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "[{\"key\":\"az_AZ\",\"lang\":\"Az\u0259rbaycanca\",\"icons\":[\"az\"],\"shortKey\":\"AZ\",\"percentage",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/memories": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"\ud83d\ude3c #zatschi #whoneedsf",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/order-history": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Blocked illegal ac",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/products": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/products/search": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/repeat-notification": {
+   "GET": {
+    "status": 200,
+    "ct": "text/plain; charset=utf-8",
+    "body": "OK",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/saveLoginIp": {
+   "GET": {
+    "status": 401,
+    "ct": "text/plain; charset=utf-8",
+    "body": "Unauthorized",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/track-order": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/user": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/user/authentication-details": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Aut",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/user/change-password": {
+   "GET": {
+    "status": 401,
+    "ct": "text/html; charset=utf-8",
+    "body": "Password cannot be empty.",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/user/login": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/user/reset-password": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/user/security-question": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: WHERE parameter &q",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/user/whoami": {
+   "GET": {
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"user\":{}}",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/wallet/balance": {
+   "GET": {
+    "status": 401,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 401,
+    "ct": "application/json; charset=utf-8",
+    "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  },
+  "/rest/web3": {
+   "GET": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "HEAD": {
+    "status": 501,
+    "ct": "text/html;charset=utf-8",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": null,
+     "WWW-Authenticate": null
+    }
+   },
+   "OPTIONS": {
+    "status": 204,
+    "ct": "",
+    "body": "",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PUT": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "DELETE": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   },
+   "PATCH": {
+    "status": 500,
+    "ct": "text/html; charset=utf-8",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /",
+    "headers": {
+     "Allow": null,
+     "Access-Control-Allow-Origin": "*",
+     "WWW-Authenticate": null
+    }
+   }
+  }
+ },
+ "anomalies": [
+  {
+   "path": "/api/Addresss",
+   "method": "GET",
+   "status": 401,
+   "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Addresss",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Addresss",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Addresss",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Addresss",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/BasketItems",
+   "method": "GET",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/BasketItems",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/BasketItems",
+   "method": "PUT",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/BasketItems",
+   "method": "DELETE",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/BasketItems",
+   "method": "PATCH",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Cards",
+   "method": "GET",
+   "status": 401,
+   "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Cards",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Cards",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Cards",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Cards",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Challenges",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Challenges",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Challenges",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Challenges",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Complaints",
+   "method": "GET",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Complaints",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Complaints",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Complaints",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Complaints",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Deliverys",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Deliverys",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Deliverys",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Deliverys",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Feedbacks",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Feedbacks",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Feedbacks",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Feedbacks",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Hints",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Hints",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Hints",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Hints",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Products",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Products",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Products",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Products",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Quantitys",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Quantitys",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Quantitys",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Quantitys",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Recycles",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Recycles",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Recycles",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Recycles",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/SecurityAnswers",
+   "method": "GET",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/SecurityAnswers",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/SecurityAnswers",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/SecurityAnswers",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/SecurityAnswers",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/SecurityQuestions",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/SecurityQuestions",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/SecurityQuestions",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/SecurityQuestions",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Users",
+   "method": "GET",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Users",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/api/Users",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Users",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/api/Users",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/disable",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/disable",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/2fa/disable",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/disable",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/disable",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/setup",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/setup",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/2fa/setup",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/setup",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/setup",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/status",
+   "method": "GET",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/status",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/2fa/status",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/status",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/status",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/verify",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/verify",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/2fa/verify",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/verify",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/2fa/verify",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/admin",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/admin",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/admin",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/admin",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/admin",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket",
+   "method": "GET",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/basket",
+   "method": "PUT",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket",
+   "method": "DELETE",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket",
+   "method": "PATCH",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket//checkout",
+   "method": "GET",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket//checkout",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/basket//checkout",
+   "method": "PUT",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket//checkout",
+   "method": "DELETE",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket//checkout",
+   "method": "PATCH",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket//coupon",
+   "method": "GET",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket//coupon",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/basket//coupon",
+   "method": "PUT",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket//coupon",
+   "method": "DELETE",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/basket//coupon",
+   "method": "PATCH",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/captcha",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/captcha",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/captcha",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/captcha",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/chat",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/chat",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/chat",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/chat",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/chat",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/continue-code",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-findIt",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/continue-code-findIt",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-findIt",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-findIt",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-findIt/apply",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-findIt/apply",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/continue-code-findIt/apply",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-findIt/apply",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-findIt/apply",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-fixIt",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/continue-code-fixIt",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-fixIt",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-fixIt",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-fixIt/apply",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-fixIt/apply",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/continue-code-fixIt/apply",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-fixIt/apply",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code-fixIt/apply",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code/apply",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code/apply",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/continue-code/apply",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code/apply",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/continue-code/apply",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/country-mapping",
+   "method": "GET",
+   "status": 500,
+   "body": "",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/country-mapping",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/country-mapping",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/country-mapping",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/country-mapping",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/deluxe-membership",
+   "method": "GET",
+   "status": 400,
+   "body": "{\"status\":\"error\",\"error\":\"You are not eligible for deluxe membership!\"}",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/deluxe-membership",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/deluxe-membership",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/deluxe-membership",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/deluxe-membership",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/image-captcha",
+   "method": "GET",
+   "status": 401,
+   "body": "You need to be logged in to request a CAPTCHA.",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/image-captcha",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/image-captcha",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/image-captcha",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/image-captcha",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/languages",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/languages",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/languages",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/languages",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/memories",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/memories",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/memories",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/memories",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/order-history",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Blocked illegal ac",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/order-history",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/order-history",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/order-history",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/order-history",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/products",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/products",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/products",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/products",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/products",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/products/search",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/products/search",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/products/search",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/products/search",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/repeat-notification",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/repeat-notification",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/repeat-notification",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/repeat-notification",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/saveLoginIp",
+   "method": "GET",
+   "status": 401,
+   "body": "Unauthorized",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/saveLoginIp",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/saveLoginIp",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/saveLoginIp",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/saveLoginIp",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/track-order",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/track-order",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/track-order",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/track-order",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/track-order",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/user",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/authentication-details",
+   "method": "GET",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/authentication-details",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/user/authentication-details",
+   "method": "PUT",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/authentication-details",
+   "method": "DELETE",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/authentication-details",
+   "method": "PATCH",
+   "status": 401,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Aut",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/change-password",
+   "method": "GET",
+   "status": 401,
+   "body": "Password cannot be empty.",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/change-password",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/user/change-password",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/change-password",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/change-password",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/login",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/login",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/user/login",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/login",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/login",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/reset-password",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/reset-password",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/user/reset-password",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/reset-password",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/reset-password",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/security-question",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &q",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/security-question",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/user/security-question",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/security-question",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/security-question",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/whoami",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/user/whoami",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/whoami",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/user/whoami",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/wallet/balance",
+   "method": "GET",
+   "status": 401,
+   "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/wallet/balance",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/wallet/balance",
+   "method": "PUT",
+   "status": 401,
+   "body": "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data'",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/wallet/balance",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/wallet/balance",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/web3",
+   "method": "GET",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/web3",
+   "method": "HEAD",
+   "status": 501,
+   "body": "",
+   "kind": "other_status"
+  },
+  {
+   "path": "/rest/web3",
+   "method": "PUT",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/web3",
+   "method": "DELETE",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  },
+  {
+   "path": "/rest/web3",
+   "method": "PATCH",
+   "status": 500,
+   "body": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /",
+   "kind": "error_status"
+  }
+ ]
+}

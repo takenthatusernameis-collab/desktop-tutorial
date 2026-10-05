@@ -1,0 +1,1145 @@
+[
+ {
+  "label": "captcha_bypass_attempts",
+  "cases": [
+   {
+    "name": "captcha#0: GET answer='27'",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"captchaId\":3,\"captcha\":\"3*8+3\",\"answer\":\"27\"}",
+    "body_length": 47
+   },
+   {
+    "name": "captcha#0: POST same id+expr+answer (fresh)",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "Wrong answer to CAPTCHA. Please try again.",
+    "body_length": 42
+   },
+   {
+    "name": "captcha#0: POST id=3 with new expr '3+7*6'",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "Wrong answer to CAPTCHA. Please try again.",
+    "body_length": 42
+   },
+   {
+    "name": "captcha#1: GET answer='0'",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"captchaId\":5,\"captcha\":\"1*7-7\",\"answer\":\"0\"}",
+    "body_length": 46
+   },
+   {
+    "name": "captcha#1: POST same id+expr+answer (fresh)",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "Wrong answer to CAPTCHA. Please try again.",
+    "body_length": 42
+   },
+   {
+    "name": "captcha#1: POST id=5 with new expr '1-2+4'",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "Wrong answer to CAPTCHA. Please try again.",
+    "body_length": 42
+   },
+   {
+    "name": "captcha#2: GET answer='1'",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"captchaId\":7,\"captcha\":\"5+6-10\",\"answer\":\"1\"}",
+    "body_length": 47
+   },
+   {
+    "name": "captcha#2: POST same id+expr+answer (fresh)",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "Wrong answer to CAPTCHA. Please try again.",
+    "body_length": 42
+   },
+   {
+    "name": "captcha#2: POST id=7 with new expr '8-2-2'",
+    "status": 401,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "Wrong answer to CAPTCHA. Please try again.",
+    "body_length": 42
+   }
+  ]
+ },
+ {
+  "label": "product_search_sqli",
+  "cases": [
+   {
+    "name": "GET q=Apple (benign)",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +00:00\",\"updatedAt\":\"2026-10-05 00:44:34.891 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can b",
+    "body_length": 921
+   },
+   {
+    "name": "GET q=%27 (encoded quote)",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[]}",
+    "body_length": 30
+   },
+   {
+    "name": "GET q=%27%20OR%20%271%27=%271",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +00:00\",\"updatedAt\":\"2026-10-05 00:44:34.891 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can b",
+    "body_length": 16557
+   },
+   {
+    "name": "GET q=a%27%20OR%201=1%23",
+    "status": 500,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: unrecognized token: &quot;#&quot;</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(top,",
+    "body_length": 976
+   },
+   {
+    "name": "GET q=a%27%20AND%201=2%23",
+    "status": 500,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: unrecognized token: &quot;#&quot;</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(top,",
+    "body_length": 976
+   },
+   {
+    "name": "GET q=%25",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":1,\"name\":\"Apple Juice (1000ml)\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05 00:44:34.891 +00:00\",\"updatedAt\":\"2026-10-05 00:44:34.891 +00:00\",\"deletedAt\":null},{\"id\":24,\"name\":\"Apple Pomace\",\"description\":\"Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can b",
+    "body_length": 16557
+   },
+   {
+    "name": "GET q=%257",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "cors": "*",
+    "body": "{\"status\":\"success\",\"data\":[{\"id\":41,\"name\":\"Juice Shop \\\"Permafrost\\\" 2020 Edition\",\"description\":\"Exact version of <a href=\\\"https://github.com/juice-shop/juice-shop/releases/tag/v9.3.1-PERMAFROST\\\">OWASP Juice Shop that was archived on 02/02/2020</a> by the GitHub Archive Program and ultimately went into the <a href=\\\"https://github.blog/2020-07-16-github-archive-program-the-journey-of-the-worl",
+    "body_length": 3772
+   },
+   {
+    "name": "GET q=%27%3B%257--",
+    "status": 500,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;;&quot;: syntax error</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(top, ",
+    "body_length": 974
+   },
+   {
+    "name": "GET q=%27%20UNION%20SELECT%201,2,3,4%23",
+    "status": 500,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;UNION&quot;: syntax error</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(t",
+    "body_length": 982
+   },
+   {
+    "name": "GET q=%27%20UNION%20SELECT%20NULL,username,password%20FROM%20users--",
+    "status": 500,
+    "content_type": "text/html; charset=utf-8",
+    "cors": "*",
+    "body": "<html>   <head>     <meta charset='utf-8'>      <title>Error: SQLITE_ERROR: near &quot;UNION&quot;: syntax error</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";   background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));   background: #ECE9E9 -moz-linear-gradient(t",
+    "body_length": 982
+   }
+  ]
+ },
+ {
+  "label": "chat_post",
+  "cases": [
+   {
+    "name": "POST empty",
+    "status": 200,
+    "content_type": "text/event-stream",
+    "cors": "*",
+    "body": "data: {\"error\":\"LLM error: AI_InvalidPromptError: Invalid prompt: messages must not be empty\"}  data: [DONE]  ",
+    "body_length": 110
+   },
+   {
+    "name": "POST valid prompt",
+    "status": 200,
+    "content_type": "text/event-stream",
+    "cors": "*",
+    "body": "data: {\"error\":\"LLM error: AI_RetryError: Failed after 3 attempts. Last error: Cannot connect to API: connect ECONNREFUSED 127.0.0.1:11434\"}  data: [DONE]  ",
+    "body_length": 156
+   },
+   {
+    "name": "POST prompt injection",
+    "status": 200,
+    "content_type": "text/event-stream",
+    "cors": "*",
+    "body": "data: {\"error\":\"LLM error: AI_RetryError: Failed after 3 attempts. Last error: Cannot connect to API: connect ECONNREFUSED 127.0.0.1:11434\"}  data: [DONE]  ",
+    "body_length": 156
+   }
+  ]
+ },
+ {
+  "label": "challenge_inventory",
+  "count": 116,
+  "challenges": [
+   [
+    1,
+    "passwordHashLeakChallenge",
+    "Password Hash Leak",
+    "Sensitive Data Exposure"
+   ],
+   [
+    2,
+    "restfulXssChallenge",
+    "API-only XSS",
+    "XSS"
+   ],
+   [
+    3,
+    "accessLogDisclosureChallenge",
+    "Access Log",
+    "Observability Failures"
+   ],
+   [
+    4,
+    "registerAdminChallenge",
+    "Admin Registration",
+    "Improper Input Validation"
+   ],
+   [
+    5,
+    "adminSectionChallenge",
+    "Admin Section",
+    "Broken Access Control"
+   ],
+   [
+    6,
+    "fileWriteChallenge",
+    "Arbitrary File Write",
+    "Vulnerable Components"
+   ],
+   [
+    7,
+    "resetPasswordBjoernOwaspChallenge",
+    "Bjoern's Favorite Pet",
+    "Broken Authentication"
+   ],
+   [
+    8,
+    "tokenSaleChallenge",
+    "Blockchain Hype",
+    "Security through Obscurity"
+   ],
+   [
+    9,
+    "nftUnlockChallenge",
+    "NFT Takeover",
+    "Sensitive Data Exposure"
+   ],
+   [
+    10,
+    "nftMintChallenge",
+    "Mint the Honey Pot",
+    "Improper Input Validation"
+   ],
+   [
+    11,
+    "web3WalletChallenge",
+    "Wallet Depletion",
+    "Miscellaneous"
+   ],
+   [
+    12,
+    "web3SandboxChallenge",
+    "Web3 Sandbox",
+    "Broken Access Control"
+   ],
+   [
+    13,
+    "rceChallenge",
+    "Blocked RCE DoS",
+    "Insecure Deserialization"
+   ],
+   [
+    14,
+    "captchaBypassChallenge",
+    "CAPTCHA Bypass",
+    "Broken Anti Automation"
+   ],
+   [
+    15,
+    "changePasswordBenderChallenge",
+    "Change Bender's Password",
+    "Broken Authentication"
+   ],
+   [
+    16,
+    "christmasSpecialChallenge",
+    "Christmas Special",
+    "Injection"
+   ],
+   [
+    17,
+    "usernameXssChallenge",
+    "CSP Bypass",
+    "XSS"
+   ],
+   [
+    18,
+    "persistedXssUserChallenge",
+    "Client-side XSS Protection",
+    "XSS"
+   ],
+   [
+    19,
+    "directoryListingChallenge",
+    "Confidential Document",
+    "Sensitive Data Exposure"
+   ],
+   [
+    20,
+    "localXssChallenge",
+    "DOM XSS",
+    "XSS"
+   ],
+   [
+    21,
+    "dbSchemaChallenge",
+    "Database Schema",
+    "Injection"
+   ],
+   [
+    22,
+    "deprecatedInterfaceChallenge",
+    "Deprecated Interface",
+    "Security Misconfiguration"
+   ],
+   [
+    23,
+    "easterEggLevelOneChallenge",
+    "Easter Egg",
+    "Broken Access Control"
+   ],
+   [
+    24,
+    "emailLeakChallenge",
+    "Email Leak",
+    "Sensitive Data Exposure"
+   ],
+   [
+    25,
+    "emptyUserRegistration",
+    "Empty User Registration",
+    "Improper Input Validation"
+   ],
+   [
+    26,
+    "ephemeralAccountantChallenge",
+    "Ephemeral Accountant",
+    "Injection"
+   ],
+   [
+    27,
+    "errorHandlingChallenge",
+    "Error Handling",
+    "Security Misconfiguration"
+   ],
+   [
+    28,
+    "manipulateClockChallenge",
+    "Expired Coupon",
+    "Improper Input Validation"
+   ],
+   [
+    29,
+    "extraLanguageChallenge",
+    "Extra Language",
+    "Broken Anti Automation"
+   ],
+   [
+    30,
+    "feedbackChallenge",
+    "Five-Star Feedback",
+    "Broken Access Control"
+   ],
+   [
+    31,
+    "forgedCouponChallenge",
+    "Forged Coupon",
+    "Cryptographic Issues"
+   ],
+   [
+    32,
+    "forgedFeedbackChallenge",
+    "Forged Feedback",
+    "Broken Access Control"
+   ],
+   [
+    33,
+    "forgedReviewChallenge",
+    "Forged Review",
+    "Broken Access Control"
+   ],
+   [
+    34,
+    "jwtForgedChallenge",
+    "Forged Signed JWT",
+    "Vulnerable Components"
+   ],
+   [
+    35,
+    "forgottenDevBackupChallenge",
+    "Forgotten Developer Backup",
+    "Sensitive Data Exposure"
+   ],
+   [
+    36,
+    "forgottenBackupChallenge",
+    "Forgotten Sales Backup",
+    "Sensitive Data Exposure"
+   ],
+   [
+    37,
+    "typosquattingAngularChallenge",
+    "Frontend Typosquatting",
+    "Vulnerable Components"
+   ],
+   [
+    38,
+    "ghostLoginChallenge",
+    "GDPR Data Erasure",
+    "Broken Authentication"
+   ],
+   [
+    39,
+    "dataExportChallenge",
+    "GDPR Data Theft",
+    "Sensitive Data Exposure"
+   ],
+   [
+    40,
+    "httpHeaderXssChallenge",
+    "HTTP-Header XSS",
+    "XSS"
+   ],
+   [
+    41,
+    "continueCodeChallenge",
+    "Imaginary Challenge",
+    "Cryptographic Issues"
+   ],
+   [
+    42,
+    "dlpPasswordSprayingChallenge",
+    "Leaked Access Logs",
+    "Observability Failures"
+   ],
+   [
+    43,
+    "dlpPastebinDataLeakChallenge",
+    "Leaked Unsafe Product",
+    "Sensitive Data Exposure"
+   ],
+   [
+    44,
+    "typosquattingNpmChallenge",
+    "Legacy Typosquatting",
+    "Vulnerable Components"
+   ],
+   [
+    45,
+    "loginAdminChallenge",
+    "Login Admin",
+    "Injection"
+   ],
+   [
+    46,
+    "loginAmyChallenge",
+    "Login Amy",
+    "Sensitive Data Exposure"
+   ],
+   [
+    47,
+    "loginBenderChallenge",
+    "Login Bender",
+    "Injection"
+   ],
+   [
+    48,
+    "oauthUserPasswordChallenge",
+    "Login Bjoern",
+    "Broken Authentication"
+   ],
+   [
+    49,
+    "loginJimChallenge",
+    "Login Jim",
+    "Injection"
+   ],
+   [
+    50,
+    "loginRapperChallenge",
+    "Login MC SafeSearch",
+    "Sensitive Data Exposure"
+   ],
+   [
+    51,
+    "loginSupportChallenge",
+    "Login Support Team",
+    "Security Misconfiguration"
+   ],
+   [
+    52,
+    "basketManipulateChallenge",
+    "Manipulate Basket",
+    "Broken Access Control"
+   ],
+   [
+    53,
+    "misplacedSignatureFileChallenge",
+    "Misplaced Signature File",
+    "Observability Failures"
+   ],
+   [
+    54,
+    "timingAttackChallenge",
+    "Multiple Likes",
+    "Broken Anti Automation"
+   ],
+   [
+    55,
+    "easterEggLevelTwoChallenge",
+    "Nested Easter Egg",
+    "Cryptographic Issues"
+   ],
+   [
+    56,
+    "noSqlCommandChallenge",
+    "NoSQL DoS",
+    "Injection"
+   ],
+   [
+    57,
+    "noSqlOrdersChallenge",
+    "NoSQL Exfiltration",
+    "Injection"
+   ],
+   [
+    58,
+    "noSqlReviewsChallenge",
+    "NoSQL Manipulation",
+    "Injection"
+   ],
+   [
+    59,
+    "redirectCryptoCurrencyChallenge",
+    "Outdated Allowlist",
+    "Unvalidated Redirects"
+   ],
+   [
+    60,
+    "weakPasswordChallenge",
+    "Password Strength",
+    "Broken Authentication"
+   ],
+   [
+    61,
+    "negativeOrderChallenge",
+    "Payback Time",
+    "Improper Input Validation"
+   ],
+   [
+    62,
+    "premiumPaywallChallenge",
+    "Premium Paywall",
+    "Cryptographic Issues"
+   ],
+   [
+    63,
+    "privacyPolicyChallenge",
+    "Privacy Policy",
+    "Miscellaneous"
+   ],
+   [
+    64,
+    "privacyPolicyProofChallenge",
+    "Privacy Policy Inspection",
+    "Security through Obscurity"
+   ],
+   [
+    65,
+    "changeProductChallenge",
+    "Product Tampering",
+    "Broken Access Control"
+   ],
+   [
+    66,
+    "reflectedXssChallenge",
+    "Reflected XSS",
+    "XSS"
+   ],
+   [
+    67,
+    "passwordRepeatChallenge",
+    "Repetitive Registration",
+    "Improper Input Validation"
+   ],
+   [
+    68,
+    "resetPasswordBenderChallenge",
+    "Reset Bender's Password",
+    "Broken Authentication"
+   ],
+   [
+    69,
+    "resetPasswordBjoernChallenge",
+    "Reset Bjoern's Password",
+    "Broken Authentication"
+   ],
+   [
+    70,
+    "resetPasswordJimChallenge",
+    "Reset Jim's Password",
+    "Broken Authentication"
+   ],
+   [
+    71,
+    "resetPasswordMortyChallenge",
+    "Reset Morty's Password",
+    "Broken Anti Automation"
+   ],
+   [
+    72,
+    "retrieveBlueprintChallenge",
+    "Retrieve Blueprint",
+    "Sensitive Data Exposure"
+   ],
+   [
+    73,
+    "ssrfChallenge",
+    "SSRF",
+    "Broken Access Control"
+   ],
+   [
+    74,
+    "sstiChallenge",
+    "SSTi",
+    "Injection"
+   ],
+   [
+    75,
+    "scoreBoardChallenge",
+    "Score Board",
+    "Miscellaneous"
+   ],
+   [
+    76,
+    "securityPolicyChallenge",
+    "Security Policy",
+    "Miscellaneous"
+   ],
+   [
+    77,
+    "persistedXssFeedbackChallenge",
+    "Server-side XSS Protection",
+    "XSS"
+   ],
+   [
+    78,
+    "hiddenImageChallenge",
+    "Steganography",
+    "Security through Obscurity"
+   ],
+   [
+    79,
+    "rceOccupyChallenge",
+    "Successful RCE DoS",
+    "Insecure Deserialization"
+   ],
+   [
+    80,
+    "supplyChainAttackChallenge",
+    "Supply Chain Attack",
+    "Vulnerable Components"
+   ],
+   [
+    81,
+    "twoFactorAuthUnsafeSecretStorageChallenge",
+    "Two Factor Authentication",
+    "Broken Authentication"
+   ],
+   [
+    82,
+    "jwtUnsignedChallenge",
+    "Unsigned JWT",
+    "Vulnerable Components"
+   ],
+   [
+    83,
+    "uploadSizeChallenge",
+    "Upload Size",
+    "Improper Input Validation"
+   ],
+   [
+    84,
+    "uploadTypeChallenge",
+    "Upload Type",
+    "Improper Input Validation"
+   ],
+   [
+    85,
+    "unionSqlInjectionChallenge",
+    "User Credentials",
+    "Injection"
+   ],
+   [
+    86,
+    "videoXssChallenge",
+    "Video XSS",
+    "XSS"
+   ],
+   [
+    87,
+    "basketAccessChallenge",
+    "View Basket",
+    "Broken Access Control"
+   ],
+   [
+    88,
+    "knownVulnerableComponentChallenge",
+    "Vulnerable Library",
+    "Vulnerable Components"
+   ],
+   [
+    89,
+    "weirdCryptoChallenge",
+    "Weird Crypto",
+    "Cryptographic Issues"
+   ],
+   [
+    90,
+    "redirectChallenge",
+    "Allowlist Bypass",
+    "Unvalidated Redirects"
+   ],
+   [
+    91,
+    "xxeFileDisclosureChallenge",
+    "XXE Data Access",
+    "XXE"
+   ],
+   [
+    92,
+    "xxeDosChallenge",
+    "XXE DoS",
+    "XXE"
+   ],
+   [
+    93,
+    "yamlBombChallenge",
+    "Memory Bomb",
+    "Insecure Deserialization"
+   ],
+   [
+    94,
+    "zeroStarsChallenge",
+    "Zero Stars",
+    "Improper Input Validation"
+   ],
+   [
+    95,
+    "missingEncodingChallenge",
+    "Missing Encoding",
+    "Improper Input Validation"
+   ],
+   [
+    96,
+    "svgInjectionChallenge",
+    "Cross-Site Imaging",
+    "Security Misconfiguration"
+   ],
+   [
+    97,
+    "exposedMetricsChallenge",
+    "Exposed Metrics",
+    "Observability Failures"
+   ],
+   [
+    98,
+    "misplacedIacFiles",
+    "Misplaced IaC Files",
+    "Security Misconfiguration"
+   ],
+   [
+    99,
+    "freeDeluxeChallenge",
+    "Deluxe Fraud",
+    "Improper Input Validation"
+   ],
+   [
+    100,
+    "csrfChallenge",
+    "CSRF",
+    "Broken Access Control"
+   ],
+   [
+    101,
+    "xssBonusChallenge",
+    "Bonus Payload",
+    "XSS"
+   ],
+   [
+    102,
+    "resetPasswordUvoginChallenge",
+    "Reset Uvogin's Password",
+    "Sensitive Data Exposure"
+   ],
+   [
+    103,
+    "geoStalkingMetaChallenge",
+    "Meta Geo Stalking",
+    "Sensitive Data Exposure"
+   ],
+   [
+    104,
+    "geoStalkingVisualChallenge",
+    "Visual Geo Stalking",
+    "Sensitive Data Exposure"
+   ],
+   [
+    105,
+    "nullByteChallenge",
+    "Poison Null Byte",
+    "Improper Input Validation"
+   ],
+   [
+    106,
+    "lfrChallenge",
+    "Local File Read",
+    "Vulnerable Components"
+   ],
+   [
+    107,
+    "closeNotificationsChallenge",
+    "Mass Dispel",
+    "Miscellaneous"
+   ],
+   [
+    108,
+    "csafChallenge",
+    "Security Advisory",
+    "Miscellaneous"
+   ],
+   [
+    109,
+    "exposedCredentialsChallenge",
+    "Exposed Credentials",
+    "Sensitive Data Exposure"
+   ],
+   [
+    110,
+    "leakedApiKeyChallenge",
+    "Leaked API Key",
+    "Sensitive Data Exposure"
+   ],
+   [
+    111,
+    "chatbotPromptInjectionChallenge",
+    "Chatbot Prompt Injection",
+    "Injection"
+   ],
+   [
+    112,
+    "chatbotGreedyInjectionChallenge",
+    "Greedy Chatbot Manipulation",
+    "Injection"
+   ],
+   [
+    113,
+    "aiDebuggingChallenge",
+    "AI Debugging",
+    "Broken Access Control"
+   ],
+   [
+    114,
+    "systemPromptExtractionChallenge",
+    "System Prompt Extraction",
+    "Injection"
+   ],
+   [
+    115,
+    "iacLeakedKeyChallenge",
+    "Login Cloud Admin",
+    "Sensitive Data Exposure"
+   ],
+   [
+    116,
+    "vulnerableDockerImageChallenge",
+    "Vulnerable Infrastructure",
+    "Vulnerable Components"
+   ]
+  ]
+ },
+ {
+  "label": "spa_routes",
+  "routes": [
+   [
+    "/basket",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/wallet",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/wallet-web3",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/nft",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/web3-sandbox",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/faucet",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/blockchain",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/explorer",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/address/1",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/score-board",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/photo-wall",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/file-upload",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/data-export",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/erasure-request",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/contact",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/jobs",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/login",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/register",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/recycle",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ],
+   [
+    "/reset-password",
+    [
+     200,
+     "text/html; charset=UTF-8",
+     "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWAS"
+    ]
+   ]
+  ]
+ },
+ {
+  "label": "post_routes",
+  "routes": [
+   [
+    "/api/Feedbacks/",
+    [
+     500,
+     "text/html; charset=utf-8",
+     "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;captchaId&quot; "
+    ]
+   ],
+   [
+    "/api/Complaints/",
+    [
+     401,
+     "text/html; charset=utf-8",
+     "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header wa"
+    ]
+   ],
+   [
+    "/api/SecurityAnswers/",
+    [
+     201,
+     "application/json; charset=utf-8",
+     "{\"status\":\"success\",\"data\":{\"id\":23,\"updatedAt\":\"2026-10-05T00:48:46.141Z\",\"createdAt\":\"2026-10-05T0"
+    ]
+   ],
+   [
+    "/api/Addresss/",
+    [
+     401,
+     "application/json; charset=utf-8",
+     "{\"status\":\"error\",\"message\":\"Cannot read properties of undefined (reading 'data')\"}"
+    ]
+   ],
+   [
+    "/rest/saveLoginIp",
+    [
+     500,
+     "text/html; charset=utf-8",
+     "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/saveLoginIp</ti"
+    ]
+   ],
+   [
+    "/rest/track-order",
+    [
+     500,
+     "text/html; charset=utf-8",
+     "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/track-order</ti"
+    ]
+   ],
+   [
+    "/rest/web3/submitKey",
+    [
+     401,
+     "application/json; charset=utf-8",
+     "{\"success\":false,\"message\":\"Looks like you entered a non-Ethereum private key to access me.\",\"status"
+    ]
+   ],
+   [
+    "/rest/2fa/setup",
+    [
+     401,
+     "text/html; charset=utf-8",
+     "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header wa"
+    ]
+   ],
+   [
+    "/rest/2fa/verify",
+    [
+     401,
+     "",
+     ""
+    ]
+   ],
+   [
+    "/rest/2fa/disable",
+    [
+     401,
+     "text/html; charset=utf-8",
+     "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header wa"
+    ]
+   ]
+  ]
+ }
+]
