@@ -126,6 +126,8 @@ def test_new_and_bootstrap(tmp: Path):
 
 def test_portfolio_compiler_and_continuity(tmp: Path):
     program = sample_program()
+    program["surfaces"][0]["status"] = "VERIFIED"
+    rp.validate_program(program, "b1")
     rp.write_json(tmp / rp.PROGRAM, program)
     assert len(rp.compile_portfolio(program, rp.load_runtime(tmp))) == 3
 
