@@ -1,0 +1,55 @@
+{
+  "behavioral_differences": 2,
+  "candidate_count": 4,
+  "family_id": "fam_non_viable_500_monitor",
+  "generation": 2,
+  "generation_id": "gen-0002-fam_non_viable_500_monitor",
+  "information_gain": 0.625,
+  "observed_at": "2026-10-05T09:40:43Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-fdb0ded710addf1930f0",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/admin/.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "8e0ee913e2ac6c8519daa5fc4b9d68c6825af1eda9191784e1c13917608fbc05",
+        "text/html; charset=utf-8",
+        2426,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-9918604721aba5927208",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/admin/",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "9cf2952d85b121aa46bbd7f26d98f4350999d95f9a9c152de8ef24155be2d203",
+        "text/html; charset=utf-8",
+        2424,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 2,
+  "surface_id": "surf_non_viable_500"
+}

@@ -1,0 +1,69 @@
+{
+  "actual_execution": true,
+  "candidate_count": 1,
+  "family_id": "fam_41_continue_code",
+  "generation": 2,
+  "generation_id": "gen-0002-fam_41_continue_code",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 79,
+        "body_sha256": "8457c01d5455bff81420db8db484352d6b58b80cc2546bdd6bb053c80c330f8f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 11.08,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-62fa92c8438f21b17a58",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 79,
+        "body_sha256": "8457c01d5455bff81420db8db484352d6b58b80cc2546bdd6bb053c80c330f8f",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 7.38,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-62fa92c8438f21b17a58",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-05T09:40:42Z",
+  "operators": [
+    "BASELINE"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-62fa92c8438f21b17a58",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-62fa92c8438f21b17a58"
+    }
+  ],
+  "promising_candidates": [],
+  "results": {
+    "behavioral_differences": 0,
+    "error_observations": 0,
+    "information_gain": 0.5,
+    "repeat_reproductions": 0,
+    "unique_response_signatures": 1
+  },
+  "stopping_reason": "operator candidate set exhausted",
+  "surface_id": "surf_41_continue_code"
+}
