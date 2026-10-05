@@ -1244,6 +1244,7 @@
    "generation": 1,
    "population_size": 4,
    "mutation_operators": [
+    "BASELINE",
     "QUERY_EDGE_VALUES",
     "PARAMETER_OMISSION"
    ],
