@@ -360,6 +360,21 @@ def test_post_kilo_execution_regression(tmp: Path):
         rp.post_kilo("resumed", "b1", state, snapshot) == 0
     ), "post-Kilo validation rejected deterministic evolved PROGRAM.json"
 
+def test_validation_rejects_zero_candidate_family(tmp: Path):
+    program = sample_program("zero-candidate")
+    family = program["evolution_families"][0]
+    family["seed_requests"] = [
+        {"method": "GET", "path": "/health", "query": {}, "headers": {}}
+    ]
+    family["mutation_operators"] = ["QUERY_EDGE_VALUES"]
+    try:
+        rp.validate_program(program, "zero-candidate")
+    except rp.ProgramError as exc:
+        assert "zero candidates" in str(exc)
+    else:
+        raise AssertionError("zero-candidate family was accepted")
+
+
 def test_portfolio_validation_rejects_budget_below_breadth(tmp: Path):
     program = sample_program("budget")
     program["portfolio_policy"]["max_generations_per_activation"] = 1
@@ -436,6 +451,7 @@ def main():
         test_evolution_parent_carry_forward(root / "d")
         test_portfolio_budget_preserves_surface_breadth(root / "f")
         test_portfolio_validation_rejects_budget_below_breadth(root / "g")
+        test_validation_rejects_zero_candidate_family(root / "h")
         test_post_kilo_execution_regression(root / "post-kilo")
     print("research program tests: PASS")
 
