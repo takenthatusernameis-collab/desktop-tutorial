@@ -663,11 +663,17 @@ def execute_generation(
 ) -> dict[str, Any]:
     runtime = load_runtime(state_dir)
     fr = (runtime.get("families") or {}).get(family["family_id"], {})
-    expected = int(fr.get("last_executed_generation", 0)) + 1
-    if generation != expected:
+    program_generation = int(family.get("generation", 1))
+    runtime_generation = int(fr.get("last_executed_generation", 0))
+    if generation != program_generation:
         raise ProgramError(
             f"generation continuity failure for {family['family_id']}: "
-            f"got {generation}, expected {expected}"
+            f"got {generation}, program expects {program_generation}"
+        )
+    if runtime_generation and program_generation != runtime_generation + 1:
+        raise ProgramError(
+            f"generation continuity divergence for {family['family_id']}: "
+            f"program expects {program_generation}, runtime last executed {runtime_generation}"
         )
 
     seeds: list[dict[str, Any]] = []
