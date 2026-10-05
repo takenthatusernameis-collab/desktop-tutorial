@@ -663,6 +663,8 @@ jobs:
           KILO_SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
           KILO_OUTCOME: ${{ steps.kilo.outcome }}
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+          RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
+          RESEARCH_VALIDATION_OUTCOME: ${{ steps.research_validate.outcome }}
         run: |
           set -euo pipefail
 
