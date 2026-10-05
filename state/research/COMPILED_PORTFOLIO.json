@@ -1,7 +1,7 @@
 {
   "actual_execution_required": true,
   "benchmark_id": "ehb-37260280180-eddbb902f2",
-  "compiled_at": "2026-10-05T09:35:51Z",
+  "compiled_at": "2026-10-05T09:36:56Z",
   "controller_version": "1.0.0",
   "plan": [
     {
@@ -103,41 +103,6 @@
       "surface_id": "surf_redirect"
     },
     {
-      "family_id": "fam_23_memories_overexposure",
-      "generation": 2,
-      "max_candidates": 12,
-      "round": 2,
-      "surface_id": "surf_23_memories"
-    },
-    {
-      "family_id": "fam_24_writegap",
-      "generation": 2,
-      "max_candidates": 12,
-      "round": 2,
-      "surface_id": "surf_24_securityanswers_write"
-    },
-    {
-      "family_id": "fam_27_raw_error_discovery",
-      "generation": 2,
-      "max_candidates": 12,
-      "round": 2,
-      "surface_id": "surf_27_error_handling"
-    },
-    {
-      "family_id": "fam_5_security_question_enum",
-      "generation": 2,
-      "max_candidates": 12,
-      "round": 2,
-      "surface_id": "surf_5_security_question"
-    },
-    {
-      "family_id": "fam_6_put_tamper",
-      "generation": 2,
-      "max_candidates": 12,
-      "round": 2,
-      "surface_id": "surf_6_put_tamper"
-    },
-    {
       "family_id": "fam_7_captcha_leak",
       "generation": 2,
       "max_candidates": 12,
@@ -152,11 +117,39 @@
       "surface_id": "surf_97_metrics"
     },
     {
-      "family_id": "fam_27_raw_error_discovery",
-      "generation": 3,
+      "family_id": "fam_23_memories_overexposure",
+      "generation": 2,
       "max_candidates": 12,
-      "round": 3,
+      "round": 2,
+      "surface_id": "surf_23_memories"
+    },
+    {
+      "family_id": "fam_27_raw_error_discovery",
+      "generation": 2,
+      "max_candidates": 12,
+      "round": 2,
       "surface_id": "surf_27_error_handling"
+    },
+    {
+      "family_id": "fam_6_put_tamper",
+      "generation": 2,
+      "max_candidates": 12,
+      "round": 2,
+      "surface_id": "surf_6_put_tamper"
+    },
+    {
+      "family_id": "fam_24_writegap",
+      "generation": 2,
+      "max_candidates": 12,
+      "round": 2,
+      "surface_id": "surf_24_securityanswers_write"
+    },
+    {
+      "family_id": "fam_5_security_question_enum",
+      "generation": 2,
+      "max_candidates": 12,
+      "round": 2,
+      "surface_id": "surf_5_security_question"
     },
     {
       "family_id": "fam_97_metrics_baseline",
@@ -167,10 +160,17 @@
     },
     {
       "family_id": "fam_27_raw_error_discovery",
+      "generation": 3,
+      "max_candidates": 12,
+      "round": 3,
+      "surface_id": "surf_27_error_handling"
+    },
+    {
+      "family_id": "fam_97_metrics_baseline",
       "generation": 4,
       "max_candidates": 12,
       "round": 4,
-      "surface_id": "surf_27_error_handling"
+      "surface_id": "surf_97_metrics"
     }
   ],
   "schema_version": "1.0.0",
