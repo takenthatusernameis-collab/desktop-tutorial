@@ -943,7 +943,13 @@ def append_checklist(state_dir: Path, results: list[dict[str, Any]]) -> None:
         handle.write("\n")
 
 
-def run_pre_kilo(mode: str, benchmark_id: str, target: str, state_dir: Path) -> int:
+def run_pre_kilo(
+    mode: str,
+    benchmark_id: str,
+    target: str,
+    state_dir: Path,
+    transport: Callable[[str, dict[str, Any]], dict[str, Any]] | None = None,
+) -> int:
     state_dir.mkdir(parents=True, exist_ok=True)
     ensure_dirs(state_dir)
     ensure_readme(state_dir)
@@ -1012,6 +1018,7 @@ def run_pre_kilo(mode: str, benchmark_id: str, target: str, state_dir: Path) -> 
             family,
             int(item["generation"]),
             int(item["max_candidates"]),
+            transport=transport,
         )
         persist_generation(state_dir, result)
         results.append(result)
