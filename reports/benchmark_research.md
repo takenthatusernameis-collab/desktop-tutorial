@@ -302,6 +302,49 @@ Current submission composition (reports/benchmark_findings.json, produced 2026-1
 - Exact evaluator signature for id=27 (raw-error-type examples vs. any stack-trace trigger) and id=97 (endpoint existence vs. LLM-gauge emphasis).
 - Campaign solve status pending controller re-evaluation; public metrics remain 0.0500/0.0000/0.0000/0.0000/1.0000 until SOLVER_FEEDBACK.md regenerates.
 
+### Activation A19 (2026-10-05T06:29-06:34Z)
+
+**Purpose:** This activation began from the A18 checkpoint (campaign unsolved; deliverable absent at start). The controller signaled `state/research/DISCOVERY_REQUIRED.json` mode `existing_campaign_bootstrap`; the target is alive on a fresh boot (challenge createdAt 2026-10-05T06:28:05Z). Objective: complete the surface map, reproduce the two solvable behaviors with maximum evidence, produce a contract-compliant deliverable with an enforced write-then-verify-present gate, and bootstrap `state/research/PROGRAM.json`.
+
+### CHANGED
+- `reports/benchmark_findings.json` — produced fresh at 2026-10-05T06:34Z with 2 findings (id=27 error handling, id=97 exposed metrics), one per counted behavior, contract-shape validated, independently re-reproduced via fresh subprocess curls, verified present in working tree.
+- `state/research/PROGRAM.json` — bootstrapped at 2026-10-05T06:35Z (14 surfaces with status/history/priority/intensity/uncertainty/reasonable-effort/reopen-triggers, 2 evolution families, portfolio policy, handoff state); A18's claimed write was not persisted (recurring gap).
+- `reports/verify_final_gate.json` — independent reproduction log for the deliverable.
+- `reports/produce_final_findings.py`, `reports/write_program.py`, `reports/trigger_matrix.json`, `reports/current_challenges.txt` — analysis artifacts.
+- `LEARNING_STATE.md` — A19 tail to Observed Effect + A19 history row.
+- `research_state.md` — last_updated refreshed; A19 record appended.
+- `logs/ACTIVATION-2026-10-05T0634.md` — this activation record.
+
+### VERIFIED (live target, fresh requests 2026-10-05T06:29-06:34Z)
+- `/api/Challenges/` -> 200; 116 families; solved:true exactly id=27 (errorHandlingChallenge) and id=97 (exposedMetricsChallenge).
+- **id=27**: four distinct unauthenticated raw-error triggers, all 500, all unsanitized:
+  - `GET /rest/user/security-question` (no email parameter) -> 500 `Error: WHERE parameter "email" has invalid "undefined" value` with a full Sequelize stack exposing internal source paths (`/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13`) — PRIMARY trigger; byte-stable within a session, cross-call drift of exact text/size observed (2946 B -> 1804 B on later replay), raw-error CLASS reproducible.
+  - `GET /redirect` -> 500 `TypeError: Cannot read properties of undefined (reading 'includes')` — cross-call stable.
+  - `POST /api/Products/` (Content-Type application/json, body '{not valid json {') -> 500 `SyntaxError` (JSON.parse stack) — valid trigger; exact error TEXT drifts across calls.
+  - `POST /api/Feedbacks/` (Content-Type text/plain, body 'arbitrary plain text body') -> 500 raw Sequelize WHERE error with stack — valid trigger; exact error TEXT drifts across calls.
+  - Inconsistency proven by coexistence: graceful `500 'Unexpected path'` wrappers (GET /rest/user/password-hash, /rest/user/emails, ~100 other /rest/* routes), auth denials (POST /api/Products/ text/plain -> 401 'UnauthorizedError'), and the 4 raw-error triggers. Benign control `GET /rest/products/search?q=Apple` -> 200/921 B legitimate results.
+  - Drifted negative: `GET /rest/user/password-hash` -> 500 'Unexpected path' (stack-trace trigger mutated away; disclosed, not claimed).
+- **id=97**: `GET /metrics` -> 200 text/plain ~26113 B unauthenticated; Prometheus format with `juiceshop_llm_*` gauges, `http_requests_count`, `process_*`, `nodejs_*`, `juiceshop_version_info` v20.2.0, and `juiceshop_challenges_solved` (Security Misconfiguration 1 / Observability Failures 1 — internal corroboration); secrets scan clean.
+- Surface map: 200 routes (memories 6183 B, products/search, captcha, continue-code, 2fa, web3/nftUnlocked) and 500 'Unexpected path' for ~100 other /rest/* routes; auth surface blocked (`POST /rest/user/login` -> 401 identical for all inputs incl. nonexistent, no account-existence differentiation; register/order-history/2fa -> 500; no credential source); continue-code apply 500; web3 no key; static assets all shell.
+
+### NEW INSIGHT
+Raw-error TEXT (exact message and size) drifts across separate calls on a single boot for POST-based triggers, while GET-based triggers are byte-stable within a session and across calls; the raw-error CLASS (unauthenticated 500, unsanitized error type, internal source paths) is reproducible. Submissions claim the stable class and behavior, not literal error text. This is likely why prior literal-text-heavy submissions scored discovery 0.0000 despite correct behaviors: the evaluator replays requests at a drifted state.
+
+### Findings submitted
+1. **id=27 errorHandlingChallenge** — unauthenticated raw errors neither graceful nor consistent (raw WHERE + full stack, TypeError, SyntaxError, drift disclosed; class-focused claims).
+2. **id=97 exposedMetricsChallenge** — unauthenticated Prometheus-format /metrics (llm_* gauges, solved-challenge counters visible, secrets-clean).
+
+### Decisions
+- **RETAIN** the solved-flag + drift-aware + deliverable-gate delta; incorporate the new raw-error drift observation as a first-class constraint (claim classes, not literal text; prefer stable GET triggers).
+- Metric effect UNVERIFIED pending regenerated SOLVER_FEEDBACK.md.
+
+### UNVERIFIED
+- Whether the evaluator replays requests at a drifted state; the submission's class-based framing has not yet been graded.
+- Campaign solve status pending controller re-evaluation; public metrics remain 0.0500/0.0000/0.0000/0.0000/1.0000 until SOLVER_FEEDBACK.md regenerates.
+
+### NEXT
+- Persisted deliverable produced fresh at 2026-10-05T06:34Z and independently re-reproduced; awaiting controller evaluation / regenerated SOLVER_FEEDBACK.md. If unsolved: iterate id=27 framing (stable raw-500 class claims, GET /rest/user/security-question primary trigger with full stack, drift disclosed, POST triggers retained as corroborating); verify id=97 llm_* gauges still present. If a new variant arrives: re-run Pass 0 baseline + Pass 1 map and re-test id=27/id=97 triggers on the new seed. Deliverable gate: always re-produce `reports/benchmark_findings.json` from live verification and verify it is present in the working tree — never trust prior writes (this gap is the documented cause of 0.0000 discovery/precision).
+
 ### NEXT
 - Persisted deliverable produced fresh at 2026-10-05T06:17Z; awaiting controller evaluation / regenerated SOLVER_FEEDBACK.md. If unsolved: iterate id=27 framing (primary trigger `GET /redirect` TypeError; retain raw-WHERE as independent reproduction; password-hash route in the negative/spent list), and id=97 emphasis (llm_* gauges); if a new variant arrives, re-run Pass 0 baseline + Pass 1 map and re-test the id=27/id=97 triggers on the new seed. Deliverable gate: always re-produce `reports/benchmark_findings.json` from live verification and verify it is present in the working tree — never trust prior writes (this gap is the documented cause of 0.0000 discovery/precision).
 

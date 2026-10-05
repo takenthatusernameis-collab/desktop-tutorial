@@ -1,0 +1,106 @@
+[
+ {
+  "method": "GET",
+  "path": "/rest/user/security-question",
+  "content_type": null,
+  "body": "",
+  "status": "500",
+  "size": "1804"
+ },
+ {
+  "method": "GET",
+  "path": "/redirect",
+  "content_type": null,
+  "body": "",
+  "status": "500",
+  "size": "1419"
+ },
+ {
+  "method": "POST",
+  "path": "/api/Products/",
+  "content_type": "application/json",
+  "body": "not valid json {",
+  "status": "500",
+  "size": "1238"
+ },
+ {
+  "method": "POST",
+  "path": "/api/Feedbacks/",
+  "content_type": "application/json",
+  "body": "not valid json {",
+  "status": "500",
+  "size": "1238"
+ },
+ {
+  "method": "POST",
+  "path": "/api/Feedbacks/",
+  "content_type": "text/plain",
+  "body": "arbitrary plain text body",
+  "status": "500",
+  "size": "1265"
+ },
+ {
+  "method": "POST",
+  "path": "/api/Feedbacks/",
+  "content_type": "text/html",
+  "body": "<script>alert(1)</script>",
+  "status": "500",
+  "size": "1265"
+ },
+ {
+  "method": "POST",
+  "path": "/api/Feedbacks/",
+  "content_type": "application/x-www-form-urlencoded",
+  "body": "field=value&x=1",
+  "status": "500",
+  "size": "1265"
+ },
+ {
+  "method": "POST",
+  "path": "/api/Complaints/",
+  "content_type": "application/json",
+  "body": "not valid json {",
+  "status": "500",
+  "size": "1238"
+ },
+ {
+  "method": "POST",
+  "path": "/api/Cards/",
+  "content_type": "application/json",
+  "body": "not valid json {",
+  "status": "500",
+  "size": "1238"
+ },
+ {
+  "method": "GET",
+  "path": "/rest/user/password-hash",
+  "content_type": null,
+  "body": "",
+  "status": "500",
+  "size": "1356"
+ },
+ {
+  "method": "GET",
+  "path": "/rest/user/emails",
+  "content_type": null,
+  "body": "",
+  "status": "500",
+  "size": "1342"
+ },
+ {
+  "method": "POST",
+  "path": "/api/Products/",
+  "content_type": "text/plain",
+  "body": "hello",
+  "status": "401",
+  "size": "234"
+ },
+ {
+  "method": "GET",
+  "path": "/rest/memories",
+  "content_type": null,
+  "body": "",
+  "status": "200",
+  "size": "6183"
+ }
+]
