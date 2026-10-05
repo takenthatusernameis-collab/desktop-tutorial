@@ -164,6 +164,15 @@ def test_portfolio_compiler_and_continuity(tmp: Path):
     ]
     assert family_a_generations == [1, 2]
 
+    generation_drift = json.loads(json.dumps(program))
+    generation_drift["evolution_families"][0]["generation"] += 1
+    try:
+        rp.validate_continuity(program, generation_drift)
+    except rp.ProgramError as exc:
+        assert "generation changed" in str(exc)
+    else:
+        raise AssertionError("worker proposal was allowed to change controller-owned generation")
+
     broken = json.loads(json.dumps(program))
     broken["surfaces"] = [broken["surfaces"][0]]
     try:
