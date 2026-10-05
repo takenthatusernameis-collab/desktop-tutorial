@@ -646,18 +646,6 @@ jobs:
           rc=$?
           echo "DEEP_AUDIT_RC=$rc"
           exit 0
-      - name: Validate Kilo research program and controller-owned evidence
-        id: research_validate
-        if: always() && steps.research_portfolio.outcome == 'success'
-        continue-on-error: true
-        run: |
-          set -euo pipefail
-          python3 lab/research_program.py post-kilo \
-            --mode "$BENCHMARK_CAMPAIGN_MODE" \
-            --benchmark-id "$BENCHMARK_ID" \
-            --state-dir "state/research" \
-            --snapshot-dir "$RUNNER_TEMP/ehb-research-snapshot"
-
       - name: Evaluate hidden benchmark independently
         id: evaluate
         if: always() && steps.benchmark.outcome == 'success' && steps.start_benchmark.outcome == 'success' && steps.kilo.outcome != 'skipped'
@@ -882,7 +870,7 @@ jobs:
         env:
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
           RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
-          RESEARCH_VALIDATION_OUTCOME: ${{ steps.research_validate.outcome }}
+          RESEARCH_VALIDATION_OUTCOME: ${{ steps.pre_persist_research_validate.outcome }}
           PERSIST_OUTCOME: ${{ steps.persist.outcome }}
         run: |
           set -euo pipefail
@@ -934,7 +922,7 @@ jobs:
           KILO_OUTCOME: ${{ steps.kilo.outcome }}
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
           RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
-          RESEARCH_VALIDATION_OUTCOME: ${{ steps.research_validate.outcome }}
+          RESEARCH_VALIDATION_OUTCOME: ${{ steps.pre_persist_research_validate.outcome }}
           RESEARCH_HANDOFF_OUTCOME: ${{ steps.research_handoff.outcome }}
         run: |
           set -euo pipefail
