@@ -8,10 +8,10 @@
   "observations": [
     {
       "baseline_observation": {
-        "body_length": 48,
-        "body_sha256": "dc47e8b2a5d8d0c33ccdfb733ea59128c10420e2ca00be99b874b154372c87f8",
+        "body_length": 47,
+        "body_sha256": "5aa8ead3a912a498d09b82fc9d423c45d3164cfae9b80f8bfd8adae2da91ecc6",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 31.76,
+        "elapsed_ms": 24.24,
         "error": null,
         "location": "",
         "status": 200
@@ -24,9 +24,9 @@
       },
       "observation": {
         "body_length": 47,
-        "body_sha256": "fe21ce97451f45826098d81c54aacf1615e3d0b268ffa62989dad083e2d59905",
+        "body_sha256": "c7bbdd90ab6e554991a7ca86c649595c21f354690727bf574c1307ab61e5c043",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 15.1,
+        "elapsed_ms": 17.85,
         "error": null,
         "location": "",
         "status": 200
@@ -34,9 +34,9 @@
       "parent_candidate_id": "cand-815a0e415472fc3a2c2e",
       "repeat_observation": {
         "body_length": 48,
-        "body_sha256": "0db9957a0646bea6a944aa07ade0ef9ca8347b3291e7d742410933573d94bbe9",
+        "body_sha256": "363062cb46ec391f920214382e5b8fbe0ef5eaad3a7747cb1a83a00cd593eddd",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 11.27,
+        "elapsed_ms": 13.2,
         "error": null,
         "location": "",
         "status": 200
@@ -50,7 +50,7 @@
       }
     }
   ],
-  "observed_at": "2026-10-05T09:41:49Z",
+  "observed_at": "2026-10-05T09:45:09Z",
   "operators": [
     "BASELINE",
     "QUERY_EDGE_VALUES"

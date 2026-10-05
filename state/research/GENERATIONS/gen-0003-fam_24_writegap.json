@@ -11,7 +11,7 @@
         "body_length": 972,
         "body_sha256": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 4.5,
+        "elapsed_ms": 3.7,
         "error": null,
         "location": "",
         "status": 401
@@ -26,7 +26,7 @@
         "body_length": 0,
         "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "content_type": "text/html;charset=utf-8",
-        "elapsed_ms": 1.01,
+        "elapsed_ms": 1.11,
         "error": null,
         "location": "",
         "status": 501
@@ -36,7 +36,7 @@
         "body_length": 0,
         "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "content_type": "text/html;charset=utf-8",
-        "elapsed_ms": 0.94,
+        "elapsed_ms": 1.16,
         "error": null,
         "location": "",
         "status": 501
@@ -54,7 +54,7 @@
         "body_length": 972,
         "body_sha256": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 4.5,
+        "elapsed_ms": 3.7,
         "error": null,
         "location": "",
         "status": 401
@@ -69,7 +69,7 @@
         "body_length": 0,
         "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "content_type": "",
-        "elapsed_ms": 1.86,
+        "elapsed_ms": 2.35,
         "error": null,
         "location": "",
         "status": 204
@@ -79,7 +79,7 @@
         "body_length": 0,
         "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "content_type": "",
-        "elapsed_ms": 1.78,
+        "elapsed_ms": 2.22,
         "error": null,
         "location": "",
         "status": 204
@@ -97,7 +97,7 @@
         "body_length": 972,
         "body_sha256": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 4.5,
+        "elapsed_ms": 3.7,
         "error": null,
         "location": "",
         "status": 401
@@ -112,7 +112,7 @@
         "body_length": 972,
         "body_sha256": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 2.54,
+        "elapsed_ms": 3.92,
         "error": null,
         "location": "",
         "status": 401
@@ -132,7 +132,7 @@
         "body_length": 972,
         "body_sha256": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 4.5,
+        "elapsed_ms": 3.7,
         "error": null,
         "location": "",
         "status": 401
@@ -147,7 +147,7 @@
         "body_length": 972,
         "body_sha256": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 3.35,
+        "elapsed_ms": 2.78,
         "error": null,
         "location": "",
         "status": 401
@@ -167,7 +167,7 @@
         "body_length": 972,
         "body_sha256": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 4.5,
+        "elapsed_ms": 3.7,
         "error": null,
         "location": "",
         "status": 401
@@ -182,7 +182,7 @@
         "body_length": 972,
         "body_sha256": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 2.29,
+        "elapsed_ms": 2.7,
         "error": null,
         "location": "",
         "status": 401
@@ -198,7 +198,7 @@
       }
     }
   ],
-  "observed_at": "2026-10-05T09:41:49Z",
+  "observed_at": "2026-10-05T09:45:08Z",
   "operators": [
     "METHOD_VARIANTS",
     "PARAMETER_OMISSION",

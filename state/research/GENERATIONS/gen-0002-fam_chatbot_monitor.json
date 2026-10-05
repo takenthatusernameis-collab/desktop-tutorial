@@ -11,7 +11,7 @@
         "body_length": 2420,
         "body_sha256": "813fce32cc153be1636a576afc3efa9e29963934fe19bb6d0f9590b73ed56949",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 3.58,
+        "elapsed_ms": 3.08,
         "error": null,
         "location": "",
         "status": 500
@@ -26,7 +26,7 @@
         "body_length": 2420,
         "body_sha256": "813fce32cc153be1636a576afc3efa9e29963934fe19bb6d0f9590b73ed56949",
         "content_type": "text/html; charset=utf-8",
-        "elapsed_ms": 4.92,
+        "elapsed_ms": 5.53,
         "error": null,
         "location": "",
         "status": 500
@@ -42,7 +42,7 @@
       }
     }
   ],
-  "observed_at": "2026-10-05T09:41:50Z",
+  "observed_at": "2026-10-05T09:45:09Z",
   "operators": [
     "BASELINE",
     "QUERY_EDGE_VALUES"

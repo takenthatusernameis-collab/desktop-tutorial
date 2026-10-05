@@ -1,0 +1,1574 @@
+{
+  "benchmark_id": "ehb-37260280180-eddbb902f2",
+  "families": [
+    {
+      "best_candidates": [],
+      "coverage_history": [
+        "27 /api/* and related routes probed; 4 raw-error responses confirmed"
+      ],
+      "exploration_exploitation_policy": "exploitation 70% of known error-exposing namespaces, exploration 30% breadth across /api/* write routes and alternate representations",
+      "false_positive_history": [
+        "none - benign controls return 201 for valid submission, 401 for wrong-but-valid answer (graceful)"
+      ],
+      "family_id": "fam_27_raw_error_discovery",
+      "generation": 8,
+      "independent_reproduction_history": [
+        "fresh-request reproduction of all 4 triggers with byte-stable raw text and benign controls"
+      ],
+      "information_gain_history": [
+        "high - confirmed raw error exposure and inconsistency; identified mutation-fragility of the password-hash trigger; GET no-param trigger byte-stable this boot"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "METHOD_VARIANTS",
+        "PATH_VARIANTS",
+        "ENCODING_VARIANTS",
+        "PARAMETER_OMISSION"
+      ],
+      "name": "Raw error discovery across API write routes",
+      "next_generation_specification": "expand PATH_VARIANTS to remaining /api/* write namespaces (Users, Wallet, NFT, Coupons, RecoveryAnswers, Cards, Addresses, Reviews, Questions, Memberships) and METHOD_VARIANTS across POST/PUT/PATCH/DELETE with invalid/malformed/alternate body representations; do not expand scope to non-counted side-effect findings",
+      "novelty_requirement": "new trigger endpoint, new raw error type, or distinct parser/encoding path - not a repeat of an existing trigger",
+      "population_size": 12,
+      "purpose": "Bounded enumeration of additional unauthenticated raw-error triggers by varying HTTP method, path, encoding, and parameter presence, to strengthen the id=27 evidence and close any residual error-handling surface.",
+      "reasonable_effort_contribution": [
+        "reproduced 4 raw-error triggers on this boot; documented that the A15 stack-trace trigger is mutation-fragile"
+      ],
+      "results_history": [
+        "generation1: 4 distinct raw errors reproduced byte-stable (GET security-question no-param md5-stable; GET redirect TypeError; POST Feedbacks text/plain raw WHERE; POST Feedbacks malformed JSON SyntaxError); benign 201 control + 401 graceful contrast established"
+      ],
+      "runtime": {
+        "best_candidates": [],
+        "last_active_generation": 7,
+        "last_behavioral_differences": 0,
+        "last_candidate_count": 12,
+        "last_executed_generation": 7,
+        "last_information_gain": 0.0833,
+        "last_repeat_reproductions": 0,
+        "novelty_seen": false,
+        "surface_id": "surf_27_error_handling",
+        "updated_at": "2026-10-05T09:45:10Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/user/security-question",
+          "query": {}
+        },
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/redirect",
+          "query": {
+            "continue": [
+              "http://example.com"
+            ]
+          }
+        }
+      ],
+      "selection_policy": "retain requests that return 500 with raw, non-sanitized error text distinct from the benign 201/401 controls",
+      "status": "ACTIVE",
+      "surface_id": "surf_27_error_handling"
+    },
+    {
+      "best_candidates": [],
+      "coverage_history": [
+        "1 route, verified on A9-A23"
+      ],
+      "exploration_exploitation_policy": "exploitation - baseline re-verification each boot/variant refresh",
+      "false_positive_history": [
+        "none"
+      ],
+      "family_id": "fam_97_metrics_baseline",
+      "generation": 8,
+      "independent_reproduction_history": [
+        "fresh-request reproduction each boot"
+      ],
+      "information_gain_history": [
+        "confirmed unauthenticated telemetry exposure; secrets scan clean"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "BASELINE"
+      ],
+      "name": "Metrics exposure verification",
+      "next_generation_specification": "re-verify on next boot/variant refresh; if LLM gauges disappear, re-evaluate mapping to id=97",
+      "novelty_requirement": "none - baseline repeat",
+      "population_size": 1,
+      "purpose": "Baseline verification that /metrics remains unauthenticated with observable telemetry gauges.",
+      "reasonable_effort_contribution": [
+        "id=97 verified on every boot of the campaign"
+      ],
+      "results_history": [
+        "generation1: verified 200 with llm_* gauges across all boots A9-A23"
+      ],
+      "runtime": {
+        "best_candidates": [],
+        "last_active_generation": 7,
+        "last_behavioral_differences": 1,
+        "last_candidate_count": 1,
+        "last_executed_generation": 7,
+        "last_information_gain": 1.0,
+        "last_repeat_reproductions": 0,
+        "novelty_seen": true,
+        "surface_id": "surf_97_metrics",
+        "updated_at": "2026-10-05T09:45:10Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/metrics",
+          "query": {}
+        }
+      ],
+      "selection_policy": "confirm unauthenticated 200 with Prometheus-format content including llm_* gauges",
+      "status": "ACTIVE",
+      "surface_id": "surf_97_metrics"
+    },
+    {
+      "best_candidates": [
+        {
+          "candidate_id": "cand-70ba40b5690a09853455",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "dot_suffix"
+          },
+          "parent_candidate_id": "cand-596318f490f1d385550e",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/memories/.",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "3ad603b3c33f217e147a8f620848ddc2596b27cf097eeac0a6b7e3172b5988cd",
+            "text/html; charset=utf-8",
+            2432,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-7f7b2ff4f7faef04967d",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "trailing_slash"
+          },
+          "parent_candidate_id": "cand-70ba40b5690a09853455",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/memories/./",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "8fe1c2eceae46495870477df8015c8b7e6aa99f61969ecd019486130b6c5cfc7",
+            "text/html; charset=utf-8",
+            2434,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-fe5ac4154b6fbe16ba61",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "dot_suffix"
+          },
+          "parent_candidate_id": "cand-70ba40b5690a09853455",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/memories/./.",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "9b611accf3374f08ec2e784d36d4a96f53fe9cd0ebb1fe8ee9b35f3886b74bc4",
+            "text/html; charset=utf-8",
+            2436,
+            ""
+          ]
+        }
+      ],
+      "coverage_history": [
+        "1 route, A12-A23"
+      ],
+      "exploration_exploitation_policy": "exploitation of /rest/user-* and /rest/memories-like paths; exploration of sibling /rest/* namespaces",
+      "false_positive_history": [
+        "none; bogus Bearer identical 200 proves lack of auth; deluxeToken not a valid signed JWT (documented)"
+      ],
+      "family_id": "fam_23_memories_overexposure",
+      "generation": 5,
+      "independent_reproduction_history": [
+        "fresh-request reproduction each boot"
+      ],
+      "information_gain_history": [
+        "confirmed excessive data exposure; hijack value limited by invalid-token caveat but hash+TOTP exposure material"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "PATH_VARIANTS",
+        "QUERY_EDGE_VALUES"
+      ],
+      "name": "Over-exposure enumeration across /rest/*",
+      "next_generation_specification": "PATH_VARIANTS sweep of /rest/addresses, /rest/orders, /rest/cart, /rest/profile, /rest/settings for embedded user objects; stop when diminishing",
+      "novelty_requirement": "new endpoint with embedded sensitive user object or novel sensitive field exposure",
+      "population_size": 8,
+      "purpose": "Bounded GET enumeration of /rest/* routes to find user-bearing over-exposure similar to /rest/memories.",
+      "reasonable_effort_contribution": [
+        "verified across all boots; excluded from submission as non-counted class"
+      ],
+      "results_history": [
+        "generation1: /rest/memories returns 10 records with full User objects (hash, role, deluxeToken, totpSecret); bogus Bearer byte-identical 200; controls 401"
+      ],
+      "runtime": {
+        "best_candidates": [
+          {
+            "candidate_id": "cand-70ba40b5690a09853455",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "dot_suffix"
+            },
+            "parent_candidate_id": "cand-596318f490f1d385550e",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/rest/memories/.",
+              "query": {}
+            },
+            "response_signature": [
+              500,
+              "3ad603b3c33f217e147a8f620848ddc2596b27cf097eeac0a6b7e3172b5988cd",
+              "text/html; charset=utf-8",
+              2432,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-7f7b2ff4f7faef04967d",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "trailing_slash"
+            },
+            "parent_candidate_id": "cand-70ba40b5690a09853455",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/rest/memories/./",
+              "query": {}
+            },
+            "response_signature": [
+              500,
+              "8fe1c2eceae46495870477df8015c8b7e6aa99f61969ecd019486130b6c5cfc7",
+              "text/html; charset=utf-8",
+              2434,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-fe5ac4154b6fbe16ba61",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "dot_suffix"
+            },
+            "parent_candidate_id": "cand-70ba40b5690a09853455",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/rest/memories/./.",
+              "query": {}
+            },
+            "response_signature": [
+              500,
+              "9b611accf3374f08ec2e784d36d4a96f53fe9cd0ebb1fe8ee9b35f3886b74bc4",
+              "text/html; charset=utf-8",
+              2436,
+              ""
+            ]
+          }
+        ],
+        "last_active_generation": 4,
+        "last_behavioral_differences": 3,
+        "last_candidate_count": 6,
+        "last_executed_generation": 4,
+        "last_information_gain": 0.5833,
+        "last_repeat_reproductions": 3,
+        "novelty_seen": true,
+        "surface_id": "surf_23_memories",
+        "updated_at": "2026-10-05T09:45:10Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/memories",
+          "query": {}
+        }
+      ],
+      "selection_policy": "retain GET requests returning 200 with embedded full User objects or sensitive fields beyond the entity itself",
+      "status": "ACTIVE_LOW_INTENSITY",
+      "surface_id": "surf_23_memories"
+    },
+    {
+      "best_candidates": [
+        {
+          "candidate_id": "cand-fa71f25cc321ebe73e42",
+          "mutation": {
+            "method": "OPTIONS",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-2e4c7dcb11f8d016dc80",
+          "request": {
+            "headers": {},
+            "method": "OPTIONS",
+            "path": "/api/SecurityAnswers/",
+            "query": {}
+          },
+          "response_signature": [
+            204,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "",
+            0,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-9384d9f0b0eae24fc890",
+          "mutation": {
+            "method": "HEAD",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-2e4c7dcb11f8d016dc80",
+          "request": {
+            "headers": {},
+            "method": "HEAD",
+            "path": "/api/SecurityAnswers/",
+            "query": {}
+          },
+          "response_signature": [
+            501,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "text/html;charset=utf-8",
+            0,
+            ""
+          ]
+        }
+      ],
+      "coverage_history": [
+        "SecurityAnswers POST/GET; neighbors (Complaints/Cards 401, Addresses/Reviews/Questions/Memberships 500)"
+      ],
+      "exploration_exploitation_policy": "exploitation of known write namespaces (SecurityAnswers, Products); exploration of Users, Wallet, NFT, Coupons, Cards, Addresses, Reviews, Questions, Memberships",
+      "false_positive_history": [
+        "none; GET gated, POST accepts null UserId"
+      ],
+      "family_id": "fam_24_writegap",
+      "generation": 5,
+      "independent_reproduction_history": [
+        "fresh-request id increment verified x3"
+      ],
+      "information_gain_history": [
+        "confirmed unauth write gap with null ownership binding; non-counted class"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "METHOD_VARIANTS",
+        "PARAMETER_OMISSION",
+        "PATH_VARIANTS"
+      ],
+      "name": "Write-open/read-gated gap sweep across /api/*",
+      "next_generation_specification": "METHOD_VARIANTS sweep over remaining /api/* write namespaces; exclude if routes return 500 Unexpected path (removed by mutation)",
+      "novelty_requirement": "new namespace with a write-open/read-gated gap",
+      "population_size": 12,
+      "purpose": "Enumerate /api/* write namespaces for unauthenticated write-open/read-gated authorization gaps.",
+      "reasonable_effort_contribution": [
+        "verified A12-A22; POST drift documented this boot"
+      ],
+      "results_history": [
+        "generation1: GET -> 401; POST unauth {} -> 201 with server id, UserId=null (id 26->27->28 x3)"
+      ],
+      "runtime": {
+        "best_candidates": [
+          {
+            "candidate_id": "cand-fa71f25cc321ebe73e42",
+            "mutation": {
+              "method": "OPTIONS",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-2e4c7dcb11f8d016dc80",
+            "request": {
+              "headers": {},
+              "method": "OPTIONS",
+              "path": "/api/SecurityAnswers/",
+              "query": {}
+            },
+            "response_signature": [
+              204,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "",
+              0,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-9384d9f0b0eae24fc890",
+            "mutation": {
+              "method": "HEAD",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-2e4c7dcb11f8d016dc80",
+            "request": {
+              "headers": {},
+              "method": "HEAD",
+              "path": "/api/SecurityAnswers/",
+              "query": {}
+            },
+            "response_signature": [
+              501,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "text/html;charset=utf-8",
+              0,
+              ""
+            ]
+          }
+        ],
+        "last_active_generation": 4,
+        "last_behavioral_differences": 2,
+        "last_candidate_count": 11,
+        "last_executed_generation": 4,
+        "last_information_gain": 0.2273,
+        "last_repeat_reproductions": 2,
+        "novelty_seen": true,
+        "surface_id": "surf_24_securityanswers_write",
+        "updated_at": "2026-10-05T09:45:10Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/api/SecurityAnswers/",
+          "query": {}
+        }
+      ],
+      "selection_policy": "retain POST/PUT/PATCH/DELETE returning 201/200 without authorization while the parallel GET is gated (401/500)",
+      "status": "ACTIVE_LOW_INTENSITY",
+      "surface_id": "surf_24_securityanswers_write"
+    },
+    {
+      "best_candidates": [
+        {
+          "candidate_id": "cand-d0b14de2276ac551bdf9",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "dot_suffix"
+          },
+          "parent_candidate_id": "cand-44ebd07ad613d9164ac4",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/user/security-question/.",
+            "query": {
+              "email": [
+                "1"
+              ]
+            }
+          },
+          "response_signature": [
+            500,
+            "270241350bf87da0e1a47c9b9656e5245bff751ac8bed1dc6535d283e5de4410",
+            "text/html; charset=utf-8",
+            2476,
+            ""
+          ]
+        }
+      ],
+      "coverage_history": [
+        "/rest/user/security-question, neighbors gated (authentication-details 401, other /rest/user/* 500)"
+      ],
+      "exploration_exploitation_policy": "exploitation of /rest/user/security-question and known accounts; exploration of /rest/user/* siblings",
+      "false_positive_history": [
+        "none; deterministic body shapes; neighbors gated proves specificity"
+      ],
+      "family_id": "fam_5_security_question_enum",
+      "generation": 5,
+      "independent_reproduction_history": [
+        "fresh-request reproduction of both body shapes"
+      ],
+      "information_gain_history": [
+        "confirmed account existence + question text disclosure via unauthenticated query"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "PATH_VARIANTS",
+        "QUERY_EDGE_VALUES",
+        "PARAMETER_OMISSION"
+      ],
+      "name": "Security-question disclosure and account enumeration",
+      "next_generation_specification": "re-test each boot (route flips 200<->500); sweep /rest/user/* siblings for gated reads with open writes",
+      "novelty_requirement": "new account-existence differential or question-disclosure route",
+      "population_size": 8,
+      "purpose": "Re-verify the security-question disclosure + account-existence differential and sweep /rest/user/* for gated-read/open-write pairs.",
+      "reasonable_effort_contribution": [
+        "verified A9,A11-A16; mutation-fragile 200<->500 across boots"
+      ],
+      "results_history": [
+        "generation1: existing email -> {question:{id, question, createdAt, updatedAt}}; nonexistent email -> {} (deterministic differential); no-param -> raw 500 (id=27 class)"
+      ],
+      "runtime": {
+        "best_candidates": [
+          {
+            "candidate_id": "cand-d0b14de2276ac551bdf9",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "dot_suffix"
+            },
+            "parent_candidate_id": "cand-44ebd07ad613d9164ac4",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/rest/user/security-question/.",
+              "query": {
+                "email": [
+                  "1"
+                ]
+              }
+            },
+            "response_signature": [
+              500,
+              "270241350bf87da0e1a47c9b9656e5245bff751ac8bed1dc6535d283e5de4410",
+              "text/html; charset=utf-8",
+              2476,
+              ""
+            ]
+          }
+        ],
+        "last_active_generation": 4,
+        "last_behavioral_differences": 1,
+        "last_candidate_count": 12,
+        "last_executed_generation": 4,
+        "last_information_gain": 0.125,
+        "last_repeat_reproductions": 1,
+        "novelty_seen": true,
+        "surface_id": "surf_5_security_question",
+        "updated_at": "2026-10-05T09:45:10Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/user/security-question",
+          "query": {}
+        }
+      ],
+      "selection_policy": "retain 200 responses showing question disclosure or a deterministic {} vs question-JSON account-existence differential",
+      "status": "ACTIVE_LOW_INTENSITY",
+      "surface_id": "surf_5_security_question"
+    },
+    {
+      "best_candidates": [],
+      "coverage_history": [
+        "1 route, A11-A23"
+      ],
+      "exploration_exploitation_policy": "exploitation - baseline re-verification each boot",
+      "false_positive_history": [
+        "none; arithmetic proof; captchaId server state proves non-static"
+      ],
+      "family_id": "fam_7_captcha_leak",
+      "generation": 5,
+      "independent_reproduction_history": [
+        "fresh-request reproduction each boot"
+      ],
+      "information_gain_history": [
+        "confirmed cleartext answer leak; bypass through POST /api/Feedbacks/ broken (401 Wrong answer)"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "BASELINE",
+        "QUERY_EDGE_VALUES"
+      ],
+      "name": "CAPTCHA answer-leak verification",
+      "next_generation_specification": "re-verify each boot; note: bypass via POST is not seedable (POST not a safe seed method) - documented negative",
+      "novelty_requirement": "none - baseline repeat",
+      "population_size": 1,
+      "purpose": "Re-verify the cleartext answer leak and document the broken bypass path.",
+      "reasonable_effort_contribution": [
+        "F7 verified A11-A22; bypass broken mutation"
+      ],
+      "results_history": [
+        "generation1: GET -> {captchaId, captcha, answer}; answer arithmetic verified correct; captchaId increments per request"
+      ],
+      "runtime": {
+        "best_candidates": [],
+        "last_active_generation": 4,
+        "last_behavioral_differences": 1,
+        "last_candidate_count": 1,
+        "last_executed_generation": 4,
+        "last_information_gain": 1.0,
+        "last_repeat_reproductions": 0,
+        "novelty_seen": true,
+        "surface_id": "surf_7_captcha_leak",
+        "updated_at": "2026-10-05T09:45:09Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/captcha",
+          "query": {}
+        }
+      ],
+      "selection_policy": "confirm GET returns the server-computed answer verifiably correct (arithmetic)",
+      "status": "ACTIVE_LOW_INTENSITY",
+      "surface_id": "surf_7_captcha_leak"
+    },
+    {
+      "best_candidates": [
+        {
+          "candidate_id": "cand-e0d82cdefd37a09cffa4",
+          "mutation": {
+            "method": "OPTIONS",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-70afb496806146bc31f6",
+          "request": {
+            "headers": {},
+            "method": "OPTIONS",
+            "path": "/api/Products/1",
+            "query": {}
+          },
+          "response_signature": [
+            204,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "",
+            0,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-dc800e81490f7d63f21a",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "trailing_slash"
+          },
+          "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/api/Products/1/./",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "2ace4c4a734cb2d9b588c875382a75e879204bf815e9119b7b1f57ce9ac4f2b9",
+            "text/html; charset=utf-8",
+            2436,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-d7adfd5fc0f3d4dc9317",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "dot_suffix"
+          },
+          "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/api/Products/1/./.",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "39223cfdbd09601da7cef785dd8467d3d26e9df1728b2b6102ff9f4cac523af6",
+            "text/html; charset=utf-8",
+            2438,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-36f9de58f501a1a3b783",
+          "mutation": {
+            "method": "HEAD",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+          "request": {
+            "headers": {},
+            "method": "HEAD",
+            "path": "/api/Products/1/.",
+            "query": {}
+          },
+          "response_signature": [
+            501,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "text/html;charset=utf-8",
+            0,
+            ""
+          ]
+        }
+      ],
+      "coverage_history": [
+        "/api/Products/{id} PUT/POST/DELETE; persistence verified cross-request"
+      ],
+      "exploration_exploitation_policy": "exploitation of /api/Products/{id}; exploration of remaining /api/* write namespaces",
+      "false_positive_history": [
+        "none; fresh GET readback confirms persistence; values restored"
+      ],
+      "family_id": "fam_6_put_tamper",
+      "generation": 5,
+      "independent_reproduction_history": [
+        "fresh-request reproduction + readback; restore after verification"
+      ],
+      "information_gain_history": [
+        "confirmed PUT-specific mass-assignment; POST gating is mutation-fragile"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "METHOD_VARIANTS",
+        "PATH_VARIANTS"
+      ],
+      "name": "Unauthenticated mass-assignment sweep",
+      "next_generation_specification": "METHOD_VARIANTS sweep on remaining /api/* write routes; record POST gating drift",
+      "novelty_requirement": "new /api/* route with an unauth-accepting write method",
+      "population_size": 12,
+      "purpose": "Enumerate which HTTP methods accept unauthenticated writes on /api/* write routes and which do not.",
+      "reasonable_effort_contribution": [
+        "F6 verified A14-A22; mutation drift documented A23"
+      ],
+      "results_history": [
+        "generation1: PUT unauth -> 200 persists name/price; POST -> 401; DELETE -> 401; persistence readback confirmed; note POST /api/Products/ now 401 (mutated this boot, was 201 A12-A16)"
+      ],
+      "runtime": {
+        "best_candidates": [
+          {
+            "candidate_id": "cand-e0d82cdefd37a09cffa4",
+            "mutation": {
+              "method": "OPTIONS",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-70afb496806146bc31f6",
+            "request": {
+              "headers": {},
+              "method": "OPTIONS",
+              "path": "/api/Products/1",
+              "query": {}
+            },
+            "response_signature": [
+              204,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "",
+              0,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-dc800e81490f7d63f21a",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "trailing_slash"
+            },
+            "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/api/Products/1/./",
+              "query": {}
+            },
+            "response_signature": [
+              500,
+              "2ace4c4a734cb2d9b588c875382a75e879204bf815e9119b7b1f57ce9ac4f2b9",
+              "text/html; charset=utf-8",
+              2436,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-d7adfd5fc0f3d4dc9317",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "dot_suffix"
+            },
+            "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/api/Products/1/./.",
+              "query": {}
+            },
+            "response_signature": [
+              500,
+              "39223cfdbd09601da7cef785dd8467d3d26e9df1728b2b6102ff9f4cac523af6",
+              "text/html; charset=utf-8",
+              2438,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-36f9de58f501a1a3b783",
+            "mutation": {
+              "method": "HEAD",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+            "request": {
+              "headers": {},
+              "method": "HEAD",
+              "path": "/api/Products/1/.",
+              "query": {}
+            },
+            "response_signature": [
+              501,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "text/html;charset=utf-8",
+              0,
+              ""
+            ]
+          }
+        ],
+        "last_active_generation": 4,
+        "last_behavioral_differences": 5,
+        "last_candidate_count": 12,
+        "last_executed_generation": 4,
+        "last_information_gain": 0.4583,
+        "last_repeat_reproductions": 5,
+        "novelty_seen": true,
+        "surface_id": "surf_6_put_tamper",
+        "updated_at": "2026-10-05T09:45:10Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/api/Products/1",
+          "query": {}
+        }
+      ],
+      "selection_policy": "retain method-level authorization gaps (e.g., PUT accepted unauth while POST/DELETE gated)",
+      "status": "ACTIVE_LOW_INTENSITY",
+      "surface_id": "surf_6_put_tamper"
+    },
+    {
+      "best_candidates": [
+        {
+          "candidate_id": "cand-cc14ae035b141fc44c6e",
+          "mutation": {
+            "method": "OPTIONS",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+          "request": {
+            "headers": {},
+            "method": "OPTIONS",
+            "path": "/rest/user/login",
+            "query": {}
+          },
+          "response_signature": [
+            204,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "",
+            0,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-9097d7b864d1382984ce",
+          "mutation": {
+            "method": "HEAD",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+          "request": {
+            "headers": {},
+            "method": "HEAD",
+            "path": "/rest/user/login",
+            "query": {}
+          },
+          "response_signature": [
+            501,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "text/html;charset=utf-8",
+            0,
+            ""
+          ]
+        }
+      ],
+      "coverage_history": [
+        "/rest/user/*, /api/Auth/* probed across A9-A23"
+      ],
+      "exploration_exploitation_policy": "exploitation of previously-observed 401 routes; monitoring of 500 routes for re-enablement",
+      "false_positive_history": [
+        "none"
+      ],
+      "family_id": "fam_blocked_auth_sweep",
+      "generation": 3,
+      "independent_reproduction_history": [
+        "fresh-request observation each boot"
+      ],
+      "information_gain_history": [
+        "auth surface blocked: no credential source on public surface; routes removed (500) this boot - may be the gating constraint for auth-dependent hidden behaviors"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "METHOD_VARIANTS",
+        "QUERY_EDGE_VALUES"
+      ],
+      "name": "Authentication surface monitoring",
+      "next_generation_specification": "re-explore when any auth route stops returning 500; test registration, login, basket, coupons, orders if re-enabled",
+      "novelty_requirement": "auth route returns non-500 status",
+      "population_size": 4,
+      "purpose": "Monitor auth routes for re-enablement; the blocking constraint may gate hidden behaviors.",
+      "reasonable_effort_contribution": [
+        "blocked A9-A23; mutation-fragile (401<->500); removed this boot"
+      ],
+      "results_history": [
+        "generation1: this boot ALL auth routes (/rest/user/login, /rest/user/register, /api/Auth/login, /api/Auth/register, /rest/user/*) return 500 'Unexpected path'; prior boots: 401 functional-but-unauthenticable"
+      ],
+      "runtime": {
+        "best_candidates": [
+          {
+            "candidate_id": "cand-cc14ae035b141fc44c6e",
+            "mutation": {
+              "method": "OPTIONS",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+            "request": {
+              "headers": {},
+              "method": "OPTIONS",
+              "path": "/rest/user/login",
+              "query": {}
+            },
+            "response_signature": [
+              204,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "",
+              0,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-9097d7b864d1382984ce",
+            "mutation": {
+              "method": "HEAD",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+            "request": {
+              "headers": {},
+              "method": "HEAD",
+              "path": "/rest/user/login",
+              "query": {}
+            },
+            "response_signature": [
+              501,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "text/html;charset=utf-8",
+              0,
+              ""
+            ]
+          }
+        ],
+        "last_active_generation": 2,
+        "last_behavioral_differences": 2,
+        "last_candidate_count": 2,
+        "last_executed_generation": 2,
+        "last_information_gain": 1.0,
+        "last_repeat_reproductions": 2,
+        "novelty_seen": true,
+        "surface_id": "surf_blocked_auth",
+        "updated_at": "2026-10-05T09:45:09Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/user/login",
+          "query": {}
+        }
+      ],
+      "selection_policy": "retain routes that stop returning 500 'Unexpected path' (re-enabled)",
+      "status": "DEPRIORITIZED",
+      "surface_id": "surf_blocked_auth"
+    },
+    {
+      "best_candidates": [
+        {
+          "candidate_id": "cand-fdb0ded710addf1930f0",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "dot_suffix"
+          },
+          "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/admin/.",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "8e0ee913e2ac6c8519daa5fc4b9d68c6825af1eda9191784e1c13917608fbc05",
+            "text/html; charset=utf-8",
+            2426,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-9918604721aba5927208",
+          "mutation": {
+            "operator": "PATH_VARIANTS",
+            "variant": "trailing_slash"
+          },
+          "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "path": "/rest/admin/",
+            "query": {}
+          },
+          "response_signature": [
+            500,
+            "9cf2952d85b121aa46bbd7f26d98f4350999d95f9a9c152de8ef24155be2d203",
+            "text/html; charset=utf-8",
+            2424,
+            ""
+          ]
+        }
+      ],
+      "coverage_history": [
+        "~130 routes probed A14-A23; 98 probed A23"
+      ],
+      "exploration_exploitation_policy": "exploitation of previously-500 routes (password-hash, continue-code/apply, /rest/db/schema, /rest/access-log, /rest/chat); breadth over removed route set",
+      "false_positive_history": [
+        "none"
+      ],
+      "family_id": "fam_non_viable_500_monitor",
+      "generation": 3,
+      "independent_reproduction_history": [
+        "sweep reproduced each boot"
+      ],
+      "information_gain_history": [
+        "routes removed by the mutation; low yield"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "BASELINE",
+        "PATH_VARIANTS"
+      ],
+      "name": "Removed-route re-enablement monitoring",
+      "next_generation_specification": "re-sweep on new variant boot",
+      "novelty_requirement": "removed route returns non-500",
+      "population_size": 4,
+      "purpose": "Monitor mutation-removed routes for re-enablement (potential new solvable surfaces).",
+      "reasonable_effort_contribution": [
+        "exhaustive for this variant; preserve provenance"
+      ],
+      "results_history": [
+        "generation1: full 98-route GET sweep A23 - 80 of 80 tested routes returned 500 'Unexpected path'"
+      ],
+      "runtime": {
+        "best_candidates": [
+          {
+            "candidate_id": "cand-fdb0ded710addf1930f0",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "dot_suffix"
+            },
+            "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/rest/admin/.",
+              "query": {}
+            },
+            "response_signature": [
+              500,
+              "8e0ee913e2ac6c8519daa5fc4b9d68c6825af1eda9191784e1c13917608fbc05",
+              "text/html; charset=utf-8",
+              2426,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-9918604721aba5927208",
+            "mutation": {
+              "operator": "PATH_VARIANTS",
+              "variant": "trailing_slash"
+            },
+            "parent_candidate_id": "cand-f1cd3df795e2c4bd4ef2",
+            "request": {
+              "headers": {},
+              "method": "GET",
+              "path": "/rest/admin/",
+              "query": {}
+            },
+            "response_signature": [
+              500,
+              "9cf2952d85b121aa46bbd7f26d98f4350999d95f9a9c152de8ef24155be2d203",
+              "text/html; charset=utf-8",
+              2424,
+              ""
+            ]
+          }
+        ],
+        "last_active_generation": 2,
+        "last_behavioral_differences": 2,
+        "last_candidate_count": 4,
+        "last_executed_generation": 2,
+        "last_information_gain": 0.625,
+        "last_repeat_reproductions": 2,
+        "novelty_seen": true,
+        "surface_id": "surf_non_viable_500",
+        "updated_at": "2026-10-05T09:45:09Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/admin",
+          "query": {}
+        }
+      ],
+      "selection_policy": "retain routes that stop returning 500 'Unexpected path'",
+      "status": "EXHAUSTED_FOR_NOW",
+      "surface_id": "surf_non_viable_500"
+    },
+    {
+      "best_candidates": [],
+      "coverage_history": [
+        "1 route, A14-A23"
+      ],
+      "exploration_exploitation_policy": "exploitation - baseline re-verification each boot",
+      "false_positive_history": [
+        "none"
+      ],
+      "family_id": "fam_41_continue_code",
+      "generation": 3,
+      "independent_reproduction_history": [
+        "fresh-request reproduction each boot"
+      ],
+      "information_gain_history": [
+        "generation works, consumption broken - not a vulnerability"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "BASELINE"
+      ],
+      "name": "Continue-code generation/reconciliation",
+      "next_generation_specification": "re-verify each boot",
+      "novelty_requirement": "none - baseline repeat",
+      "population_size": 1,
+      "purpose": "Verify continue-code generation works and consumption is removed (negative, not a vuln).",
+      "reasonable_effort_contribution": [
+        "verified negative across all boots"
+      ],
+      "results_history": [
+        "generation1: GET -> 200/79 B {continueCode}; apply paths -> 500 Unexpected path"
+      ],
+      "runtime": {
+        "best_candidates": [],
+        "last_active_generation": 2,
+        "last_behavioral_differences": 0,
+        "last_candidate_count": 1,
+        "last_executed_generation": 2,
+        "last_information_gain": 0.5,
+        "last_repeat_reproductions": 0,
+        "novelty_seen": false,
+        "surface_id": "surf_41_continue_code",
+        "updated_at": "2026-10-05T09:45:09Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/continue-code",
+          "query": {}
+        }
+      ],
+      "selection_policy": "confirm generation returns a token and apply paths return 500",
+      "status": "NEGATED",
+      "surface_id": "surf_41_continue_code"
+    },
+    {
+      "best_candidates": [],
+      "coverage_history": [
+        "1 route, A14-A23"
+      ],
+      "exploration_exploitation_policy": "exploitation - baseline re-verification each boot",
+      "false_positive_history": [
+        "none"
+      ],
+      "family_id": "fam_9_web3_nft",
+      "generation": 3,
+      "independent_reproduction_history": [
+        "fresh-request reproduction each boot"
+      ],
+      "information_gain_history": [
+        "rejected: no private key obtainable"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "BASELINE"
+      ],
+      "name": "Web3/NFT unlock verification",
+      "next_generation_specification": "re-verify each boot",
+      "novelty_requirement": "none - baseline repeat",
+      "population_size": 1,
+      "purpose": "Verify NFT unlock endpoint and absence of private keys on the public surface.",
+      "reasonable_effort_contribution": [
+        "verified negative across all boots"
+      ],
+      "results_history": [
+        "generation1: nftUnlocked -> {status:false}; other web3 -> 500; no private key on public surface"
+      ],
+      "runtime": {
+        "best_candidates": [],
+        "last_active_generation": 2,
+        "last_behavioral_differences": 0,
+        "last_candidate_count": 1,
+        "last_executed_generation": 2,
+        "last_information_gain": 0.5,
+        "last_repeat_reproductions": 0,
+        "novelty_seen": false,
+        "surface_id": "surf_9_web3",
+        "updated_at": "2026-10-05T09:45:09Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/web3/nftUnlocked",
+          "query": {}
+        }
+      ],
+      "selection_policy": "confirm nftUnlocked returns status:false and no private key is reachable",
+      "status": "NEGATED",
+      "surface_id": "surf_9_web3"
+    },
+    {
+      "best_candidates": [],
+      "coverage_history": [
+        "static sweep A9-A23"
+      ],
+      "exploration_exploitation_policy": "exploitation of known secret paths (/.env, /.git, /package*, /backups, /data, /db, /i18n/*); query-parameter variants on /rest/languages",
+      "false_positive_history": [
+        "none"
+      ],
+      "family_id": "fam_29_extra_language",
+      "generation": 3,
+      "independent_reproduction_history": [
+        "fresh-request reproduction each boot"
+      ],
+      "information_gain_history": [
+        "negative: no extra-language material, no secrets"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "BASELINE",
+        "QUERY_EDGE_VALUES",
+        "PARAMETER_OMISSION"
+      ],
+      "name": "i18n/static exposure verification",
+      "next_generation_specification": "re-scan static assets on new variant boot",
+      "novelty_requirement": "real secret-bearing static file",
+      "population_size": 4,
+      "purpose": "Verify static assets and i18n files all proxy to the shell; /rest/languages is a real endpoint with baseline telemetry.",
+      "reasonable_effort_contribution": [
+        "verified negative across all boots"
+      ],
+      "results_history": [
+        "generation1: /rest/languages -> 200/4215 B language list (baseline percentage/gauge); all other static/secret paths -> 9393 B shell; secrets scan clean"
+      ],
+      "runtime": {
+        "best_candidates": [],
+        "last_active_generation": 2,
+        "last_behavioral_differences": 0,
+        "last_candidate_count": 1,
+        "last_executed_generation": 2,
+        "last_information_gain": 0.5,
+        "last_repeat_reproductions": 0,
+        "novelty_seen": false,
+        "surface_id": "surf_29_extra_language",
+        "updated_at": "2026-10-05T09:45:08Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/languages",
+          "query": {}
+        }
+      ],
+      "selection_policy": "retain any real static file or i18n payload containing secrets",
+      "status": "NEGATED",
+      "surface_id": "surf_29_extra_language"
+    },
+    {
+      "best_candidates": [
+        {
+          "candidate_id": "cand-e9a04a52f96d41173ff7",
+          "mutation": {
+            "method": "OPTIONS",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+          "request": {
+            "headers": {},
+            "method": "OPTIONS",
+            "path": "/redirect",
+            "query": {
+              "continue": [
+                "http://example.com"
+              ]
+            }
+          },
+          "response_signature": [
+            204,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "",
+            0,
+            ""
+          ]
+        },
+        {
+          "candidate_id": "cand-6eeb6387282211701c96",
+          "mutation": {
+            "method": "HEAD",
+            "operator": "METHOD_VARIANTS"
+          },
+          "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+          "request": {
+            "headers": {},
+            "method": "HEAD",
+            "path": "/redirect",
+            "query": {
+              "continue": [
+                "http://example.com"
+              ]
+            }
+          },
+          "response_signature": [
+            501,
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "text/html;charset=utf-8",
+            0,
+            ""
+          ]
+        }
+      ],
+      "coverage_history": [
+        "redirect parameter + header variants, A14-A23"
+      ],
+      "exploration_exploitation_policy": "exploitation of redirect?continue= with scheme/host variants; encoding variants; header injection (X-Forwarded-Host, Host, Forwarded, X-Forwarded-For)",
+      "false_positive_history": [
+        "none"
+      ],
+      "family_id": "fam_redirect_ssrf_monitor",
+      "generation": 3,
+      "independent_reproduction_history": [
+        "fresh-request reproduction each boot"
+      ],
+      "information_gain_history": [
+        "negative: TypeError only, no SSRF; raw error relates to surf_27"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "PARAMETER_OMISSION",
+        "ENCODING_VARIANTS",
+        "METHOD_VARIANTS"
+      ],
+      "name": "Redirect/SSRF monitoring",
+      "next_generation_specification": "re-test on new variant boot",
+      "novelty_requirement": "new behavioral difference in redirect handling",
+      "population_size": 6,
+      "purpose": "Monitor redirect parameter for SSRF-like internal resource reachability; currently only exposes a TypeError.",
+      "reasonable_effort_contribution": [
+        "verified negative across all boots"
+      ],
+      "results_history": [
+        "generation1: all scheme variants (http/https/file/gopher/data/javascript) and internal hosts (127.0.0.1:*) -> 500 TypeError; header injection changes nothing"
+      ],
+      "runtime": {
+        "best_candidates": [
+          {
+            "candidate_id": "cand-e9a04a52f96d41173ff7",
+            "mutation": {
+              "method": "OPTIONS",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+            "request": {
+              "headers": {},
+              "method": "OPTIONS",
+              "path": "/redirect",
+              "query": {
+                "continue": [
+                  "http://example.com"
+                ]
+              }
+            },
+            "response_signature": [
+              204,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "",
+              0,
+              ""
+            ]
+          },
+          {
+            "candidate_id": "cand-6eeb6387282211701c96",
+            "mutation": {
+              "method": "HEAD",
+              "operator": "METHOD_VARIANTS"
+            },
+            "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+            "request": {
+              "headers": {},
+              "method": "HEAD",
+              "path": "/redirect",
+              "query": {
+                "continue": [
+                  "http://example.com"
+                ]
+              }
+            },
+            "response_signature": [
+              501,
+              "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "text/html;charset=utf-8",
+              0,
+              ""
+            ]
+          }
+        ],
+        "last_active_generation": 2,
+        "last_behavioral_differences": 2,
+        "last_candidate_count": 6,
+        "last_executed_generation": 2,
+        "last_information_gain": 0.4167,
+        "last_repeat_reproductions": 2,
+        "novelty_seen": true,
+        "surface_id": "surf_redirect",
+        "updated_at": "2026-10-05T09:45:09Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/redirect",
+          "query": {
+            "continue": [
+              "http://example.com"
+            ]
+          }
+        }
+      ],
+      "selection_policy": "retain requests reaching an internal resource or showing a new raw-error type",
+      "status": "NEGATED",
+      "surface_id": "surf_redirect"
+    },
+    {
+      "best_candidates": [],
+      "coverage_history": [
+        "1 route, A15-A23"
+      ],
+      "exploration_exploitation_policy": "exploitation of /rest/chat; base line monitor",
+      "false_positive_history": [
+        "none"
+      ],
+      "family_id": "fam_chatbot_monitor",
+      "generation": 3,
+      "independent_reproduction_history": [
+        "fresh-request observation each boot"
+      ],
+      "information_gain_history": [
+        "blocked: backend unreachable; route removed this boot"
+      ],
+      "last_kilo_review": "2026-10-05T08:55:00Z",
+      "lineage": [
+        "bootstrap"
+      ],
+      "mutation_operators": [
+        "BASELINE",
+        "QUERY_EDGE_VALUES"
+      ],
+      "name": "Chatbot backend monitoring",
+      "next_generation_specification": "re-explore if Ollama backend becomes reachable",
+      "novelty_requirement": "backend reachable",
+      "population_size": 1,
+      "purpose": "Monitor the Ollama-backed chatbot for backend availability.",
+      "reasonable_effort_contribution": [
+        "verified blocked across all boots"
+      ],
+      "results_history": [
+        "generation1: ECONNREFUSED 127.0.0.1:11434 (A15-A22); route returns 500 Unexpected path this boot (removed)"
+      ],
+      "runtime": {
+        "best_candidates": [],
+        "last_active_generation": 2,
+        "last_behavioral_differences": 0,
+        "last_candidate_count": 1,
+        "last_executed_generation": 2,
+        "last_information_gain": 0.5,
+        "last_repeat_reproductions": 0,
+        "novelty_seen": false,
+        "surface_id": "surf_chatbot",
+        "updated_at": "2026-10-05T09:45:09Z"
+      },
+      "seed_requests": [
+        {
+          "headers": {},
+          "method": "GET",
+          "path": "/rest/chat",
+          "query": {}
+        }
+      ],
+      "selection_policy": "retain requests reaching the backend successfully",
+      "status": "DEPRIORITIZED",
+      "surface_id": "surf_chatbot"
+    }
+  ],
+  "generated_at": "2026-10-05T09:45:10Z",
+  "schema_version": "1.0.0"
+}

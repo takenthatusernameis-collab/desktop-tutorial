@@ -11,7 +11,7 @@
         "body_length": 4215,
         "body_sha256": "aa8dfff3ff3ffa3166f7852bff713b816c30ce8d13c230bbff7986615c957b9f",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 73.91,
+        "elapsed_ms": 63.94,
         "error": null,
         "location": "",
         "status": 200
@@ -26,7 +26,7 @@
         "body_length": 4215,
         "body_sha256": "aa8dfff3ff3ffa3166f7852bff713b816c30ce8d13c230bbff7986615c957b9f",
         "content_type": "application/json; charset=utf-8",
-        "elapsed_ms": 44.96,
+        "elapsed_ms": 72.55,
         "error": null,
         "location": "",
         "status": 200
@@ -42,7 +42,7 @@
       }
     }
   ],
-  "observed_at": "2026-10-05T09:41:49Z",
+  "observed_at": "2026-10-05T09:45:08Z",
   "operators": [
     "BASELINE",
     "QUERY_EDGE_VALUES",

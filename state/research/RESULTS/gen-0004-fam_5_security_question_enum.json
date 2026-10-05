@@ -1,0 +1,38 @@
+{
+  "behavioral_differences": 1,
+  "candidate_count": 12,
+  "family_id": "fam_5_security_question_enum",
+  "generation": 4,
+  "generation_id": "gen-0004-fam_5_security_question_enum",
+  "information_gain": 0.125,
+  "observed_at": "2026-10-05T09:45:10Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-d0b14de2276ac551bdf9",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-44ebd07ad613d9164ac4",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {
+          "email": [
+            "1"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "270241350bf87da0e1a47c9b9656e5245bff751ac8bed1dc6535d283e5de4410",
+        "text/html; charset=utf-8",
+        2476,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 1,
+  "surface_id": "surf_5_security_question"
+}

@@ -1,0 +1,258 @@
+{
+ "generated_at": "2026-10-05T09:47:23Z",
+ "target": "http://lab-mutator:3000",
+ "probes": [
+  {
+   "tag": "T0_root",
+   "status": 200,
+   "ct": "text/html; charset=UTF-8",
+   "len": 9393,
+   "hash": "aa97229042ece5a31ad318e31c256a15ec51a5005a5295580af6bcf6bdf36783",
+   "snippet": "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.\n  ~ SPDX-License-Identifier: MIT\n  -->\n\n<!doctype html>\n<html lang=\"en\" data-beasties-container>\n<head>\n  <meta charset=\"utf-8\">\n  <title>OWASP Juice Shop</title>\n  <meta name=\"description\" content=\"Probably the most modern and sophisticated insecure web application\">\n  <meta name=\"viewport\" content=\"width=devic",
+   "error": null
+  },
+  {
+   "tag": "T1_challenges",
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 67662,
+   "hash": "e57ae7c5a1c74699bc864b3a3d46886e08123f25b819d4c26d9b2e2a6cf6e811",
+   "snippet": "{\"status\":\"success\",\"data\":[{\"id\":1,\"key\":\"passwordHashLeakChallenge\",\"name\":\"Password Hash Leak\",\"category\":\"Sensitive Data Exposure\",\"tags\":null,\"description\":\"Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint.\",\"difficulty\":2,\"mitigationUrl\":\"https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure\",\"solved\":false,\"disabledEnv\":null",
+   "error": null
+  },
+  {
+   "tag": "T1a_challenges_data",
+   "status": 401,
+   "ct": "text/html; charset=utf-8",
+   "len": 972,
+   "hash": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #",
+   "error": "Unauthorized"
+  },
+  {
+   "tag": "T1_metrics",
+   "status": 200,
+   "ct": "text/plain; version=0.0.4; charset=utf-8",
+   "len": 26137,
+   "hash": "6098ab7d555264ad8e01c573b536207661aec281c47c3e960e086e0aae8cb07c",
+   "snippet": "# HELP juiceshop_llm_input_tokens_total Number of total input tokens processed\n# TYPE juiceshop_llm_input_tokens_total counter\njuiceshop_llm_input_tokens_total{app=\"juiceshop\"} 0\n\n# HELP juiceshop_llm_input_tokens Number of input tokens processed\n# TYPE juiceshop_llm_input_tokens counter\n\n# HELP juiceshop_llm_output_tokens_total Number of total output tokens processed\n# TYPE juiceshop_llm_output_t",
+   "error": null
+  },
+  {
+   "tag": "T2_secq_noparam",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2946,
+   "hash": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_secq_bjoern",
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 139,
+   "hash": "63e6d18778fbf9a1583fbddb47ec42370f22f548960b26b9aa2d945359b70444",
+   "snippet": "{\"question\":{\"id\":7,\"question\":\"Name of your favorite pet?\",\"createdAt\":\"2026-10-05T09:45:04.902Z\",\"updatedAt\":\"2026-10-05T09:45:04.902Z\"}}",
+   "error": null
+  },
+  {
+   "tag": "T2_secq_nonexistent",
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 2,
+   "hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+   "snippet": "{}",
+   "error": null
+  },
+  {
+   "tag": "T2_secq_dot",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2460,
+   "hash": "644baf6d8ed5b62f924263b45c7cbc772126482aaae429330887beef4f6499f2",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/user/security-question/.</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top,",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_secq_nullq",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2946,
+   "hash": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_redirect",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2531,
+   "hash": "020023ff4f9ae2b934531ecd4f7f04d012a055a23b67e99de52dbc3f7ec4ec48",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_redirect_dot",
+   "status": 200,
+   "ct": "text/html; charset=UTF-8",
+   "len": 9393,
+   "hash": "aa97229042ece5a31ad318e31c256a15ec51a5005a5295580af6bcf6bdf36783",
+   "snippet": "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.\n  ~ SPDX-License-Identifier: MIT\n  -->\n\n<!doctype html>\n<html lang=\"en\" data-beasties-container>\n<head>\n  <meta charset=\"utf-8\">\n  <title>OWASP Juice Shop</title>\n  <meta name=\"description\" content=\"Probably the most modern and sophisticated insecure web application\">\n  <meta name=\"viewport\" content=\"width=devic",
+   "error": null
+  },
+  {
+   "tag": "T2_fb_textplain",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2310,
+   "hash": "edc9faf3db5d308225e3613ef886e19fe149049dbe16c2e237da230cbc1f1242",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;captchaId&quot; has invalid &quot;undefined&quot; value</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #EC",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_fb_invalidjson",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2359,
+   "hash": "075d7ab250131abfcfa7e9d064ccc7aeb5aecefb69dbfc28cd5c26abe0b0d2a7",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>SyntaxError: Expected property name or &#39;}&#39; in JSON at position 1 (line 1 column 2)</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  backgroun",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_fb_benign",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2310,
+   "hash": "edc9faf3db5d308225e3613ef886e19fe149049dbe16c2e237da230cbc1f1242",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;captchaId&quot; has invalid &quot;undefined&quot; value</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #EC",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_products_post",
+   "status": 401,
+   "ct": "text/html; charset=utf-8",
+   "len": 972,
+   "hash": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #",
+   "error": "Unauthorized"
+  },
+  {
+   "tag": "T2_products_put",
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 238,
+   "hash": "e9667fae163e499ab049e79bc8ea6bc62c301c8a143be05b968dd76551731a2d",
+   "snippet": "{\"status\":\"success\",\"data\":{\"id\":1,\"name\":\"x\",\"description\":\"The all-time classic.\",\"price\":1.99,\"deluxePrice\":0.99,\"image\":\"apple_juice.jpg\",\"createdAt\":\"2026-10-05T09:45:05.376Z\",\"updatedAt\":\"2026-10-05T09:47:23.309Z\",\"deletedAt\":null}}",
+   "error": null
+  },
+  {
+   "tag": "T2_sa_get",
+   "status": 401,
+   "ct": "text/html; charset=utf-8",
+   "len": 972,
+   "hash": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>UnauthorizedError: No Authorization header was found</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #",
+   "error": "Unauthorized"
+  },
+  {
+   "tag": "T2_sa_post_empty",
+   "status": 201,
+   "ct": "application/json; charset=utf-8",
+   "len": 169,
+   "hash": "548da6d56fee2ac10b8b2a32610c5eae7ed60ef69377a4bd1f761f34cdb5fd28",
+   "snippet": "{\"status\":\"success\",\"data\":{\"id\":23,\"updatedAt\":\"2026-10-05T09:47:23.323Z\",\"createdAt\":\"2026-10-05T09:47:23.323Z\",\"UserId\":null,\"SecurityQuestionId\":null,\"answer\":null}}",
+   "error": null
+  },
+  {
+   "tag": "T2_sa_post_populated",
+   "status": 201,
+   "ct": "application/json; charset=utf-8",
+   "len": 231,
+   "hash": "37fdf1f04c930a9282ebeeb07b40ddb9d480ced187db642febb9b80c01df0f5a",
+   "snippet": "{\"status\":\"success\",\"data\":{\"id\":24,\"answer\":\"d8130f20a48acefa2f90baa8a78d9176cb0531bee9a0732a5193d9672f9f82b4\",\"updatedAt\":\"2026-10-05T09:47:23.342Z\",\"createdAt\":\"2026-10-05T09:47:23.342Z\",\"UserId\":null,\"SecurityQuestionId\":null}}",
+   "error": null
+  },
+  {
+   "tag": "T2_memories",
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 6183,
+   "hash": "68ceddf24cb2937493ce527bf13aa73e3359630fd1580c699268cfb4b9677c91",
+   "snippet": "{\"status\":\"success\",\"data\":[{\"UserId\":13,\"id\":1,\"caption\":\"\ud83d\ude3c #zatschi #whoneedsfourlegs\",\"imagePath\":\"assets/public/images/uploads/\u14da\u160f\u15e2-#zatschi-#whoneedsfourlegs-1572600969477.jpg\",\"createdAt\":\"2026-10-05T09:45:05.690Z\",\"updatedAt\":\"2026-10-05T09:45:05.690Z\",\"User\":{\"id\":13,\"username\":\"\",\"email\":\"bjoern@owasp.org\",\"password\":\"9283f1b2e9669749081963be0462e466\",\"role\":\"deluxe\",\"deluxeToken\":\"efe2f15",
+   "error": null
+  },
+  {
+   "tag": "T2_memories_dot",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2432,
+   "hash": "3ad603b3c33f217e147a8f620848ddc2596b27cf097eeac0a6b7e3172b5988cd",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/memories/.</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_memories_id",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2432,
+   "hash": "04724d8115906283ba0011de3a2a2a9457c61246c3b551dfb0b2493839d40081",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/memories/1</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_captcha",
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 46,
+   "hash": "8a57ae09237383bf2a534a9488f72c9bf15f3085af16dae315c4fdcf17eb266f",
+   "snippet": "{\"captchaId\":7,\"captcha\":\"7+3-8\",\"answer\":\"2\"}",
+   "error": null
+  },
+  {
+   "tag": "T2_login",
+   "status": 401,
+   "ct": "text/html; charset=utf-8",
+   "len": 26,
+   "hash": "db2a02d8daccaff693da676ed8fb8f44aaf21e58bdb455638a78ac37e44669c6",
+   "snippet": "Invalid email or password.",
+   "error": "Unauthorized"
+  },
+  {
+   "tag": "T2_register",
+   "status": 500,
+   "ct": "text/html; charset=utf-8",
+   "len": 2438,
+   "hash": "45874a328bf1f52c5e577006f8489b38285180a341a91a216b806dc6cf58eb6f",
+   "snippet": "<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /rest/user/register</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0;\n}\n\nbody {\n  padding: 80px 100px;\n  font: 13px \"Helvetica Neue\", \"Lucida Grande\", \"Arial\";\n  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));\n  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE",
+   "error": "Internal Server Error"
+  },
+  {
+   "tag": "T2_whoami",
+   "status": 200,
+   "ct": "application/json; charset=utf-8",
+   "len": 11,
+   "hash": "e436ef2b7de06788f8fc4b305c0a08d3ab7ee580ec3c1057cc9f3fdeac867081",
+   "snippet": "{\"user\":{}}",
+   "error": null
+  },
+  {
+   "tag": "T2_admin",
+   "status": 200,
+   "ct": "text/html; charset=UTF-8",
+   "len": 9393,
+   "hash": "aa97229042ece5a31ad318e31c256a15ec51a5005a5295580af6bcf6bdf36783",
+   "snippet": "<!--\n  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.\n  ~ SPDX-License-Identifier: MIT\n  -->\n\n<!doctype html>\n<html lang=\"en\" data-beasties-container>\n<head>\n  <meta charset=\"utf-8\">\n  <title>OWASP Juice Shop</title>\n  <meta name=\"description\" content=\"Probably the most modern and sophisticated insecure web application\">\n  <meta name=\"viewport\" content=\"width=devic",
+   "error": null
+  },
+  {
+   "tag": "T2_robots",
+   "status": 200,
+   "ct": "text/plain; charset=utf-8",
+   "len": 28,
+   "hash": "09f7c2328189ecdd2e687cccdafb34a16b3d2166f50f0a7962ed4de5b3aaf696",
+   "snippet": "User-agent: *\nDisallow: /ftp",
+   "error": null
+  }
+ ]
+}
