@@ -426,11 +426,6 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
         declared_families = surface.get("evolutionary_families") or []
         if not isinstance(declared_families, list):
             raise ProgramError(f"surface {sid}.evolutionary_families must be a list")
-        for declared_family_id in declared_families:
-            if declared_family_id not in family_ids:
-                raise ProgramError(
-                    f"surface {sid} declares unknown evolutionary family {declared_family_id}"
-                )
         reject_forbidden(surface, f"surface {sid}")
 
     family_ids = set()
@@ -510,6 +505,19 @@ def validate_program(program: Any, benchmark_id: str) -> dict[str, Any]:
             raise ProgramError(f"archived family {fid} requires archive_reason")
         family_counts[sid] = family_counts.get(sid, 0) + (0 if status == "ARCHIVED" else 1)
         reject_forbidden(family, f"family {fid}")
+
+    for surface in surfaces:
+        sid = surface["surface_id"]
+        for declared_family_id in surface.get("evolutionary_families") or []:
+            if declared_family_id not in family_ids:
+                raise ProgramError(
+                    f"surface {sid} declares unknown evolutionary family {declared_family_id}"
+                )
+            family = next(f for f in families if f["family_id"] == declared_family_id)
+            if family["surface_id"] != sid:
+                raise ProgramError(
+                    f"surface {sid} declares family {declared_family_id} owned by {family['surface_id']}"
+                )
 
     policy = program.get("portfolio_policy") or {}
     max_generations = int(policy.get("max_generations_per_activation", 24))
