@@ -70,8 +70,12 @@ The trusted controller is the only executor of the persistent evolutionary portf
 - state/research/EXECUTION_RECEIPTS.jsonl
 - state/research/PORTFOLIO_SUMMARY.json
 - state/research/PORTFOLIO_CHECKLIST.md
+- state/research/FAILURE_MEMORY.jsonl
 - state/research/REVIEWS/
 Treat controller-owned execution artifacts as read-only evidence.
+
+If state/research/FAILURE_MEMORY.jsonl exists, read its most recent entries during OBSERVE.
+Use it as controller-generated failure memory: identify recurring failure domains and reminders before choosing methods, but do not blindly follow historical conclusions. Do not repeat a failed invocation or implementation path merely because a prior activation did so.
 
 2. New benchmark:
 - if PROGRAM.json is absent because this is a genuinely new campaign, perform black-box reconnaissance first;
