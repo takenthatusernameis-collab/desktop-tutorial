@@ -659,7 +659,7 @@ jobs:
           exit 0
       - name: Evaluate hidden benchmark independently
         id: evaluate
-        if: always() && steps.benchmark.outcome == 'success' && steps.start_benchmark.outcome == 'success' && steps.kilo.outcome != 'skipped'
+        if: always() && steps.benchmark.outcome == 'success' && steps.start_benchmark.outcome == 'success' && steps.kilo.outcome == 'success'
         run: |
           set -euo pipefail
           LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
