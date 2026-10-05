@@ -670,10 +670,46 @@ def compile_portfolio(program: dict[str, Any], runtime: dict[str, Any]) -> list[
             intensity = min(1, intensity)
         tickets[family_id] = max(1, min(4, intensity))
 
+    all_relevant_surfaces = {
+        s["surface_id"]
+        for s in program["surfaces"]
+        if s.get("status") in SURFACE_STATUSES and s["surface_id"] in {
+            f["surface_id"] for _, _, f in families
+        }
+    }
+    if len(all_relevant_surfaces) > max_generations:
+        raise ProgramError(
+            "portfolio generation budget is smaller than required surface breadth: "
+            f"{len(all_relevant_surfaces)} surfaces > {max_generations} generations"
+        )
+
+    # Reserve one generation for every relevant surface before exploitation.
     plan = []
+    scheduled_families: set[str] = set()
+    best_family_by_surface: dict[str, tuple[float, str, dict[str, Any]]] = {}
+    for row in families:
+        surface_id = row[2]["surface_id"]
+        best_family_by_surface.setdefault(surface_id, row)
+
+    for surface_id in sorted(all_relevant_surfaces):
+        _, family_id, family = best_family_by_surface[surface_id]
+        plan.append(
+            {
+                "surface_id": surface_id,
+                "family_id": family_id,
+                "generation": int(family.get("generation", 1)),
+                "round": 1,
+                "max_candidates": max_candidates,
+            }
+        )
+        scheduled_families.add(family_id)
+
+    # Spend the remaining budget in score order, preserving family generation order.
     for round_index in range(1, max(tickets.values()) + 1):
         for _, family_id, family in families:
             if tickets[family_id] < round_index:
+                continue
+            if family_id in scheduled_families and round_index == 1:
                 continue
             if len(plan) >= max_generations:
                 break
@@ -689,7 +725,6 @@ def compile_portfolio(program: dict[str, Any], runtime: dict[str, Any]) -> list[
         if len(plan) >= max_generations:
             break
 
-    all_relevant_surfaces = {
         s["surface_id"]
         for s in program["surfaces"]
         if s.get("status") in SURFACE_STATUSES and s["surface_id"] in {
