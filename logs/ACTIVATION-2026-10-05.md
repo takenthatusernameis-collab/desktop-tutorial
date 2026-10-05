@@ -21,3 +21,21 @@
 
 ### NEXT
 - After X run #8 reaches a terminal outcome, compare the two repositories' worker-learning loops and introduce only the smallest high-value learning-efficiency improvement supported by the observed evidence.
+
+
+## Learning-efficiency design review — 2026-10-05T02:24:00Z
+
+### CHANGED
+- Added `LEARNING_EFFICIENCY.md` documenting the worker-learning bottleneck and the proposed strategy-delta / coverage-frontier loop.
+- The note keeps the current benchmark safety boundary intact and does not expose hidden benchmark information.
+
+### VERIFIED
+- Current aggregate feedback shows evidence quality at 1.0000 while discovery, reproduction, precision, and overall score remain 0.0000 / 0.0000 / 0.0000 / 0.0500.
+- The seven recent benchmark-history entries remain broadly flat, so the current feedback loop is producing little discovery improvement.
+- The highest-value intervention is therefore search-policy learning rather than stronger evidence-reporting instructions.
+
+### UNVERIFIED
+- Whether the proposed strategy-delta + coverage-frontier mechanism will improve discovery on future hidden variants.
+
+### NEXT
+- After the X worker reaches a terminal outcome, implement the same lightweight strategy-delta / coverage-frontier concept in the active worker prompts without creating a second autonomous evaluator.
