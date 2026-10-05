@@ -357,6 +357,19 @@ jobs:
               --public /run/lab/public.json \
               --workspace /workspace
 
+      - name: Generate safe solver feedback
+        id: feedback
+        if: always() && steps.evaluate.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 lab/generate_solver_feedback.py \
+            --result "reports/benchmark_${BENCHMARK_ID}.json" \
+            --history "lab/benchmark_history.jsonl" \
+            --output "SOLVER_FEEDBACK.md"
+          test -s SOLVER_FEEDBACK.md
+          echo "Trusted aggregate solver feedback generated."
+
       - name: Preserve manual-dispatch forensic benchmark
         if: always() && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
@@ -389,11 +402,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           KILO_OUTCOME: ${{ steps.kilo.outcome }}
+          FEEDBACK_OUTCOME: ${{ steps.feedback.outcome }}
         run: |
           set -euo pipefail
 
-          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/kilo-worker.Dockerfile lab/kilo_gateway_proxy.py lab/README.md 2>/dev/null || true
-          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/README.md 2>/dev/null || true
+          git restore --worktree --staged -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/kilo-worker.Dockerfile lab/kilo_gateway_proxy.py lab/README.md 2>/dev/null || true
+          git reset -- .github/workflows .kilo AGENTS.md ENTERPRISE.md MANUAL_SETUP.md PERSISTENCE_POLICY.md AUTHORIZED_TARGET.md HARDCORE_BENCHMARK.md lab/generate_benchmark.py lab/generate_solver_feedback.py lab/mutator.py lab/evaluate_benchmark.py lab/test_benchmark.py lab/README.md 2>/dev/null || true
+
+          if [ "${FEEDBACK_OUTCOME:-failure}" != "success" ]; then
+            git restore --worktree --staged -- SOLVER_FEEDBACK.md 2>/dev/null || true
+          fi
 
           git add -A
 
