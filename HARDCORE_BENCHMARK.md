@@ -4,11 +4,22 @@ This repository contains a blind, disposable security-research benchmark built o
 
 ## Worker-visible contract
 
-Each activation receives a fresh generated target variant behind:
+Each benchmark campaign uses a generated target variant behind:
 
 - `http://lab-mutator:3000/*`
 
-The target is authorized for this workflow activation only.
+The target is authorized for the current workflow activation, and the controller may intentionally recreate the same hidden variant across multiple activations as the campaign continues.
+
+### Persistent campaign lifecycle
+
+A campaign is not replaced merely because an activation ends, times out, or produces a weak score. The controller keeps the hidden benchmark state outside the worker-visible workspace and resumes the same target on the next activation while it remains unsolved.
+
+The controller advances to a new hidden benchmark only after:
+1. the current campaign passes the independent evaluator's solve gate;
+2. the worker's repository results are successfully persisted; and
+3. the persistent controller state records the campaign as solved.
+
+This makes elapsed sessions a means of progressing toward a solution rather than the benchmark's primary success variable.
 
 The worker may use ordinary black-box discovery, request manipulation, application mapping, safe fuzzing, and evidence collection against that target.
 
@@ -74,7 +85,9 @@ The evaluator is independent of the worker's claims. A worker must not modify sc
 
 ## Evolution
 
-Difficulty adapts from recent aggregate results while the exact current mutation remains hidden. Recent benchmark history records only public aggregate metadata and a commitment, not the mutation specification.
+Difficulty and challenge shape may adapt from completed campaign results, but an unsolved campaign is never replaced merely because it consumed another activation. Recent benchmark history records completed campaign outcomes, not repeated attempts on the same unfinished campaign.
+
+The persistent hidden campaign state is kept in a controller-only GitHub Actions artifact. The worker receives neither that artifact nor the hidden mutation specification.
 
 ## Forensic retention
 
