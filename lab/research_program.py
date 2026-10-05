@@ -256,6 +256,51 @@ def candidate_id(req: dict[str, Any]) -> str:
     return "cand-" + digest(req)[:20]
 
 
+def retained_request(candidate: Any) -> dict[str, Any] | None:
+    if not isinstance(candidate, dict):
+        return None
+    request_value = candidate.get("request")
+    if isinstance(request_value, dict):
+        return normalize_request(request_value, "retained candidate request")
+    if {"method", "path", "query", "headers"} <= set(candidate):
+        return normalize_request(candidate, "retained candidate")
+    return None
+
+
+def select_promising_candidates(rows: list[dict[str, Any]], limit: int = 6) -> list[dict[str, Any]]:
+    eligible = [
+        row
+        for row in rows
+        if row.get("behavioral_difference") and row.get("repeat_reproduction")
+    ]
+    eligible.sort(
+        key=lambda row: (
+            json.dumps(response_signature(row["observation"]), sort_keys=True),
+            row["candidate_id"],
+        )
+    )
+
+    selected: list[dict[str, Any]] = []
+    seen_signatures: set[str] = set()
+    for row in eligible:
+        signature = json.dumps(response_signature(row["observation"]), sort_keys=True)
+        if signature in seen_signatures:
+            continue
+        seen_signatures.add(signature)
+        selected.append(
+            {
+                "candidate_id": row["candidate_id"],
+                "parent_candidate_id": row["parent_candidate_id"],
+                "request": row["request"],
+                "mutation": row["mutation"],
+                "response_signature": json.loads(signature),
+            }
+        )
+        if len(selected) >= limit:
+            break
+    return selected
+
+
 def mutate_request(seed: dict[str, Any], operator: str) -> list[tuple[dict[str, Any], dict[str, Any]]]:
     seed = normalize_request(seed, "seed")
     out: list[tuple[dict[str, Any], dict[str, Any]]] = []
@@ -542,7 +587,7 @@ def compile_portfolio(program: dict[str, Any], runtime: dict[str, Any]) -> list[
                 {
                     "surface_id": family["surface_id"],
                     "family_id": family_id,
-                    "generation": int(family.get("generation", 1)),
+                    "generation": int(family.get("generation", 1)) + round_index - 1,
                     "round": round_index,
                     "max_candidates": max_candidates,
                 }
@@ -625,10 +670,16 @@ def execute_generation(
             f"got {generation}, expected {expected}"
         )
 
-    seeds = list(family.get("seed_requests") or [])
-    for candidate in fr.get("best_candidates") or []:
-        if isinstance(candidate, dict) and candidate not in seeds:
-            seeds.append(candidate)
+    seeds: list[dict[str, Any]] = []
+    retained_candidates = family.get("best_candidates") or fr.get("best_candidates") or []
+    for candidate in retained_candidates:
+        request_value = retained_request(candidate)
+        if request_value is not None and request_value not in seeds:
+            seeds.append(request_value)
+    for seed in family.get("seed_requests") or []:
+        normalized = normalize_request(seed, "seed")
+        if normalized not in seeds:
+            seeds.append(normalized)
     if not seeds:
         raise ProgramError(f"family {family['family_id']} has no executable seed requests")
 
@@ -707,11 +758,7 @@ def execute_generation(
         min(1.0, 0.5 * signature_count / max(1, len(rows)) + 0.5 * differences / max(1, len(rows))),
         4,
     )
-    promising = [
-        row["candidate_id"]
-        for row in rows
-        if row["behavioral_difference"] and row["repeat_reproduction"]
-    ][:6]
+    promising = select_promising_candidates(rows)
 
     return {
         "generation_id": f"gen-{generation:04d}-{family['family_id']}",
@@ -961,6 +1008,7 @@ def run_pre_kilo(mode: str, benchmark_id: str, target: str, state_dir: Path) -> 
         )
         persist_generation(state_dir, result)
         results.append(result)
+        family["best_candidates"] = result["promising_candidates"]
         family["generation"] = int(family.get("generation", 1)) + 1
 
     runtime = update_runtime(state_dir, program, results)
