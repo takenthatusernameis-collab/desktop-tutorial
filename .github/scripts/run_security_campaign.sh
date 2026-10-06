@@ -14,9 +14,10 @@ rm -rf "$CAMPAIGN_CONTEXT" "$CAMPAIGN_AGENT_ROOT" "$BASE_WORKSPACE"
 mkdir -p "$CAMPAIGN_CONTEXT" "$CAMPAIGN_AGENT_ROOT" "$BASE_WORKSPACE" \
          "$EHB_WORKER_DIR/state/campaign"
 
+CAMPAIGN_ID_VALUE="${GITHUB_RUN_ID:-unknown}:attempt:${GITHUB_RUN_ATTEMPT:-1}"
 echo "CAMPAIGN_AGENT_COUNT=10" >> "$GITHUB_ENV"
 echo "CAMPAIGN_AGENT_TIMEOUT_MINUTES=28" >> "$GITHUB_ENV"
-echo "CAMPAIGN_ID=${GITHUB_RUN_ID:-unknown}" >> "$GITHUB_ENV"
+echo "CAMPAIGN_ID=$CAMPAIGN_ID_VALUE" >> "$GITHUB_ENV"
 echo "CAMPAIGN_STARTED_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
 CAMPAIGN_DUMMY="${CAMPAIGN_DUMMY:-false}"
 
@@ -25,9 +26,17 @@ rsync -a --delete \
   "$EHB_WORKER_DIR/" "$BASE_WORKSPACE/"
 mkdir -p "$BASE_WORKSPACE/state/campaign"
 
+# These are per-activation handoff artifacts. Never let a previous campaign's
+# proposal or candidate leak into the current campaign.
+rm -f \
+  "$BASE_WORKSPACE/PROGRAM_PROPOSAL.json" \
+  "$BASE_WORKSPACE/PROGRAM_PROPOSAL_CANDIDATE.json" \
+  "$BASE_WORKSPACE/PROGRAM_PROPOSAL_REJECTION.txt" \
+  "$BASE_WORKSPACE/reports/benchmark_findings_candidate.json"
+
 python3 "$CONTROLLER" start-campaign \
   --root "$BASE_WORKSPACE" \
-  --campaign-id "${GITHUB_RUN_ID:-unknown}"
+  --campaign-id "$CAMPAIGN_ID_VALUE"
 campaign_start_status=$?
 if [ "$campaign_start_status" -ne 0 ]; then
   echo "CAMPAIGN_START_FAILED=$campaign_start_status" >> "$GITHUB_ENV"
@@ -296,7 +305,7 @@ cat > "$EHB_WORKER_DIR/state/campaign/campaign_status.json" <<EOF
 {
   "schema_version": 2,
   "status": "$campaign_status",
-  "campaign_id": "${GITHUB_RUN_ID:-unknown}",
+  "campaign_id": "$CAMPAIGN_ID_VALUE",
   "agent_count": 10,
   "starting_agent_number": $campaign_start_agent,
   "ending_agent_number": $campaign_end_agent,

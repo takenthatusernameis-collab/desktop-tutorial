@@ -101,11 +101,16 @@ def validate_task(task: dict[str, Any]) -> list[str]:
             continue
         if field not in task or not isinstance(task[field], str) or not task[field].strip():
             errors.append(f"missing/empty task field: {field}")
-    agent_number = int(task.get("agent_number", 0) or 0)
+    raw_agent_number = task.get("agent_number", 0)
+    try:
+        agent_number = int(raw_agent_number)
+    except (TypeError, ValueError):
+        errors.append("agent_number must be an integer >= 1")
+        agent_number = 0
     if agent_number < 1:
         errors.append("agent_number must be >= 1")
     expected_role = "LEARNING_PROCESS" if agent_number % 2 else "HIGHER_ORDER_RESEARCH"
-    if task.get("role") != expected_role:
+    if task.get("role") != expected_role and agent_number >= 1:
         errors.append(f"role must be {expected_role}")
     if "\n" in str(task.get("primary_question", "")):
         errors.append("primary_question must be one line")
@@ -144,14 +149,22 @@ def validate_result(path: Path, expected_task: dict[str, Any]) -> list[str]:
     return errors
 
 
-def recent_memos(campaign_dir: Path) -> list[tuple[int, Path, dict[str, str]]]:
+def recent_memos(
+    campaign_dir: Path,
+    campaign_start_agent: int,
+    campaign_end_agent: int,
+) -> list[tuple[int, Path, dict[str, str]]]:
     rows: list[tuple[int, Path, dict[str, str]]] = []
-    for path in sorted(campaign_dir.glob("agent_*_RESULT.md")):
+    for path in campaign_dir.glob("agent_*_RESULT.md"):
         match = re.search(r"agent_(\d+)_RESULT\.md$", path.name)
         if not match:
             continue
         number = int(match.group(1))
+        if not (campaign_start_agent <= number <= campaign_end_agent):
+            continue
         rows.append((number, path, parse_result(path)))
+    # Sort by numeric agent identity, never by filename lexicographic order.
+    rows.sort(key=lambda item: item[0])
     return rows
 
 
@@ -203,9 +216,15 @@ def task_id(agent_number: int, slug: str) -> str:
     return f"task-{agent_number:02d}-{slug}-{digest}"
 
 
-def build_task(agent_number: int, root: Path, campaign_dir: Path) -> tuple[dict[str, Any], list[dict[str, Any]], str]:
+def build_task(
+    agent_number: int,
+    root: Path,
+    campaign_dir: Path,
+    campaign_start_agent: int,
+) -> tuple[dict[str, Any], list[dict[str, Any]], str]:
     role = "LEARNING_PROCESS" if agent_number % 2 else "HIGHER_ORDER_RESEARCH"
-    memos = recent_memos(campaign_dir)
+    campaign_end_agent = campaign_start_agent + CAMPAIGN_AGENT_COUNT - 1
+    memos = recent_memos(campaign_dir, campaign_start_agent, campaign_end_agent)
     previous = memos[-1][2] if memos else {}
     signals = evidence_signals(root)
     excerpt = signal_excerpt(root)
@@ -397,6 +416,10 @@ def load_manifest(campaign_dir: Path) -> dict[str, Any]:
         raise SystemExit("CAMPAIGN_MANIFEST_INVALID")
     if int(manifest["agent_count"]) != CAMPAIGN_AGENT_COUNT:
         raise SystemExit("CAMPAIGN_AGENT_COUNT_INVALID")
+    start = int(manifest["starting_agent_number"])
+    end = int(manifest["ending_agent_number"])
+    if start < 1 or end != start + CAMPAIGN_AGENT_COUNT - 1:
+        raise SystemExit("CAMPAIGN_MANIFEST_RANGE_INVALID")
     return manifest
 
 
@@ -407,19 +430,43 @@ def command_start_campaign(args: argparse.Namespace) -> int:
 
     manifest_path = campaign_dir / CAMPAIGN_MANIFEST_NAME
     existing = load_json_file(manifest_path)
+    if manifest_path.exists() and not isinstance(existing, dict):
+        raise SystemExit("CAMPAIGN_MANIFEST_CORRUPT")
+
     if isinstance(existing, dict) and existing.get("campaign_id") == args.campaign_id:
+        try:
+            existing_start = int(existing["starting_agent_number"])
+            existing_end = int(existing["ending_agent_number"])
+            existing_count = int(existing["agent_count"])
+        except (KeyError, TypeError, ValueError):
+            raise SystemExit("CAMPAIGN_MANIFEST_INVALID") from None
+        if existing_count != CAMPAIGN_AGENT_COUNT or existing_start < 1 or existing_end != existing_start + CAMPAIGN_AGENT_COUNT - 1:
+            raise SystemExit("CAMPAIGN_MANIFEST_INVALID")
         print(json.dumps(existing, sort_keys=True))
         return 0
 
     if isinstance(existing, dict):
+        try:
+            existing_start = int(existing["starting_agent_number"])
+            existing_end = int(existing["ending_agent_number"])
+            existing_count = int(existing["agent_count"])
+        except (KeyError, TypeError, ValueError):
+            raise SystemExit("CAMPAIGN_MANIFEST_INVALID") from None
+        if existing_count != CAMPAIGN_AGENT_COUNT or existing_start < 1 or existing_end != existing_start + CAMPAIGN_AGENT_COUNT - 1:
+            raise SystemExit("CAMPAIGN_MANIFEST_INVALID")
         history_path = campaign_dir / "CAMPAIGN_HISTORY.jsonl"
         with history_path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(existing, sort_keys=True) + "\n")
 
     counter_path = campaign_dir / GLOBAL_COUNTER_NAME
-    counter = load_json_file(counter_path, {})
-    next_agent = int(counter.get("next_agent_number", 1) or 1)
-    if next_agent < 1:
+    counter = load_json_file(counter_path)
+    if not isinstance(counter, dict) or "next_agent_number" not in counter:
+        raise SystemExit("GLOBAL_AGENT_COUNTER_MISSING_OR_CORRUPT")
+    try:
+        next_agent = int(counter["next_agent_number"])
+    except (TypeError, ValueError):
+        raise SystemExit("GLOBAL_AGENT_COUNTER_INVALID") from None
+    if isinstance(counter["next_agent_number"], bool) or next_agent < 1:
         raise SystemExit("GLOBAL_AGENT_COUNTER_INVALID")
 
     start = next_agent
@@ -463,7 +510,8 @@ def command_prepare(args: argparse.Namespace) -> int:
         raise SystemExit("CAMPAIGN_SLOT_INVALID")
     agent_number = int(manifest["starting_agent_number"]) + slot - 1
 
-    task, candidates, _ = build_task(agent_number, root, campaign_dir)
+    campaign_start_agent = int(manifest["starting_agent_number"])
+    task, candidates, _ = build_task(agent_number, root, campaign_dir, campaign_start_agent)
     task["agent_number"] = agent_number
     task["campaign_slot"] = slot
     task["campaign_id"] = str(manifest["campaign_id"])

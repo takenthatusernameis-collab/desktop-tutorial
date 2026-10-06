@@ -244,7 +244,117 @@ jobs:
           assert slot10["role"] == "HIGHER_ORDER_RESEARCH", slot10
           assert counter["next_agent_number"] == 31, counter
           print("Cross-campaign global agent sequencing passed: 11-20 -> 21-30.")
+
+      - name: Regression-test global-agent memo isolation
+        run: |
+          set -euo pipefail
+          BOUNDARY_ROOT="$RUNNER_TEMP/ehb-agent-boundary"
+          BOUNDARY_CONTEXT="$RUNNER_TEMP/ehb-agent-boundary-context"
+          rm -rf "$BOUNDARY_ROOT" "$BOUNDARY_CONTEXT"
+          mkdir -p "$BOUNDARY_ROOT/state/campaign" "$BOUNDARY_CONTEXT"
+          cat > "$BOUNDARY_ROOT/state/campaign/GLOBAL_AGENT_COUNTER.json" <<'EOF'
+          {
+            "schema_version": 1,
+            "next_agent_number": 91,
+            "last_reserved_campaign_id": null,
+            "last_reserved_ending_agent_number": 90
+          }
+          EOF
+
+          python3 .github/scripts/campaign_controller.py start-campaign             --root "$BOUNDARY_ROOT" --campaign-id boundary-one >/dev/null
+          python3 .github/scripts/campaign_controller.py start-campaign             --root "$BOUNDARY_ROOT" --campaign-id boundary-two >/dev/null
+
+          cat > "$BOUNDARY_ROOT/state/campaign/agent_099_RESULT.md" <<'EOF'
+          TASK_ID: task-99-stale
+          DECISION: RETAIN
+          OBSERVED_EFFECT: stale prior-campaign memo
+          NEXT: stale next action
+          EOF
+          cat > "$BOUNDARY_ROOT/state/campaign/agent_100_RESULT.md" <<'EOF'
+          TASK_ID: task-100-stale
+          DECISION: RETAIN
+          OBSERVED_EFFECT: stale prior-campaign memo
+          NEXT: stale next action
+          EOF
+
+          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$BOUNDARY_ROOT" --agent-root "$BOUNDARY_ROOT"             --context-dir "$BOUNDARY_CONTEXT" --campaign-slot 1 >/dev/null
+
+          cp "$BOUNDARY_ROOT/state/campaign/TASK.json"              "$BOUNDARY_ROOT/state/campaign/agent_101_TASK.json"
+          cat > "$BOUNDARY_ROOT/state/campaign/agent_101_RESULT.md" <<'EOF'
+          TASK_ID: task-101-current
+          DECISION: IMPROVE
+          OBSERVED_EFFECT: current campaign memo
+          NEXT: current next action
+          EOF
+
+          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$BOUNDARY_ROOT" --agent-root "$BOUNDARY_ROOT"             --context-dir "$BOUNDARY_CONTEXT" --campaign-slot 2 >/dev/null
+
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          root = Path(os.environ["RUNNER_TEMP"]) / "ehb-agent-boundary"
+          task = json.loads((root / "state/campaign/TASK.json").read_text(encoding="utf-8"))
+          assert task["agent_number"] == 102, task
+          assert task["selection_basis"]["previous_task_id"] == "task-101-current", task
+          print("Campaign-local memo scoping and numeric global-agent ordering passed at 99-102 boundary.")
           PY
+
+
+
+      - name: Regression-test corrupt campaign-state fail-closed behavior
+        run: |
+          set -euo pipefail
+          BAD_ROOT="$RUNNER_TEMP/ehb-bad-campaign-state"
+          rm -rf "$BAD_ROOT"
+          mkdir -p "$BAD_ROOT/state/campaign"
+
+          cat > "$BAD_ROOT/state/campaign/GLOBAL_AGENT_COUNTER.json" <<'EOF'
+          {
+            "schema_version": 1,
+            "next_agent_number": "not-a-number"
+          }
+          EOF
+          if python3 .github/scripts/campaign_controller.py start-campaign               --root "$BAD_ROOT" --campaign-id bad-counter >/dev/null 2>&1; then
+            echo "Corrupt counter was incorrectly accepted."
+            exit 1
+          fi
+
+          printf '%s\n' '{"campaign_id":"bad-manifest","agent_count":10}'             > "$BAD_ROOT/state/campaign/CAMPAIGN_MANIFEST.json"
+          cat > "$BAD_ROOT/state/campaign/GLOBAL_AGENT_COUNTER.json" <<'EOF'
+          {
+            "schema_version": 1,
+            "next_agent_number": 31
+          }
+          EOF
+          if python3 .github/scripts/campaign_controller.py start-campaign               --root "$BAD_ROOT" --campaign-id bad-manifest >/dev/null 2>&1; then
+            echo "Corrupt idempotent manifest was incorrectly accepted."
+            exit 1
+          fi
+
+          rm -f "$BAD_ROOT/state/campaign/CAMPAIGN_MANIFEST.json"
+          rm -f "$BAD_ROOT/state/campaign/GLOBAL_AGENT_COUNTER.json"
+          if python3 .github/scripts/campaign_controller.py start-campaign               --root "$BAD_ROOT" --campaign-id missing-counter >/dev/null 2>&1; then
+            echo "Missing counter was incorrectly treated as Agent 1."
+            exit 1
+          fi
+          echo "Corrupt campaign-state fail-closed regression passed."
+
+      - name: Regression-test stale program handoff isolation
+        run: |
+          set -euo pipefail
+          STALE_ROOT="$RUNNER_TEMP/ehb-stale-handoff"
+          rm -rf "$STALE_ROOT"
+          mkdir -p "$STALE_ROOT/state/campaign" "$STALE_ROOT/reports"
+          cp -a "$EHB_WORKER_DIR/state/campaign/agent_"* "$STALE_ROOT/state/campaign/"
+          cp -a "$EHB_WORKER_DIR/state/campaign/CAMPAIGN_MANIFEST.json" "$STALE_ROOT/state/campaign/"
+          cat > "$STALE_ROOT/PROGRAM_PROPOSAL.json" <<'EOF'
+          {"stale": true, "source": "previous-campaign"}
+          EOF
+          rm -f "$STALE_ROOT/PROGRAM_PROPOSAL_CANDIDATE.json"
+          python3 .github/scripts/finalize_campaign.py prepare --root "$STALE_ROOT"
+          test ! -e "$STALE_ROOT/PROGRAM_PROPOSAL.json"
+          echo "Stale program handoff isolation passed."
 
       - name: Evaluate fast process-health path
         run: |
@@ -357,3 +467,4 @@ jobs:
             ${{ runner.temp }}/ehb-smoke-root/SOLVER_FEEDBACK.md
             ${{ runner.temp }}/ehb-smoke-root/context/agent_*_RESULT.md
             ${{ runner.temp }}/ehb-worker/state/campaign/campaign_status.json
+
