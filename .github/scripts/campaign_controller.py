@@ -308,6 +308,10 @@ def build_task(agent_number: int, root: Path, campaign_dir: Path) -> tuple[dict[
             })
 
     selected = candidates[0]
+    # Enforce the controller-owned identity regardless of which candidate template
+    # produced the selected task. This is a firewall invariant, not worker input.
+    selected["agent_number"] = agent_number
+    selected["role"] = role
     selected["candidate_count"] = len(candidates)
     selected["selection_basis"] = {
         "signals": signals,
