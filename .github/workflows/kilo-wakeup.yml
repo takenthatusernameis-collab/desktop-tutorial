@@ -14,6 +14,8 @@ on:
       - ".github/scripts/research_portfolio_runner.py"
       - ".github/scripts/report_worker_outcome.py"
       - ".github/scripts/deep_workflow_audit.py"
+      - ".github/scripts/run_security_campaign.sh"
+      - ".github/scripts/build_campaign_health.py"
       - ".kilo/wakeup-prompt.md"
       - ".kilo/validate-program-handoff.py"
 
@@ -390,6 +392,10 @@ jobs:
               test ! -e lab
               test ! -e .git
               test ! -e /workspace/spec.json
+              test ! -e reports/current_challenges.txt
+              test ! -e reports/challenges_inventory.txt
+              test ! -e reports/trigger_matrix.json
+              test ! -e reports/sweep_paths.json
               test -d state/research
               if touch state/research/.worker-must-not-write 2>/dev/null; then
                 rm -f state/research/.worker-must-not-write
@@ -501,6 +507,24 @@ jobs:
           KILO_DISABLE_EXTERNAL_SKILLS: "true"
         run: |
           bash .github/scripts/run_security_campaign.sh
+      - name: Build campaign health record
+        id: campaign_health
+        if: always()
+        continue-on-error: true
+        env:
+          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
+          PERSIST_OUTCOME: ${{ steps.persist.outcome }}
+          CAMPAIGN_STATUS: ${{ env.CAMPAIGN_STATUS }}
+        run: |
+          set +e
+          RESULT_PATH="reports/benchmark_${BENCHMARK_ID}.json"
+          python3 .github/scripts/build_campaign_health.py --output "state/campaign/HEALTH.json" --campaign-status "${CAMPAIGN_STATUS:-NO_RESULT}" --evaluate "${EVALUATE_OUTCOME}" --preflight "${PREFLIGHT_OUTCOME}" --smoke "${SMOKE_OUTCOME}" --persist "${PERSIST_OUTCOME:-skipped}" --context-dir "$RUNNER_TEMP/ehb-campaign-context" --result "$RESULT_PATH"
+          rc=$?
+          echo "CAMPAIGN_HEALTH_RC=$rc"
+          exit 0
+
       - name: Deep audit — after Run isolated Kilo worker
         id: deep_audit_2_run_isolated_kilo_worker
         if: always()
@@ -509,7 +533,7 @@ jobs:
           AUDIT_PREV_OUTCOME: ${{ steps.kilo.outcome }}
         run: |
           set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Run isolated Kilo worker"
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Run 10-agent isolated campaign"
           rc=$?
           echo "DEEP_AUDIT_RC=$rc"
           exit 0
@@ -721,7 +745,8 @@ jobs:
             state/research/FAILURE_MEMORY.jsonl \
             state/research/GENERATIONS \
             state/research/RESULTS \
-            state/research/REVIEWS; do
+            state/research/REVIEWS \
+            state/campaign; do
             if [ -e "$durable_path" ]; then
               git add -f -- "$durable_path"
             fi
@@ -975,6 +1000,14 @@ jobs:
               if extra > 0:
                   print(f"... truncated {extra} more files")
           PY
+          echo "::endgroup::"
+
+          echo "::group::REPORT OUTCOME DEBUG — campaign health"
+          if [ -f state/campaign/HEALTH.json ]; then
+            cat state/campaign/HEALTH.json
+          else
+            echo "MISSING | state/campaign/HEALTH.json"
+          fi
           echo "::endgroup::"
 
           echo "::group::REPORT OUTCOME DEBUG — Git persistence state"
