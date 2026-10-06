@@ -133,10 +133,9 @@ def score_findings(
         )
 
     discovery = len(unique_matches) / max(1, hidden_count)
-    reproduced = (
-        sum(1 for row in claim_results if row["valid_reproduction"])
-        / max(1, len(claim_results))
-    )
+    reproduced_claim_count = sum(1 for row in claim_results if row["valid_reproduction"])
+    unmatched_claim_count = sum(1 for row in claim_results if not row["valid_reproduction"])
+    reproduced = reproduced_claim_count / max(1, len(claim_results))
     precision = (
         1.0
         - (
@@ -171,6 +170,8 @@ def score_findings(
             "evidence_quality": round(evidence, 4),
             "overall_score": round(overall, 4),
             "unique_challenges_validated": len(unique_matches),
+            "reproduced_claim_count": reproduced_claim_count,
+            "unmatched_claim_count": unmatched_claim_count,
         },
         claim_results,
     )
