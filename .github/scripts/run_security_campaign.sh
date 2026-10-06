@@ -59,12 +59,10 @@ finalization_status=FAILED
 
 for index in $(seq 1 10); do
   printf -v agent_id "%02d" "$index"
-  agent_dir="$CAMPAIGN_AGENT_ROOT/agent_$agent_id"
+  agent_dir="$BASE_WORKSPACE"
   log_path="$RUNNER_TEMP/ehb-campaign-agent-$agent_id.log"
-  rm -rf "$agent_dir"
-  mkdir -p "$agent_dir"
-  cp -a "$BASE_WORKSPACE/." "$agent_dir/"
   mkdir -p "$agent_dir/state/campaign"
+  rm -f     "$agent_dir/state/campaign/TASK.json"     "$agent_dir/state/campaign/TASK_CANDIDATES.json"     "$agent_dir/state/campaign/TASK.md"     "$agent_dir/state/campaign/RESULT.md"     "$agent_dir/state/campaign/MOCK_SESSION_ID"
   : > "$log_path"
 
   python3 "$CONTROLLER" prepare-agent \
@@ -212,7 +210,8 @@ EOF
   cp "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_CONTROLLER.md" \
      "$BASE_WORKSPACE/state/campaign/agent_$agent_id_CONTROLLER.md"
 
-  rsync -a --delete "$EHB_WORKER_DIR/state/campaign/" "$BASE_WORKSPACE/state/campaign/"
+  # The shared workspace already contains durable campaign state; do not overwrite it
+  # with a stale outward snapshot between fresh sessions.
 
   echo "CAMPAIGN_AGENT_$agent_id_STATUS=$agent_status" >> "$GITHUB_ENV"
   echo "CAMPAIGN_SUCCESS_COUNT=$campaign_successes" >> "$GITHUB_ENV"
@@ -220,16 +219,24 @@ EOF
   echo "::notice::Campaign agent $index/10 finished: $agent_status; task=$task_id_value; successes=$campaign_successes; failures=$campaign_failures"
 done
 
+# Carry the shared research workspace to the outer persistence boundary.
+# Private Kilo session state is not carried; only durable filesystem research state is.
+rsync -a --delete \
+  --exclude=".git/" \
+  --exclude=".github/" \
+  --exclude="state/research/" \
+  "$BASE_WORKSPACE/" "$EHB_WORKER_DIR/"
+
 rm -f "$EHB_WORKER_DIR/reports/benchmark_findings_candidate.json" \
       "$EHB_WORKER_DIR/PROGRAM_PROPOSAL_CANDIDATE.json"
 
-if [ -f "$CAMPAIGN_AGENT_ROOT/agent_10/reports/benchmark_findings_candidate.json" ]; then
+if [ -f "$BASE_WORKSPACE/reports/benchmark_findings_candidate.json" ]; then
   mkdir -p "$EHB_WORKER_DIR/reports"
-  cp "$CAMPAIGN_AGENT_ROOT/agent_10/reports/benchmark_findings_candidate.json" \
+  cp "$BASE_WORKSPACE/reports/benchmark_findings_candidate.json" \
     "$EHB_WORKER_DIR/reports/benchmark_findings_candidate.json"
 fi
-if [ -f "$CAMPAIGN_AGENT_ROOT/agent_10/PROGRAM_PROPOSAL_CANDIDATE.json" ]; then
-  cp "$CAMPAIGN_AGENT_ROOT/agent_10/PROGRAM_PROPOSAL_CANDIDATE.json" \
+if [ -f "$BASE_WORKSPACE/PROGRAM_PROPOSAL_CANDIDATE.json" ]; then
+  cp "$BASE_WORKSPACE/PROGRAM_PROPOSAL_CANDIDATE.json" \
     "$EHB_WORKER_DIR/PROGRAM_PROPOSAL_CANDIDATE.json"
 fi
 
