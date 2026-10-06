@@ -92,7 +92,7 @@ Before acting:
 2. identify the dominant uncertainty and the evidence needed to discriminate it;
 3. execute only the bounded action in the task contract;
 4. stop at the evidence gate or stop condition;
-5. persist the compact result memo fields required by `AGENTS.md`.
+5. persist the compact result memo fields required by `AGENTS.md`. The controller pre-creates `state/campaign/RESULT.md`; edit that file in place and preserve its exact uppercase FIELD: prefixes. Do not replace the machine-readable fields with prose headings.
 
 The controller owns durable task prioritization and campaign state. Do not invent a parallel scoring system or broad strategy queue inside the Kilo session.
 
