@@ -1,0 +1,172 @@
+{
+  "actual_execution": true,
+  "candidate_count": 2,
+  "family_id": "fam_blocked_auth_sweep",
+  "generation": 23,
+  "generation_id": "gen-0023-fam_blocked_auth_sweep",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 2432,
+        "body_sha256": "c657dbddd4ba5992de1f52a1625f46172ff8b47c0963f3038bb4543a165cda81",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.54,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-9097d7b864d1382984ce",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.93,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.84,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/user/login",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2432,
+        "body_sha256": "c657dbddd4ba5992de1f52a1625f46172ff8b47c0963f3038bb4543a165cda81",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.54,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-cc14ae035b141fc44c6e",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 2.73,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.77,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/user/login",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-06T03:20:29Z",
+  "operators": [
+    "METHOD_VARIANTS",
+    "QUERY_EDGE_VALUES"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-9097d7b864d1382984ce",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-6d6f0b54b655a1dadc49"
+    },
+    {
+      "candidate_id": "cand-cc14ae035b141fc44c6e",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-6d6f0b54b655a1dadc49"
+    }
+  ],
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-cc14ae035b141fc44c6e",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/user/login",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-9097d7b864d1382984ce",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-6d6f0b54b655a1dadc49",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/user/login",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "results": {
+    "behavioral_differences": 2,
+    "error_observations": 0,
+    "information_gain": 1.0,
+    "repeat_reproductions": 2,
+    "unique_response_signatures": 2
+  },
+  "stopping_reason": "operator candidate set exhausted",
+  "surface_id": "surf_blocked_auth"
+}

@@ -7,35 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Cleartext CAPTCHA answer returned by unauthenticated /rest/captcha endpoint",
+      "title": "Unauthenticated, raw and inconsistently-handled error responses expose internal stack traces and SQL diagnostics",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "Unauthenticated over-exposure of other users' profiles including password hashes and emails on /rest/memories",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Unauthenticated security-question disclosure with structured account-enumeration differential on /rest/user/security-question",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Raw, inconsistent unauthenticated error responses (error handling)",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Unauthenticated Prometheus-format observability endpoint exposing internal telemetry",
+      "title": "Unauthenticated Prometheus metrics endpoint serves internal usage telemetry including LLM token counters",
       "valid_reproduction": false
     }
   ],
@@ -44,7 +23,7 @@
   "difficulty": 4,
   "discovery_rate": 0.0,
   "evidence_quality": 1.0,
-  "finding_count_submitted": 5,
+  "finding_count_submitted": 2,
   "ground_truth_exposed": false,
   "limitations": [
     "Replay validation tests submitted evidence against the hidden evaluator.",
@@ -59,5 +38,5 @@
   "schema_version": 1,
   "shape_signature": "8bd92467e9f200bfa28a19e5",
   "unique_challenges_validated": 0,
-  "unmatched_claim_count": 5
+  "unmatched_claim_count": 2
 }

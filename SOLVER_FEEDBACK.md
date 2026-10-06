@@ -12,24 +12,26 @@ It is intended to help the next solver activation adapt its research process.
 - Evidence quality: 1.0000
 - Recently observed aggregate trend: roughly stable
 - Recent mean overall score (up to 8 activations): 0.0500
-- Submitted claims this activation: 5
+- Submitted claims this activation: 2
 - Hidden-replay reproduced claims: 0
-- Hidden-replay unmatched claims: 5
+- Hidden-replay unmatched claims: 2
 
 ## Research-process evaluation
 
-- Process score is a separate metric from hidden benchmark score; a low benchmark score does not imply poor process.
-- Process score: N/A
+- Process score is a separate metric from hidden benchmark outcome; the benchmark outcome score is not a process grade.
+- A flat 0.0500 benchmark outcome can coexist with meaningful progress when the research state changes.
+- Process score: 0.4674
 - Process-score delta vs previous activation: N/A
-- Execution reliability: 0.0000
-- Agent completion: 0.0000
-- Memo integrity: 0.0000
-- Hypothesis diversity: 0.0000
-- Learning yield: 0.0000
-- Falsification coverage: 0.0000
-- Research breadth: 0.0000
-- Reproduction density: 0.0000
-- Handoff completeness: 0.0000
+- Progress state: STALLED
+- Benchmark signal: BASELINE
+- Activation information gain: 0.0000
+- Execution reliability: 1.0000
+- Surface coverage: 1.0000
+- Active-surface coverage: 1.0000
+- Behavioral-difference rate: 0.3778
+- Reproduction density: 0.3611
+- Falsification signal: 0.0000
+- Delivery integrity: 0.0000
 
 ## Process feedback
 

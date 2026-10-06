@@ -1,0 +1,70 @@
+## PASS 0: baseline
+home|200|9393|aa97229042ece5a31ad318e31c256a15ec51a5005a5295580af6bcf6bdf36783|text/html; charset=UTF-8|0.006|/
+metrics|200|26191|cac4c80244021c75992466fe2ff5af28238e7bbb6d2e7e351ea3e11432b044a1|text/plain; version=0.0.4; charset=utf-8|0.004|/metrics
+challenges|200|67662|804e41a54018f6573e5afcb44a9b7e514a6b3d4bc24f541b3cc42dae16e14465|application/json; charset=utf-8|0.029|/api/Challenges/
+solved:true ids = [27, 97]
+## PASS 1: candidate mechanisms (3x each for byte-stability)
+sq_noemail_A|500|2946|0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b|text/html; charset=utf-8|0.009|/rest/user/security-question
+sq_json_A|500|1804|20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e|application/json; charset=utf-8|0.010|/rest/user/security-question
+sq_noemail_B|500|2946|0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b|text/html; charset=utf-8|0.009|/rest/user/security-question
+redir_A|500|2531|020023ff4f9ae2b934531ecd4f7f04d012a055a23b67e99de52dbc3f7ec4ec48|text/html; charset=utf-8|0.004|/redirect?continue=http://example.com
+redir_B|500|2531|020023ff4f9ae2b934531ecd4f7f04d012a055a23b67e99de52dbc3f7ec4ec48|text/html; charset=utf-8|0.007|/redirect?continue=http://example.com
+cap_A|200|47|d7675271940a958d40d68fc9008c0f3dd9d1f7a8e88f21510b690fbc026fcf89|application/json; charset=utf-8|0.091|/rest/captcha
+cap_B|200|48|94e61c6be572b92d8b70590c9a31f8312fe5dcea21fcb308b00fd3f4901a3e86|application/json; charset=utf-8|0.091|/rest/captcha
+mem_A|200|6183|7f2b5662946de6165ddeb8f88518eb9d0f718cbc9e0d3e1c5171cdf314b102ab|application/json; charset=utf-8|0.017|/rest/memories
+mem_B|200|6183|7f2b5662946de6165ddeb8f88518eb9d0f718cbc9e0d3e1c5171cdf314b102ab|application/json; charset=utf-8|0.016|/rest/memories
+mem_nox_A|200|6183|7f2b5662946de6165ddeb8f88518eb9d0f718cbc9e0d3e1c5171cdf314b102ab|application/json; charset=utf-8|0.014|/rest/memories
+sq_noemail_C|500|2946|0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b|text/html; charset=utf-8|0.009|/rest/user/security-question
+redir_C|500|2531|020023ff4f9ae2b934531ecd4f7f04d012a055a23b67e99de52dbc3f7ec4ec48|text/html; charset=utf-8|0.003|/redirect?continue=http://example.com
+## PASS 2: null / control routes
+n1-ctrl|500|2438|ae0cfb4eae8276779f14fd4de20a8ace66123190d342fd90717afdb1e818ce03|text/html; charset=utf-8|0.005|/api/Nonexistent/n1
+n2-ctrl|500|2438|7655366911e2f55387d5cf4984fd2481805bd39fb9d04b25b9b90343ac3923c5|text/html; charset=utf-8|0.007|/api/Nonexistent/n2
+n3-ctrl|500|2438|e746c09f3e8af4dc5a0bd7a24ce126b5c5583a3db001eded7cf95d0cac8bfaa1|text/html; charset=utf-8|0.007|/api/Nonexistent/n3
+ctrl-admin|500|2422|83416c79e5d32ac4f39fcc3865ba3a8413bf2946067653db6ccf76f2841aec2d|text/html; charset=utf-8|0.005|/rest/admin
+## PASS 3: security-question enumeration differential (known vs unknown email)
+sq_email_bjoern_owasp.org|200|139|63eac9183a5af134f40cb4cc4b28fb7a7a6f360411cd3678928fbc19e512e293|application/json; charset=utf-8|0.050|/rest/user/security-question?email=bjoern@owasp.org
+sq_email_emma_juice-sh.op|200|153|8bd9ba3cf0d963ab0feddc6278504b4465a01592843b38a1f9e84a8a09c1eb06|application/json; charset=utf-8|0.013|/rest/user/security-question?email=emma@juice-sh.op
+sq_email_nonexistent_x.y.z|200|2|44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a|application/json; charset=utf-8|0.013|/rest/user/security-question?email=nonexistent@x.y.z
+sq_email_a_b.c|200|2|44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a|application/json; charset=utf-8|0.012|/rest/user/security-question?email=a@b.c
+sq_dupemail|200|2|44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a|application/json; charset=utf-8|0.013|/rest/user/security-question?email=bjoern@owasp.org&email=bjoern@owasp.org
+sq_email_1|200|2|44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a|application/json; charset=utf-8|0.014|/rest/user/security-question?email=1
+sq_email_null|200|2|44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a|application/json; charset=utf-8|0.013|/rest/user/security-question?email=null
+sq_email_false|200|2|44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a|application/json; charset=utf-8|0.013|/rest/user/security-question?email=false
+sq_email_pct|200|2|44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a|application/json; charset=utf-8|0.013|/rest/user/security-question?email=%
+sq_email_|200|2|44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a|application/json; charset=utf-8|0.013|/rest/user/security-question?email=
+## PASS 4: challenge filter layer
+ch?key_p|200|582|f1509aad251dbf82e30d6fcb6be11d36000282a2a1da51e8219272e516eee303|application/json; charset=utf-8|0.015|/api/Challenges/?key=passwordHashLeakChallenge
+ch?solve|200|1125|befe206fe26339c5e716f9ff9a0a13dfca08497c5f6b68508d74a1fb58a6e726|application/json; charset=utf-8|0.013|/api/Challenges/?solved=true
+ch?diffi|200|6893|6c9a1a30afdf20bba82777fe4be04e21c0c25dda325e97e7996a61f53c0c38c1|application/json; charset=utf-8|0.015|/api/Challenges/?difficulty=1
+ch?categ|200|8509|a32226bb825000f63353185ff48e3b0bfc9839c7f7d109835a93e0560e709058|application/json; charset=utf-8|0.017|/api/Challenges/?category=Injection
+ch?categ|200|5633|847b35e0303e41378789728f7cbaa7dcca6e1abf829df75e9f22f766f5ba49ae|application/json; charset=utf-8|0.016|/api/Challenges/?category=Broken%20Authentication
+ch?searc|200|67662|804e41a54018f6573e5afcb44a9b7e514a6b3d4bc24f541b3cc42dae16e14465|application/json; charset=utf-8|0.020|/api/Challenges/?search=x
+ch?inclu|200|67662|804e41a54018f6573e5afcb44a9b7e514a6b3d4bc24f541b3cc42dae16e14465|application/json; charset=utf-8|0.022|/api/Challenges/?include=details
+ch?limit|200|67662|804e41a54018f6573e5afcb44a9b7e514a6b3d4bc24f541b3cc42dae16e14465|application/json; charset=utf-8|0.022|/api/Challenges/?limit=3
+## PASS 5: write / neighbors
+|502|57|32883b598d895afb246e5470b33377aa115241126d94469469d8064e6afb8d75|application/json; charset=utf-8|15.018|/api/SecurityAnswers/
+|201|231|8582c029891b890910b2fc072bf26260a46297de4d719327f2f889ae6cd1ab8b|application/json; charset=utf-8|0.017|/api/SecurityAnswers/
+|204|0|e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855||0.002|/api/SecurityAnswers/
+sa_get|401|972|75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac|text/html; charset=utf-8|0.002|/api/SecurityAnswers/
+api/api/Deliverys|200|266|ca658cdfa29e44d2ed93f9b105082ef722d1c0abec70d5ad24dc7e6dcb37c38c|application/json; charset=utf-8|0.003|/api/Deliverys
+api/api/Feedbacks|200|1734|4a58481ad4d11c0bd0ef53887ea15c1a9a7c662eea4780a1887388b681210fc9|application/json; charset=utf-8|0.013|/api/Feedbacks
+api/api/Hints|200|97769|69cc5a78e8b074adcc7118ae8671353289dba7310a9cc1bf1a8b54d188acd110|application/json; charset=utf-8|0.020|/api/Hints
+api/api/Products|200|16011|d0fc8eb68519e2ea47f935ceef4c2d4235988b5d8c2708c1efd6091439ddeef2|application/json; charset=utf-8|0.017|/api/Products
+api/api/Quantitys|200|7628|624bc79bc9124de73ac08bb1f392a96d502965b242cba990017ac0b6315dc873|application/json; charset=utf-8|0.015|/api/Quantitys
+api/api/SecurityQuestions|200|1934|45cb14b9c1dd7d7fdef1d5ef727b7d43df9ffc215a1ef7fb57e7ed2161ab0611|application/json; charset=utf-8|0.013|/api/SecurityQuestions
+PUTprod|200|257|a9f089869af09fc07519a22f33a881490d451dbdda6dbf0b7874925beac49cf5|application/json; charset=utf-8|0.013|/api/Products/1
+DELETEprod|401|972|75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac|text/html; charset=utf-8|0.003|/api/Products/1
+PATCHprod|500|2430|4c8cbc5e741cc0a8851b715df08961d32599b76210c729cb8749897889f79b98|text/html; charset=utf-8|0.003|/api/Products/1
+POSTprod|401|972|75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac|text/html; charset=utf-8|0.005|/api/Products/
+cpw|401|25|91284789a49a0c0e4c15d5451fc1bfa8a4c7aa36fa79f008c00500bf96d13d05|text/html; charset=utf-8|0.003|/rest/user/change-password
+login_page|500|2432|c657dbddd4ba5992de1f52a1625f46172ff8b47c0963f3038bb4543a165cda81|text/html; charset=utf-8|0.006|/rest/user/login
+|401|26|db2a02d8daccaff693da676ed8fb8f44aaf21e58bdb455638a78ac37e44669c6|text/html; charset=utf-8|0.018|/rest/user/login
+|500|2438|45874a328bf1f52c5e577006f8489b38285180a341a91a216b806dc6cf58eb6f|text/html; charset=utf-8|0.004|/rest/user/register
+## PASS 6: method / encoding variants on live routes
+HEAD_rest_captcha|501|0|e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855|text/html;charset=utf-8|0.002|/rest/captcha
+OPTIONS_rest_captcha|204|0|e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855||0.005|/rest/captcha
+HEAD_metrics|501|0|e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855|text/html;charset=utf-8|0.002|/metrics
+HEAD_rest_memories|501|0|e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855|text/html;charset=utf-8|0.001|/rest/memories
+mem_enc|500|2444|bf09a6d9bb251cbc88d2eb7c54da0d49e06f93d5f82988c2ab69ba4dc1f7a7da|text/html; charset=utf-8|0.003|/rest/memories/%2e%2e/
+sq_dot|500|2462|d2a447dc545fc4f439f3ab77846c91708c1cc1b6bac2d1f986b718100f3520ef|text/html; charset=utf-8|0.009|/rest/user/security-question/./
+sq_trail|200|2|44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a|application/json; charset=utf-8|0.041|/rest/user/security-question?email=bjoern@owasp.org%20
