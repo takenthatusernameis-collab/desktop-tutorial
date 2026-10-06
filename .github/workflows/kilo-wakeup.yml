@@ -14,8 +14,6 @@ on:
       - ".github/scripts/research_portfolio_runner.py"
       - ".github/scripts/report_worker_outcome.py"
       - ".github/scripts/deep_workflow_audit.py"
-      - ".github/scripts/run_security_campaign.sh"
-      - ".github/scripts/build_campaign_health.py"
       - ".kilo/wakeup-prompt.md"
       - ".kilo/validate-program-handoff.py"
 
@@ -70,8 +68,6 @@ jobs:
             .github/scripts/report_worker_outcome.py \
             .github/scripts/record_failure_memory.py \
             .github/scripts/research_portfolio_runner.py
-          bash -n .github/scripts/run_security_campaign.sh
-          python3 .github/scripts/build_campaign_health.py --help >/dev/null
           python3 .github/scripts/record_failure_memory.py --self-test
 
       - name: Deep audit — after Self-test benchmark harness
@@ -496,15 +492,59 @@ jobs:
         run: |
           set -euo pipefail
           python3 lab/test_research_program.py --post-kilo-regression
-      - name: Run 10-agent isolated campaign
+      - name: Run isolated Kilo worker
         if: steps.preflight.outcome == 'success' && steps.kilo_smoke.outcome == 'success'
         id: kilo
         continue-on-error: true
-        timeout-minutes: 300
+        timeout-minutes: 315
         env:
           KILO_DISABLE_EXTERNAL_SKILLS: "true"
         run: |
-          bash .github/scripts/run_security_campaign.sh
+          set -euo pipefail
+          docker run --rm \
+            --name ehb-kilo \
+            --user "$(id -u):$(id -g)" \
+            --network ehb-worker-net \
+            --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
+            --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
+            --mount type=bind,source="$RUNNER_TEMP/ehb-research-snapshot",target=/workspace/state/research,readonly \
+            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
+            -e HOME=/tmp/kilo-home \
+            -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
+            -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
+            -e KILO_DISABLE_EXTERNAL_SKILLS=true \
+            -e BENCHMARK_ID="$BENCHMARK_ID" \
+            -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
+            "$EHB_KILO_IMAGE" \
+            bash -lc '
+              set -uo pipefail
+              cd /workspace
+              mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
+              cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
+              chmod 600 "$HOME/.config/kilo/kilo.json"
+
+              set +e
+              kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)" 2>&1 | tee /tmp/kilo-primary.log
+              rc=${PIPESTATUS[0]}
+
+              if [ "$rc" -ne 0 ] && grep -Eq "invalid request error trace_id:" /tmp/kilo-primary.log; then
+                echo "Detected transient Kilo gateway invalid-request response; retrying the same worker workspace once."
+                kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)" 2>&1 | tee /tmp/kilo-retry.log
+                retry_rc=${PIPESTATUS[0]}
+                if [ "$retry_rc" -eq 0 ]; then
+                  rc=0
+                else
+                  echo "Kilo retry also failed with exit code $retry_rc."
+                  rc="$retry_rc"
+                fi
+              fi
+
+              if [ "$rc" -ne 0 ]; then
+                echo "Kilo worker failed with exit code $rc."
+              fi
+              exit "$rc"
+            '
+
       - name: Deep audit — after Run isolated Kilo worker
         id: deep_audit_2_run_isolated_kilo_worker
         if: always()
@@ -513,7 +553,7 @@ jobs:
           AUDIT_PREV_OUTCOME: ${{ steps.kilo.outcome }}
         run: |
           set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Run 10-agent isolated campaign"
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Run isolated Kilo worker"
           rc=$?
           echo "DEEP_AUDIT_RC=$rc"
           exit 0
@@ -617,7 +657,6 @@ jobs:
           python3 lab/generate_solver_feedback.py \
             --result "reports/benchmark_${BENCHMARK_ID}.json" \
             --history "lab/benchmark_history.jsonl" \
-            --process-history "state/research/PROCESS_HISTORY.jsonl" \
             --output "SOLVER_FEEDBACK.md"
           test -s SOLVER_FEEDBACK.md
           echo "Trusted aggregate solver feedback generated."
@@ -645,34 +684,6 @@ jobs:
             --state-dir "state/research" \
             --snapshot-dir "$RUNNER_TEMP/ehb-research-snapshot" \
             --proposal "PROGRAM_PROPOSAL.json"
-
-      - name: Build campaign health record
-        id: campaign_health
-        if: always()
-        continue-on-error: true
-        env:
-          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
-          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
-          SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
-          PERSIST_OUTCOME: pending
-          CAMPAIGN_STATUS: ${{ env.CAMPAIGN_STATUS }}
-        run: |
-          set +e
-          RESULT_PATH="reports/benchmark_${BENCHMARK_ID}.json"
-          python3 .github/scripts/build_campaign_health.py             --output "state/campaign/HEALTH.json"             --campaign-status "${CAMPAIGN_STATUS:-NO_RESULT}"             --evaluate "${EVALUATE_OUTCOME:-skipped}"             --preflight "${PREFLIGHT_OUTCOME:-skipped}"             --smoke "${SMOKE_OUTCOME:-skipped}"             --persist "pending"             --context-dir "$RUNNER_TEMP/ehb-campaign-context"             --result "$RESULT_PATH"
-          rc=$?
-          echo "CAMPAIGN_HEALTH_RC=$rc"
-          exit 0
-
-      - name: Refresh safe solver feedback with process evaluation
-        id: feedback_process
-        if: always() && steps.evaluate.outcome == 'success' && steps.campaign_health.outcome == 'success'
-        continue-on-error: true
-        run: |
-          set -euo pipefail
-          python3 lab/generate_solver_feedback.py             --result "reports/benchmark_${BENCHMARK_ID}.json"             --history "lab/benchmark_history.jsonl"             --process-history "state/research/PROCESS_HISTORY.jsonl"             --output "SOLVER_FEEDBACK.md"
-          test -s SOLVER_FEEDBACK.md
-          echo "Trusted aggregate solver feedback refreshed with current process evaluation."
 
       - name: Record worker failure memory
         id: failure_memory
@@ -754,9 +765,7 @@ jobs:
             state/research/FAILURE_MEMORY.jsonl \
             state/research/GENERATIONS \
             state/research/RESULTS \
-            state/research/REVIEWS \
-            state/research/PROCESS_HISTORY.jsonl \
-            state/campaign; do
+            state/research/REVIEWS; do
             if [ -e "$durable_path" ]; then
               git add -f -- "$durable_path"
             fi
@@ -820,22 +829,8 @@ jobs:
           git config user.name "security-research-enterprise"
           git config user.email "security-research-enterprise@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
-
-          if [ "$KILO_OUTCOME" != "success" ]; then
-            git commit -m "Preserve partial 10-agent security campaign"
-            local_commit="$(git rev-parse HEAD)"
-            recovery_branch="recovery/security-campaign-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
-            if git push origin "$local_commit:refs/heads/$recovery_branch"; then
-              echo "PERSISTENCE_RECOVERY_BRANCH=$recovery_branch" >> "$GITHUB_ENV"
-              echo "::warning::Partial campaign preserved only on $recovery_branch; main integration prohibited."
-              exit 0
-            fi
-            echo "::error::Unable to preserve partial campaign on recovery branch."
-            exit 1
-          fi
-
           git commit -m "Persist security research activation"
-          if [ "$BENCHMARK_CAMPAIGN_MODE" = "resumed" ]; then
+          if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
             test -n "$(git ls-tree -r --name-only HEAD -- state/research/PROGRAM.json)"
           fi
 
@@ -1010,14 +1005,6 @@ jobs:
               if extra > 0:
                   print(f"... truncated {extra} more files")
           PY
-          echo "::endgroup::"
-
-          echo "::group::REPORT OUTCOME DEBUG — campaign health"
-          if [ -f state/campaign/HEALTH.json ]; then
-            cat state/campaign/HEALTH.json
-          else
-            echo "MISSING | state/campaign/HEALTH.json"
-          fi
           echo "::endgroup::"
 
           echo "::group::REPORT OUTCOME DEBUG — Git persistence state"
