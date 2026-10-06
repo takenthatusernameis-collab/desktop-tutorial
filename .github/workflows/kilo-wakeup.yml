@@ -70,6 +70,8 @@ jobs:
             .github/scripts/report_worker_outcome.py \
             .github/scripts/record_failure_memory.py \
             .github/scripts/research_portfolio_runner.py
+          bash -n .github/scripts/run_security_campaign.sh
+          python3 .github/scripts/build_campaign_health.py --help >/dev/null
           python3 .github/scripts/record_failure_memory.py --self-test
 
       - name: Deep audit — after Self-test benchmark harness
@@ -507,24 +509,6 @@ jobs:
           KILO_DISABLE_EXTERNAL_SKILLS: "true"
         run: |
           bash .github/scripts/run_security_campaign.sh
-      - name: Build campaign health record
-        id: campaign_health
-        if: always()
-        continue-on-error: true
-        env:
-          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
-          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
-          SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
-          PERSIST_OUTCOME: pending
-          CAMPAIGN_STATUS: ${{ env.CAMPAIGN_STATUS }}
-        run: |
-          set +e
-          RESULT_PATH="reports/benchmark_${BENCHMARK_ID}.json"
-          python3 .github/scripts/build_campaign_health.py --output "state/campaign/HEALTH.json" --campaign-status "${CAMPAIGN_STATUS:-NO_RESULT}" --evaluate "${EVALUATE_OUTCOME}" --preflight "${PREFLIGHT_OUTCOME}" --smoke "${SMOKE_OUTCOME}" --persist "${PERSIST_OUTCOME:-skipped}" --context-dir "$RUNNER_TEMP/ehb-campaign-context" --result "$RESULT_PATH"
-          rc=$?
-          echo "CAMPAIGN_HEALTH_RC=$rc"
-          exit 0
-
       - name: Deep audit — after Run isolated Kilo worker
         id: deep_audit_2_run_isolated_kilo_worker
         if: always()
@@ -664,6 +648,24 @@ jobs:
             --state-dir "state/research" \
             --snapshot-dir "$RUNNER_TEMP/ehb-research-snapshot" \
             --proposal "PROGRAM_PROPOSAL.json"
+
+      - name: Build campaign health record
+        id: campaign_health
+        if: always()
+        continue-on-error: true
+        env:
+          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
+          PERSIST_OUTCOME: pending
+          CAMPAIGN_STATUS: ${{ env.CAMPAIGN_STATUS }}
+        run: |
+          set +e
+          RESULT_PATH="reports/benchmark_${BENCHMARK_ID}.json"
+          python3 .github/scripts/build_campaign_health.py             --output "state/campaign/HEALTH.json"             --campaign-status "${CAMPAIGN_STATUS:-NO_RESULT}"             --evaluate "${EVALUATE_OUTCOME:-skipped}"             --preflight "${PREFLIGHT_OUTCOME:-skipped}"             --smoke "${SMOKE_OUTCOME:-skipped}"             --persist "pending"             --context-dir "$RUNNER_TEMP/ehb-campaign-context"             --result "$RESULT_PATH"
+          rc=$?
+          echo "CAMPAIGN_HEALTH_RC=$rc"
+          exit 0
 
       - name: Record worker failure memory
         id: failure_memory
