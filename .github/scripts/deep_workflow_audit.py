@@ -36,8 +36,10 @@ SECRET_FILE_RE = re.compile(
 )
 SECRET_TEXT_RE = re.compile(
     r"BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY|"
-    r"ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|"
-    r"sk-[A-Za-z0-9_-]{20,}"
+    r"(?<![A-Za-z0-9_-])ghp_[A-Za-z0-9]{30,}(?![A-Za-z0-9_-])|"
+    r"(?<![A-Za-z0-9_-])github_pat_[A-Za-z0-9_]{40,}(?![A-Za-z0-9_-])|"
+    r"(?<![A-Za-z0-9_-])sk-[A-Za-z0-9_-]{20,}(?![A-Za-z0-9_-])|"
+    r"(?<![A-Za-z0-9_-])kilo_[A-Za-z0-9_-]{32,}(?![A-Za-z0-9_-])"
 )
 
 
