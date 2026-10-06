@@ -221,9 +221,10 @@ jobs:
 
           python3 - <<'PY'
           import json
+          import os
           from pathlib import Path
 
-          root = Path("$RUNNER_TEMP/ehb-cross-run")
+          root = Path(os.environ["RUNNER_TEMP"]) / "ehb-cross-run"
           slot1 = json.loads((root / "state/campaign/SECOND_SLOT_01_TASK.json").read_text())
           slot10 = json.loads((root / "state/campaign/SECOND_SLOT_10_TASK.json").read_text())
           manifest = json.loads((root / "state/campaign/CAMPAIGN_MANIFEST.json").read_text())
