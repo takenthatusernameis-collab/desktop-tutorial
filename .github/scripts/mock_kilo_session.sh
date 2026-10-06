@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-agent_number="$1"
-task_path="$2"
-result_path="$3"
+campaign_slot="$1"
+agent_number="$2"
+task_path="$3"
+result_path="$4"
 
 session_id="$(python3 - <<'PY'
 import uuid
@@ -15,7 +16,7 @@ task_id="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1], encodi
 mkdir -p "$(dirname "$result_path")"
 printf '%s\n' "$session_id" > "$(dirname "$result_path")/MOCK_SESSION_ID"
 cat > "$result_path" <<EOF
-OUTCOME_CLASS: $([ "$agent_number" -eq 3 ] && echo INFRASTRUCTURE_FAILURE || echo NEW_EVIDENCE)
+OUTCOME_CLASS: $([ "$campaign_slot" -eq 3 ] && echo INFRASTRUCTURE_FAILURE || echo NEW_EVIDENCE)
 TASK_ID: $task_id
 PRIMARY_QUESTION: Mock session executes the controller-selected task only.
 BOTTLENECK: Dummy orchestration path.
@@ -29,14 +30,14 @@ VERIFICATION_REQUIREMENT: Controller structural verification.
 CHANGED: true
 VERIFIED: mock session boundary
 UNVERIFIED: real Kilo behavior
-OBSERVED_EFFECT: Mock session $agent_number created unique session_id=$session_id.
+OBSERVED_EFFECT: Mock global Agent $agent_number (campaign slot $campaign_slot) created unique session_id=$session_id.
 UNCERTAINTY_TARGETED: Sequential fresh-session isolation.
 UNCERTAINTY_REDUCED: The controller persisted one bounded result for the next slot.
-DECISION: $([ "$agent_number" -eq 3 ] && echo UNVERIFIED || echo RETAIN)
+DECISION: $([ "$campaign_slot" -eq 3 ] && echo UNVERIFIED || echo RETAIN)
 NEXT: Continue with the next controller-selected bounded task.
 EOF
 
-if [ "$agent_number" -eq 10 ]; then
+if [ "$campaign_slot" -eq 10 ]; then
   mkdir -p "$(dirname "$(dirname "$result_path")")/../reports"
   cat > "$(dirname "$(dirname "$result_path")")/../reports/benchmark_findings_candidate.json" <<'EOF'
 {"findings":[],"smoke_test":true}
@@ -69,7 +70,7 @@ Controller smoke only. No benchmark research evidence is claimed.
 EOF
 fi
 
-if [ "$agent_number" -eq 3 ]; then
+if [ "$campaign_slot" -eq 3 ]; then
   exit 75
 fi
 exit 0
