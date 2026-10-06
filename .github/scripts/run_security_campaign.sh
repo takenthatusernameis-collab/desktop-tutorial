@@ -10,13 +10,13 @@ BASE_WORKSPACE="${RUNNER_TEMP:?}/ehb-campaign-base"
 CONTROLLER="${GITHUB_WORKSPACE:?}/.github/scripts/campaign_controller.py"
 FINALIZER="${GITHUB_WORKSPACE:?}/.github/scripts/finalize_campaign.py"
 
-rm -rf "$CAMPAIGN_CONTEXT" "$CAMPAIGN_AGENT_ROOT" "$BASE_WORKSPACE" \
-       "$EHB_WORKER_DIR/state/campaign"
+rm -rf "$CAMPAIGN_CONTEXT" "$CAMPAIGN_AGENT_ROOT" "$BASE_WORKSPACE"
 mkdir -p "$CAMPAIGN_CONTEXT" "$CAMPAIGN_AGENT_ROOT" "$BASE_WORKSPACE" \
          "$EHB_WORKER_DIR/state/campaign"
 
 echo "CAMPAIGN_AGENT_COUNT=10" >> "$GITHUB_ENV"
 echo "CAMPAIGN_AGENT_TIMEOUT_MINUTES=28" >> "$GITHUB_ENV"
+echo "CAMPAIGN_ID=${GITHUB_RUN_ID:-unknown}" >> "$GITHUB_ENV"
 echo "CAMPAIGN_STARTED_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
 CAMPAIGN_DUMMY="${CAMPAIGN_DUMMY:-false}"
 
@@ -24,6 +24,30 @@ rsync -a --delete \
   --exclude="state/research/" \
   "$EHB_WORKER_DIR/" "$BASE_WORKSPACE/"
 mkdir -p "$BASE_WORKSPACE/state/campaign"
+
+python3 "$CONTROLLER" start-campaign \
+  --root "$BASE_WORKSPACE" \
+  --campaign-id "${GITHUB_RUN_ID:-unknown}"
+campaign_start_status=$?
+if [ "$campaign_start_status" -ne 0 ]; then
+  echo "CAMPAIGN_START_FAILED=$campaign_start_status" >> "$GITHUB_ENV"
+  exit "$campaign_start_status"
+fi
+
+campaign_start_agent="$(python3 - <<'PY' "$BASE_WORKSPACE/state/campaign/CAMPAIGN_MANIFEST.json"
+import json,sys
+m=json.load(open(sys.argv[1],encoding="utf-8"))
+print(m["starting_agent_number"])
+PY
+)"
+campaign_end_agent="$(python3 - <<'PY' "$BASE_WORKSPACE/state/campaign/CAMPAIGN_MANIFEST.json"
+import json,sys
+m=json.load(open(sys.argv[1],encoding="utf-8"))
+print(m["ending_agent_number"])
+PY
+)"
+echo "CAMPAIGN_AGENT_START=$campaign_start_agent" >> "$GITHUB_ENV"
+echo "CAMPAIGN_AGENT_END=$campaign_end_agent" >> "$GITHUB_ENV"
 
 cat > "$CAMPAIGN_CONTEXT/CAMPAIGN_CONTEXT.md" <<'EOF'
 # Controller Campaign Context
@@ -58,7 +82,9 @@ final_agent_status=FAILED
 finalization_status=FAILED
 
 for index in $(seq 1 10); do
-  printf -v agent_id "%02d" "$index"
+  printf -v slot_id "%02d" "$index"
+  agent_number=$((campaign_start_agent + index - 1))
+  printf -v agent_id "%02d" "$agent_number"
   agent_dir="$BASE_WORKSPACE"
   log_path="$RUNNER_TEMP/ehb-campaign-agent-$agent_id.log"
   mkdir -p "$agent_dir/state/campaign"
@@ -84,6 +110,7 @@ for index in $(seq 1 10); do
   elif [ "$CAMPAIGN_DUMMY" = "true" ]; then
     bash "$GITHUB_WORKSPACE/.github/scripts/mock_kilo_session.sh" \
       "$index" \
+      "$agent_number" \
       "$agent_dir/state/campaign/TASK.json" \
       "$agent_dir/state/campaign/RESULT.md"
     status=$?
@@ -221,7 +248,7 @@ EOF
   echo "CAMPAIGN_AGENT_${agent_id}_STATUS=$agent_status" >> "$GITHUB_ENV"
   echo "CAMPAIGN_SUCCESS_COUNT=$campaign_successes" >> "$GITHUB_ENV"
   echo "CAMPAIGN_FAILURE_COUNT=$campaign_failures" >> "$GITHUB_ENV"
-  echo "::notice::Campaign agent $index/10 finished: $agent_status; task=$task_id_value; successes=$campaign_successes; failures=$campaign_failures"
+  echo "::notice::Campaign agent $index/10 (global Agent $agent_id) finished: $agent_status; task=$task_id_value; successes=$campaign_successes; failures=$campaign_failures"
 done
 
 # Carry the shared research workspace to the outer persistence boundary.
@@ -247,7 +274,7 @@ fi
 
 python3 "$FINALIZER" prepare --root "$EHB_WORKER_DIR"
 finalization_status=$?
-final_agent_status=$(grep '^STATUS:' "$EHB_WORKER_DIR/state/campaign/agent_10_CONTROLLER.md" 2>/dev/null | cut -d' ' -f2-)
+final_agent_status=$(grep '^STATUS:' "$EHB_WORKER_DIR/state/campaign/agent_${campaign_end_agent}_CONTROLLER.md" 2>/dev/null | cut -d' ' -f2-)
 [ -n "$final_agent_status" ] || final_agent_status=FAILED
 
 campaign_status=FAILED
@@ -268,7 +295,10 @@ cat > "$EHB_WORKER_DIR/state/campaign/campaign_status.json" <<EOF
 {
   "schema_version": 2,
   "status": "$campaign_status",
+  "campaign_id": "${GITHUB_RUN_ID:-unknown}",
   "agent_count": 10,
+  "starting_agent_number": $campaign_start_agent,
+  "ending_agent_number": $campaign_end_agent,
   "success_count": $campaign_successes,
   "failure_count": $campaign_failures,
   "final_agent_status": "$final_agent_status",
@@ -279,7 +309,7 @@ EOF
 
 if [ "$campaign_status" = "COMPLETE" ] || [ "$campaign_status" = "PARTIAL" ]; then
   echo "KILO_LIVENESS_STATUS=COMPLETED_WITH_10_SESSION_CAMPAIGN" >> "$GITHUB_ENV"
-  echo "KILO_LIVENESS_REASON=controller executed exactly ten numbered fresh sessions; failures were preserved as evidence" >> "$GITHUB_ENV"
+  echo "KILO_LIVENESS_REASON=controller executed exactly ten campaign slots using globally sequenced fresh sessions; failures were preserved as evidence" >> "$GITHUB_ENV"
   exit 0
 fi
 
