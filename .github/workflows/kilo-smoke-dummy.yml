@@ -55,6 +55,78 @@ jobs:
           python3 .github/scripts/report_worker_outcome.py --self-test
           python3 .github/scripts/record_failure_memory.py --self-test
 
+      - name: Regression-test result contract and secret scanner
+        run: |
+          set -euo pipefail
+          TEST_ROOT="$RUNNER_TEMP/result-contract-test"
+          TEST_CONTEXT="$RUNNER_TEMP/result-contract-context"
+          rm -rf "$TEST_ROOT" "$TEST_CONTEXT"
+          mkdir -p "$TEST_ROOT/state/campaign" "$TEST_CONTEXT"
+
+          cat > "$TEST_ROOT/state/campaign/GLOBAL_AGENT_COUNTER.json" <<'EOF'
+          {
+            "schema_version": 1,
+            "next_agent_number": 41,
+            "last_reserved_campaign_id": null,
+            "last_reserved_ending_agent_number": 40
+          }
+          EOF
+
+          python3 .github/scripts/campaign_controller.py start-campaign             --root "$TEST_ROOT" --campaign-id result-contract-smoke >/dev/null
+          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$TEST_ROOT"             --agent-root "$TEST_ROOT"             --context-dir "$TEST_CONTEXT"             --campaign-slot 1 >/dev/null
+
+          test -s "$TEST_ROOT/state/campaign/RESULT.md"
+          for field in             OUTCOME_CLASS: TASK_ID: PRIMARY_QUESTION: BOTTLENECK: INFORMATION_GAP:             BOUNDED_ACTION: DELIVERABLE: SUCCESS_EVIDENCE_CRITERION: STOP_CONDITION:             OUT_OF_SCOPE: VERIFICATION_REQUIREMENT: CHANGED: VERIFIED: UNVERIFIED:             OBSERVED_EFFECT: UNCERTAINTY_TARGETED: UNCERTAINTY_REDUCED: DECISION: NEXT:; do
+            grep -Fq "$field" "$TEST_ROOT/state/campaign/RESULT.md"
+          done
+
+          python3 - <<'PY'
+          import importlib.util
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path(os.environ["RUNNER_TEMP"]) / "result-contract-test"
+          task_path = root / "state/campaign/TASK.json"
+          result_path = root / "state/campaign/RESULT.md"
+          task = json.loads(task_path.read_text(encoding="utf-8"))
+
+          result = [
+              "OUTCOME_CLASS: NEW_EVIDENCE",
+              f"TASK_ID: {task['task_id']}",
+              f"PRIMARY_QUESTION: {task['primary_question']}",
+              f"BOTTLENECK: {task['bottleneck']}",
+              f"INFORMATION_GAP: {task['information_gap']}",
+              f"BOUNDED_ACTION: {task['bounded_action']}",
+              f"DELIVERABLE: {task['deliverable']}",
+              f"SUCCESS_EVIDENCE_CRITERION: {task['success_evidence_criterion']}",
+              f"STOP_CONDITION: {task['stop_condition']}",
+              f"OUT_OF_SCOPE: {task['out_of_scope']}",
+              f"VERIFICATION_REQUIREMENT: {task['verification_requirement']}",
+              "CHANGED: true",
+              "VERIFIED: controller smoke test",
+              "UNVERIFIED: none",
+              "OBSERVED_EFFECT: Canonical result template validated.",
+              "UNCERTAINTY_TARGETED: result handoff reliability",
+              "UNCERTAINTY_REDUCED: yes",
+              "DECISION: IMPROVE",
+              "NEXT: Keep using the pre-created canonical result template.",
+          ]
+          result_path.write_text("\n".join(result) + "\n", encoding="utf-8")
+
+          deep_path = Path(".github/scripts/deep_workflow_audit.py")
+          spec = importlib.util.spec_from_file_location("deep_audit", deep_path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+
+          assert module.SECRET_TEXT_RE.search("sk-" + "a" * 32)
+          assert module.SECRET_TEXT_RE.search("kilo_" + "a" * 32)
+          assert not module.SECRET_TEXT_RE.search("task-11-task-selection-bias-df5ed80051")
+          print("Result-contract template and credential-scanner boundary regression passed.")
+          PY
+
+          python3 .github/scripts/campaign_controller.py validate-result             --task "$TEST_ROOT/state/campaign/TASK.json"             --result "$TEST_ROOT/state/campaign/RESULT.md"
+
       - name: Prepare isolated dummy campaign state
         run: |
           set -euo pipefail
