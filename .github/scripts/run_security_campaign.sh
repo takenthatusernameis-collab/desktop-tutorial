@@ -72,6 +72,11 @@ for index in $(seq 1 10); do
     --agent-number "$index"
   prep_status=$?
 
+  if [ "$prep_status" -eq 0 ] && [ -s "$agent_dir/state/campaign/TASK.json" ]; then
+    cp "$agent_dir/state/campaign/TASK.json" \
+      "$BASE_WORKSPACE/state/campaign/agent_${agent_id}_TASK.json"
+  fi
+
   if [ "$prep_status" -ne 0 ]; then
     echo "TASK_FIREWALL_REJECTED for Agent $agent_id."
     status="$prep_status"
