@@ -617,6 +617,7 @@ jobs:
           python3 lab/generate_solver_feedback.py \
             --result "reports/benchmark_${BENCHMARK_ID}.json" \
             --history "lab/benchmark_history.jsonl" \
+            --process-history "state/research/PROCESS_HISTORY.jsonl" \
             --output "SOLVER_FEEDBACK.md"
           test -s SOLVER_FEEDBACK.md
           echo "Trusted aggregate solver feedback generated."
@@ -662,6 +663,16 @@ jobs:
           rc=$?
           echo "CAMPAIGN_HEALTH_RC=$rc"
           exit 0
+
+      - name: Refresh safe solver feedback with process evaluation
+        id: feedback_process
+        if: always() && steps.evaluate.outcome == 'success' && steps.campaign_health.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 lab/generate_solver_feedback.py             --result "reports/benchmark_${BENCHMARK_ID}.json"             --history "lab/benchmark_history.jsonl"             --process-history "state/research/PROCESS_HISTORY.jsonl"             --output "SOLVER_FEEDBACK.md"
+          test -s SOLVER_FEEDBACK.md
+          echo "Trusted aggregate solver feedback refreshed with current process evaluation."
 
       - name: Record worker failure memory
         id: failure_memory
@@ -744,6 +755,7 @@ jobs:
             state/research/GENERATIONS \
             state/research/RESULTS \
             state/research/REVIEWS \
+            state/research/PROCESS_HISTORY.jsonl \
             state/campaign; do
             if [ -e "$durable_path" ]; then
               git add -f -- "$durable_path"
