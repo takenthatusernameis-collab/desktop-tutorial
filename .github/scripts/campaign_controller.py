@@ -384,6 +384,8 @@ def command_prepare(args: argparse.Namespace) -> int:
     agent_dir.mkdir(parents=True, exist_ok=True)
 
     task, candidates, _ = build_task(args.agent_number, root, campaign_dir)
+    task["agent_number"] = args.agent_number
+    task["role"] = "LEARNING_PROCESS" if args.agent_number % 2 else "HIGHER_ORDER_RESEARCH"
     errors = validate_task(task)
     if errors:
         raise SystemExit("TASK_FIREWALL_REJECTED: " + "; ".join(errors))
