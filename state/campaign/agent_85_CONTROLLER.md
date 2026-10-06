@@ -1,0 +1,7 @@
+AGENT_NUMBER: 85
+TASK_ID: task-85-evaluate-prior-research-effect-de4a6ebed1
+SESSION_ID: 
+STATUS: SUCCESS
+EXIT_CODE: 0
+RESULT_VALID: true
+OBSERVED_UTC: 2026-10-06T20:37:26Z
