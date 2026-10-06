@@ -1,10 +1,19 @@
 #!/usr/bin/env python3
-"""Build a durable, aggregate campaign-health record."""
+"""Build a precise, durable research-process evaluation.
+
+The hidden benchmark score and the research-process score are intentionally
+separate. Hidden replay measures benchmark outcome; this module measures how
+well the research system operated even when hidden replay produced no match.
+"""
+
 from __future__ import annotations
 
 import argparse
 import json
+import os
+import re
 from pathlib import Path
+from statistics import fmean
 from typing import Any
 
 OUTCOME_CLASSES = {
@@ -14,6 +23,15 @@ OUTCOME_CLASSES = {
     "NO_NEW_INFORMATION",
     "INFRASTRUCTURE_FAILURE",
 }
+REQUIRED_FIELDS = (
+    "OUTCOME_CLASS:",
+    "HYPOTHESIS:",
+    "OBSERVATION:",
+    "FALSIFICATION:",
+    "DECISION:",
+    "NEXT:",
+)
+
 
 def load_json(path: Path, default: Any) -> Any:
     try:
@@ -21,45 +39,105 @@ def load_json(path: Path, default: Any) -> Any:
     except (OSError, json.JSONDecodeError):
         return default
 
-def collect_agent_outcomes(context_dir: Path) -> list[str]:
-    outcomes: list[str] = []
+
+def clamp(value: float) -> float:
+    return max(0.0, min(1.0, float(value)))
+
+
+def normalize_text(value: str) -> str:
+    value = value.lower().strip()
+    value = re.sub(r"[^a-z0-9\s]+", " ", value)
+    value = re.sub(r"\s+", " ", value)
+    return value[:240]
+
+
+def read_agent_memos(context_dir: Path) -> list[dict[str, Any]]:
+    memos: list[dict[str, Any]] = []
     for path in sorted(context_dir.glob("agent_*_RESULT.md")):
-        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
-            if line.startswith("OUTCOME_CLASS:"):
-                value = line.split(":", 1)[1].strip()
-                if value in OUTCOME_CLASSES:
-                    outcomes.append(value)
-                break
-    return outcomes
+        text = path.read_text(encoding="utf-8", errors="replace")
+        lines = text.splitlines()
+        fields: dict[str, str] = {}
+        for index, line in enumerate(lines):
+            for field in REQUIRED_FIELDS:
+                if line.startswith(field):
+                    value_lines = []
+                    first = line.split(":", 1)[1].strip()
+                    if first:
+                        value_lines.append(first)
+                    for continuation in lines[index + 1 :]:
+                        if any(continuation.startswith(prefix) for prefix in REQUIRED_FIELDS):
+                            break
+                        if continuation.strip():
+                            value_lines.append(continuation.strip())
+                    fields[field] = " ".join(value_lines).strip()
+                    break
+        outcome = fields.get("OUTCOME_CLASS:", "").strip()
+        substantive = outcome in OUTCOME_CLASSES and outcome != "INFRASTRUCTURE_FAILURE"
+        complete = all(fields.get(field, "").strip() for field in REQUIRED_FIELDS)
+        memos.append(
+            {
+                "path": str(path),
+                "outcome_class": outcome,
+                "substantive": substantive,
+                "complete": complete,
+                "hypothesis": fields.get("HYPOTHESIS:", ""),
+                "decision": fields.get("DECISION:", ""),
+                "next": fields.get("NEXT:", ""),
+            }
+        )
+    return memos
 
-def classify_research(outcomes: list[str], campaign_status: str) -> str:
-    if "NEW_EVIDENCE" in outcomes or "FALSIFIED" in outcomes:
-        return "PROGRESS"
-    if "NEW_HYPOTHESIS" in outcomes:
-        return "HYPOTHESIS_PROGRESS"
-    if campaign_status == "FAILED":
-        return "BLOCKED"
-    if outcomes:
-        return "NO_NEW_INFORMATION"
-    return "NO_RESULT"
 
-def classify_evaluation(evaluate: str, result: dict[str, Any]) -> str:
-    if evaluate != "success":
-        return "EVALUATION_FAILED"
-    reproduced = int(result.get("reproduced_claim_count", 0) or 0)
-    submitted = int(result.get("finding_count_submitted", 0) or 0)
-    if submitted == 0:
-        return "EVALUATED_NO_SUBMISSIONS"
-    if reproduced > 0:
-        return "EVALUATED_MATCHES"
-    return "EVALUATED_NO_MATCHES"
+def portfolio_metrics() -> dict[str, float]:
+    summary = load_json(Path("state/research/PORTFOLIO_SUMMARY.json"), {})
+    candidates = int(summary.get("candidate_requests", 0) or 0)
+    behavioral_differences = int(summary.get("behavioral_differences", 0) or 0)
+    repeat_reproductions = int(summary.get("repeat_reproductions", 0) or 0)
+    generations = int(summary.get("executed_generations", 0) or 0)
+    families = len(summary.get("families_represented") or [])
+    surfaces = len(summary.get("surfaces_represented") or [])
+    return {
+        "candidate_requests": float(candidates),
+        "behavioral_differences": float(behavioral_differences),
+        "repeat_reproductions": float(repeat_reproductions),
+        "executed_generations": float(generations),
+        "families_represented": float(families),
+        "surfaces_represented": float(surfaces),
+        "behavioral_difference_rate": clamp(
+            behavioral_differences / max(1, candidates)
+        ),
+        "repeat_reproduction_rate": clamp(
+            repeat_reproductions / max(1, candidates)
+        ),
+    }
 
-def classify_evidence(findings_path: Path, proposal_path: Path) -> str:
-    if not findings_path.is_file() or findings_path.stat().st_size == 0:
-        return "MISSING"
-    if not proposal_path.is_file() or proposal_path.stat().st_size == 0:
-        return "PARTIAL"
-    return "PRESENT"
+
+def trend(history_path: Path, key: str) -> dict[str, Any]:
+    if not history_path.exists():
+        return {"current": None, "previous": None, "delta": None, "direction": "insufficient_history"}
+    rows = []
+    for line in history_path.read_text(encoding="utf-8").splitlines():
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict) and isinstance(value.get(key), (int, float)):
+            rows.append(float(value[key]))
+    if not rows:
+        return {"current": None, "previous": None, "delta": None, "direction": "insufficient_history"}
+    current = rows[-1]
+    previous = rows[-2] if len(rows) >= 2 else None
+    delta = None if previous is None else round(current - previous, 4)
+    if delta is None:
+        direction = "baseline"
+    elif delta > 0.03:
+        direction = "improving"
+    elif delta < -0.03:
+        direction = "declining"
+    else:
+        direction = "stable"
+    return {"current": round(current, 4), "previous": None if previous is None else round(previous, 4), "delta": delta, "direction": direction}
+
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -73,21 +151,95 @@ def main() -> int:
     parser.add_argument("--result", default="")
     parser.add_argument("--findings", default="reports/benchmark_findings.json")
     parser.add_argument("--proposal", default="PROGRAM_PROPOSAL.json")
+    parser.add_argument("--process-history", default="state/research/PROCESS_HISTORY.jsonl")
     args = parser.parse_args()
 
     result = load_json(Path(args.result), {}) if args.result else {}
-    outcomes = collect_agent_outcomes(Path(args.context_dir))
+    memos = read_agent_memos(Path(args.context_dir))
+    substantive = [m for m in memos if m["substantive"]]
+    complete = [m for m in memos if m["substantive"] and m["complete"]]
+    outcomes = [m["outcome_class"] for m in memos]
+
+    counts = {name: outcomes.count(name) for name in sorted(OUTCOME_CLASSES)}
+    total_agents = max(1, len(memos))
+    substantive_count = max(1, len(substantive))
+
+    hypotheses = [normalize_text(m["hypothesis"]) for m in substantive if m["hypothesis"].strip()]
+    hypothesis_diversity = len(set(hypotheses)) / max(1, len(hypotheses))
+
+    learning_yield = clamp(
+        (
+            counts["NEW_EVIDENCE"]
+            + counts["FALSIFIED"]
+            + 0.5 * counts["NEW_HYPOTHESIS"]
+        )
+        / substantive_count
+    )
+
+    falsification_coverage = clamp(counts["FALSIFIED"] / substantive_count)
+
+    portfolio = portfolio_metrics()
+    breadth = clamp(portfolio["families_represented"] / max(1.0, 16.0))
+    evidence_present = (
+        Path(args.findings).is_file()
+        and Path(args.findings).stat().st_size > 0
+        and Path(args.proposal).is_file()
+        and Path(args.proposal).stat().st_size > 0
+    )
+
+    metrics = {
+        "execution_reliability": 1.0 if args.preflight == "success" and args.smoke == "success" else 0.0,
+        "agent_completion": clamp(len(substantive) / total_agents),
+        "memo_integrity": clamp(len(complete) / max(1, len(substantive))),
+        "hypothesis_diversity": round(clamp(hypothesis_diversity), 4),
+        "learning_yield": round(learning_yield, 4),
+        "falsification_coverage": round(falsification_coverage, 4),
+        "research_breadth": round(breadth, 4),
+        "reproduction_density": round(portfolio["repeat_reproduction_rate"], 4),
+        "handoff_completeness": 1.0 if evidence_present else 0.0,
+    }
+
+    # Equal weighting avoids arbitrary emphasis and keeps the index interpretable.
+    process_score = round(fmean(metrics.values()), 4) if metrics else 0.0
+    stagnation_rate = clamp(counts["NO_NEW_INFORMATION"] / substantive_count)
+
+    activation_id = os.environ.get("GITHUB_RUN_ID", "unknown")
     record = {
-        "schema_version": 1,
+        "schema_version": 2,
+        "activation_id": activation_id,
         "execution_health": "HEALTHY" if args.preflight == "success" and args.smoke == "success" else "DEGRADED",
-        "research_health": classify_research(outcomes, args.campaign_status),
-        "evidence_health": classify_evidence(Path(args.findings), Path(args.proposal)),
-        "evaluation_health": classify_evaluation(args.evaluate, result),
-        "persistence_health": "DURABLE" if args.persist == "success" else "PARTIAL",
+        "research_health": (
+            "PROGRESS"
+            if counts["NEW_EVIDENCE"] or counts["FALSIFIED"]
+            else "HYPOTHESIS_PROGRESS"
+            if counts["NEW_HYPOTHESIS"]
+            else "NO_NEW_INFORMATION"
+            if substantive
+            else "BLOCKED"
+        ),
+        "evidence_health": "PRESENT" if evidence_present else "MISSING",
+        "evaluation_health": (
+            "EVALUATION_FAILED"
+            if args.evaluate != "success"
+            else "EVALUATED_MATCHES"
+            if int(result.get("reproduced_claim_count", 0) or 0) > 0
+            else "EVALUATED_NO_MATCHES"
+            if int(result.get("finding_count_submitted", 0) or 0) > 0
+            else "EVALUATED_NO_SUBMISSIONS"
+        ),
+        "persistence_health": (
+            "DURABLE" if args.persist == "success"
+            else "PENDING_COMMIT" if args.persist == "pending"
+            else "PARTIAL"
+        ),
         "campaign_status": args.campaign_status,
-        "agent_result_count": len(outcomes),
-        "outcome_class_counts": {name: outcomes.count(name) for name in sorted(OUTCOME_CLASSES)},
-        "evaluation": {
+        "agent_result_count": len(memos),
+        "outcome_class_counts": counts,
+        "process_score": process_score,
+        "process_metrics": metrics,
+        "stagnation_rate": round(stagnation_rate, 4),
+        "portfolio": portfolio,
+        "benchmark": {
             "finding_count_submitted": int(result.get("finding_count_submitted", 0) or 0),
             "reproduced_claim_count": int(result.get("reproduced_claim_count", 0) or 0),
             "unmatched_claim_count": int(result.get("unmatched_claim_count", 0) or 0),
@@ -99,11 +251,43 @@ def main() -> int:
             "evidence_quality": float(result.get("evidence_quality", 0.0) or 0.0),
         },
     }
+
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    print(json.dumps(record, sort_keys=True))
+
+    history = Path(args.process_history)
+    history.parent.mkdir(parents=True, exist_ok=True)
+    existing = []
+    if history.exists():
+        for line in history.read_text(encoding="utf-8").splitlines():
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(value, dict):
+                existing.append(value)
+    if not any(str(row.get("activation_id")) == activation_id for row in existing):
+        history.open("a", encoding="utf-8").write(json.dumps(
+            {
+                "activation_id": activation_id,
+                "process_score": process_score,
+                "stagnation_rate": round(stagnation_rate, 4),
+                "metrics": metrics,
+                "research_health": record["research_health"],
+                "evaluation_health": record["evaluation_health"],
+            },
+            sort_keys=True,
+        ) + "\n")
+
+    print(json.dumps({
+        "process_score": process_score,
+        "process_metrics": metrics,
+        "stagnation_rate": round(stagnation_rate, 4),
+        "benchmark_score": record["benchmark"]["overall_score"],
+    }, sort_keys=True))
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
