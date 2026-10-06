@@ -144,6 +144,12 @@ jobs:
           assert status["success_count"] == 9, status
           assert status["failure_count"] == 1, status
           assert status["final_agent_status"] == "SUCCESS", status
+          assert status["starting_agent_number"] == 1, status
+          assert status["ending_agent_number"] == 10, status
+
+          manifest = json.loads((root / "state/campaign/CAMPAIGN_MANIFEST.json").read_text())
+          assert manifest["starting_agent_number"] == 1, manifest
+          assert manifest["ending_agent_number"] == 10, manifest
 
           results = sorted((root / "state/campaign").glob("agent_*_RESULT.md"))
           tasks = sorted((root / "state/campaign").glob("agent_*_TASK.json"))
@@ -196,7 +202,43 @@ jobs:
           assert (root / "PROGRAM_PROPOSAL.json").is_file()
           assert (root / "reports/benchmark_findings.json").is_file()
           assert (root / "reports/benchmark_research.md").is_file()
-          print("Dummy campaign orchestration contract passed.")
+          print("Dummy first campaign orchestration contract passed.")
+          PY
+
+          CROSS_RUN_ROOT="$RUNNER_TEMP/ehb-cross-run"
+          NEXT_CONTEXT="$RUNNER_TEMP/ehb-next-campaign-context"
+          rm -rf "$CROSS_RUN_ROOT" "$NEXT_CONTEXT"
+          cp -a "$EHB_WORKER_DIR/." "$CROSS_RUN_ROOT/"
+          mkdir -p "$NEXT_CONTEXT"
+
+          python3 .github/scripts/campaign_controller.py start-campaign             --root "$CROSS_RUN_ROOT"             --campaign-id dummy-smoke-second
+
+          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$CROSS_RUN_ROOT"             --agent-root "$CROSS_RUN_ROOT"             --context-dir "$NEXT_CONTEXT"             --campaign-slot 1
+          cp "$CROSS_RUN_ROOT/state/campaign/TASK.json" "$CROSS_RUN_ROOT/state/campaign/SECOND_SLOT_01_TASK.json"
+
+          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$CROSS_RUN_ROOT"             --agent-root "$CROSS_RUN_ROOT"             --context-dir "$NEXT_CONTEXT"             --campaign-slot 10
+          cp "$CROSS_RUN_ROOT/state/campaign/TASK.json" "$CROSS_RUN_ROOT/state/campaign/SECOND_SLOT_10_TASK.json"
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("$RUNNER_TEMP/ehb-cross-run")
+          slot1 = json.loads((root / "state/campaign/SECOND_SLOT_01_TASK.json").read_text())
+          slot10 = json.loads((root / "state/campaign/SECOND_SLOT_10_TASK.json").read_text())
+          manifest = json.loads((root / "state/campaign/CAMPAIGN_MANIFEST.json").read_text())
+          counter = json.loads((root / "state/campaign/GLOBAL_AGENT_COUNTER.json").read_text())
+
+          assert manifest["starting_agent_number"] == 11, manifest
+          assert manifest["ending_agent_number"] == 20, manifest
+          assert slot1["agent_number"] == 11, slot1
+          assert slot1["campaign_slot"] == 1, slot1
+          assert slot1["role"] == "LEARNING_PROCESS", slot1
+          assert slot10["agent_number"] == 20, slot10
+          assert slot10["campaign_slot"] == 10, slot10
+          assert slot10["role"] == "HIGHER_ORDER_RESEARCH", slot10
+          assert counter["next_agent_number"] == 21, counter
+          print("Cross-campaign global agent sequencing passed: 01-10 -> 11-20.")
           PY
 
       - name: Evaluate fast process-health path
