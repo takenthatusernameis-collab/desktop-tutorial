@@ -14,6 +14,8 @@ on:
       - ".github/scripts/research_portfolio_runner.py"
       - ".github/scripts/report_worker_outcome.py"
       - ".github/scripts/deep_workflow_audit.py"
+      - ".github/scripts/build_progress_snapshot.py"
+      - "lab/generate_solver_feedback.py"
       - ".kilo/wakeup-prompt.md"
       - ".kilo/validate-program-handoff.py"
 
@@ -56,6 +58,8 @@ jobs:
           python3 lab/test_benchmark.py
           python3 lab/test_research_program.py
           python3 -m py_compile \
+            .github/scripts/build_progress_snapshot.py \
+            lab/generate_solver_feedback.py \
             lab/kilo_gateway_proxy.py \
             lab/generate_solver_feedback.py \
             lab/generate_benchmark.py \
@@ -648,19 +652,6 @@ jobs:
               --public /run/lab/public.json \
               --workspace /workspace
 
-      - name: Generate safe solver feedback
-        id: feedback
-        if: always() && steps.evaluate.outcome == 'success'
-        continue-on-error: true
-        run: |
-          set -euo pipefail
-          python3 lab/generate_solver_feedback.py \
-            --result "reports/benchmark_${BENCHMARK_ID}.json" \
-            --history "lab/benchmark_history.jsonl" \
-            --output "SOLVER_FEEDBACK.md"
-          test -s SOLVER_FEEDBACK.md
-          echo "Trusted aggregate solver feedback generated."
-
       - name: Preserve manual-dispatch forensic benchmark
         id: audit_source_22_preserve_manual_dispatch_forensic_benchmark
         if: always() && github.event_name == 'workflow_dispatch'
@@ -713,6 +704,56 @@ jobs:
           echo "FAILURE_MEMORY_RC=$rc"
           exit 0
 
+      - name: Track activation-level research progress
+        id: progress
+        if: always()
+        continue-on-error: true
+        env:
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          KILO_SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
+          RESEARCH_PORTFOLIO_OUTCOME: ${{ steps.research_portfolio.outcome }}
+          KILO_OUTCOME: ${{ steps.kilo.outcome }}
+          EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/build_progress_snapshot.py \
+            --result "reports/benchmark_${BENCHMARK_ID}.json" \
+            --preflight "${PREFLIGHT_OUTCOME}" \
+            --smoke "${KILO_SMOKE_OUTCOME}" \
+            --portfolio "${RESEARCH_PORTFOLIO_OUTCOME}" \
+            --worker "${KILO_OUTCOME}" \
+            --evaluate "${EVALUATE_OUTCOME}" \
+            --persist "pending"
+          test -s state/research/PROCESS_HISTORY.jsonl
+          test -s state/research/PROGRESS.json
+
+      - name: Generate safe solver feedback
+        id: feedback
+        if: always() && steps.evaluate.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 lab/generate_solver_feedback.py \
+            --result "reports/benchmark_${BENCHMARK_ID}.json" \
+            --history "lab/benchmark_history.jsonl" \
+            --process-history "state/research/PROCESS_HISTORY.jsonl" \
+            --output "SOLVER_FEEDBACK.md"
+          test -s SOLVER_FEEDBACK.md
+          echo "Trusted aggregate solver feedback generated."
+
+      - name: Deep audit — after Track activation-level research progress
+        id: deep_audit_progress
+        if: always()
+        continue-on-error: true
+        env:
+          AUDIT_PREV_OUTCOME: ${{ steps.progress.outcome }}
+        run: |
+          set +e
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Track activation-level research progress"
+          rc=$?
+          echo "DEEP_AUDIT_RC=$rc"
+          exit 0
+
       - name: Persist safe repository changes
         id: persist
         if: always()
@@ -762,6 +803,8 @@ jobs:
             state/research/PORTFOLIO_CHECKLIST.md \
             state/research/PORTFOLIO_SUMMARY.json \
             state/research/COMPILED_PORTFOLIO.json \
+            state/research/PROCESS_HISTORY.jsonl \
+            state/research/PROGRESS.json \
             state/research/FAILURE_MEMORY.jsonl \
             state/research/GENERATIONS \
             state/research/RESULTS \
