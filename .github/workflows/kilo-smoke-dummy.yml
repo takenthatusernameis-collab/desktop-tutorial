@@ -161,9 +161,17 @@ jobs:
             cp -a ".kilo/wakeup-prompt.md" "$EHB_WORKER_DIR/.kilo/wakeup-prompt.md"
           fi
 
-          if [ -e "state/campaign/GLOBAL_AGENT_COUNTER.json" ]; then
-            cp -a "state/campaign/GLOBAL_AGENT_COUNTER.json" "$EHB_WORKER_DIR/state/campaign/GLOBAL_AGENT_COUNTER.json"
-          fi
+          # Dummy smoke must use a deterministic isolated counter. Never inherit
+          # the live campaign's global agent number, because the smoke contract
+          # intentionally validates the fixed 11-20 -> 21-30 sequence.
+          cat > "$EHB_WORKER_DIR/state/campaign/GLOBAL_AGENT_COUNTER.json" <<'EOF'
+          {
+            "schema_version": 1,
+            "next_agent_number": 11,
+            "last_reserved_campaign_id": null,
+            "last_reserved_ending_agent_number": 10
+          }
+          EOF
 
           cat > "$EHB_WORKER_DIR/state/research/PROGRAM.json" <<'EOF'
           {
