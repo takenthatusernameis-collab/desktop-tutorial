@@ -302,6 +302,44 @@ jobs:
 
 
 
+      - name: Regression-test corrupt campaign-state fail-closed behavior
+        run: |
+          set -euo pipefail
+          BAD_ROOT="$RUNNER_TEMP/ehb-bad-campaign-state"
+          rm -rf "$BAD_ROOT"
+          mkdir -p "$BAD_ROOT/state/campaign"
+
+          cat > "$BAD_ROOT/state/campaign/GLOBAL_AGENT_COUNTER.json" <<'EOF'
+          {
+            "schema_version": 1,
+            "next_agent_number": "not-a-number"
+          }
+          EOF
+          if python3 .github/scripts/campaign_controller.py start-campaign               --root "$BAD_ROOT" --campaign-id bad-counter >/dev/null 2>&1; then
+            echo "Corrupt counter was incorrectly accepted."
+            exit 1
+          fi
+
+          printf '%s\n' '{"campaign_id":"bad-manifest","agent_count":10}'             > "$BAD_ROOT/state/campaign/CAMPAIGN_MANIFEST.json"
+          cat > "$BAD_ROOT/state/campaign/GLOBAL_AGENT_COUNTER.json" <<'EOF'
+          {
+            "schema_version": 1,
+            "next_agent_number": 31
+          }
+          EOF
+          if python3 .github/scripts/campaign_controller.py start-campaign               --root "$BAD_ROOT" --campaign-id bad-manifest >/dev/null 2>&1; then
+            echo "Corrupt idempotent manifest was incorrectly accepted."
+            exit 1
+          fi
+
+          rm -f "$BAD_ROOT/state/campaign/CAMPAIGN_MANIFEST.json"
+          rm -f "$BAD_ROOT/state/campaign/GLOBAL_AGENT_COUNTER.json"
+          if python3 .github/scripts/campaign_controller.py start-campaign               --root "$BAD_ROOT" --campaign-id missing-counter >/dev/null 2>&1; then
+            echo "Missing counter was incorrectly treated as Agent 1."
+            exit 1
+          fi
+          echo "Corrupt campaign-state fail-closed regression passed."
+
       - name: Regression-test stale program handoff isolation
         run: |
           set -euo pipefail
