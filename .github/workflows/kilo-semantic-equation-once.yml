@@ -1,0 +1,210 @@
+name: One-Time Kilo Semantic Equation Path Test
+
+on:
+  push:
+    paths:
+      - ".github/workflows/kilo-semantic-equation-once.yml"
+      - ".github/scripts/run_semantic_equation_test.sh"
+  workflow_dispatch:
+
+concurrency:
+  group: kilo-semantic-equation-once
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  semantic-equation-test:
+    name: Ten fresh Kilo semantic-path equation agents
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      EHB_KILO_IMAGE: ehb-kilo-semantic-${{ github.run_id }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Discover current free model
+        run: |
+          set -euo pipefail
+          python3 -c '
+          import json, os
+          from urllib.request import Request, urlopen
+
+          request = Request("https://api.kilo.ai/api/gateway/models",
+                            headers={"Accept": "application/json"})
+          with urlopen(request, timeout=20) as response:
+              payload = json.load(response)
+
+          models = payload.get("data", [])
+          free = [m for m in models
+                  if isinstance(m.get("id"), str) and m["id"].endswith(":free")]
+
+          preferred = [
+              "minimax/minimax-m2.1:free",
+              "z-ai/glm-5:free",
+          ]
+
+          selected = next(
+              (m for model_id in preferred for m in free if m.get("id") == model_id),
+              None,
+          )
+
+          if selected is None:
+              def tool_capable(model):
+                  params = model.get("supported_parameters") or []
+                  return bool(
+                      model.get("tool_calling")
+                      or model.get("tool_call")
+                      or any(str(v).lower() in {"tools", "tool_choice"} for v in params)
+                  )
+
+              candidates = sorted(
+                  [m for m in free if tool_capable(m)],
+                  key=lambda m: m.get("id", ""),
+              )
+              selected = candidates[0] if candidates else None
+
+          if selected is None:
+              raise SystemExit("No suitable tool-capable free Kilo model was found.")
+
+          with open("/tmp/kilo-free-model-name", "w", encoding="utf-8") as f:
+              f.write(selected.get("name") or selected["id"])
+
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
+              f.write(f"KILO_FREE_MODEL_ID={selected['id']}\\n")
+
+          print(f"Selected current free model: {selected['id']}")
+          '
+
+      - name: Prepare trusted Kilo configuration
+        run: |
+          set -euo pipefail
+          python3 -c '
+          import json, os
+          from pathlib import Path
+
+          model_id = os.environ["KILO_FREE_MODEL_ID"]
+          model_name = Path("/tmp/kilo-free-model-name").read_text(encoding="utf-8")
+
+          config = {
+              "$schema": "https://app.kilo.ai/config.json",
+              "enabled_providers": ["openai-compatible"],
+              "model": "openai-compatible/free-kilo",
+              "small_model": "openai-compatible/free-kilo",
+              "subagent_model": "openai-compatible/free-kilo",
+              "provider": {
+                  "openai-compatible": {
+                      "options": {
+                          "baseURL": "https://api.kilo.ai/api/gateway"
+                      },
+                      "models": {
+                          "free-kilo": {
+                              "id": model_id,
+                              "name": model_name,
+                              "tool_call": True
+                          }
+                      }
+                  }
+              },
+              "sandbox": {
+                  "enabled": False,
+                  "network": "allow",
+                  "allowed_hosts": [
+                      "github.com:443",
+                      "api.github.com:443",
+                      "raw.githubusercontent.com:443",
+                      "api.kilo.ai:443",
+                      "pypi.org:443",
+                      "files.pythonhosted.org:443",
+                      "registry.npmjs.org:443"
+                  ]
+              }
+          }
+
+          path = Path(os.environ["HOME"]) / ".config" / "kilo" / "kilo.json"
+          path.parent.mkdir(parents=True, exist_ok=True)
+          path.write_text(json.dumps(config, indent=2) + "\\n", encoding="utf-8")
+          os.chmod(path, 0o600)
+          '
+
+      - name: Build isolated Kilo worker image
+        run: |
+          set -euo pipefail
+          docker build --pull -t "$EHB_KILO_IMAGE" -f lab/kilo-worker.Dockerfile lab
+
+      - name: Start isolated Kilo egress relay
+        run: |
+          set -euo pipefail
+          docker network create --internal ehb-semantic-worker-net
+          docker network create ehb-semantic-egress-net
+
+          docker run -d \
+            --name ehb-semantic-kilo-egress \
+            --network ehb-semantic-egress-net \
+            alpine:3.22 \
+            sh -lc 'apk add --no-cache socat >/dev/null && exec socat -d -d TCP-LISTEN:443,reuseaddr,fork,bind=0.0.0.0 TCP4:api.kilo.ai:443'
+
+          docker network connect --alias kilo-gateway ehb-semantic-worker-net ehb-semantic-kilo-egress
+          KILO_RELAY_IP="$(docker inspect -f '{{(index .NetworkSettings.Networks "ehb-semantic-worker-net").IPAddress}}' ehb-semantic-kilo-egress)"
+          test -n "$KILO_RELAY_IP"
+          echo "KILO_RELAY_IP=$KILO_RELAY_IP" >> "$GITHUB_ENV"
+
+          for attempt in $(seq 1 8); do
+            if docker run --rm \
+              --network ehb-semantic-worker-net \
+              --add-host "api.kilo.ai:$KILO_RELAY_IP" \
+              "$EHB_KILO_IMAGE" \
+              bash -lc 'curl --fail --silent --show-error --connect-timeout 10 --max-time 20 https://api.kilo.ai/api/gateway/models >/dev/null'; then
+              echo "Kilo semantic test relay is ready."
+              break
+            fi
+            if [ "$attempt" -eq 8 ]; then
+              echo "Kilo semantic test relay failed readiness."
+              docker logs ehb-semantic-kilo-egress || true
+              exit 1
+            fi
+            sleep 2
+          done
+
+      - name: Run ten-agent semantic equation test
+        id: semantic_test
+        env:
+          KILO_DISABLE_EXTERNAL_SKILLS: "true"
+        run: |
+          set -euo pipefail
+          bash .github/scripts/run_semantic_equation_test.sh
+
+      - name: Publish semantic-path diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semantic-equation-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/semantic-equation-test/results/**
+            ${{ runner.temp }}/semantic-equation-test/context/**
+
+      - name: One-time cleanup after successful test
+        if: steps.semantic_test.outcome == 'success'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "semantic-equation-test"
+          git config user.email "semantic-equation-test@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+
+          git rm -f \
+            .github/workflows/kilo-semantic-equation-once.yml \
+            .github/scripts/run_semantic_equation_test.sh
+
+          git commit -m "Remove completed one-time semantic equation test"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+          echo "One-time semantic equation test removed after successful validation."
