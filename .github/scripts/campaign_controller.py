@@ -23,6 +23,9 @@ OUTCOME_CLASSES = {
     "INFRASTRUCTURE_FAILURE",
 }
 DECISIONS = {"IMPROVE", "RETAIN", "REJECT", "UNVERIFIED"}
+CAMPAIGN_AGENT_COUNT = 10
+GLOBAL_COUNTER_NAME = "GLOBAL_AGENT_COUNTER.json"
+CAMPAIGN_MANIFEST_NAME = "CAMPAIGN_MANIFEST.json"
 
 TASK_FIELDS = (
     "task_id",
@@ -99,8 +102,8 @@ def validate_task(task: dict[str, Any]) -> list[str]:
         if field not in task or not isinstance(task[field], str) or not task[field].strip():
             errors.append(f"missing/empty task field: {field}")
     agent_number = int(task.get("agent_number", 0) or 0)
-    if agent_number < 1 or agent_number > 10:
-        errors.append("agent_number must be 1..10")
+    if agent_number < 1:
+        errors.append("agent_number must be >= 1")
     expected_role = "LEARNING_PROCESS" if agent_number % 2 else "HIGHER_ORDER_RESEARCH"
     if task.get("role") != expected_role:
         errors.append(f"role must be {expected_role}")
@@ -326,7 +329,7 @@ def build_task(agent_number: int, root: Path, campaign_dir: Path) -> tuple[dict[
 
 def write_brief(task: dict[str, Any], brief_path: Path) -> None:
     lines = [
-        f"# Controller-selected focused task — Agent {int(task['agent_number']):02d}",
+        f"# Controller-selected focused task — Agent {int(task['agent_number']):02d} (campaign slot {int(task['campaign_slot'])}/10)",
         "",
         f"ROLE: {task['role']}",
         f"TASK_ID: {task['task_id']}",
@@ -378,6 +381,70 @@ def write_brief(task: dict[str, Any], brief_path: Path) -> None:
     brief_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def load_json_file(path: Path, default=None):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return default
+
+
+def load_manifest(campaign_dir: Path) -> dict[str, Any]:
+    manifest = load_json_file(campaign_dir / CAMPAIGN_MANIFEST_NAME)
+    if not isinstance(manifest, dict):
+        raise SystemExit("CAMPAIGN_MANIFEST_MISSING")
+    required = ("campaign_id", "agent_count", "starting_agent_number", "ending_agent_number")
+    if any(key not in manifest for key in required):
+        raise SystemExit("CAMPAIGN_MANIFEST_INVALID")
+    if int(manifest["agent_count"]) != CAMPAIGN_AGENT_COUNT:
+        raise SystemExit("CAMPAIGN_AGENT_COUNT_INVALID")
+    return manifest
+
+
+def command_start_campaign(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    campaign_dir = root / "state" / "campaign"
+    campaign_dir.mkdir(parents=True, exist_ok=True)
+
+    manifest_path = campaign_dir / CAMPAIGN_MANIFEST_NAME
+    existing = load_json_file(manifest_path)
+    if isinstance(existing, dict) and existing.get("campaign_id") == args.campaign_id:
+        print(json.dumps(existing, sort_keys=True))
+        return 0
+
+    counter_path = campaign_dir / GLOBAL_COUNTER_NAME
+    counter = load_json_file(counter_path, {})
+    next_agent = int(counter.get("next_agent_number", 1) or 1)
+    if next_agent < 1:
+        raise SystemExit("GLOBAL_AGENT_COUNTER_INVALID")
+
+    start = next_agent
+    end = start + CAMPAIGN_AGENT_COUNT - 1
+    manifest = {
+        "schema_version": 1,
+        "campaign_id": str(args.campaign_id),
+        "agent_count": CAMPAIGN_AGENT_COUNT,
+        "starting_agent_number": start,
+        "ending_agent_number": end,
+        "allocation": "RESERVED",
+    }
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    counter_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "next_agent_number": end + 1,
+                "last_reserved_campaign_id": str(args.campaign_id),
+                "last_reserved_ending_agent_number": end,
+            },
+            indent=2,
+            sort_keys=True,
+        ) + "\n",
+        encoding="utf-8",
+    )
+    print(json.dumps(manifest, sort_keys=True))
+    return 0
+
+
 def command_prepare(args: argparse.Namespace) -> int:
     root = Path(args.root)
     campaign_dir = root / "state" / "campaign"
@@ -385,9 +452,18 @@ def command_prepare(args: argparse.Namespace) -> int:
     agent_dir = Path(args.agent_root)
     agent_dir.mkdir(parents=True, exist_ok=True)
 
-    task, candidates, _ = build_task(args.agent_number, root, campaign_dir)
-    task["agent_number"] = args.agent_number
-    task["role"] = "LEARNING_PROCESS" if args.agent_number % 2 else "HIGHER_ORDER_RESEARCH"
+    manifest = load_manifest(campaign_dir)
+    slot = int(args.campaign_slot)
+    if slot < 1 or slot > CAMPAIGN_AGENT_COUNT:
+        raise SystemExit("CAMPAIGN_SLOT_INVALID")
+    agent_number = int(manifest["starting_agent_number"]) + slot - 1
+
+    task, candidates, _ = build_task(agent_number, root, campaign_dir)
+    task["agent_number"] = agent_number
+    task["campaign_slot"] = slot
+    task["campaign_id"] = str(manifest["campaign_id"])
+    task["campaign_agent_count"] = CAMPAIGN_AGENT_COUNT
+    task["role"] = "LEARNING_PROCESS" if agent_number % 2 else "HIGHER_ORDER_RESEARCH"
     errors = validate_task(task)
     if errors:
         raise SystemExit("TASK_FIREWALL_REJECTED: " + "; ".join(errors))
@@ -401,13 +477,15 @@ def command_prepare(args: argparse.Namespace) -> int:
     )
     context_dir = Path(args.context_dir)
     context_dir.mkdir(parents=True, exist_ok=True)
-    (context_dir / f"agent_{args.agent_number:02d}_TASK.json").write_text(
+    (context_dir / f"agent_{agent_number:02d}_TASK.json").write_text(
         json.dumps(task, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
-    write_brief(task, context_dir / f"agent_{args.agent_number:02d}_TASK.md")
+    write_brief(task, context_dir / f"agent_{agent_number:02d}_TASK.md")
     print(json.dumps({
         "task_id": task["task_id"],
-        "agent_number": args.agent_number,
+        "agent_number": agent_number,
+        "campaign_slot": slot,
+        "campaign_id": manifest["campaign_id"],
         "role": task["role"],
         "candidate_count": task["candidate_count"],
     }, sort_keys=True))
@@ -436,11 +514,16 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest="command", required=True)
 
+    start_campaign = sub.add_parser("start-campaign")
+    start_campaign.add_argument("--root", required=True)
+    start_campaign.add_argument("--campaign-id", required=True)
+    start_campaign.set_defaults(func=command_start_campaign)
+
     prepare = sub.add_parser("prepare-agent")
     prepare.add_argument("--root", required=True)
     prepare.add_argument("--agent-root", required=True)
     prepare.add_argument("--context-dir", required=True)
-    prepare.add_argument("--agent-number", type=int, required=True)
+    prepare.add_argument("--campaign-slot", type=int, required=True)
     prepare.set_defaults(func=command_prepare)
 
     validate = sub.add_parser("validate-task")
