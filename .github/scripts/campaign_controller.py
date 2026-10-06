@@ -131,11 +131,9 @@ def validate_result(path: Path, expected_task: dict[str, Any]) -> list[str]:
     if outcome not in OUTCOME_CLASSES:
         errors.append(f"invalid OUTCOME_CLASS: {outcome!r}")
 
-    raw_decision = fields.get("DECISION", "").strip()
-    decision_match = re.match(r"^(IMPROVE|RETAIN|REJECT|UNVERIFIED)\b", raw_decision)
-    decision = decision_match.group(1) if decision_match else ""
+    decision = fields.get("DECISION", "").strip()
     if decision not in DECISIONS:
-        errors.append(f"invalid DECISION: {raw_decision!r}")
+        errors.append(f"invalid DECISION: {decision!r}")
 
     if fields.get("TASK_ID") != expected_task.get("task_id"):
         errors.append("TASK_ID does not match controller-selected task")
