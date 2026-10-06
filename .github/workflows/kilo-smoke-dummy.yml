@@ -89,6 +89,10 @@ jobs:
             cp -a ".kilo/wakeup-prompt.md" "$EHB_WORKER_DIR/.kilo/wakeup-prompt.md"
           fi
 
+          if [ -e "state/campaign/GLOBAL_AGENT_COUNTER.json" ]; then
+            cp -a "state/campaign/GLOBAL_AGENT_COUNTER.json" "$EHB_WORKER_DIR/state/campaign/GLOBAL_AGENT_COUNTER.json"
+          fi
+
           cat > "$EHB_WORKER_DIR/state/research/PROGRAM.json" <<'EOF'
           {
             "program_version": "1.0.0",
@@ -144,6 +148,12 @@ jobs:
           assert status["success_count"] == 9, status
           assert status["failure_count"] == 1, status
           assert status["final_agent_status"] == "SUCCESS", status
+          assert status["starting_agent_number"] == 11, status
+          assert status["ending_agent_number"] == 20, status
+
+          manifest = json.loads((root / "state/campaign/CAMPAIGN_MANIFEST.json").read_text())
+          assert manifest["starting_agent_number"] == 11, manifest
+          assert manifest["ending_agent_number"] == 20, manifest
 
           results = sorted((root / "state/campaign").glob("agent_*_RESULT.md"))
           tasks = sorted((root / "state/campaign").glob("agent_*_TASK.json"))
@@ -168,12 +178,12 @@ jobs:
                   "stop_condition", "out_of_scope", "verification_requirement",
               ):
                   assert task[field].strip(), (path, field)
-          assert roles[1] == "LEARNING_PROCESS"
-          assert roles[2] == "HIGHER_ORDER_RESEARCH"
-          assert roles[3] == "LEARNING_PROCESS"
-          assert roles[4] == "HIGHER_ORDER_RESEARCH"
-          assert roles[9] == "LEARNING_PROCESS"
-          assert roles[10] == "HIGHER_ORDER_RESEARCH"
+          assert roles[11] == "LEARNING_PROCESS"
+          assert roles[12] == "HIGHER_ORDER_RESEARCH"
+          assert roles[13] == "LEARNING_PROCESS"
+          assert roles[14] == "HIGHER_ORDER_RESEARCH"
+          assert roles[19] == "LEARNING_PROCESS"
+          assert roles[20] == "HIGHER_ORDER_RESEARCH"
 
           for path in results:
               text = path.read_text(encoding="utf-8")
@@ -187,16 +197,53 @@ jobs:
               ):
                   assert field in text, (path, field)
 
-          agent4_task = json.loads((root / "state/campaign/agent_04_TASK.json").read_text())
-          agent3_task = json.loads((root / "state/campaign/agent_03_TASK.json").read_text())
-          assert agent4_task["selection_basis"]["previous_task_id"] == agent3_task["task_id"]
+          agent14_task = json.loads((root / "state/campaign/agent_14_TASK.json").read_text())
+          agent13_task = json.loads((root / "state/campaign/agent_13_TASK.json").read_text())
+          assert agent14_task["selection_basis"]["previous_task_id"] == agent13_task["task_id"]
           assert (root / "state/campaign/FINAL_SYNTHESIS.json").is_file()
           assert (root / "state/campaign/FINAL_SYNTHESIS.md").is_file()
 
           assert (root / "PROGRAM_PROPOSAL.json").is_file()
           assert (root / "reports/benchmark_findings.json").is_file()
           assert (root / "reports/benchmark_research.md").is_file()
-          print("Dummy campaign orchestration contract passed.")
+          print("Dummy first campaign orchestration contract passed: global Agents 11-20.")
+          PY
+
+          CROSS_RUN_ROOT="$RUNNER_TEMP/ehb-cross-run"
+          NEXT_CONTEXT="$RUNNER_TEMP/ehb-next-campaign-context"
+          rm -rf "$CROSS_RUN_ROOT" "$NEXT_CONTEXT"
+          cp -a "$EHB_WORKER_DIR/." "$CROSS_RUN_ROOT/"
+          mkdir -p "$NEXT_CONTEXT"
+
+          python3 .github/scripts/campaign_controller.py start-campaign             --root "$CROSS_RUN_ROOT"             --campaign-id dummy-smoke-second
+
+          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$CROSS_RUN_ROOT"             --agent-root "$CROSS_RUN_ROOT"             --context-dir "$NEXT_CONTEXT"             --campaign-slot 1
+          cp "$CROSS_RUN_ROOT/state/campaign/TASK.json" "$CROSS_RUN_ROOT/state/campaign/SECOND_SLOT_01_TASK.json"
+
+          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$CROSS_RUN_ROOT"             --agent-root "$CROSS_RUN_ROOT"             --context-dir "$NEXT_CONTEXT"             --campaign-slot 10
+          cp "$CROSS_RUN_ROOT/state/campaign/TASK.json" "$CROSS_RUN_ROOT/state/campaign/SECOND_SLOT_10_TASK.json"
+
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path(os.environ["RUNNER_TEMP"]) / "ehb-cross-run"
+          slot1 = json.loads((root / "state/campaign/SECOND_SLOT_01_TASK.json").read_text())
+          slot10 = json.loads((root / "state/campaign/SECOND_SLOT_10_TASK.json").read_text())
+          manifest = json.loads((root / "state/campaign/CAMPAIGN_MANIFEST.json").read_text())
+          counter = json.loads((root / "state/campaign/GLOBAL_AGENT_COUNTER.json").read_text())
+
+          assert manifest["starting_agent_number"] == 21, manifest
+          assert manifest["ending_agent_number"] == 30, manifest
+          assert slot1["agent_number"] == 21, slot1
+          assert slot1["campaign_slot"] == 1, slot1
+          assert slot1["role"] == "LEARNING_PROCESS", slot1
+          assert slot10["agent_number"] == 30, slot10
+          assert slot10["campaign_slot"] == 10, slot10
+          assert slot10["role"] == "HIGHER_ORDER_RESEARCH", slot10
+          assert counter["next_agent_number"] == 31, counter
+          print("Cross-campaign global agent sequencing passed: 11-20 -> 21-30.")
           PY
 
       - name: Evaluate fast process-health path

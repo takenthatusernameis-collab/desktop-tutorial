@@ -55,7 +55,7 @@ maximum useful authorized-security research continuity subject to a small, expli
 
 ## Campaign workspace boundary
 
-The campaign uses one shared disposable research workspace across ten fresh Kilo processes. The workspace carries validated research-state and learner changes forward, while each Kilo process has fresh private context, HOME/cache, and session identity.
+Each activation uses one shared disposable research workspace across ten fresh Kilo processes. The workspace carries validated research-state and learner changes forward, while each Kilo process has fresh private context, HOME/cache, and session identity. Campaign-local slots remain 1–10, while durable global agent identities continue across activations in contiguous ten-agent blocks.
 
 Historical scratch scripts, controller-only benchmark artifacts, and hidden evaluator state are not part of the worker-visible campaign workspace.
 
