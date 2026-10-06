@@ -1,56 +1,58 @@
 {
-  "campaign_id": "ehb-37260280180-eddbb902f2",
-  "produced_at": "2026-10-06T00:31:45Z",
-  "coverage_oracle": "reports/current_challenges.txt",
-  "oracle_solved": [27, 97],
   "findings": [
     {
-      "id": "F-27",
-      "title": "Unauthenticated raw server errors that are neither gracefully nor consistently handled (errorHandlingChallenge, id=27)",
-      "analysis": "Unauthenticated GET requests to application routes that receive missing or invalid parameters produce raw, non-graceful server errors exposing full Node/Express stack traces and raw SQL error text, and the same operation yields different error encodings depending on the Accept header. Two independent routes show the same class of behavior. This is the exact behavior required by the errorHandlingChallenge: 'Provoke an error that is neither very gracefully nor consistently handled.'\n\nReproducible request 1: GET /rest/user/security-question with Accept: text/html,application/xhtml+xml;q=0.9,*/*;q=0.8 -> 500 / 2946 B text/html; title 'Error: WHERE parameter \"email\" has invalid \"undefined\" value' and a full stack trace reaching into /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js (query-generator.whereItemQuery) and /juice-shop/build/models/SecurityAnswer.js (SecurityAnswer.findAll). Raw DB error text ('WHERE parameter \"email\" has invalid \"undefined\" value') and internal module paths are returned to an unauthenticated caller.\n\nRepresentation differential: the identical request with Accept: application/json instead returns 500 / 1804 B application/json, a different body shape and encoding for the same error (raw JSON error rather than the HTML error page). A single-header change produces a materially different error representation — direct evidence of the 'inconsistent' half of the requirement.\n\nIndependent second trigger: GET /redirect?continue=http://example.com -> 500 / 2531 B TypeError 'Cannot read properties of undefined (reading 'includes')' with a stack trace at /juice-shop/build/lib/insecurity.js:157:34 and /juice-shop/build/routes/redirect.js:47:22.\n\nNull / graceful controls: GET /api/Nonexistent/1 -> 500 / 2436 B with only the sanitized message 'Unexpected path' and no stack trace; GET /rest/admin -> 500 / 2422 B 'Unexpected path', no stack trace. These are the application's normal graceful-wrapping responses; the two trigger routes do not follow this path, confirming the behavior is an inconsistency rather than normal error handling.",
-      "false_positive_check": "Why this is not a benign alternative: (1) The error pages return raw stack traces with internal file paths and raw SQL text to unauthenticated callers — not a sanitized user-facing error, which is what an application's normal error handling produces (proven by the null controls /api/Nonexistent/1 and /rest/admin). (2) The Accept-header representation differential (2946 B HTML vs 1804 B JSON for the identical request) proves the errors are 'not consistently handled' — a benign system would render the same error consistently. (3) The same raw-error class appears on two independent routes (/rest/user/security-question and /redirect), indicating a systemic lack of error handling rather than one off-path 500. (4) The challenge text 'neither very gracefully nor consistently handled' maps directly onto these observations; a health/probe route would not return internal module paths and raw SQL. (5) The enumeration sub-path ?email=... that later returns 200 question JSON is a separate, non-counted behavior; the no-param request that returns the raw error is the claimed behavior.",
+      "title": "Raw, inconsistent unauthenticated error responses (error handling)",
+      "analysis": "Unauthenticated GET http://lab-mutator:3000/rest/user/security-question (no query param) returns HTTP 500/2946 B with a raw Sequelize WHERE error ('WHERE parameter \"email\" has invalid \"undefined\" value') and a full Node/Express stack trace containing internal source locations (SQLiteQueryGenerator.whereItemQuery -> sequelize lib). Changing a single request header (Accept: application/json) yields a DIFFERENT raw error body (500/1804 B application/json) instead of a consistent sanitized response - a single-header change produces different raw error encodings, both non-graceful. A second, independent trigger, GET http://lab-mutator:3000/redirect?continue=http://example.com, returns HTTP 500/2531 B with a raw TypeError ('Cannot read properties of undefined (reading 'includes')') and stack trace. All three are inconsistent with the application's normal graceful 500 'Unexpected path' wrapper (verified on the same target: http://lab-mutator:3000/api/Nonexistent/1 -> 500/2436 B and http://lab-mutator:3000/rest/admin -> 500/2422 B, both without raw stack/DB leakage). This demonstrates error handling that is neither graceful nor consistent. Fresh byte signatures: trig1 0b84d83c08cc2842...; trig1_json 20eec46aa7555e7d...; trig2 020023ff4f9ae2b9.... The claim is scoped to the raw-error CLASS and pattern (raw stack/DB error vs graceful wrapper), not literal body text, because response bytes drift across calls within a session while status, size, content-type and error class are invariant.",
+      "false_positive_check": "Baseline control: ordinary unknown routes on the same application return a graceful HTML 500 'Unexpected path' page without stack traces (null1/null2). The two triggers consistently return raw stack/DB errors on repeated fresh in-session calls, and the inconsistency is produced by a single-header change (Accept), so it is not a transient fault. The responses leak internal module paths and SQL parameter errors rather than sanitized user-facing pages, and two distinct raw error classes appear on one application (raw DB error + raw TypeError) instead of the graceful wrapper, so this is an error-handling class difference, not a benign framework default. Challenge-id context (id=27) comes from the worker-visible /api/Challenges/ envelope; the claim rests on observable HTTP behavior, not on any hidden ground truth.",
       "request": {
         "method": "GET",
         "url": "http://lab-mutator:3000/rest/user/security-question",
-        "headers": {"Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"},
+        "headers": {},
         "body": {}
       },
-      "secondary_request": {
+      "differential_control": {
         "method": "GET",
         "url": "http://lab-mutator:3000/rest/user/security-question",
-        "headers": {"Accept": "application/json"},
+        "headers": {
+          "Accept": "application/json"
+        },
         "body": {}
       },
-      "observed_behavior": "500 / 2946 B HTML raw WHERE error + full stack; 500 / 1804 B raw JSON error with same Accept change; independent 500 TypeError on /redirect",
-      "expected_secure_behavior": "A 400/422 or a sanitized user-facing error page containing no internal module paths, no raw SQL text, and no stack trace, rendered consistently for both Accept values",
-      "drift_notice": "Body bytes are volatile across boot/session boundaries at constant size and content class. Captured on 2026-10-06T00:31Z (this boot): GET no-param sha256 0b84d83c08cc..., Accept:json sha256 20eec46aa7555e..., GET /redirect sha256 020023ff4f9ae2b9. The same captures were byte-identical on the 2026-10-05T14:15Z boot, but the 2026-10-05T21:18Z boot produced different bytes (0bdb5e99... / 402c6117... / 4ba9175e...) at the same sizes (2954/1812/2539 B). The claim is therefore anchored on drift-resilient class signals — HTTP 500, raw error text 'WHERE parameter', full stack trace with internal module paths, content-type, and size — with the captured hashes recorded only as within-boot reproducibility markers.",
-      "classification": "VERIFIED - coverage-oracle-matched (id=27), drift-resilient class anchor",
-      "severity": "Security Misconfiguration - d1",
-      "cvss_like_impact": "Sensitive data exposure (internal stack traces, module paths, raw SQL error text) to unauthenticated callers; demonstrates systematic absence of input validation / error handling on routes that do not handle missing parameters."
+      "null_control": [
+        {
+          "method": "GET",
+          "url": "http://lab-mutator:3000/api/Nonexistent/1",
+          "headers": {},
+          "body": {}
+        },
+        {
+          "method": "GET",
+          "url": "http://lab-mutator:3000/rest/admin",
+          "headers": {},
+          "body": {}
+        }
+      ]
     },
     {
-      "id": "F-97",
-      "title": "Unauthenticated Prometheus metrics endpoint exposing application and LLM usage telemetry (exposedMetricsChallenge, id=97)",
-      "analysis": "GET /metrics returns HTTP 200 text/plain Prometheus-format telemetry to any caller, including unauthenticated ones (an invalid Bearer token is accepted and the same telemetry is returned). The payload includes process_*, nodejs_*, juiceshop_version_info=20.2.0, http_requests_count (2XX/3XX/4XX/5XX), juiceshop_challenges_solved, and juiceshop_llm_input_tokens_total / _output_tokens_total / _tool_calls_total gauges. The presence of the llm_* gauges exposes AI/LLM usage metrics (prompt/input/output token counts, tool-call counts) that are intended for observability and are not meant for public consumption; http_requests_count across status classes and challenge-solved counters add information about application state and challenge progress.\n\nReproducible request: GET /metrics, no Authorization header -> 200 / 26197 B text/plain (content-type includes version=0.0.4; charset=utf-8). Re-request with Authorization: Bearer invalid-jwt-token-xyz -> still 200 / 26189 B with the same telemetry (no auth gate). A full-body secrets scan found zero secret-bearing lines (no private keys, API tokens, passwords, or credentials in the metrics payload).\n\nThe challenge 'exposedMetricsChallenge' (Observability Failures, d1) describes exposing internal metrics publicly, which matches: an unauthenticated, unvalidated Prometheus endpoint serving process/LLM/application telemetry.",
-      "false_positive_check": "Why this is not a benign alternative: (1) The endpoint is served with 200 and full Prometheus payload to callers with no valid authentication (invalid Bearer accepted); a benign metrics endpoint would be restricted to authenticated/internal consumers. (2) The payload contains llm_* gauges (LLM input/output token counts, tool calls) and http_requests_count by status class plus juiceshop_challenges_solved — operational telemetry beyond a simple health check, exposing application and AI-usage state to anyone. (3) The content-type 'text/plain; version=0.0.4' and gauge structure are Prometheus-format, not an HTML health probe. (4) A health-check route would return minimal status, not process/node/LLM/application counters. The claim is anchored on gauge presence, Prometheus format, and the absence of an auth gate rather than on volatile byte counts, since the body counter drifts between reads (26197 B this read, 26189 B with Bearer).",
+      "title": "Unauthenticated Prometheus-format observability endpoint exposing internal telemetry",
+      "analysis": "Unauthenticated GET http://lab-mutator:3000/metrics returns HTTP 200/26187 B (and 200/26179 B on a fresh call; value-level counter drift observed across calls) with no authorization required, serving Prometheus-format telemetry: http_requests_count (2XX/3XX/5XX buckets), process_* and nodejs_* runtime metrics, juiceshop_version_info, and juiceshop_llm_input_tokens_total / juiceshop_llm_output_tokens_total / juiceshop_llm_tool_calls_total gauges exposing AI/LLM usage counters, plus juiceshop_challenges_solved. Fresh byte signature: 703a88608aa00cb1... . An invalid Bearer token is also accepted and returns 200 (200/26139 B) - no auth gate on the observability surface. A counter-only scan of the response shows no credentials (only generic HELP-text matches on the word 'token'). Fresh byte signature on second call: c9dba1224acbf429.... Challenge-id context (id=97) comes from the worker-visible /api/Challenges/ envelope.",
+      "false_positive_check": "A properly secured observability endpoint would reject unauthenticated access (401/403) or restrict internal metrics to authenticated consumers; here any caller with no credentials receives full internal telemetry, including AI token-usage counters and the challenge-solve counter. The exposure is structural: two independent fresh calls returned the same telemetry set (gauge presence verified on both), while the only change between calls was incrementing counter VALUES (proof the drift is value-level, not presence-level). A second fresh call returned the same signature class (juiceshop_llm_* gauges present) with different counter values, confirming presence is durable while raw bytes are not. The claim is scoped to the durable presence of internal gauges and the Prometheus structure, not to exact body bytes.",
       "request": {
         "method": "GET",
         "url": "http://lab-mutator:3000/metrics",
         "headers": {},
         "body": {}
       },
-      "secondary_request": {
-        "method": "GET",
-        "url": "http://lab-mutator:3000/metrics",
-        "headers": {"Authorization": "Bearer invalid-jwt-token-xyz"},
-        "body": {}
-      },
-      "observed_behavior": "200 / 26197 B text/plain Prometheus telemetry incl. juiceshop_llm_* gauges and http_requests_count; invalid Bearer returns 200 same telemetry; 0 secret lines",
-      "expected_secure_behavior": "Metrics restricted to authenticated/internal consumers, or exposed only minimal non-sensitive status; no unauthenticated Prometheus telemetry with LLM usage counters",
-      "drift_notice": "Body bytes and internal counter values drift across reads (26197 B vs 26189 B with Bearer) because http_requests_count and juiceshop_llm_* counters increment. The claim rests on gauge presence (juiceshop_llm_*), Prometheus text/plain format, and the absence of an authentication gate — all stable; exact body hashes are recorded only as within-session markers.",
-      "classification": "VERIFIED - coverage-oracle-matched (id=97), drift-resilient anchor",
-      "severity": "Observability Failures - d1",
-      "cvss_like_impact": "Information disclosure: unauthenticated exposure of application internals, LLM usage telemetry, request counts by status, and challenge-solved counters."
+      "null_control": [
+        {
+          "method": "GET",
+          "url": "http://lab-mutator:3000/metrics",
+          "headers": {
+            "Authorization": "Bearer invalid"
+          },
+          "body": {}
+        }
+      ]
     }
   ]
 }

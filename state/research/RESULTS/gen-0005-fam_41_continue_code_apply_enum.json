@@ -1,0 +1,118 @@
+{
+  "behavioral_differences": 8,
+  "candidate_count": 12,
+  "family_id": "fam_41_continue_code_apply_enum",
+  "generation": 5,
+  "generation_id": "gen-0005-fam_41_continue_code_apply_enum",
+  "information_gain": 0.625,
+  "observed_at": "2026-10-06T01:05:22Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-a66096a794fd5581d7b4",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/continue-code/apply/token/./././",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-e4ba24d6cff94314bfd2",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "2b449456fe63436766901be601a82eefddfc27106592b078d71e722af0abb498",
+        "text/html; charset=utf-8",
+        2474,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-8a9f41a5a25ecf8b3ef1",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/./././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "be8dfceb3c4a12dcd40d0a3e9749d7994d592a67750edcc0d35b4ada01268411",
+        "text/html; charset=utf-8",
+        2478,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-5de314e25761e88bdf41",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/././",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "bfe1576d393a5a5d4cb6908b5b95de17dc674f6cb9e913b05fd7bf9829d908ad",
+        "text/html; charset=utf-8",
+        2472,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-4a4fe0085fc979bc4f62",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-8a9f41a5a25ecf8b3ef1",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/continue-code/apply/token/./././.",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 8,
+  "surface_id": "surf_41_continue_code"
+}

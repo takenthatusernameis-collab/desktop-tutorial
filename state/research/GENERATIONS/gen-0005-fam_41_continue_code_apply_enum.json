@@ -1,0 +1,714 @@
+{
+  "actual_execution": true,
+  "candidate_count": 12,
+  "family_id": "fam_41_continue_code_apply_enum",
+  "generation": 5,
+  "generation_id": "gen-0005-fam_41_continue_code_apply_enum",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 2476,
+        "body_sha256": "5129f937b5efe209cd62d310882a289a417c52d1a45f88c70028d6a8737b52b2",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 4.12,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-8186786e69e0564813a3",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 2476,
+        "body_sha256": "5129f937b5efe209cd62d310882a289a417c52d1a45f88c70028d6a8737b52b2",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 6.24,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/./././",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2476,
+        "body_sha256": "5129f937b5efe209cd62d310882a289a417c52d1a45f88c70028d6a8737b52b2",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 4.12,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-db70474e38794ad8d0b9",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.92,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.81,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/continue-code/apply/token/./././",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2476,
+        "body_sha256": "5129f937b5efe209cd62d310882a289a417c52d1a45f88c70028d6a8737b52b2",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 4.12,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-a66096a794fd5581d7b4",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 3.1,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.85,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/continue-code/apply/token/./././",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2476,
+        "body_sha256": "5129f937b5efe209cd62d310882a289a417c52d1a45f88c70028d6a8737b52b2",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 4.12,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-e4ba24d6cff94314bfd2",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "observation": {
+        "body_length": 2474,
+        "body_sha256": "2b449456fe63436766901be601a82eefddfc27106592b078d71e722af0abb498",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.43,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "repeat_observation": {
+        "body_length": 2474,
+        "body_sha256": "2b449456fe63436766901be601a82eefddfc27106592b078d71e722af0abb498",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 6.54,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/././.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2476,
+        "body_sha256": "5129f937b5efe209cd62d310882a289a417c52d1a45f88c70028d6a8737b52b2",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 4.12,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-ab75000af8ec537b417f",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "observation": {
+        "body_length": 2476,
+        "body_sha256": "5129f937b5efe209cd62d310882a289a417c52d1a45f88c70028d6a8737b52b2",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 6.22,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "//rest/continue-code/apply/token/./././",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2476,
+        "body_sha256": "5129f937b5efe209cd62d310882a289a417c52d1a45f88c70028d6a8737b52b2",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 4.12,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-8a9f41a5a25ecf8b3ef1",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "observation": {
+        "body_length": 2478,
+        "body_sha256": "be8dfceb3c4a12dcd40d0a3e9749d7994d592a67750edcc0d35b4ada01268411",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 15.65,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "repeat_observation": {
+        "body_length": 2478,
+        "body_sha256": "be8dfceb3c4a12dcd40d0a3e9749d7994d592a67750edcc0d35b4ada01268411",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 4.57,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/./././.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2470,
+        "body_sha256": "8cefc8d6435aa960125f47461a5cedfa1a02286d78bfa857f5219c33e1a4e931",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.76,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-378abc8a685936c98cd5",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 2470,
+        "body_sha256": "8cefc8d6435aa960125f47461a5cedfa1a02286d78bfa857f5219c33e1a4e931",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 4.21,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/./.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2470,
+        "body_sha256": "8cefc8d6435aa960125f47461a5cedfa1a02286d78bfa857f5219c33e1a4e931",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.76,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-ca7d3bae3f5813d8854a",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 1.36,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 1.42,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/continue-code/apply/token/./.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2470,
+        "body_sha256": "8cefc8d6435aa960125f47461a5cedfa1a02286d78bfa857f5219c33e1a4e931",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.76,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-a97cd5c1352ee3afdebf",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 2.44,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.92,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/continue-code/apply/token/./.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2470,
+        "body_sha256": "8cefc8d6435aa960125f47461a5cedfa1a02286d78bfa857f5219c33e1a4e931",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.76,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-5de314e25761e88bdf41",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "observation": {
+        "body_length": 2472,
+        "body_sha256": "bfe1576d393a5a5d4cb6908b5b95de17dc674f6cb9e913b05fd7bf9829d908ad",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 2.63,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5",
+      "repeat_observation": {
+        "body_length": 2472,
+        "body_sha256": "bfe1576d393a5a5d4cb6908b5b95de17dc674f6cb9e913b05fd7bf9829d908ad",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.72,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/././",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2470,
+        "body_sha256": "8cefc8d6435aa960125f47461a5cedfa1a02286d78bfa857f5219c33e1a4e931",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.76,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-e142c1eeda88aaf473ab",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "observation": {
+        "body_length": 2470,
+        "body_sha256": "8cefc8d6435aa960125f47461a5cedfa1a02286d78bfa857f5219c33e1a4e931",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.29,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "//rest/continue-code/apply/token/./.",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2478,
+        "body_sha256": "be8dfceb3c4a12dcd40d0a3e9749d7994d592a67750edcc0d35b4ada01268411",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.28,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-4a4fe0085fc979bc4f62",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.78,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-8a9f41a5a25ecf8b3ef1",
+      "repeat_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.73,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "repeat_reproduction": true,
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/continue-code/apply/token/./././.",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-06T01:05:22Z",
+  "operators": [
+    "BASELINE",
+    "METHOD_VARIANTS",
+    "PATH_VARIANTS"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-8186786e69e0564813a3",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3"
+    },
+    {
+      "candidate_id": "cand-db70474e38794ad8d0b9",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3"
+    },
+    {
+      "candidate_id": "cand-a66096a794fd5581d7b4",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3"
+    },
+    {
+      "candidate_id": "cand-e4ba24d6cff94314bfd2",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3"
+    },
+    {
+      "candidate_id": "cand-ab75000af8ec537b417f",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3"
+    },
+    {
+      "candidate_id": "cand-8a9f41a5a25ecf8b3ef1",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3"
+    },
+    {
+      "candidate_id": "cand-378abc8a685936c98cd5",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5"
+    },
+    {
+      "candidate_id": "cand-ca7d3bae3f5813d8854a",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5"
+    },
+    {
+      "candidate_id": "cand-a97cd5c1352ee3afdebf",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5"
+    },
+    {
+      "candidate_id": "cand-5de314e25761e88bdf41",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5"
+    },
+    {
+      "candidate_id": "cand-e142c1eeda88aaf473ab",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "duplicate_separator"
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5"
+    },
+    {
+      "candidate_id": "cand-4a4fe0085fc979bc4f62",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-8a9f41a5a25ecf8b3ef1"
+    }
+  ],
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-a66096a794fd5581d7b4",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/continue-code/apply/token/./././",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-e4ba24d6cff94314bfd2",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "2b449456fe63436766901be601a82eefddfc27106592b078d71e722af0abb498",
+        "text/html; charset=utf-8",
+        2474,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-8a9f41a5a25ecf8b3ef1",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-8186786e69e0564813a3",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/./././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "be8dfceb3c4a12dcd40d0a3e9749d7994d592a67750edcc0d35b4ada01268411",
+        "text/html; charset=utf-8",
+        2478,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-5de314e25761e88bdf41",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-378abc8a685936c98cd5",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/continue-code/apply/token/././",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "bfe1576d393a5a5d4cb6908b5b95de17dc674f6cb9e913b05fd7bf9829d908ad",
+        "text/html; charset=utf-8",
+        2472,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-4a4fe0085fc979bc4f62",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-8a9f41a5a25ecf8b3ef1",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/continue-code/apply/token/./././.",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "results": {
+    "behavioral_differences": 8,
+    "error_observations": 0,
+    "information_gain": 0.625,
+    "repeat_reproductions": 8,
+    "unique_response_signatures": 7
+  },
+  "stopping_reason": "candidate budget reached",
+  "surface_id": "surf_41_continue_code"
+}
