@@ -1,8 +1,6 @@
 name: Bug Bounty Research Enterprise — Fast Dummy Smoke
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
   workflow_dispatch:
   push:
     paths:
