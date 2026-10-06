@@ -1,30 +1,30 @@
 # Controller Campaign Synthesis
 
 The controller validated ten bounded task contracts and ten durable result handoffs.
-- Agent failures: 3
-- Process decisions: UNVERIFIED, UNVERIFIED, RETAIN, UNVERIFIED, RETAIN
-- Controller-validated process-improvement candidates: 2
-- Candidate new-evidence outcomes with explicit verification/uncertainty fields: 7
-- Falsified hypotheses: 0
+- Agent failures: 1
+- Process decisions: IMPROVE, RETAIN, RETAIN, RETAIN, REJECT
+- Controller-validated process-improvement candidates: 4
+- Candidate new-evidence outcomes with explicit verification/uncertainty fields: 8
+- Falsified hypotheses: 1
 - Research-frontier advancement candidates: 5
 - Canonical findings source: EMPTY_CONTROLLER_APPROVED_SET
 - Program proposal status: NOT_PRESENT
-- Highest-value immediate next action: continue breadth over error/telemetry classes with the existing id=27/id=97 families (fresh differential probes: Accept: application/json and /redirect continue= variants on id=27; Bearer-auth control on id=97), and reopen the basket-manipulation branch only if a future variant exposes a creatable user (auth routes stop returning 500 Unexpected path).
+- Highest-value immediate next action: Next activation continues on drift-resilient class-signature anchoring with the verified consensus anchor (0b84d83c, distinct from A36 drift 0bdb5e99); do not carry the voided agent-28 UNVERIFIED state.
 
 ## Interpretation boundary
 The controller validates structure, evidence linkage, scope, and durable handoff integrity. It does not treat agent assertions as independently proven security findings. Hidden benchmark evaluation remains authoritative for benchmark credit.
 
 ## Agent decisions
-- Agent 11 (campaign slot 1/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 12 (campaign slot 2/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / RETAIN — The selection-concentration hypothesis is FALSIFIED by durable evidence. The deterministic portfolio is round-robin breadth-first across 16 surfaces; the two flagged d1 challenges hold only 14.7% of all candidate requests, and the deepest f
-- Agent 13 (campaign slot 3/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 14 (campaign slot 4/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / RETAIN — The bounded comparison answers the primary question: the preceding process decision (agent-12 RETAIN: eliminate selection-concentration focus, diagnose downstream mechanisms) improved the quality and discrimination of the next action. It fa
-- Agent 15 (campaign slot 5/10) [LEARNING_PROCESS] NEW_EVIDENCE / RETAIN — The bounded comparison answers the primary question: the preceding session (agent-14/task-14) produced REAL learning, not activity. Independent live reproduction confirms the byte-stable trigger class (both hashes byte-exact this boot) and 
-- Agent 16 (campaign slot 6/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The bounded auth-pass produced a discriminating, reproducible differential on a login=401 boot: POST /api/SecurityAnswers/ -> 201 write-open with UserId:null, SecurityQuestionId:null, answer:null (id increments, persisted; reproduced on a f
-- Agent 17 (campaign slot 7/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 18 (campaign slot 8/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The bounded auth-dependent pass (agent-16) produced a real, class-distinct differential: GET (read) 401 / POST (write) 201 with null ownership on /api/SecurityAnswers/. Fresh binding tests show UserId rejects at validation (unique FK constr
-- Agent 19 (campaign slot 9/10) [LEARNING_PROCESS] NEW_EVIDENCE / RETAIN — The preceding session (agent-18) produced the predicted learning effect, not mere activity: one bounded pass converted an unprobed auth-dependent frontier into a mapped boundary with a determined nil-impact structure, verified via an indepe
-- Agent 20 (campaign slot 10/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / RETAIN — The preceding process decision (RETAIN: exhaustive-falsification boot scan + bounded auth pass + binding characterization) improved the quality/discrimination of the next bounded research action. The bounded auth pass executed the exact dis
+- Agent 21 (campaign slot 1/10) [LEARNING_PROCESS] NEW_EVIDENCE / IMPROVE — The selection-concentration hypothesis was decisively falsified at the research layer by the prior block (agent_12: breadth maximal, 14.7% concentration, breadth path = 0) yet the task-selection policy continues to over-issue the same diagn
+- Agent 22 (campaign slot 2/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — claim-characterization is the dominant cause of the campaign's 0/5 match rate on this boot: 4 of the 6 submitted mechanism targets (id=14 captchaBypass, id=1 passwordHashLeak, id=24 emailLeak, id=7 resetPasswordBjoernOwasp) are on mutation-
+- Agent 23 (campaign slot 3/10) [LEARNING_PROCESS] NEW_EVIDENCE / RETAIN — The preceding session (agent-22/task-22) produced the predicted learning effect: it executed the residual-hypothesis task that agent-21's IMPROVE decision mandated, replacing the refuted selection-concentration diagnostic (re-issued 5 times
+- Agent 24 (campaign slot 4/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / RETAIN — The preceding RETAIN decision yields a materially better drift claim: the rule-compliant verdict is exhaustive (all 7 mandatory boots enumerated, 7/7 byte-identical) and falsifiable (explicit A36 drift statement), while the pre-rule claim w
+- Agent 25 (campaign slot 5/10) [LEARNING_PROCESS] NEW_EVIDENCE / RETAIN — The preceding session (agent-24 / task-24) produced the predicted learning effect, not activity: it performed a real falsifiable audit (re-extracted all 7 boot captures, verified A36 drift, fresh live reproduction), its verification is now 
+- Agent 26 (campaign slot 6/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / RETAIN — The preceding RETAIN decision (mandatory exhaustive-falsification rule for drift claims) improved the quality and discrimination of the next bounded research action: the rule-compliant drift verdict is accurate (fresh 7-boot consensus repro
+- Agent 27 (campaign slot 7/10) [LEARNING_PROCESS] NEW_EVIDENCE / RETAIN — The preceding RETAIN decision (mandatory exhaustive-falsification rule for drift claims) produced genuine learning, not merely activity: the rule-compliant drift verdict is accurate (7/7 enumerated-boot consensus + A36 drift quantified + cu
+- Agent 28 (campaign slot 8/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 29 (campaign slot 9/10) [LEARNING_PROCESS] FALSIFIED / REJECT — The preceding session produced zero verifiable output: one voided INFRASTRUCTURE_FAILURE handoff memo and no research artifacts — activity only. The predicted learning effect (a repro discriminating whether the exhaustive-falsification rule
+- Agent 30 (campaign slot 10/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The fresh repro reproduces the agent-27 discriminator exactly on a new boot: consensus-classified (0b84d83c... at 2946 B, byte-stable x2) with the Accept:json variant (20eec46a.../1804 B), independent redirect trigger (020023ff.../2531 B), 
 
 ## Independent evaluation
 - Reproduced claims: 0

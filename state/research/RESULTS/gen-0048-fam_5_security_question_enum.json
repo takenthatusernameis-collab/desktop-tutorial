@@ -1,0 +1,168 @@
+{
+  "behavioral_differences": 10,
+  "candidate_count": 12,
+  "family_id": "fam_5_security_question_enum",
+  "generation": 48,
+  "generation_id": "gen-0048-fam_5_security_question_enum",
+  "information_gain": 0.875,
+  "observed_at": "2026-10-06T07:24:57Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-d0b14de2276ac551bdf9",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "email",
+        "value": "1"
+      },
+      "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {
+          "email": [
+            "1"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "270241350bf87da0e1a47c9b9656e5245bff751ac8bed1dc6535d283e5de4410",
+        "text/html; charset=utf-8",
+        2476,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-d53281decdfcd0c426d4",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "email",
+        "value": "null"
+      },
+      "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {
+          "email": [
+            "null"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "4d72a1045e51481e7b51d6908ebc4bfd6ae82cc86c395d9c6fefeeb36d31aff0",
+        "text/html; charset=utf-8",
+        2482,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-7862c7fa248fd48d83fa",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "email",
+        "value": "false"
+      },
+      "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {
+          "email": [
+            "false"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "774d882396353b787373b0b16d0974fca49b74a7d3795628bae2276ea64e4155",
+        "text/html; charset=utf-8",
+        2484,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-56f8729c1e0bf9502e0e",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/./",
+        "query": {
+          "email": [
+            "true"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "86d2b8bfb036d038cc2ebdf0e7ff7e67c04f21d88b57081f1b97c9e3d1937ddf",
+        "text/html; charset=utf-8",
+        2484,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-f63c06f5491f789a0686",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "email",
+        "value": ""
+      },
+      "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {
+          "email": [
+            ""
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "b288fd96659831d7cbcb30ae4724089bd066eacfd2c921e85a43b35307407c69",
+        "text/html; charset=utf-8",
+        2474,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-c7e6201e9e6bfdf382f3",
+      "mutation": {
+        "operator": "QUERY_EDGE_VALUES",
+        "parameter": "email",
+        "value": "%"
+      },
+      "parent_candidate_id": "cand-6b7ff475e12aae8d223a",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question/.",
+        "query": {
+          "email": [
+            "%"
+          ]
+        }
+      },
+      "response_signature": [
+        500,
+        "b4a1cb9d5e00a55c50c82ad58077316583ea87051ad7df65395c79e7041aa887",
+        "text/html; charset=utf-8",
+        2480,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 10,
+  "surface_id": "surf_5_security_question"
+}

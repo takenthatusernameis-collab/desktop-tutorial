@@ -1,0 +1,11 @@
+Fresh id=27 trigger-class reproduction — agent26_fresh_probes2_2026-10-06T074020Z.txt
+Target: http://lab-mutator:3000 ; session started UTC: 2026-10-06T074020Z
+================================================================
+REPR1 no-accept (2026-10-06T074020Z probe 1):   B  | sha256= | head=[]
+REPR1 no-accept (2026-10-06T074020Z probe 2):   B  | sha256= | head=[]
+REPR2 accept-json (2026-10-06T074020Z probe 1):   B  | sha256= | head=[]
+REPR2 accept-json (2026-10-06T074020Z probe 2):   B  | sha256= | head=[]
+REPR3 redirect (2026-10-06T074021Z probe 1):   B  | sha256= | head=[]
+REPR3 redirect (2026-10-06T074021Z probe 2):   B  | sha256= | head=[]
+CONTROL (2026-10-06T074021Z probe 1):   B  | sha256= | head=[]
+CONTROL (2026-10-06T074021Z probe 2):   B  | sha256= | head=[]

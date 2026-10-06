@@ -1,0 +1,20 @@
+Fresh id=27 trigger-class reproduction — agent26_fresh_probes3_2026-10-06T074035Z.txt
+Target: http://lab-mutator:3000 ; session started UTC: 2026-10-06T074035Z
+======================================================================
+REPR1 no-accept (probe 1): status=500 size=2946 B content-type=text/html sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+   body head=[<html>   <head>     <meta charset='utf-8'>      <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; ]
+REPR1 no-accept (probe 2): status=500 size=2946 B content-type=text/html sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+   body head=[<html>   <head>     <meta charset='utf-8'>      <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; ]
+REPR2 accept-json (probe 1): status=500 size=1804 B content-type=application/json sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+   body head=[{   "error": {     "message": "WHERE parameter \"email\" has invalid \"undefined\" value",     "stack": "Error: WHERE parameter \"email\" has invalid \"undefined\" value\n    at SQLiteQueryGenerator.w]
+REPR2 accept-json (probe 2): status=500 size=1804 B content-type=application/json sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+   body head=[{   "error": {     "message": "WHERE parameter \"email\" has invalid \"undefined\" value",     "stack": "Error: WHERE parameter \"email\" has invalid \"undefined\" value\n    at SQLiteQueryGenerator.w]
+REPR3 redirect (probe 1): status=500 size=2531 B content-type=text/html sha256=020023ff4f9ae2b934531ecd4f7f04d012a055a23b67e99de52dbc3f7ec4ec48
+   body head=[<html>   <head>     <meta charset='utf-8'>      <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  bo]
+REPR3 redirect (probe 2): status=500 size=2531 B content-type=text/html sha256=020023ff4f9ae2b934531ecd4f7f04d012a055a23b67e99de52dbc3f7ec4ec48
+   body head=[<html>   <head>     <meta charset='utf-8'>      <title>TypeError: Cannot read properties of undefined (reading &#39;includes&#39;)</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  bo]
+CONTROL (probe 1): status=500 size=2436 B content-type=text/html sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+   body head=[<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/Nonexistent/1</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   fon]
+CONTROL (probe 2): status=500 size=2436 B content-type=text/html sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+   body head=[<html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/Nonexistent/1</title>     <style>* {   margin: 0;   padding: 0;   outline: 0; }  body {   padding: 80px 100px;   fon]
+DONE: agent26_fresh_probes3_2026-10-06T074035Z.txt

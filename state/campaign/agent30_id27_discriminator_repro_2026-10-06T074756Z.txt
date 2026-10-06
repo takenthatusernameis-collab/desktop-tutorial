@@ -1,0 +1,33 @@
+id=27 discriminator fresh reproduction — agent-30
+Target: http://lab-mutator:3000
+Session started UTC: 2026-10-06T074756Z
+
+Purpose: independent reproduction of the agent-27 cross-boot id=27 signature audit
+(consensus 0b84d83c vs A36 drift 0bdb5e99), as specified in agent-29 RESULT.md NEXT.
+
+Probe A: GET /rest/user/security-question (no Accept)
+  status=500 size=2946 B content-type=text/html
+  sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+Probe B: GET /rest/user/security-question (repeat, byte-stability check)
+  status=500 size=2946 B
+  sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b  (IDENTICAL to Probe A)
+Probe C: GET /rest/user/security-question (Accept: application/json)
+  status=500 size=1804 B content-type=application/json
+  sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+Probe D: GET /redirect?continue=http://example.com (independent trigger)
+  status=500 size=2531 B
+  sha256=020023ff4f9ae2b934531ecd4f7f04d012a055a23b67e99de52dbc3f7ec4ec48
+Probe E: null control GET /api/Nonexistent/1
+  status=500 size=2436 B
+  sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+
+Boot classification: CONSENSUS (0b84d83c). Distinct from A36 drift (0bdb5e99...) on all
+three id=27 triggers. Current boot is byte-stable intra-session and matches the durable
+7-boot consensus (A21/A25/A29/A33/A35/A40/A41) plus agent-24/A37/A38/A41 fresh captures.
+
+Durable-record cross-check:
+  0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b/2946 B — consensus (A21/A25/A29/A33/A35/A40/A41), fresh: MATCH
+  0bdb5e99afd039def599c67e69770b859cc5edde846279f8ca3e567a1239b2bb/2954 B — A36 drift: NOT PRESENT (fresh boot)
+  20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e/1804 B — Accept:json variant: MATCH
+  020023ff4f9ae2b934531ecd4f7f04d012a055a23b67e99de52dbc3f7ec4ec48/2531 B — redirect trigger: MATCH
+  5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718/2436 B — null control: MATCH

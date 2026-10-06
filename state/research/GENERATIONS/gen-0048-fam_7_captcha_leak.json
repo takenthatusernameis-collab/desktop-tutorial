@@ -1,0 +1,78 @@
+{
+  "actual_execution": true,
+  "candidate_count": 1,
+  "family_id": "fam_7_captcha_leak",
+  "generation": 48,
+  "generation_id": "gen-0048-fam_7_captcha_leak",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 47,
+        "body_sha256": "5fcc058b15d7095f0134ad76c30f2c98439330d34aa46cc846996f739bc57960",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 427.34,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-815a0e415472fc3a2c2e",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 47,
+        "body_sha256": "f639c7b17d3de6b650927589fd222f425428b4b4deb0ef9eedfdf0505874f929",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 180.48,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-815a0e415472fc3a2c2e",
+      "repeat_observation": {
+        "body_length": 46,
+        "body_sha256": "50eb0dff9e0dac2445b62cf47cad7962c3b6054201ea7b8ba9f1144433f8d811",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 15.93,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/captcha",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-06T07:24:58Z",
+  "operators": [
+    "BASELINE",
+    "QUERY_EDGE_VALUES"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-815a0e415472fc3a2c2e",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-815a0e415472fc3a2c2e"
+    }
+  ],
+  "promising_candidates": [],
+  "results": {
+    "behavioral_differences": 1,
+    "error_observations": 0,
+    "information_gain": 1.0,
+    "repeat_reproductions": 0,
+    "unique_response_signatures": 1
+  },
+  "stopping_reason": "operator candidate set exhausted",
+  "surface_id": "surf_7_captcha_leak"
+}
