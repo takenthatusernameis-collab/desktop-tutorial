@@ -53,6 +53,14 @@ Objective:
 
 maximum useful authorized-security research continuity subject to a small, explicit safety boundary.
 
+## Campaign workspace boundary
+
+Individual 10-agent workspaces are disposable and intentionally curated. Historical scratch scripts, controller-only benchmark artifacts, and worker-visible challenge-state extracts are not part of the active agent workspace.
+
+The controller exchanges only compact per-agent result memos and a bounded research digest between agents. Only the final synthesis workspace may produce canonical findings and program-handoff artifacts.
+
+The absence of controller-excluded files inside an agent workspace is therefore an intentional blindness boundary, not evidence of repository data loss.
+
 ## Controller-only benchmark state
 
 The trusted workflow may persist the active hidden benchmark in controller-only workflow artifacts so an unsolved research campaign can survive multiple activations. This state is not worker-visible repository content and must not be copied into the worker workspace.
