@@ -44,6 +44,8 @@ jobs:
           set -euo pipefail
           bash -n .github/scripts/run_security_campaign.sh
           python3 -m py_compile \
+            .github/scripts/campaign_controller.py \
+            .github/scripts/finalize_campaign.py \
             .github/scripts/build_campaign_health.py \
             lab/generate_solver_feedback.py \
             lab/research_program.py \
