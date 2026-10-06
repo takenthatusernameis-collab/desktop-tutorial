@@ -1,19 +1,19 @@
-OUTCOME_CLASS: NEW_EVIDENCE
-TASK_ID: task-70-test-prior-process-intervention-1ab7fc4e11
+OUTCOME_CLASS:
+TASK_ID: task-80-test-prior-process-intervention-9af32c739a
 PRIMARY_QUESTION: Does the preceding process decision improve the quality or discrimination of the next bounded research action?
-BOTTLENECK: Need empirical evidence for the preceding decision (RETAIN).
-INFORMATION_GAP: Retain the combined artifact-promotion + disk-existence verification gate at REPOSITORY_PLAYBOOK.md:90 as the standing pre-completion check; the preceding intervention produced the predicted learning effect.
+BOTTLENECK: Need empirical evidence for the preceding decision (UNVERIFIED).
+INFORMATION_GAP: Reassess the highest-value unresolved task from durable evidence.
 BOUNDED_ACTION: Run one controller-approved research comparison or independent reproduction that directly tests the preceding process decision; stop after the result can discriminate between the competing explanations.
 DELIVERABLE: One reproducible research result plus an explicit assessment of whether the preceding process intervention helped.
 SUCCESS_EVIDENCE_CRITERION: The comparison produces new evidence, falsification, or strong negative evidence that could change the next task decision.
 STOP_CONDITION: Stop immediately after the bounded comparison answers the primary question or becomes clearly non-discriminating.
 OUT_OF_SCOPE: No general scanning, no challenge-ID targeting, no hidden-evaluator inference, and no unrelated infrastructure edits.
 VERIFICATION_REQUIREMENT: Use a fresh request, control, or independent reproduction when the target supports it; preserve negative evidence.
-CHANGED: Written /workspace/agent_70_gate_repro.py + /workspace/agent_70_gate_repro_out.txt (4182 B, sha256=3731b612d237337a1ff0bb1db2894b637ed1e75cfff6a4930b171498c18fecc7); filled RESULT.md in place (Agent 70, 2026-10-06T11:39Z); REPOSITORY_PLAYBOOK.md:90 read and confirmed intact (no modifications); no target state changes; no commits or pushes; no protected controller artifacts modified.
-VERIFIED: (1) Fresh independent reproduction against the authorized target http://lab-mutator:3000 (one-variable differential pair): P1 GET /rest/user/security-question -> 500/2946 B sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b (HTML error); P2 identical request with Accept:application/json -> 500/1804 B sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e (JSON error); P3 GET /api/Nonexistent/1 -> 500/2436 B sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718 (null control). All three body anchors match the durable consensus byte-for-byte. (2) Discrimination test: status-only read classifies the run as a uniform-500 no-op (status_set={500}, CHANGED:false, 0 discriminants), while the byte-anchored record carries the structurally discriminating one-variable differential (same path, same 500 status; Accept-header-only change flips 2946 B HTML error to 1804 B JSON error), falsifying the competing activity-only/no-op hypothesis. (3) Disk-existence gate: the promoted artifact exists on disk and is non-empty (4182 B); the absent-file control path returns false, so the gate correctly blocks completion on dangling artifacts and passes only when artifacts are present. (4) REPOSITORY_PLAYBOOK.md:90 (combined artifact-promotion + disk-existence gate) read and confirmed intact; the standing pre-completion check is validated by this run.
-UNVERIFIED: Agent 68's CHANGED-field timestamp (11:33Z) vs its artifact header (11:35Z) — a minor provenance inaccuracy in a predecessor memo, noted at task-69, does not affect the byte-anchored evidence. The residual hidden-crediting/evaluator 5-submitted/0-matched gap remains out of scope.
-OBSERVED_EFFECT: The preceding process decision (RETAIN of the artifact-promotion + disk-existence verification gate at REPOSITORY_PLAYBOOK.md:90, task-69) improved the quality and discrimination of the next bounded research action. The one fresh comparison discriminated between the competing explanations: without the gate the uniform-500 run is a zero-discrimination no-op; with the gate it is a byte-anchored, auditable, independently reproducible record with a structurally discriminating one-variable differential. The activity-only hypothesis is falsified, matching the predicted learning effect stated in the information gap.
-UNCERTAINTY_TARGETED: Whether the preceding RETAIN decision on the artifact-promotion + disk-existence verification gate improves the quality/discrimination of the next bounded research action (vs. merely generating activity/no-ops).
-UNCERTAINTY_REDUCED: Substantially. One discriminating observation suffices: fresh byte-anchored reproduction confirmed all three anchors identical to the durable consensus while preserving the one-variable Accept-header differential (status-only = no-op, byte-anchored = discriminating), and the disk-existence gate exercised its positive and negative branches. The competing activity-only explanation is falsified.
-DECISION: RETAIN
-NEXT: Continue with the combined artifact-promotion + disk-existence verification gate at REPOSITORY_PLAYBOOK.md:90 as the standing pre-completion check; the preceding RETAIN intervention produced the predicted learning effect.
+CHANGED:
+VERIFIED:
+UNVERIFIED:
+OBSERVED_EFFECT:
+UNCERTAINTY_TARGETED:
+UNCERTAINTY_REDUCED:
+DECISION:
+NEXT:

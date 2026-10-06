@@ -1,173 +1,173 @@
 {
   "actual_execution_required": true,
   "benchmark_id": "ehb-37260280180-eddbb902f2",
-  "compiled_at": "2026-10-06T11:15:04Z",
+  "compiled_at": "2026-10-06T15:14:37Z",
   "controller_version": "1.0.0",
   "plan": [
     {
       "family_id": "fam_23_memories_overexposure",
-      "generation": 43,
+      "generation": 44,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_23_memories"
     },
     {
       "family_id": "fam_24_writegap",
-      "generation": 43,
+      "generation": 44,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_24_securityanswers_write"
     },
     {
       "family_id": "fam_27_raw_error_discovery",
-      "generation": 46,
+      "generation": 47,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_27_error_handling"
     },
     {
       "family_id": "fam_29_extra_language",
-      "generation": 28,
+      "generation": 29,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_29_extra_language"
     },
     {
       "family_id": "fam_41_continue_code_apply_enum",
-      "generation": 13,
+      "generation": 14,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_41_continue_code"
     },
     {
       "family_id": "fam_5_security_question_enum",
-      "generation": 55,
+      "generation": 57,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_5_security_question"
     },
     {
       "family_id": "fam_6_put_tamper",
-      "generation": 43,
+      "generation": 44,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_6_put_tamper"
     },
     {
       "family_id": "fam_76_security_policy",
-      "generation": 35,
+      "generation": 36,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_76_security_policy"
     },
     {
       "family_id": "fam_7_captcha_leak",
-      "generation": 55,
+      "generation": 57,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_7_captcha_leak"
     },
     {
       "family_id": "fam_97_metrics_baseline",
-      "generation": 54,
+      "generation": 55,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_97_metrics"
     },
     {
       "family_id": "fam_9_web3_nft",
-      "generation": 28,
+      "generation": 29,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_9_web3"
     },
     {
       "family_id": "fam_blocked_auth_sweep",
-      "generation": 28,
+      "generation": 29,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_blocked_auth"
     },
     {
       "family_id": "fam_chatbot_prompt_injection",
-      "generation": 13,
+      "generation": 14,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_chatbot"
     },
     {
       "family_id": "fam_non_viable_500_monitor",
-      "generation": 28,
+      "generation": 29,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_non_viable_500"
     },
     {
-      "family_id": "fam_origin_header_variants",
-      "generation": 22,
+      "family_id": "fam_origin_cors_preflight",
+      "generation": 14,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_origin_header_variants"
     },
     {
       "family_id": "fam_redirect_ssrf_monitor",
-      "generation": 28,
+      "generation": 29,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_redirect"
     },
     {
       "family_id": "fam_chatbot_monitor",
-      "generation": 28,
+      "generation": 29,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_chatbot"
     },
     {
       "family_id": "fam_41_continue_code",
-      "generation": 28,
+      "generation": 29,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_41_continue_code"
     },
     {
-      "family_id": "fam_9_web3_wallet_preflight",
-      "generation": 13,
-      "max_candidates": 12,
-      "round": 1,
-      "surface_id": "surf_9_web3"
-    },
-    {
       "family_id": "fam_76_security_policy_fragment",
-      "generation": 13,
+      "generation": 14,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_76_security_policy"
     },
     {
-      "family_id": "fam_origin_cors_preflight",
-      "generation": 13,
+      "family_id": "fam_9_web3_wallet_preflight",
+      "generation": 14,
+      "max_candidates": 12,
+      "round": 1,
+      "surface_id": "surf_9_web3"
+    },
+    {
+      "family_id": "fam_origin_header_variants",
+      "generation": 23,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_origin_header_variants"
     },
     {
       "family_id": "fam_29_extra_language_i18n_asset",
-      "generation": 13,
+      "generation": 14,
       "max_candidates": 12,
       "round": 1,
       "surface_id": "surf_29_extra_language"
     },
     {
       "family_id": "fam_5_security_question_enum",
-      "generation": 56,
+      "generation": 58,
       "max_candidates": 12,
       "round": 2,
       "surface_id": "surf_5_security_question"
     },
     {
       "family_id": "fam_7_captcha_leak",
-      "generation": 56,
+      "generation": 58,
       "max_candidates": 12,
       "round": 2,
       "surface_id": "surf_7_captcha_leak"
