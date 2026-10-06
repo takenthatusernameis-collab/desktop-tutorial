@@ -49,8 +49,16 @@ def prepare(args: argparse.Namespace) -> int:
     campaign.mkdir(parents=True, exist_ok=True)
     errors: list[str] = []
     memos = []
+    manifest = load_json(campaign / "CAMPAIGN_MANIFEST.json")
+    if not isinstance(manifest, dict):
+        raise SystemExit("CAMPAIGN_MANIFEST_MISSING")
+    start_agent = int(manifest.get("starting_agent_number", 0) or 0)
+    end_agent = int(manifest.get("ending_agent_number", 0) or 0)
+    campaign_agent_count = int(manifest.get("agent_count", 0) or 0)
+    if start_agent < 1 or end_agent < start_agent or campaign_agent_count != 10:
+        raise SystemExit("CAMPAIGN_MANIFEST_INVALID")
 
-    for number in range(1, 11):
+    for number in range(start_agent, end_agent + 1):
         task_path = campaign / f"agent_{number:02d}_TASK.json"
         result_path = campaign / f"agent_{number:02d}_RESULT.md"
         if not task_path.is_file():
@@ -66,6 +74,8 @@ def prepare(args: argparse.Namespace) -> int:
         fields = parse_result(result_path)
         memos.append({
             "agent_number": number,
+            "campaign_slot": number - start_agent + 1,
+
             "task_id": task.get("task_id", ""),
             "role": task.get("role", ""),
             "outcome": fields.get("OUTCOME_CLASS", ""),
@@ -93,14 +103,14 @@ def prepare(args: argparse.Namespace) -> int:
     finding_errors = validate_findings(candidate_findings) if candidate_findings.is_file() else []
     if candidate_findings.is_file() and not finding_errors:
         shutil.copy2(candidate_findings, canonical_findings)
-        findings_source = "AGENT_10_CANDIDATE_PROMOTED_BY_CONTROLLER"
+        findings_source = f"AGENT_{end_agent}_CANDIDATE_PROMOTED_BY_CONTROLLER"
     else:
         canonical_findings.write_text(
             json.dumps(
                 {
                     "findings": [],
                     "controller_note": (
-                        "No controller-approved Agent 10 finding candidate was available; "
+                        f"No controller-approved final-session (Agent {end_agent}) finding candidate was available; "
                         "the empty set is an explicit research outcome, not a benchmark claim."
                     ),
                 },
@@ -147,6 +157,9 @@ def prepare(args: argparse.Namespace) -> int:
         "schema_version": 1,
         "campaign_contract": "CONTROLLED_10_AGENT_SEQUENTIAL",
         "agent_count": 10,
+        "campaign_id": manifest.get("campaign_id", ""),
+        "starting_agent_number": start_agent,
+        "ending_agent_number": end_agent,
         "failure_count": failures,
         "outcome_class_counts": counts,
         "process_decisions": process_decisions,
@@ -203,7 +216,7 @@ def prepare(args: argparse.Namespace) -> int:
     ]
     for row in memos:
         lines.append(
-            f"- Agent {row['agent_number']:02d} [{row['role']}] {row['outcome']} / {row['decision']} — {row['observed_effect'][:240]}"
+            f"- Agent {row['agent_number']:02d} (campaign slot {row['campaign_slot']}/10) [{row['role']}] {row['outcome']} / {row['decision']} — {row['observed_effect'][:240]}"
         )
     (campaign / "FINAL_SYNTHESIS.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("CAMPAIGN_FINALIZED=1")
