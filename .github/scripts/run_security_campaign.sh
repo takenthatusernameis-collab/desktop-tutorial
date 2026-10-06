@@ -209,13 +209,6 @@ EXIT_CODE: ${status}
 RESULT_VALID: $([ "${validation_status}" -eq 0 ] && echo true || echo false)
 OBSERVED_UTC: $(date -u +%Y-%m-%dT%H:%M:%SZ)
 EOF
-AGENT_NUMBER: $agent_id
-TASK_ID: $task_id_value
-STATUS: $agent_status
-EXIT_CODE: $status
-RESULT_VALID: $([ "$validation_status" -eq 0 ] && echo true || echo false)
-OBSERVED_UTC: $(date -u +%Y-%m-%dT%H:%M:%SZ)
-EOF
   cp "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_CONTROLLER.md" \
      "$BASE_WORKSPACE/state/campaign/agent_$agent_id_CONTROLLER.md"
 
