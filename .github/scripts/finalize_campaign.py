@@ -173,6 +173,14 @@ def prepare(args: argparse.Namespace) -> int:
         json.dumps(synthesis, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
 
+    research_report = root / "reports" / "benchmark_research.md"
+    if not research_report.is_file():
+        research_report.write_text(
+            "# Controller Campaign Research Handoff\n\n"
+            "Canonical research narrative is intentionally omitted unless the final session produced one.\n",
+            encoding="utf-8",
+        )
+
     lines = [
         "# Controller Campaign Synthesis",
         "",
