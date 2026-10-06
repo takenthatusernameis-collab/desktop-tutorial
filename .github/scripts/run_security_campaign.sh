@@ -95,7 +95,7 @@ for index in $(seq 1 10); do
     --root "$BASE_WORKSPACE" \
     --agent-root "$agent_dir" \
     --context-dir "$CAMPAIGN_CONTEXT" \
-    --agent-number "$index"
+    --campaign-slot "$index"
   prep_status=$?
 
   if [ "$prep_status" -eq 0 ] && [ -s "$agent_dir/state/campaign/TASK.json" ]; then
@@ -142,6 +142,7 @@ for index in $(seq 1 10); do
       -e BENCHMARK_ID="$BENCHMARK_ID" \
       -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
       -e CAMPAIGN_AGENT_NUMBER="$agent_id" \
+      -e CAMPAIGN_SLOT="$index" \
       "$EHB_KILO_IMAGE" \
       bash -lc '
         set -uo pipefail
