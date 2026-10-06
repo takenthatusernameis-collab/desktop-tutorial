@@ -49,6 +49,22 @@ def load_history(path: Path) -> list[dict[str, Any]]:
     return rows[-8:]
 
 
+def load_process_history(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    rows: list[dict[str, Any]] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict) and isinstance(value.get("process_score"), (int, float)):
+            rows.append(value)
+    return rows[-8:]
+
+
 def clamp(value: float) -> float:
     return max(0.0, min(1.0, float(value)))
 
@@ -108,6 +124,7 @@ def main() -> int:
     parser.add_argument("--result", required=True)
     parser.add_argument("--history", required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--process-history", default="state/research/PROCESS_HISTORY.jsonl")
     args = parser.parse_args()
 
     result = load_json(Path(args.result))
@@ -118,8 +135,13 @@ def main() -> int:
     for key in ("finding_count_submitted", "reproduced_claim_count", "unmatched_claim_count"):
         score[key] = result.get(key, 0)
     history = load_history(Path(args.history))
+    process_history = load_process_history(Path(args.process_history))
 
     scores = [clamp(row["overall_score"]) for row in history]
+    process_scores = [clamp(row["process_score"]) for row in process_history]
+    process_current = process_scores[-1] if process_scores else None
+    process_previous = process_scores[-2] if len(process_scores) >= 2 else None
+    process_delta = None if process_previous is None else round(process_current - process_previous, 4)
     current = clamp(score["overall_score"])
     recent_mean = fmean(scores) if scores else current
 
@@ -152,6 +174,12 @@ def main() -> int:
         f"- Submitted claims this activation: {int(score.get('finding_count_submitted', 0))}",
         f"- Hidden-replay reproduced claims: {int(score.get('reproduced_claim_count', 0))}",
         f"- Hidden-replay unmatched claims: {int(score.get('unmatched_claim_count', 0))}",
+        "",
+        "## Research-process evaluation",
+        "",
+        "- Process score is a separate metric from hidden benchmark score; a low benchmark score does not imply poor process.",
+        f"- Process score: {'N/A' if process_current is None else f'{process_current:.4f}'}",
+        f"- Process-score delta vs previous activation: {'N/A' if process_delta is None else f'{process_delta:+.4f}'}",
         "",
         "## Process feedback",
         "",
