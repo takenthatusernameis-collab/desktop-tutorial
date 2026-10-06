@@ -73,13 +73,15 @@ jobs:
           if selected is None:
               raise SystemExit("No suitable tool-capable free Kilo model was found.")
 
+          selected_id = selected.get("id")
+          model_name = selected.get("name") or selected_id
           with open("/tmp/kilo-free-model-name", "w", encoding="utf-8") as f:
-              f.write(selected.get("name") or selected["id"])
+              f.write(model_name)
 
           with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
-              f.write(f"KILO_FREE_MODEL_ID={selected['id']}\\n")
+              f.write(f"KILO_FREE_MODEL_ID={selected_id}\\n")
 
-          print(f"Selected current free model: {selected['id']}")
+          print(f"Selected current free model: {selected_id}")
           '
 
       - name: Prepare trusted Kilo configuration
