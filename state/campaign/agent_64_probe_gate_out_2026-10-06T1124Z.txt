@@ -1,0 +1,135 @@
+# agent_64 probe run  target=http://lab-mutator:3000 utc=2026-10-06T11:28Z
+# shape: probe -> status, content-length, sha256(body), full body
+# gate test: every probe record is promoted even when status is uniform 500
+
+## probe 1: P1_baseline
+  request: method=GET path=/rest/user/security-question query={} headers={}
+  timestamp_utc=2026-10-06T11:28:55Z
+  status=500 content_length=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  body_start="<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>\n    <style>* {\n "
+  body_sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  body_full=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25</li><li> &nbsp; &nbsp;at Array.forEach (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1867:30</li><li> &nbsp; &nbsp;at Array.map (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator._whereGroupBind (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1866:21)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1817:19)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25</li><li> &nbsp; &nbsp;at Array.forEach (&lt;anonymous&gt;)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.generateJoin (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1344:24)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.generateInclude (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1218:24)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.selectQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:915:34)</li><li> &nbsp; &nbsp;at SQLiteQueryInterface.select (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-interface.js:407:59)</li><li> &nbsp; &nbsp;at SecurityAnswer.findAll (/juice-shop/node_modules/sequelize/lib/model.js:1140:47)</li></ul>
+    </div>
+  </body>
+</html>
+
+
+## probe 2: P2_accept_json
+  request: method=GET path=/rest/user/security-question query={} headers={"Accept": "application/json"}
+  timestamp_utc=2026-10-06T11:28:55Z
+  status=500 content_length=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  body_start='{\n  "error": {\n    "message": "WHERE parameter \\"email\\" has invalid \\"undefined\\" value",\n    "stack": "Error: WHERE parameter \\"email\\" has invalid \\"undefine'
+  body_sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  body_full={
+  "error": {
+    "message": "WHERE parameter \"email\" has invalid \"undefined\" value",
+    "stack": "Error: WHERE parameter \"email\" has invalid \"undefined\" value\n    at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13)\n    at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25\n    at Array.forEach (<anonymous>)\n    at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)\n    at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1867:30\n    at Array.map (<anonymous>)\n    at SQLiteQueryGenerator._whereGroupBind (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1866:21)\n    at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1817:19)\n    at /juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1761:25\n    at Array.forEach (<anonymous>)\n    at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)\n    at SQLiteQueryGenerator.generateJoin (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1344:24)\n    at SQLiteQueryGenerator.generateInclude (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1218:24)\n    at SQLiteQueryGenerator.selectQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:915:34)\n    at SQLiteQueryInterface.select (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-interface.js:407:59)\n    at SecurityAnswer.findAll (/juice-shop/node_modules/sequelize/lib/model.js:1140:47)"
+  }
+}
+
+## probe 3: P3_null_control
+  request: method=GET path=/api/Nonexistent/1 query={} headers={}
+  timestamp_utc=2026-10-06T11:28:55Z
+  status=500 content_length=2436 sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  body_start="<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /api/Nonexistent/1</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0"
+  body_sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  body_full=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Nonexistent/1</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /api/Nonexistent/1</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+
+# summary: probes=3 all_status_ok=False
+# without the artifact-promotion gate this run (five 500s) would be a CHANGED:false no-op;
+# with the gate each probe is a byte-anchored, auditable record
+# sha256(stdout)=83ab5bfd80cfe35e99020345fc9ca0a1e580a705bc5f50aff77245e4c2f5912c

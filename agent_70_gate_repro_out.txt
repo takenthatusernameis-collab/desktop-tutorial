@@ -1,0 +1,62 @@
+# task-70 gate verification run  target=http://lab-mutator:3000 utc=2026-10-06T11:39Z
+# tests: (1) fresh one-variable differential with byte anchors; (2) gate-discriminates status-only no-op vs byte-anchored record; (3) disk-existence gate positive + negative branch.
+
+## probe 1: P1_baseline
+  request: method=GET path=/rest/user/security-question query={} headers={}
+  timestamp_utc=2026-10-06T11:39:00Z
+  status=500 content_length=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  durable_anchor=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b anchor_match=True
+  body_start="<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefi"
+
+## probe 2: P2_accept_json
+  request: method=GET path=/rest/user/security-question query={} headers={"Accept": "application/json"}
+  timestamp_utc=2026-10-06T11:39:00Z
+  status=500 content_length=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  durable_anchor=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e anchor_match=True
+  body_start='{\n  "error": {\n    "message": "WHERE parameter \\"email\\" has invalid \\"undefined\\" value",\n    "stack": "Error: WHERE pa'
+
+## probe 3: P3_null_control
+  request: method=GET path=/api/Nonexistent/1 query={} headers={}
+  timestamp_utc=2026-10-06T11:39:00Z
+  status=500 content_length=2436 sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  durable_anchor=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718 anchor_match=True
+  body_start="<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /api/Nonexistent/1</title>\n    <style>* {"
+
+# task-70 gate verification run  target=http://lab-mutator:3000 utc=2026-10-06T11:39Z
+# tests: (1) fresh one-variable differential with byte anchors; (2) gate-discriminates status-only no-op vs byte-anchored record; (3) disk-existence gate positive + negative branch.
+
+## probe 1: P1_baseline
+  request: method=GET path=/rest/user/security-question query={} headers={}
+  timestamp_utc=2026-10-06T11:39:00Z
+  status=500 content_length=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  durable_anchor=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b anchor_match=True
+  body_start="<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefi"
+
+## probe 2: P2_accept_json
+  request: method=GET path=/rest/user/security-question query={} headers={"Accept": "application/json"}
+  timestamp_utc=2026-10-06T11:39:00Z
+  status=500 content_length=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  durable_anchor=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e anchor_match=True
+  body_start='{\n  "error": {\n    "message": "WHERE parameter \\"email\\" has invalid \\"undefined\\" value",\n    "stack": "Error: WHERE pa'
+
+## probe 3: P3_null_control
+  request: method=GET path=/api/Nonexistent/1 query={} headers={}
+  timestamp_utc=2026-10-06T11:39:00Z
+  status=500 content_length=2436 sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  durable_anchor=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718 anchor_match=True
+  body_start="<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /api/Nonexistent/1</title>\n    <style>* {"
+
+# GATE DISCRIMINATION TEST
+  status_set={500}
+  status_only_noop_classification=True
+  byte_anchors_match_durable_consensus=True
+  one_variable_differential_discriminates=True
+  artifact_promoted_and_promotable=true
+
+# DISK-EXISTENCE GATE TEST
+  gate_path=/workspace/agent_70_gate_repro_out.txt exists_and_nonempty=False size=1745
+  absent_control_path=/workspace/agent_70_does_not_exist_xyz.txt exists_and_nonempty=False
+  disk_existence_gate_positive_branch=False negative_branch=True
+
+# sha256(stdout)=8c445f1968e159360b1bbecd652d8a0db531088c8c0069a20468f2e498420911
+# sha256(body of /workspace/agent_70_gate_repro_out.txt)=8c445f1968e159360b1bbecd652d8a0db531088c8c0069a20468f2e498420911

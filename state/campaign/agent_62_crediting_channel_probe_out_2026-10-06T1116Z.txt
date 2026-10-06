@@ -1,0 +1,38 @@
+# probe_crediting_channel  target=http://lab-mutator:3000 utc=2026-10-06T11:16Z
+# shape: path -> status, content-type, first300-of-body
+/api/Claims/                   -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/Claims <-- RELEVANT BODY
+/api/claims/                   -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/claims <-- RELEVANT BODY
+/api/claim/                    -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/claim/ <-- RELEVANT BODY
+/rest/Claims/                  -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /rest/Claim <-- RELEVANT BODY
+/api/Claims                    -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/Claims <-- RELEVANT BODY
+/api/claims                    -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/claims <-- RELEVANT BODY
+/api/claim                     -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/claim< <-- RELEVANT BODY
+/rest/claim                    -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /rest/claim <-- RELEVANT BODY
+/api/Match/                    -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/Match/ <-- RELEVANT BODY
+/api/Match                     -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/Match< <-- RELEVANT BODY
+/api/match/                    -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/match/ <-- RELEVANT BODY
+/rest/Match                    -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /rest/Match <-- RELEVANT BODY
+/api/candidates/               -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/candid <-- RELEVANT BODY
+/api/candidates                -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/candid <-- RELEVANT BODY
+/rest/candidates               -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /rest/candi <-- RELEVANT BODY
+/api/submissions/              -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/submis
+/api/submissions               -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/submis
+/api/submission/               -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/submis
+/api/results/                  -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/result <-- RELEVANT BODY
+/api/results                   -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/result <-- RELEVANT BODY
+/api/result/                   -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/result <-- RELEVANT BODY
+/api/credits/                  -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/credit <-- RELEVANT BODY
+/api/credit/                   -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/credit <-- RELEVANT BODY
+/api/evaluations/              -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/evalua
+/api/evaluations               -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/evalua
+/api/benchmark/                -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/benchm
+/api/benchmark                 -> 500 text/html                <html>   <head>     <meta charset='utf-8'>      <title>Error: Unexpected path: /api/benchm
+/mutator/                      -> 200 text/html                <!--   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.   ~
+/mutator                       -> 200 text/html                <!--   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.   ~
+/api/challenges/27/match       -> 401 text/html                <html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Authorization
+/api/challenges/27/verify      -> 401 text/html                <html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Authorization
+/api/challenges/97/match       -> 401 text/html                <html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Authorization
+/api/challenges/97/verify      -> 401 text/html                <html>   <head>     <meta charset='utf-8'>      <title>UnauthorizedError: No Authorization
+
+# app-JS grep for claim/match/credit endpoints
+# probe_crediting_channel complete
