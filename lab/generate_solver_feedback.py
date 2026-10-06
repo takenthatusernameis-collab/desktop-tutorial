@@ -140,7 +140,8 @@ def main() -> int:
     scores = [clamp(row["overall_score"]) for row in history]
     process_scores = [clamp(row["process_score"]) for row in process_history]
     process_current = process_scores[-1] if process_scores else None
-    process_metrics = process_history[-1].get("metrics", {}) if process_history else {}
+    process_record = process_history[-1] if process_history else {}
+    process_metrics = process_record.get("process_metrics", {}) if process_history else {}
     process_previous = process_scores[-2] if len(process_scores) >= 2 else None
     process_delta = None if process_previous is None else round(process_current - process_previous, 4)
     current = clamp(score["overall_score"])
@@ -189,7 +190,12 @@ def main() -> int:
         f"- Falsification coverage: {float(process_metrics.get('falsification_coverage', 0.0)):.4f}",
         f"- Research breadth: {float(process_metrics.get('research_breadth', 0.0)):.4f}",
         f"- Reproduction density: {float(process_metrics.get('reproduction_density', 0.0)):.4f}",
-        f"- Handoff completeness: {float(process_metrics.get('handoff_completeness', 0.0)):.4f}",
+        f"- Handoff completeness: {float(process_metrics.get('handoff_completeness', process_metrics.get('delivery_integrity', 0.0))):.4f}",
+        f"- Surface coverage: {float(process_metrics.get('surface_coverage', 0.0)):.4f}",
+        f"- Active-surface coverage: {float(process_metrics.get('active_surface_coverage', 0.0)):.4f}",
+        f"- Behavioral-difference rate: {float(process_metrics.get('behavioral_difference_rate', 0.0)):.4f}",
+        f"- Reproduction density: {float(process_metrics.get('reproduction_density', 0.0)):.4f}",
+        f"- Falsification signal: {float(process_metrics.get('falsification_signal', 0.0)):.4f}",
         "",
         "## Process feedback",
         "",
