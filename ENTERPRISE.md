@@ -68,6 +68,14 @@ Do not seek secrets or store credentials. Do not access unrelated repositories, 
 
 Use the minimum safe interaction necessary to establish a research conclusion.
 
+## Campaign architecture principle
+
+When multiple agents are useful, use them to reduce uncertainty in parallel rather than to multiply identical search effort.
+
+A campaign should explicitly distinguish execution health, research health, evidence health, and evaluation health. A green workflow run is only execution success; it is not evidence of research progress or benchmark credit.
+
+When evaluator credit remains at a floor despite repeated verified work, the next objective should shift from more brute-force search toward discriminating tests of claim characterization, replay robustness, information-boundary integrity, persistence semantics, and hidden-vs-public evaluation mismatch.
+
 ## Durable success criterion
 
 A successful activation improves one or more of:
