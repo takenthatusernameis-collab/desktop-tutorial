@@ -411,6 +411,11 @@ def command_start_campaign(args: argparse.Namespace) -> int:
         print(json.dumps(existing, sort_keys=True))
         return 0
 
+    if isinstance(existing, dict):
+        history_path = campaign_dir / "CAMPAIGN_HISTORY.jsonl"
+        with history_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(existing, sort_keys=True) + "\n")
+
     counter_path = campaign_dir / GLOBAL_COUNTER_NAME
     counter = load_json_file(counter_path, {})
     next_agent = int(counter.get("next_agent_number", 1) or 1)
