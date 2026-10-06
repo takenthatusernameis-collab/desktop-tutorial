@@ -8,6 +8,9 @@ on:
     paths:
       - ".github/workflows/kilo-smoke-dummy.yml"
       - ".github/scripts/run_security_campaign.sh"
+      - ".github/scripts/campaign_controller.py"
+      - ".github/scripts/finalize_campaign.py"
+      - ".github/scripts/mock_kilo_session.sh"
       - ".github/scripts/build_campaign_health.py"
       - "lab/generate_solver_feedback.py"
       - ".kilo/wakeup-prompt.md"
