@@ -298,13 +298,21 @@ EOF
 
 if [ "$campaign_status" = "COMPLETE" ]; then
   echo "KILO_LIVENESS_STATUS=COMPLETED_WITH_FULL_CAMPAIGN" >> "$GITHUB_ENV"
-  echo "KILO_LIVENESS_REASON=10 hypothesis-diverse fresh isolated sessions executed" >> "$GITHUB_ENV"
+  if [ "$CAMPAIGN_DUMMY" = "true" ]; then
+    echo "KILO_LIVENESS_REASON=deterministic dummy controller smoke completed all 10 campaign slots" >> "$GITHUB_ENV"
+  else
+    echo "KILO_LIVENESS_REASON=10 hypothesis-diverse fresh isolated Kilo sessions executed" >> "$GITHUB_ENV"
+  fi
   exit 0
 fi
 
 if [ "$final_status" = "SUCCESS" ]; then
   echo "KILO_LIVENESS_STATUS=COMPLETED_WITH_PARTIAL_CAMPAIGN" >> "$GITHUB_ENV"
-  echo "KILO_LIVENESS_REASON=final synthesis succeeded despite one or more non-final agent failures" >> "$GITHUB_ENV"
+  if [ "$CAMPAIGN_DUMMY" = "true" ]; then
+    echo "KILO_LIVENESS_REASON=dummy final synthesis slot succeeded despite one or more simulated non-final failures" >> "$GITHUB_ENV"
+  else
+    echo "KILO_LIVENESS_REASON=final synthesis succeeded despite one or more non-final agent failures" >> "$GITHUB_ENV"
+  fi
   exit 0
 fi
 
