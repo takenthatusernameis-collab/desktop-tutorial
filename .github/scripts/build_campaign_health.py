@@ -25,9 +25,22 @@ OUTCOME_CLASSES = {
 }
 REQUIRED_FIELDS = (
     "OUTCOME_CLASS:",
-    "HYPOTHESIS:",
-    "OBSERVATION:",
-    "FALSIFICATION:",
+    "TASK_ID:",
+    "PRIMARY_QUESTION:",
+    "BOTTLENECK:",
+    "INFORMATION_GAP:",
+    "BOUNDED_ACTION:",
+    "DELIVERABLE:",
+    "SUCCESS_EVIDENCE_CRITERION:",
+    "STOP_CONDITION:",
+    "OUT_OF_SCOPE:",
+    "VERIFICATION_REQUIREMENT:",
+    "CHANGED:",
+    "VERIFIED:",
+    "UNVERIFIED:",
+    "OBSERVED_EFFECT:",
+    "UNCERTAINTY_TARGETED:",
+    "UNCERTAINTY_REDUCED:",
     "DECISION:",
     "NEXT:",
 )
@@ -80,9 +93,13 @@ def read_agent_memos(context_dir: Path) -> list[dict[str, Any]]:
                 "outcome_class": outcome,
                 "substantive": substantive,
                 "complete": complete,
-                "hypothesis": fields.get("HYPOTHESIS:", ""),
+                "hypothesis": fields.get("PRIMARY_QUESTION:", ""),
+                "task_id": fields.get("TASK_ID:", ""),
+                "role": fields.get("ROLE:", ""),
                 "decision": fields.get("DECISION:", ""),
                 "next": fields.get("NEXT:", ""),
+                "observed_effect": fields.get("OBSERVED_EFFECT:", ""),
+                "uncertainty_reduced": fields.get("UNCERTAINTY_REDUCED:", ""),
             }
         )
     return memos
@@ -198,13 +215,33 @@ def main() -> int:
         and Path(args.proposal).stat().st_size > 0
     )
 
+    roles = [m.get("role", "") for m in memos]
+    alternating_roles = clamp(
+        sum(
+            1
+            for idx, role in enumerate(roles, start=1)
+            if role == ("LEARNING_PROCESS" if idx % 2 else "HIGHER_ORDER_RESEARCH")
+        ) / max(1, len(roles))
+    )
+    task_contract_integrity = clamp(len(complete) / max(1, len(memos)))
+    observed_effect_rate = clamp(
+        sum(1 for m in substantive if m.get("observed_effect", "").strip()) / max(1, len(substantive))
+    )
+    uncertainty_reduction_rate = clamp(
+        sum(1 for m in substantive if m.get("uncertainty_reduced", "").strip() and m.get("uncertainty_reduced", "").strip().lower() not in {"none", "unknown"})
+        / max(1, len(substantive))
+    )
     metrics = {
         "execution_reliability": 1.0 if args.preflight == "success" and args.smoke == "success" else 0.0,
         "agent_completion": clamp(len(substantive) / total_agents),
-        "memo_integrity": clamp(len(complete) / max(1, len(substantive))),
+        "memo_integrity": task_contract_integrity,
+        "task_contract_integrity": round(task_contract_integrity, 4),
+        "alternating_role_integrity": round(alternating_roles, 4),
         "hypothesis_diversity": round(clamp(hypothesis_diversity), 4),
         "learning_yield": round(learning_yield, 4),
         "falsification_coverage": round(falsification_coverage, 4),
+        "observed_effect_rate": round(observed_effect_rate, 4),
+        "uncertainty_reduction_rate": round(uncertainty_reduction_rate, 4),
         "research_breadth": round(breadth, 4),
         "reproduction_density": round(portfolio["repeat_reproduction_rate"], 4),
         "handoff_completeness": 1.0 if evidence_present else 0.0,
@@ -249,6 +286,7 @@ def main() -> int:
         "process_score": process_score,
         "process_metrics": metrics,
         "stagnation_rate": round(stagnation_rate, 4),
+        "campaign_contract": "CONTROLLED_10_AGENT_SEQUENTIAL",
         "portfolio": portfolio,
         "benchmark": {
             "finding_count_submitted": int(result.get("finding_count_submitted", 0) or 0),
