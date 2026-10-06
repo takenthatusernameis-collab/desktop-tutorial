@@ -51,6 +51,8 @@ Do not optimize for ten edits, ten findings, or a benchmark score. Optimize for 
 
 The campaign is complete only when all ten sessions have executed. Scientific acceptance still requires the controller's independent evaluator and persistence gates.
 
+Entry-point invariant: the existing scheduled/manual workflow is the controller-owned 10-agent campaign entry point. There is no supported worker path that silently falls back to a single-agent deep session.
+
 # Learning-efficiency contract
 
 Read `LEARNING_STATE.md` and `SOLVER_FEEDBACK.md` during OBSERVE.
