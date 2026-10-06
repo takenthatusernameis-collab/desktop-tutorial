@@ -55,11 +55,13 @@ maximum useful authorized-security research continuity subject to a small, expli
 
 ## Campaign workspace boundary
 
-Each numbered agent receives a disposable, intentionally curated workspace. Historical scratch scripts, controller-only benchmark artifacts, and worker-visible challenge-state extracts are not part of the active agent workspace.
+The campaign uses one shared disposable research workspace across ten fresh Kilo processes. The workspace carries validated research-state and learner changes forward, while each Kilo process has fresh private context, HOME/cache, and session identity.
+
+Historical scratch scripts, controller-only benchmark artifacts, and hidden evaluator state are not part of the worker-visible campaign workspace.
 
 The controller exchanges only a controller-selected task contract and compact per-agent result memo between sessions. Agent 10 may create candidate findings/program-handoff artifacts, but only the controller-owned final synthesis may promote canonical artifacts.
 
-The campaign state is durable at the repository persistence boundary, but private Kilo context is never a handoff mechanism.
+Durable campaign state is the communication medium. Private Kilo context, conversation history, and process-local cache are never handoff mechanisms.
 
 The absence of controller-excluded files inside an agent workspace is therefore an intentional blindness boundary, not evidence of repository data loss.
 
