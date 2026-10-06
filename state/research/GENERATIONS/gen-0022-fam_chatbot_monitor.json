@@ -1,0 +1,70 @@
+{
+  "actual_execution": true,
+  "candidate_count": 1,
+  "family_id": "fam_chatbot_monitor",
+  "generation": 22,
+  "generation_id": "gen-0022-fam_chatbot_monitor",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 2420,
+        "body_sha256": "813fce32cc153be1636a576afc3efa9e29963934fe19bb6d0f9590b73ed56949",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 3.1,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-a4eec84f8d580e12ef08",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 2420,
+        "body_sha256": "813fce32cc153be1636a576afc3efa9e29963934fe19bb6d0f9590b73ed56949",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 6.07,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-a4eec84f8d580e12ef08",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/chat",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-06T02:21:08Z",
+  "operators": [
+    "BASELINE",
+    "QUERY_EDGE_VALUES"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-a4eec84f8d580e12ef08",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-a4eec84f8d580e12ef08"
+    }
+  ],
+  "promising_candidates": [],
+  "results": {
+    "behavioral_differences": 0,
+    "error_observations": 0,
+    "information_gain": 0.5,
+    "repeat_reproductions": 0,
+    "unique_response_signatures": 1
+  },
+  "stopping_reason": "operator candidate set exhausted",
+  "surface_id": "surf_chatbot"
+}
