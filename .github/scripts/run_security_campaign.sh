@@ -315,5 +315,5 @@ if [ "$campaign_status" = "COMPLETE" ] || [ "$campaign_status" = "PARTIAL" ]; th
 fi
 
 echo "KILO_LIVENESS_STATUS=10_SESSION_CAMPAIGN_INCOMPLETE" >> "$GITHUB_ENV"
-echo "KILO_LIVENESS_REASON=agent_10 or controller finalization did not complete successfully" >> "$GITHUB_ENV"
+echo "KILO_LIVENESS_REASON=final global agent or controller finalization did not complete successfully" >> "$GITHUB_ENV"
 exit 1
