@@ -515,7 +515,7 @@ jobs:
           EVALUATE_OUTCOME: ${{ steps.evaluate.outcome }}
           PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           SMOKE_OUTCOME: ${{ steps.kilo_smoke.outcome }}
-          PERSIST_OUTCOME: ${{ steps.persist.outcome }}
+          PERSIST_OUTCOME: pending
           CAMPAIGN_STATUS: ${{ env.CAMPAIGN_STATUS }}
         run: |
           set +e
