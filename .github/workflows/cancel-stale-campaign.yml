@@ -1,0 +1,31 @@
+name: One-time cancel stale campaign
+
+on:
+  push:
+    paths:
+      - ".github/workflows/cancel-stale-campaign.yml"
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  cancel:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Cancel stale 10-agent campaign
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/runs/37397391993/cancel" >/dev/null || true
+
+      - name: Self-delete
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/cancel-stale-campaign.yml
+          git config user.name "desktop-tutorial-run-canceller"
+          git config user.email "desktop-tutorial-run-canceller@users.noreply.github.com"
+          git add -u .github/workflows/cancel-stale-campaign.yml
+          git commit -m "Remove stale campaign cancellation helper"
+          git push
