@@ -96,6 +96,15 @@ def portfolio_metrics() -> dict[str, float]:
     generations = int(summary.get("executed_generations", 0) or 0)
     families = len(summary.get("families_represented") or [])
     surfaces = len(summary.get("surfaces_represented") or [])
+    program = load_json(Path("state/research/PROGRAM.json"), {})
+    active_families = sum(
+        1 for family in (program.get("evolution_families") or [])
+        if isinstance(family, dict) and family.get("status") != "ARCHIVED"
+    )
+    active_surfaces = sum(
+        1 for surface in (program.get("surfaces") or [])
+        if isinstance(surface, dict) and surface.get("status") != "ARCHIVED"
+    )
     return {
         "candidate_requests": float(candidates),
         "behavioral_differences": float(behavioral_differences),
@@ -103,6 +112,8 @@ def portfolio_metrics() -> dict[str, float]:
         "executed_generations": float(generations),
         "families_represented": float(families),
         "surfaces_represented": float(surfaces),
+        "active_families": float(active_families),
+        "active_surfaces": float(active_surfaces),
         "behavioral_difference_rate": clamp(
             behavioral_differences / max(1, candidates)
         ),
@@ -179,7 +190,7 @@ def main() -> int:
     falsification_coverage = clamp(counts["FALSIFIED"] / substantive_count)
 
     portfolio = portfolio_metrics()
-    breadth = clamp(portfolio["families_represented"] / max(1.0, 16.0))
+    breadth = clamp(portfolio["families_represented"] / max(1.0, portfolio["active_families"]))
     evidence_present = (
         Path(args.findings).is_file()
         and Path(args.findings).stat().st_size > 0
