@@ -151,6 +151,14 @@ EOF
     echo
     echo "=== TRUSTED WAKEUP PROMPT ==="
     cat "$BASE/.kilo/wakeup-prompt.md" 2>/dev/null || true
+    echo
+    echo "=== FINAL ONE-TIME TEST DIRECTIVE ==="
+    echo "Ignore the research objective in the trusted wakeup prompt for this infrastructure test."
+    echo "Do not perform security research or target interaction."
+    echo "Do only the equation in the agent brief, then create RESULT.md and finish."
+    echo "The equation and expected answer are:"
+    echo "EQUATION: $equation"
+    echo "EXPECTED_ANSWER: $expected"
   } > "$agent_dir/.kilo/semantic-test-prompt.md"
 
   echo "Running semantic-path Kilo agent $index/10: equation $equation"
