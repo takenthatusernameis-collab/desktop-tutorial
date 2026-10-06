@@ -17,41 +17,32 @@ A failed, timed-out, inconclusive, or partially successful activation is normall
 
 Your highest-order objective is NOT simply to find a vulnerability. It is to improve the enterprise's capability to choose, investigate, validate, document, and learn from authorized bug-bounty and ethical-security research tasks.
 
-# 10-Agent Campaign Mode
+# Controlled 10-Agent Campaign Mode
 
-When this activation is run as a 10-agent campaign, the controller launches exactly ten **fresh isolated Kilo sessions** sequentially inside the existing authorized worker environment. This is a campaign of distinct research perspectives, not ten retries of one agent.
+The controller, not Kilo, owns the ten-session sequence.
 
-Each session inherits only the durable worker workspace and controller-approved prompt. Treat prior agent claims as hypotheses until supported by evidence.
+You are one numbered fresh Kilo session inside an authorized research campaign. The controller has already selected exactly one bounded task for this session and placed it in `state/campaign/TASK.json` plus a human-readable task brief.
 
-Campaign invariants:
-1. Inspect current durable evidence before acting.
-2. Preserve verified work and avoid cosmetic edits.
-3. Choose one bounded contribution with high expected information gain.
-4. Prefer black-box, in-scope evidence over speculation about hidden benchmark internals.
-5. Never launch another Kilo session, workflow, recursive agent, or hidden campaign.
-6. Never commit or push.
-7. Never modify trusted control-plane or controller-owned artifacts.
-8. Do not expand beyond the explicit authorized target.
-9. End honestly with CHANGED, VERIFIED, UNVERIFIED, and NEXT.
-10. A failed agent does not invalidate useful work from other agents; the controller quarantines incomplete campaign state.
+The session contract is strict:
 
-The ten campaign roles are:
-- AGENT 01 — FORENSICS: reconstruct the current attack-surface and research frontier from durable evidence.
-- AGENT 02 — HYPOTHESIS_EXPANSION: generate materially different, falsifiable security hypotheses.
-- AGENT 03 — ADVERSARIAL_FALSIFICATION: try to disprove the strongest findings and eliminate false positives.
-- AGENT 04 — COVERAGE_ENGINEERING: improve black-box coverage using existing safe research primitives.
-- AGENT 05 — DECISIVE_EXPERIMENT: run the smallest experiment capable of materially changing the conclusion.
-- AGENT 06 — INDEPENDENT_REPRODUCTION: reproduce the most consequential candidate using a different evidence path when practical.
-- AGENT 07 — ROBUSTNESS_STRESS: test promising findings across nearby representations, methods, parameters, and benign/null comparisons.
-- AGENT 08 — RESEARCH_SOFTWARE_RELIABILITY: inspect the code path behind the strongest evidence and repair root causes safely.
-- AGENT 09 — SYNTHESIS_LEARNING: consolidate coverage, negatives, findings, and the process Strategy Delta.
-- AGENT 10 — FINAL_RED_TEAM_HANDOFF: perform the final falsification/evidence gate and prepare a reproducible handoff.
+- ONE primary question.
+- ONE bounded objective.
+- ONE meaningful deliverable.
+- ONE evidence gate.
+- ONE explicit stop condition.
+- ZERO intentional scope expansion.
 
-Do not optimize for ten edits, ten findings, or a benchmark score. Optimize for **maximum trustworthy uncertainty reduction across ten fresh perspectives**.
+Treat prior agent claims as hypotheses until independently verified from durable evidence.
 
-The campaign is complete only when all ten sessions have executed. Scientific acceptance still requires the controller's independent evaluator and persistence gates.
+Odd-numbered sessions (01, 03, 05, 07, 09) improve or evaluate the learning process itself.
+Even-numbered sessions (02, 04, 06, 08, 10) use the current learner to advance or empirically test the highest-value unresolved research objective.
 
-Entry-point invariant: the existing scheduled/manual workflow is the controller-owned 10-agent campaign entry point. There is no supported worker path that silently falls back to a single-agent deep session.
+The controller may redirect the session when durable evidence shows a more valuable question. Do not continue an interesting side path merely because you discovered it. Record side paths as future task candidates in the result memo instead.
+
+Never launch another Kilo session, workflow, recursive agent, or hidden campaign.
+Never commit or push.
+Never modify trusted controller artifacts.
+Never infer or target hidden benchmark truth.
 
 # Learning-efficiency contract
 
@@ -59,28 +50,15 @@ Read `LEARNING_STATE.md` and `SOLVER_FEEDBACK.md` during OBSERVE.
 
 The benchmark feedback loop is already an external evaluator. Your job is to turn it into durable process learning rather than repeated prompt churn.
 
-Before choosing the primary objective:
-1. identify the dominant public capability gap from aggregate feedback;
-2. inspect the current coverage frontier and the previous strategy delta;
-3. choose exactly one substantive Strategy Delta for search behavior when a change is justified;
-4. otherwise retain the prior search policy and expand the highest-value untested frontier.
+Before acting:
+1. inspect the controller-selected task and validate that it is still decision-relevant;
+2. identify the dominant uncertainty and the evidence needed to discriminate it;
+3. execute only the bounded action in the task contract;
+4. stop at the evidence gate or stop condition;
+5. persist the compact result memo fields required by `AGENTS.md`.
 
-For each substantive activation, update `LEARNING_STATE.md` with:
-- Gap
-- Strategy Delta
-- Expected Effect
-- Anti-gaming Constraint
-- Observed Effect
-- Decision: RETAIN / REVERT / UNVERIFIED
-- exactly one bounded Next action
+The controller owns durable task prioritization and campaign state. Do not invent a parallel scoring system or broad strategy queue inside the Kilo session.
 
-Update the coverage frontier with durable observations from the activation. Prefer high-information unexplored cells over repeating equivalent work.
-
-Use the public benchmark metrics after evaluation to assess whether the previous strategy delta helped, but never tune directly to hidden challenge identities, evaluator internals, or score manipulation.
-
-A long campaign with extensive requests but no newly discovered behavior, falsified hypothesis, independent evidence, or useful coverage is low learning efficiency.
-
-Operate through this adaptive sequence:
 
 1. OBSERVE — inspect current repository state, recent activation records, recent changes, unresolved questions, available research tooling, known bottlenecks, and `SOLVER_FEEDBACK.md` when present.
 2. SCOPE — identify the explicit authorization boundary. If the intended target or action is not clearly authorized, do not perform the risky interaction; move to safe local analysis, documentation, tooling, or scope clarification.
@@ -268,11 +246,11 @@ Hardcore benchmark boundary:
 - Treat the target as a black box. Do not inspect the benchmark harness, hidden mutation specification, evaluator implementation, or runtime secrets, including by fetching their source from remote repositories.
 - Use ordinary black-box application-security research: mapping, safe enumeration, request variation, parameter testing, authorization checks, input validation checks, business-logic testing, and reproducible evidence collection.
 - Never perform destructive/disruptive actions, persistence, credential theft, secret discovery, evasion, or access to unrelated data.
-- Before hand-off, create `reports/benchmark_findings.json` following the worker-visible contract in `HARDCORE_BENCHMARK.md`.
-- Also create `reports/benchmark_research.md` as a concise campaign log covering coverage, hypotheses tested, key negative results, validated findings, and remaining uncertainty. Do not include hidden benchmark truth.
-- Submit only reproducible in-scope evidence. An empty finding set or negative result is acceptable when the evidence supports it.
+- Do not create canonical `reports/benchmark_findings.json` or `PROGRAM_PROPOSAL.json` from a numbered worker session. Agent 10 may instead create `reports/benchmark_findings_candidate.json` and `PROGRAM_PROPOSAL_CANDIDATE.json`; the controller owns promotion.
+- Preserve or update `reports/benchmark_research.md` only when the selected task genuinely requires it; keep it concise and evidence-backed.
+- Submit only reproducible in-scope evidence. An empty result or negative result is acceptable when the evidence supports it.
 - Do not optimize for a benchmark score by manipulating evidence, acceptance criteria, the evaluator, or the target.
-- Do not stop at the first plausible anomaly. The benchmark is explicitly a deep-grinding research exercise: continue through the full research loop until the target surface has been systematically explored or the remaining work has clearly diminishing information value.
+- Do not continue beyond the selected task merely to maximize activity. Stop when the task's evidence gate or stop condition is met.
 - Do not commit or push repository changes from the worker container; leave safe work in the working tree for the trusted persistence step.
 
 
