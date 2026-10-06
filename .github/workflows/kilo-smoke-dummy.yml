@@ -288,8 +288,9 @@ jobs:
 
           python3 - <<'PY'
           import json
+          import os
           from pathlib import Path
-          root = Path("$RUNNER_TEMP") / "ehb-agent-boundary"
+          root = Path(os.environ["RUNNER_TEMP"]) / "ehb-agent-boundary"
           task = json.loads((root / "state/campaign/TASK.json").read_text(encoding="utf-8"))
           assert task["agent_number"] == 102, task
           assert task["selection_basis"]["previous_task_id"] == "task-101-current", task
