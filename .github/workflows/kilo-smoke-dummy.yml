@@ -135,6 +135,11 @@ jobs:
           export GITHUB_WORKSPACE="$GITHUB_WORKSPACE"
           bash .github/scripts/run_security_campaign.sh
 
+          test -s "$RUNNER_TEMP/ehb-campaign-context/CAMPAIGN_CONTEXT.md"
+          grep -Fq "## Execution environment awareness" "$RUNNER_TEMP/ehb-campaign-context/CAMPAIGN_CONTEXT.md"
+          grep -Fq "Kilo gateway relay: infrastructure only" "$RUNNER_TEMP/ehb-campaign-context/CAMPAIGN_CONTEXT.md"
+          grep -Fq "Do not confuse relay/controller/worker-generated errors with target responses." "$RUNNER_TEMP/ehb-campaign-context/CAMPAIGN_CONTEXT.md"
+
           test -s "$EHB_WORKER_DIR/state/campaign/campaign_status.json"
           python3 - <<'PY'
           import json
