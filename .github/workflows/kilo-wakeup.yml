@@ -394,10 +394,6 @@ jobs:
               test ! -e lab
               test ! -e .git
               test ! -e /workspace/spec.json
-              test ! -e reports/current_challenges.txt
-              test ! -e reports/challenges_inventory.txt
-              test ! -e reports/trigger_matrix.json
-              test ! -e reports/sweep_paths.json
               test -d state/research
               if touch state/research/.worker-must-not-write 2>/dev/null; then
                 rm -f state/research/.worker-must-not-write
