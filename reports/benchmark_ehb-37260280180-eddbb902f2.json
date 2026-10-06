@@ -7,14 +7,14 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=27 errorHandlingChallenge - unauthenticated raw error responses are neither gracefully nor consistently handled (Accept-header representation differential)",
+      "title": "Unauthenticated raw server errors that are neither gracefully nor consistently handled (errorHandlingChallenge, id=27)",
       "valid_reproduction": false
     },
     {
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
-      "title": "id=97 exposedMetricsChallenge - unauthenticated Prometheus-format /metrics endpoint serves application usage telemetry (juiceshop_llm_* gauges and challenge counters)",
+      "title": "Unauthenticated Prometheus metrics endpoint exposing application and LLM usage telemetry (exposedMetricsChallenge, id=97)",
       "valid_reproduction": false
     }
   ],

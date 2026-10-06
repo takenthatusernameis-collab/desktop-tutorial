@@ -1,0 +1,55 @@
+{
+  "behavioral_differences": 2,
+  "candidate_count": 11,
+  "family_id": "fam_24_writegap",
+  "generation": 34,
+  "generation_id": "gen-0034-fam_24_writegap",
+  "information_gain": 0.2273,
+  "observed_at": "2026-10-06T00:30:43Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-fa71f25cc321ebe73e42",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-2e4c7dcb11f8d016dc80",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/api/SecurityAnswers/",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-9384d9f0b0eae24fc890",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-2e4c7dcb11f8d016dc80",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/api/SecurityAnswers/",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 2,
+  "surface_id": "surf_24_securityanswers_write"
+}
