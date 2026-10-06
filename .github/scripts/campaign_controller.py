@@ -94,6 +94,8 @@ def parse_result(path: Path) -> dict[str, str]:
 def validate_task(task: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     for field in TASK_FIELDS:
+        if field == "agent_number":
+            continue
         if field not in task or not isinstance(task[field], str) or not task[field].strip():
             errors.append(f"missing/empty task field: {field}")
     agent_number = int(task.get("agent_number", 0) or 0)
