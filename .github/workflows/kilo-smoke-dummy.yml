@@ -234,7 +234,18 @@ jobs:
           assert (root / "SOLVER_FEEDBACK.md").is_file()
           text = (root / "SOLVER_FEEDBACK.md").read_text(encoding="utf-8")
           assert "Process score" in text
-          assert "Process submetrics" in text
+          for label in (
+              "Execution reliability:",
+              "Agent completion:",
+              "Memo integrity:",
+              "Hypothesis diversity:",
+              "Learning yield:",
+              "Falsification coverage:",
+              "Research breadth:",
+              "Reproduction density:",
+              "Handoff completeness:",
+          ):
+              assert label in text, label
           print(f"FAST_SMOKE_PROCESS_SCORE={health['process_score']}")
           print("Fast process-health evaluation passed.")
           PY
