@@ -245,7 +245,9 @@ jobs:
           assert counter["next_agent_number"] == 31, counter
           print("Cross-campaign global agent sequencing passed: 11-20 -> 21-30.")
 
-
+      - name: Regression-test global-agent memo isolation
+        run: |
+          set -euo pipefail
           BOUNDARY_ROOT="$RUNNER_TEMP/ehb-agent-boundary"
           BOUNDARY_CONTEXT="$RUNNER_TEMP/ehb-agent-boundary-context"
           rm -rf "$BOUNDARY_ROOT" "$BOUNDARY_CONTEXT"
@@ -258,8 +260,9 @@ jobs:
             "last_reserved_ending_agent_number": 90
           }
           EOF
-          python3 .github/scripts/campaign_controller.py start-campaign             --root "$BOUNDARY_ROOT"             --campaign-id boundary-one >/dev/null
-          python3 .github/scripts/campaign_controller.py start-campaign             --root "$BOUNDARY_ROOT"             --campaign-id boundary-two >/dev/null
+
+          python3 .github/scripts/campaign_controller.py start-campaign             --root "$BOUNDARY_ROOT" --campaign-id boundary-one >/dev/null
+          python3 .github/scripts/campaign_controller.py start-campaign             --root "$BOUNDARY_ROOT" --campaign-id boundary-two >/dev/null
 
           cat > "$BOUNDARY_ROOT/state/campaign/agent_099_RESULT.md" <<'EOF'
           TASK_ID: task-99-stale
@@ -274,9 +277,9 @@ jobs:
           NEXT: stale next action
           EOF
 
-          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$BOUNDARY_ROOT"             --agent-root "$BOUNDARY_ROOT"             --context-dir "$BOUNDARY_CONTEXT"             --campaign-slot 1 >/dev/null
+          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$BOUNDARY_ROOT" --agent-root "$BOUNDARY_ROOT"             --context-dir "$BOUNDARY_CONTEXT" --campaign-slot 1 >/dev/null
 
-          cp "$BOUNDARY_ROOT/state/campaign/TASK.json" "$BOUNDARY_ROOT/state/campaign/agent_101_TASK.json"
+          cp "$BOUNDARY_ROOT/state/campaign/TASK.json"              "$BOUNDARY_ROOT/state/campaign/agent_101_TASK.json"
           cat > "$BOUNDARY_ROOT/state/campaign/agent_101_RESULT.md" <<'EOF'
           TASK_ID: task-101-current
           DECISION: IMPROVE
@@ -284,7 +287,7 @@ jobs:
           NEXT: current next action
           EOF
 
-          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$BOUNDARY_ROOT"             --agent-root "$BOUNDARY_ROOT"             --context-dir "$BOUNDARY_CONTEXT"             --campaign-slot 2 >/dev/null
+          python3 .github/scripts/campaign_controller.py prepare-agent             --root "$BOUNDARY_ROOT" --agent-root "$BOUNDARY_ROOT"             --context-dir "$BOUNDARY_CONTEXT" --campaign-slot 2 >/dev/null
 
           python3 - <<'PY'
           import json
@@ -296,7 +299,7 @@ jobs:
           assert task["selection_basis"]["previous_task_id"] == "task-101-current", task
           print("Campaign-local memo scoping and numeric global-agent ordering passed at 99-102 boundary.")
           PY
-          PY
+
 
 
       - name: Regression-test stale program handoff isolation
@@ -426,3 +429,4 @@ jobs:
             ${{ runner.temp }}/ehb-smoke-root/SOLVER_FEEDBACK.md
             ${{ runner.temp }}/ehb-smoke-root/context/agent_*_RESULT.md
             ${{ runner.temp }}/ehb-worker/state/campaign/campaign_status.json
+
