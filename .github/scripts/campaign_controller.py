@@ -430,19 +430,43 @@ def command_start_campaign(args: argparse.Namespace) -> int:
 
     manifest_path = campaign_dir / CAMPAIGN_MANIFEST_NAME
     existing = load_json_file(manifest_path)
+    if manifest_path.exists() and not isinstance(existing, dict):
+        raise SystemExit("CAMPAIGN_MANIFEST_CORRUPT")
+
     if isinstance(existing, dict) and existing.get("campaign_id") == args.campaign_id:
+        try:
+            existing_start = int(existing["starting_agent_number"])
+            existing_end = int(existing["ending_agent_number"])
+            existing_count = int(existing["agent_count"])
+        except (KeyError, TypeError, ValueError):
+            raise SystemExit("CAMPAIGN_MANIFEST_INVALID") from None
+        if existing_count != CAMPAIGN_AGENT_COUNT or existing_start < 1 or existing_end != existing_start + CAMPAIGN_AGENT_COUNT - 1:
+            raise SystemExit("CAMPAIGN_MANIFEST_INVALID")
         print(json.dumps(existing, sort_keys=True))
         return 0
 
     if isinstance(existing, dict):
+        try:
+            existing_start = int(existing["starting_agent_number"])
+            existing_end = int(existing["ending_agent_number"])
+            existing_count = int(existing["agent_count"])
+        except (KeyError, TypeError, ValueError):
+            raise SystemExit("CAMPAIGN_MANIFEST_INVALID") from None
+        if existing_count != CAMPAIGN_AGENT_COUNT or existing_start < 1 or existing_end != existing_start + CAMPAIGN_AGENT_COUNT - 1:
+            raise SystemExit("CAMPAIGN_MANIFEST_INVALID")
         history_path = campaign_dir / "CAMPAIGN_HISTORY.jsonl"
         with history_path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(existing, sort_keys=True) + "\n")
 
     counter_path = campaign_dir / GLOBAL_COUNTER_NAME
-    counter = load_json_file(counter_path, {})
-    next_agent = int(counter.get("next_agent_number", 1) or 1)
-    if next_agent < 1:
+    counter = load_json_file(counter_path)
+    if not isinstance(counter, dict) or "next_agent_number" not in counter:
+        raise SystemExit("GLOBAL_AGENT_COUNTER_MISSING_OR_CORRUPT")
+    try:
+        next_agent = int(counter["next_agent_number"])
+    except (TypeError, ValueError):
+        raise SystemExit("GLOBAL_AGENT_COUNTER_INVALID") from None
+    if isinstance(counter["next_agent_number"], bool) or next_agent < 1:
         raise SystemExit("GLOBAL_AGENT_COUNTER_INVALID")
 
     start = next_agent
