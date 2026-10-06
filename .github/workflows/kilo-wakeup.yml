@@ -602,18 +602,6 @@ jobs:
           rc=$?
           echo "DEEP_AUDIT_RC=$rc"
           exit 0
-      - name: Finalize controller campaign evaluation
-        id: campaign_finalize_evaluation
-        if: always() && steps.kilo.outcome == 'success' && steps.benchmark.outcome == 'success'
-        continue-on-error: true
-        run: |
-          set -euo pipefail
-          python3 .github/scripts/finalize_campaign.py post-evaluate \
-            --root "$GITHUB_WORKSPACE" \
-            --result "reports/benchmark_${BENCHMARK_ID}.json"
-          test -s state/campaign/FINAL_SYNTHESIS.json
-          test -s state/campaign/FINAL_SYNTHESIS.md
-
       - name: Evaluate hidden benchmark independently
         id: evaluate
         if: always() && steps.benchmark.outcome == 'success' && steps.start_benchmark.outcome == 'success' && steps.kilo.outcome == 'success'
@@ -630,6 +618,18 @@ jobs:
               --spec /run/lab/spec.json \
               --public /run/lab/public.json \
               --workspace /workspace
+
+      - name: Finalize controller campaign evaluation
+        id: campaign_finalize_evaluation
+        if: always() && steps.kilo.outcome == 'success' && steps.benchmark.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/finalize_campaign.py post-evaluate \
+            --root "$GITHUB_WORKSPACE" \
+            --result "reports/benchmark_${BENCHMARK_ID}.json"
+          test -s state/campaign/FINAL_SYNTHESIS.json
+          test -s state/campaign/FINAL_SYNTHESIS.md
 
       - name: Preserve manual-dispatch forensic benchmark
         id: audit_source_22_preserve_manual_dispatch_forensic_benchmark
@@ -648,6 +648,10 @@ jobs:
         continue-on-error: true
         run: |
           set -euo pipefail
+          if [ ! -s "PROGRAM_PROPOSAL.json" ]; then
+            echo "No controller-approved PROGRAM_PROPOSAL.json; skipping program post-kilo handoff."
+            exit 0
+          fi
           python3 lab/research_program.py post-kilo \
             --mode "$BENCHMARK_CAMPAIGN_MODE" \
             --benchmark-id "$BENCHMARK_ID" \
