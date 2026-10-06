@@ -36,6 +36,39 @@ DECISION: $([ "$agent_number" -eq 3 ] && echo UNVERIFIED || echo RETAIN)
 NEXT: Continue with the next controller-selected bounded task.
 EOF
 
+if [ "$agent_number" -eq 10 ]; then
+  mkdir -p "$(dirname "$(dirname "$result_path")")/../reports"
+  cat > "$(dirname "$(dirname "$result_path")")/../reports/benchmark_findings_candidate.json" <<'EOF'
+{"findings":[],"smoke_test":true}
+EOF
+  cat > "$(dirname "$(dirname "$result_path")")/../PROGRAM_PROPOSAL_CANDIDATE.json" <<'EOF'
+{
+  "program_version": "1.0.0",
+  "benchmark_id": "dummy-smoke",
+  "discovery": {"surface_map_exhaustive": false, "open_world": true},
+  "surfaces": [
+    {"surface_id": "smoke-surface", "status": "ACTIVE", "evolutionary_families": ["smoke-family"]}
+  ],
+  "evolution_families": [
+    {
+      "family_id": "smoke-family",
+      "surface_id": "smoke-surface",
+      "status": "ACTIVE",
+      "generation": 1,
+      "lineage": [],
+      "seed_requests": [],
+      "best_candidates": []
+    }
+  ]
+}
+EOF
+  cat > "$(dirname "$(dirname "$result_path")")/../reports/benchmark_research.md" <<'EOF'
+# Dummy campaign smoke report
+
+Controller smoke only. No benchmark research evidence is claimed.
+EOF
+fi
+
 if [ "$agent_number" -eq 3 ]; then
   exit 75
 fi
