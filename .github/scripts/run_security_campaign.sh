@@ -10,6 +10,7 @@ mkdir -p "$EHB_WORKER_DIR/state/campaign" "$CAMPAIGN_CONTEXT" "$CAMPAIGN_AGENT_R
 echo "CAMPAIGN_AGENT_COUNT=10" >> "$GITHUB_ENV"
 echo "CAMPAIGN_AGENT_TIMEOUT_MINUTES=28" >> "$GITHUB_ENV"
 echo "CAMPAIGN_STARTED_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+CAMPAIGN_DUMMY="${CAMPAIGN_DUMMY:-false}"
 
 copy_if_present() {
   src="$1"
@@ -122,46 +123,94 @@ Rules:
 EOF
 
   echo "STARTING FRESH HYPOTHESIS-DIVERSE CAMPAIGN AGENT $index/10: $role"
-  docker run --rm \
-    --name "ehb-kilo-agent-$agent_id" \
-    --user "$(id -u):$(id -g)" \
-    --network ehb-worker-net \
-    --add-host "api.kilo.ai:$KILO_RELAY_IP" \
-    --mount type=bind,source="$agent_dir",target=/workspace \
-    --mount type=bind,source="$RUNNER_TEMP/ehb-research-snapshot",target=/workspace/state/research,readonly \
-    --mount type=bind,source="$CAMPAIGN_CONTEXT",target=/workspace/state/campaign/context,readonly \
-    --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
-    -e HOME=/tmp/kilo-home \
-    -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
-    -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
-    -e KILO_DISABLE_EXTERNAL_SKILLS=true \
-    -e BENCHMARK_ID="$BENCHMARK_ID" \
-    -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
-    -e CAMPAIGN_AGENT_NUMBER="$agent_id" \
-    -e CAMPAIGN_AGENT_ROLE="$role" \
-    "$EHB_KILO_IMAGE" \
-    bash -lc '
-      set -euo pipefail
-      cd /workspace
-      mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
-      cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
-      chmod 600 "$HOME/.config/kilo/kilo.json"
-      {
-        echo "You are one isolated member of a ten-agent authorized security-research campaign."
-        echo "ROLE=$CAMPAIGN_AGENT_ROLE"
-        echo "AGENT=$CAMPAIGN_AGENT_NUMBER"
-        echo
-        cat "/workspace/state/campaign/context/agent_"$CAMPAIGN_AGENT_NUMBER"_BRIEF.md"
-        echo
-        echo "Read /workspace/state/campaign/context/CAMPAIGN_CONTEXT.md."
-        echo "Read prior agent_*_RESULT.md files in that context when they exist."
-        echo
-        cat /workspace/.kilo/wakeup-prompt.md
-      } > /tmp/campaign-agent-prompt
-      timeout --foreground --signal=TERM --kill-after=60s 28m \
-        kilo run --model openai-compatible/free-kilo --auto "$(cat /tmp/campaign-agent-prompt)"
-    ' > >(tee "$log_path") 2>&1
-  status=$?
+  if [ "$CAMPAIGN_DUMMY" = "true" ]; then
+    # Deterministic controller-only executor for the fast smoke workflow. This
+    # exercises workspace isolation, role fan-out, result contracts, status
+    # aggregation, and final handoff without starting any Kilo session.
+    case "$index" in
+      1) dummy_outcome=NEW_HYPOTHESIS ;;
+      2) dummy_outcome=NEW_EVIDENCE ;;
+      3) dummy_outcome=FALSIFIED ;;
+      4) dummy_outcome=NO_NEW_INFORMATION ;;
+      5) dummy_outcome=NEW_HYPOTHESIS ;;
+      6) dummy_outcome=NEW_EVIDENCE ;;
+      7) dummy_outcome=FALSIFIED ;;
+      8) dummy_outcome=NO_NEW_INFORMATION ;;
+      9) dummy_outcome=NEW_HYPOTHESIS ;;
+      10) dummy_outcome=NEW_EVIDENCE ;;
+    esac
+    cat > "$agent_dir/state/campaign/RESULT.md" <<EOF
+OUTCOME_CLASS: $dummy_outcome
+HYPOTHESIS: Dummy smoke hypothesis for role $role, branch $index.
+OBSERVATION: Deterministic smoke executor completed the isolated agent contract.
+FALSIFICATION: This dummy result is not research evidence and must not influence benchmark conclusions.
+DECISION: Validate controller orchestration, result handling, and handoff only.
+NEXT: Run the real Kilo executor in the production workflow.
+EOF
+    if [ "$index" -eq 10 ]; then
+      cat > "$agent_dir/PROGRAM_PROPOSAL.json" <<EOF
+{
+  "schema_version": 1,
+  "smoke_test": true,
+  "status": "DUMMY_VALIDATION_ONLY",
+  "benchmark_id": "$BENCHMARK_ID"
+}
+EOF
+      cat > "$agent_dir/reports/benchmark_findings.json" <<'EOF'
+{
+  "schema_version": 1,
+  "findings": [],
+  "smoke_test": true
+}
+EOF
+      cat > "$agent_dir/reports/benchmark_research.md" <<'EOF'
+# Dummy campaign smoke report
+
+This artifact exists only to verify final-agent canonical handoff plumbing.
+EOF
+    fi
+    status=0
+  else
+    docker run --rm \
+      --name "ehb-kilo-agent-$agent_id" \
+      --user "$(id -u):$(id -g)" \
+      --network ehb-worker-net \
+      --add-host "api.kilo.ai:$KILO_RELAY_IP" \
+      --mount type=bind,source="$agent_dir",target=/workspace \
+      --mount type=bind,source="$RUNNER_TEMP/ehb-research-snapshot",target=/workspace/state/research,readonly \
+      --mount type=bind,source="$CAMPAIGN_CONTEXT",target=/workspace/state/campaign/context,readonly \
+      --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
+      -e HOME=/tmp/kilo-home \
+      -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
+      -e KILO_DISABLE_EXTERNAL_SKILLS=true \
+      -e BENCHMARK_ID="$BENCHMARK_ID" \
+      -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
+      -e CAMPAIGN_AGENT_NUMBER="$agent_id" \
+      -e CAMPAIGN_AGENT_ROLE="$role" \
+      "$EHB_KILO_IMAGE" \
+      bash -lc '
+        set -euo pipefail
+        cd /workspace
+        mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
+        cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
+        chmod 600 "$HOME/.config/kilo/kilo.json"
+        {
+          echo "You are one isolated member of a ten-agent authorized security-research campaign."
+          echo "ROLE=$CAMPAIGN_AGENT_ROLE"
+          echo "AGENT=$CAMPAIGN_AGENT_NUMBER"
+          echo
+          cat "/workspace/state/campaign/context/agent_"$CAMPAIGN_AGENT_NUMBER"_BRIEF.md"
+          echo
+          echo "Read /workspace/state/campaign/context/CAMPAIGN_CONTEXT.md."
+          echo "Read prior agent_*_RESULT.md files in that context when they exist."
+          echo
+          cat /workspace/.kilo/wakeup-prompt.md
+        } > /tmp/campaign-agent-prompt
+        timeout --foreground --signal=TERM --kill-after=60s 28m \
+          kilo run --model openai-compatible/free-kilo --auto "$(cat /tmp/campaign-agent-prompt)"
+      ' > >(tee "$log_path") 2>&1
+    status=$?
+  fi
 
   if [ "$status" -eq 0 ]; then
     campaign_successes=$((campaign_successes + 1))
