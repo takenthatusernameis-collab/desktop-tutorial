@@ -78,54 +78,18 @@ for index in $(seq 1 10); do
     echo "TASK_FIREWALL_REJECTED for Agent $agent_id."
     status="$prep_status"
     agent_status=FAILED
-  elif [ "$CAMPAIGN_DUMMY" = "true" ] && [ "$index" -eq 3 ]; then
-    task_id_value=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["task_id"])' "$agent_dir/state/campaign/TASK.json")
-    cat > "$agent_dir/state/campaign/RESULT.md" <<EOF
-OUTCOME_CLASS: INFRASTRUCTURE_FAILURE
-TASK_ID: $task_id_value
-PRIMARY_QUESTION: Simulated controller smoke failure.
-BOTTLENECK: Simulated Kilo execution failure.
-INFORMATION_GAP: Whether later sessions remain isolated after a failed session.
-BOUNDED_ACTION: Exercise the failure handoff boundary only.
-DELIVERABLE: Durable failure memo.
-SUCCESS_EVIDENCE_CRITERION: Agent 04 can start from durable state without private context.
-STOP_CONDITION: Stop immediately after writing this failure memo.
-OUT_OF_SCOPE: No research execution.
-VERIFICATION_REQUIREMENT: Controller must validate the memo and continue sequentially.
-CHANGED: true
-VERIFIED: controller handoff prepared
-UNVERIFIED: simulated Kilo work
-OBSERVED_EFFECT: The session was intentionally failed for smoke coverage.
-UNCERTAINTY_TARGETED: Whether one failed slot corrupts later slots.
-UNCERTAINTY_REDUCED: Later-slot isolation remains untested until Agent 04.
-DECISION: UNVERIFIED
-NEXT: Start Agent 04 from the persisted Agent 03 handoff.
-EOF
-    status=75
   elif [ "$CAMPAIGN_DUMMY" = "true" ]; then
-    task_id_value=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["task_id"])' "$agent_dir/state/campaign/TASK.json")
-    cat > "$agent_dir/state/campaign/RESULT.md" <<EOF
-OUTCOME_CLASS: NEW_EVIDENCE
-TASK_ID: $task_id_value
-PRIMARY_QUESTION: Dummy controller smoke question.
-BOTTLENECK: Dummy orchestration validation.
-INFORMATION_GAP: Whether the next session can consume only durable state.
-BOUNDED_ACTION: Validate the selected task and durable handoff contract.
-DELIVERABLE: Durable smoke memo.
-SUCCESS_EVIDENCE_CRITERION: The selected task and result contract validate without hidden session state.
-STOP_CONDITION: Stop after the handoff is written.
-OUT_OF_SCOPE: Real security research.
-VERIFICATION_REQUIREMENT: Controller structural validation.
-CHANGED: true
-VERIFIED: durable handoff contract
-UNVERIFIED: benchmark behavior
-OBSERVED_EFFECT: Dummy slot completed the controller contract.
-UNCERTAINTY_TARGETED: Session isolation.
-UNCERTAINTY_REDUCED: Durable handoff remains readable by the next slot.
-DECISION: RETAIN
-NEXT: Continue to the next controller-selected task.
-EOF
-    status=0
+    bash "$GITHUB_WORKSPACE/.github/scripts/mock_kilo_session.sh" \
+      "$index" \
+      "$agent_dir/state/campaign/TASK.json" \
+      "$agent_dir/state/campaign/RESULT.md"
+    status=$?
+    if [ -f "$agent_dir/state/campaign/MOCK_SESSION_ID" ]; then
+      cp "$agent_dir/state/campaign/MOCK_SESSION_ID" \
+        "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_MOCK_SESSION_ID"
+      cp "$agent_dir/state/campaign/MOCK_SESSION_ID" \
+        "$BASE_WORKSPACE/state/campaign/agent_${agent_id}_MOCK_SESSION_ID"
+    fi
   else
     cp "$agent_dir/state/campaign/TASK.json" \
       "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_TASK.json"
@@ -235,7 +199,16 @@ except Exception:
 PY
 )
 
-  cat > "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_CONTROLLER.md" <<EOF
+  session_id="$(cat "$agent_dir/state/campaign/MOCK_SESSION_ID" 2>/dev/null || true)"
+  cat > "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_CONTROLLER.md" <<EOF
+AGENT_NUMBER: ${agent_id}
+TASK_ID: ${task_id_value}
+SESSION_ID: ${session_id}
+STATUS: ${agent_status}
+EXIT_CODE: ${status}
+RESULT_VALID: $([ "${validation_status}" -eq 0 ] && echo true || echo false)
+OBSERVED_UTC: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+EOF
 AGENT_NUMBER: $agent_id
 TASK_ID: $task_id_value
 STATUS: $agent_status
