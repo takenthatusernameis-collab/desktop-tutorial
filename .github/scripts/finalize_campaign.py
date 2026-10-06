@@ -140,9 +140,14 @@ def prepare(args: argparse.Namespace) -> int:
             proposal_status = "PROMOTED"
         else:
             proposal_status = "REJECTED"
+            proposal.unlink(missing_ok=True)
             (campaign / "PROGRAM_PROPOSAL_REJECTION.txt").write_text(
                 proc.stdout + proc.stderr, encoding="utf-8"
             )
+    else:
+        # PROGRAM_PROPOSAL.json is an activation handoff, not durable history.
+        # Never allow an older campaign's proposal to masquerade as this campaign's handoff.
+        proposal.unlink(missing_ok=True)
 
     counts = {name: sum(1 for row in memos if row["outcome"] == name) for name in sorted(OUTCOME_CLASSES)}
     controller_validated_process_improvements = sum(
