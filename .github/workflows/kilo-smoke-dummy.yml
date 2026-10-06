@@ -8,6 +8,9 @@ on:
     paths:
       - ".github/workflows/kilo-smoke-dummy.yml"
       - ".github/scripts/run_security_campaign.sh"
+      - ".github/scripts/campaign_controller.py"
+      - ".github/scripts/finalize_campaign.py"
+      - ".github/scripts/mock_kilo_session.sh"
       - ".github/scripts/build_campaign_health.py"
       - "lab/generate_solver_feedback.py"
       - ".kilo/wakeup-prompt.md"
@@ -41,6 +44,8 @@ jobs:
           set -euo pipefail
           bash -n .github/scripts/run_security_campaign.sh
           python3 -m py_compile \
+            .github/scripts/campaign_controller.py \
+            .github/scripts/finalize_campaign.py \
             .github/scripts/build_campaign_health.py \
             lab/generate_solver_feedback.py \
             lab/research_program.py \
@@ -134,26 +139,59 @@ jobs:
 
           root = Path(os.environ["EHB_WORKER_DIR"])
           status = json.loads((root / "state/campaign/campaign_status.json").read_text())
-          assert status["status"] == "COMPLETE", status
+          assert status["status"] == "PARTIAL", status
           assert status["agent_count"] == 10, status
-          assert status["success_count"] == 10, status
-          assert status["failure_count"] == 0, status
+          assert status["success_count"] == 9, status
+          assert status["failure_count"] == 1, status
+          assert status["final_agent_status"] == "SUCCESS", status
 
           results = sorted((root / "state/campaign").glob("agent_*_RESULT.md"))
+          tasks = sorted((root / "state/campaign").glob("agent_*_TASK.json"))
           controllers = sorted((root / "state/campaign").glob("agent_*_CONTROLLER.md"))
+          sessions = sorted((root / "state/campaign").glob("agent_*_MOCK_SESSION_ID"))
           assert len(results) == 10, len(results)
+          assert len(tasks) == 10, len(tasks)
           assert len(controllers) == 10, len(controllers)
+          assert len(sessions) == 10, len(sessions)
+          assert len({p.read_text().strip() for p in sessions}) == 10
+
+          import json
+          roles = {}
+          for path in tasks:
+              task = json.loads(path.read_text(encoding="utf-8"))
+              number = int(task["agent_number"])
+              roles[number] = task["role"]
+              assert task["task_id"].startswith("task-")
+              for field in (
+                  "primary_question", "bottleneck", "information_gap",
+                  "bounded_action", "deliverable", "success_evidence_criterion",
+                  "stop_condition", "out_of_scope", "verification_requirement",
+              ):
+                  assert task[field].strip(), (path, field)
+          assert roles[1] == "LEARNING_PROCESS"
+          assert roles[2] == "HIGHER_ORDER_RESEARCH"
+          assert roles[3] == "LEARNING_PROCESS"
+          assert roles[4] == "HIGHER_ORDER_RESEARCH"
+          assert roles[9] == "LEARNING_PROCESS"
+          assert roles[10] == "HIGHER_ORDER_RESEARCH"
+
           for path in results:
               text = path.read_text(encoding="utf-8")
               for field in (
-                  "OUTCOME_CLASS:",
-                  "HYPOTHESIS:",
-                  "OBSERVATION:",
-                  "FALSIFICATION:",
-                  "DECISION:",
-                  "NEXT:",
+                  "OUTCOME_CLASS:", "TASK_ID:", "PRIMARY_QUESTION:", "BOTTLENECK:",
+                  "INFORMATION_GAP:", "BOUNDED_ACTION:", "DELIVERABLE:",
+                  "SUCCESS_EVIDENCE_CRITERION:", "STOP_CONDITION:", "OUT_OF_SCOPE:",
+                  "VERIFICATION_REQUIREMENT:", "CHANGED:", "VERIFIED:", "UNVERIFIED:",
+                  "OBSERVED_EFFECT:", "UNCERTAINTY_TARGETED:", "UNCERTAINTY_REDUCED:",
+                  "DECISION:", "NEXT:",
               ):
                   assert field in text, (path, field)
+
+          agent4_task = json.loads((root / "state/campaign/agent_04_TASK.json").read_text())
+          agent3_task = json.loads((root / "state/campaign/agent_03_TASK.json").read_text())
+          assert agent4_task["selection_basis"]["previous_task_id"] == agent3_task["task_id"]
+          assert (root / "state/campaign/FINAL_SYNTHESIS.json").is_file()
+          assert (root / "state/campaign/FINAL_SYNTHESIS.md").is_file()
 
           assert (root / "PROGRAM_PROPOSAL.json").is_file()
           assert (root / "reports/benchmark_findings.json").is_file()
@@ -192,7 +230,7 @@ jobs:
           cd "$SMOKE_ROOT"
           python3 "$GITHUB_WORKSPACE/.github/scripts/build_campaign_health.py" \
             --output state/campaign/HEALTH.json \
-            --campaign-status COMPLETE \
+            --campaign-status PARTIAL \
             --evaluate success \
             --preflight success \
             --smoke success \
@@ -222,13 +260,19 @@ jobs:
               "execution_reliability",
               "agent_completion",
               "memo_integrity",
+              "task_contract_integrity",
+              "alternating_role_integrity",
               "hypothesis_diversity",
               "learning_yield",
               "falsification_coverage",
+              "observed_effect_rate",
+              "uncertainty_reduction_rate",
               "research_breadth",
               "reproduction_density",
               "handoff_completeness",
           }, health["process_metrics"].keys()
+          assert health["process_metrics"]["alternating_role_integrity"] == 1.0
+          assert health["process_metrics"]["task_contract_integrity"] > 0.0
           assert health["benchmark"]["overall_score"] == 0.05
           assert health["research_health"] == "PROGRESS"
           assert (root / "SOLVER_FEEDBACK.md").is_file()
@@ -238,9 +282,13 @@ jobs:
               "Execution reliability:",
               "Agent completion:",
               "Memo integrity:",
+              "Task contract integrity:",
+              "Alternating role integrity:",
               "Hypothesis diversity:",
               "Learning yield:",
               "Falsification coverage:",
+              "Observed effect rate:",
+              "Uncertainty reduction rate:",
               "Research breadth:",
               "Reproduction density:",
               "Handoff completeness:",
