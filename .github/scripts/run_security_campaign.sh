@@ -151,7 +151,7 @@ EOF
         echo "ROLE=$CAMPAIGN_AGENT_ROLE"
         echo "AGENT=$CAMPAIGN_AGENT_NUMBER"
         echo
-        cat "/workspace/state/campaign/context/agent_$CAMPAIGN_AGENT_NUMBER_BRIEF.md"
+        cat "/workspace/state/campaign/context/agent_"$CAMPAIGN_AGENT_NUMBER"_BRIEF.md"
         echo
         echo "Read /workspace/state/campaign/context/CAMPAIGN_CONTEXT.md."
         echo "Read prior agent_*_RESULT.md files in that context when they exist."
@@ -201,7 +201,7 @@ EXIT_CODE: $status
 OBSERVED_UTC: $(date -u +%Y-%m-%dT%H:%M:%SZ)
 EOF
 
-  echo "CAMPAIGN_AGENT_$agent_id_STATUS=$agent_status" >> "$GITHUB_ENV"
+  echo "CAMPAIGN_AGENT_"$agent_id"_STATUS=$agent_status" >> "$GITHUB_ENV"
   echo "CAMPAIGN_SUCCESS_COUNT=$campaign_successes" >> "$GITHUB_ENV"
   echo "CAMPAIGN_FAILURE_COUNT=$campaign_failures" >> "$GITHUB_ENV"
   echo "::notice::Campaign agent $index/10 finished: $agent_status; successes=$campaign_successes; failures=$campaign_failures"
@@ -210,6 +210,16 @@ EOF
     final_status="$agent_status"
   fi
 done
+
+# Only the final synthesis workspace can promote canonical deliverables.
+if [ "$final_status" = "SUCCESS" ]; then
+  for durable_path in     PROGRAM_PROPOSAL.json     reports/benchmark_findings.json     reports/benchmark_research.md     LEARNING_STATE.md     research_state.md; do
+    if [ -e "$CAMPAIGN_AGENT_ROOT/agent_10/$durable_path" ]; then
+      mkdir -p "$EHB_WORKER_DIR/$(dirname "$durable_path")"
+      cp -a "$CAMPAIGN_AGENT_ROOT/agent_10/$durable_path" "$EHB_WORKER_DIR/$durable_path"
+    fi
+  done
+fi
 
 campaign_status=PARTIAL
 if [ "$campaign_failures" -eq 0 ]; then
