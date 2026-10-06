@@ -131,7 +131,7 @@ def validate_result(path: Path, expected_task: dict[str, Any]) -> list[str]:
     if outcome not in OUTCOME_CLASSES:
         errors.append(f"invalid OUTCOME_CLASS: {outcome!r}")
 
-    decision = fields.get("DECISION", "")
+    decision = fields.get("DECISION", "").strip()
     if decision not in DECISIONS:
         errors.append(f"invalid DECISION: {decision!r}")
 
@@ -395,7 +395,10 @@ def write_brief(task: dict[str, Any], brief_path: Path) -> None:
         "Do not commit or push.",
         "Do not modify protected controller artifacts.",
         "Use durable repository state and this task brief as the communication medium.",
-        "Before finishing, create state/campaign/RESULT.md using every required RESULT field from AGENTS.md.",
+        "RESULT.md is pre-created in the campaign workspace. Edit it in place.",
+        "Preserve every uppercase FIELD: prefix exactly; fill blank fields rather than replacing the file with prose headings.",
+        "Use exactly one canonical decision token: IMPROVE, RETAIN, REJECT, or UNVERIFIED.",
+        "Keep NEXT to one bounded immediate action on one line.",
     ]
     brief_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -497,6 +500,32 @@ def command_start_campaign(args: argparse.Namespace) -> int:
     return 0
 
 
+def write_result_template(task: dict[str, Any], result_path: Path) -> None:
+    """Create the machine-readable result contract before the worker starts."""
+    lines = [
+        "OUTCOME_CLASS:",
+        f"TASK_ID: {task['task_id']}",
+        f"PRIMARY_QUESTION: {task['primary_question']}",
+        f"BOTTLENECK: {task['bottleneck']}",
+        f"INFORMATION_GAP: {task['information_gap']}",
+        f"BOUNDED_ACTION: {task['bounded_action']}",
+        f"DELIVERABLE: {task['deliverable']}",
+        f"SUCCESS_EVIDENCE_CRITERION: {task['success_evidence_criterion']}",
+        f"STOP_CONDITION: {task['stop_condition']}",
+        f"OUT_OF_SCOPE: {task['out_of_scope']}",
+        f"VERIFICATION_REQUIREMENT: {task['verification_requirement']}",
+        "CHANGED:",
+        "VERIFIED:",
+        "UNVERIFIED:",
+        "OBSERVED_EFFECT:",
+        "UNCERTAINTY_TARGETED:",
+        "UNCERTAINTY_REDUCED:",
+        "DECISION:",
+        "NEXT:",
+    ]
+    result_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def command_prepare(args: argparse.Namespace) -> int:
     root = Path(args.root)
     campaign_dir = root / "state" / "campaign"
@@ -527,6 +556,13 @@ def command_prepare(args: argparse.Namespace) -> int:
     )
     (agent_dir / "state" / "campaign" / "TASK_CANDIDATES.json").write_text(
         json.dumps(candidates, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    # Pre-create the canonical worker result contract. The Kilo session fills
+    # the blank outcome/verification fields in place rather than inventing a
+    # different serialization format.
+    write_result_template(
+        task,
+        agent_dir / "state" / "campaign" / "RESULT.md",
     )
     context_dir = Path(args.context_dir)
     context_dir.mkdir(parents=True, exist_ok=True)

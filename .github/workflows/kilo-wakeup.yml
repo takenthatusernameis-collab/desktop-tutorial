@@ -842,7 +842,7 @@ jobs:
             exit 1
           fi
 
-          if git diff --cached --binary | grep -E -n "BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|kilo_[A-Za-z0-9_-]{32,}|sk-[A-Za-z0-9_-]{20,}" >/tmp/secrets; then
+          if git diff --cached --binary | grep -E -n "BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|(^|[^A-Za-z0-9_-])ghp_[A-Za-z0-9]{30,}([^A-Za-z0-9_-]|$)|(^|[^A-Za-z0-9_-])github_pat_[A-Za-z0-9_]{40,}([^A-Za-z0-9_-]|$)|(^|[^A-Za-z0-9_-])kilo_[A-Za-z0-9_-]{32,}([^A-Za-z0-9_-]|$)|(^|[^A-Za-z0-9_-])sk-[A-Za-z0-9_-]{20,}([^A-Za-z0-9_-]|$)" >/tmp/secrets; then
             echo "Potential credential material detected:"
             cat /tmp/secrets
             exit 1
