@@ -95,9 +95,9 @@ for index in $(seq 1 10); do
     fi
   else
     cp "$agent_dir/state/campaign/TASK.json" \
-      "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_TASK.json"
+      "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_TASK.json"
     cp "$agent_dir/state/campaign/TASK.json" \
-      "$BASE_WORKSPACE/state/campaign/agent_$agent_id_TASK.json"
+      "$BASE_WORKSPACE/state/campaign/agent_${agent_id}_TASK.json"
 
     docker run --rm \
       --name "ehb-kilo-agent-$agent_id" \
@@ -152,12 +152,12 @@ for index in $(seq 1 10); do
   fi
 
   if [ "$validation_status" -eq 0 ]; then
-    cp "$result_path" "$CAMPAIGN_CONTEXT/agent_$agent_id_RESULT.md"
-    cp "$result_path" "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_RESULT.md"
-    cp "$result_path" "$BASE_WORKSPACE/state/campaign/agent_$agent_id_RESULT.md"
+    cp "$result_path" "$CAMPAIGN_CONTEXT/agent_${agent_id}_RESULT.md"
+    cp "$result_path" "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_RESULT.md"
+    cp "$result_path" "$BASE_WORKSPACE/state/campaign/agent_${agent_id}_RESULT.md"
   else
     task_id_value=$(if [ -f "$task_path" ]; then python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["task_id"])' "$task_path"; else echo "UNKNOWN"; fi)
-    cat > "$CAMPAIGN_CONTEXT/agent_$agent_id_RESULT.md" <<EOF
+    cat > "$CAMPAIGN_CONTEXT/agent_${agent_id}_RESULT.md" <<EOF
 OUTCOME_CLASS: INFRASTRUCTURE_FAILURE
 TASK_ID: $task_id_value
 PRIMARY_QUESTION: Controller could not validate the session result.
@@ -178,10 +178,10 @@ UNCERTAINTY_REDUCED: none
 DECISION: UNVERIFIED
 NEXT: Reassess the highest-value unresolved task from durable evidence.
 EOF
-    cp "$CAMPAIGN_CONTEXT/agent_$agent_id_RESULT.md" \
-      "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_RESULT.md"
-    cp "$CAMPAIGN_CONTEXT/agent_$agent_id_RESULT.md" \
-      "$BASE_WORKSPACE/state/campaign/agent_$agent_id_RESULT.md"
+    cp "$CAMPAIGN_CONTEXT/agent_${agent_id}_RESULT.md" \
+      "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_RESULT.md"
+    cp "$CAMPAIGN_CONTEXT/agent_${agent_id}_RESULT.md" \
+      "$BASE_WORKSPACE/state/campaign/agent_${agent_id}_RESULT.md"
     validation_status=1
   fi
 
@@ -212,13 +212,13 @@ EXIT_CODE: ${status}
 RESULT_VALID: $([ "${validation_status}" -eq 0 ] && echo true || echo false)
 OBSERVED_UTC: $(date -u +%Y-%m-%dT%H:%M:%SZ)
 EOF
-  cp "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_CONTROLLER.md" \
-     "$BASE_WORKSPACE/state/campaign/agent_$agent_id_CONTROLLER.md"
+  cp "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_CONTROLLER.md" \
+     "$BASE_WORKSPACE/state/campaign/agent_${agent_id}_CONTROLLER.md"
 
   # The shared workspace already contains durable campaign state; do not overwrite it
   # with a stale outward snapshot between fresh sessions.
 
-  echo "CAMPAIGN_AGENT_$agent_id_STATUS=$agent_status" >> "$GITHUB_ENV"
+  echo "CAMPAIGN_AGENT_${agent_id}_STATUS=$agent_status" >> "$GITHUB_ENV"
   echo "CAMPAIGN_SUCCESS_COUNT=$campaign_successes" >> "$GITHUB_ENV"
   echo "CAMPAIGN_FAILURE_COUNT=$campaign_failures" >> "$GITHUB_ENV"
   echo "::notice::Campaign agent $index/10 finished: $agent_status; task=$task_id_value; successes=$campaign_successes; failures=$campaign_failures"
