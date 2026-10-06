@@ -67,6 +67,20 @@ Never commit or push.
 Never modify trusted controller artifacts.
 Never infer or target hidden benchmark truth.
 
+
+
+## Procedural generational memory
+
+Read `REPOSITORY_PLAYBOOK.md` early in every activation.
+
+This is operational memory, not security or benchmark evidence. It captures reusable knowledge about how fresh generations can navigate the repository, reuse trusted infrastructure, classify failures correctly, preserve evidence, and hand off efficiently.
+
+When a substantive interaction yields a **generalizable, verified** operating lesson that can save future work, reduce errors, or improve evidence quality, update the playbook with one concise rule. Do not write a diary, raw logs, private reasoning, secrets, or transient incident trivia. Strengthen existing entries rather than duplicating them.
+
+Keep these layers separate:
+- research state: what the enterprise learned;
+- `REPOSITORY_PLAYBOOK.md`: how to operate the enterprise repository efficiently;
+- activation records: what happened during one activation.
 # Learning-efficiency contract
 
 Read `LEARNING_STATE.md` and `SOLVER_FEEDBACK.md` during OBSERVE.

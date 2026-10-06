@@ -393,7 +393,8 @@ jobs:
               cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
               chmod 600 "$HOME/.config/kilo/kilo.json"
 
-              test -s .kilo/wakeup-prompt.md
+              test -s REPOSITORY_PLAYBOOK.md
+          test -s .kilo/wakeup-prompt.md
               test -s SOLVER_FEEDBACK.md
               test ! -e lab
               test ! -e .git
