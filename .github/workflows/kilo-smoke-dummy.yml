@@ -1,0 +1,252 @@
+name: Bug Bounty Research Enterprise — Fast Dummy Smoke
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/kilo-smoke-dummy.yml"
+      - ".github/scripts/run_security_campaign.sh"
+      - ".github/scripts/build_campaign_health.py"
+      - "lab/generate_solver_feedback.py"
+      - ".kilo/wakeup-prompt.md"
+
+concurrency:
+  group: bug-bounty-research-enterprise-smoke
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  controller-smoke:
+    name: Fast 10-agent controller smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    env:
+      BENCHMARK_ID: dummy-smoke
+      SECURITY_RESEARCH_TARGET: authorized-smoke-fixture
+      CAMPAIGN_DUMMY: "true"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Validate controller scripts
+        run: |
+          set -euo pipefail
+          bash -n .github/scripts/run_security_campaign.sh
+          python3 -m py_compile \
+            .github/scripts/build_campaign_health.py \
+            lab/generate_solver_feedback.py \
+            lab/research_program.py \
+            .github/scripts/report_worker_outcome.py \
+            .github/scripts/record_failure_memory.py
+          python3 .github/scripts/build_campaign_health.py --help >/dev/null
+          python3 .github/scripts/report_worker_outcome.py --self-test
+          python3 .github/scripts/record_failure_memory.py --self-test
+
+      - name: Prepare isolated dummy campaign state
+        run: |
+          set -euo pipefail
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+          SNAP="$RUNNER_TEMP/ehb-research-snapshot"
+          SMOKE_ROOT="$RUNNER_TEMP/ehb-smoke-root"
+          rm -rf "$EHB_WORKER_DIR" "$SNAP" "$SMOKE_ROOT"
+          mkdir -p \
+            "$EHB_WORKER_DIR/state/research" \
+            "$EHB_WORKER_DIR/reports" \
+            "$EHB_WORKER_DIR/state/campaign" \
+            "$SNAP" \
+            "$SMOKE_ROOT/state/research" \
+            "$SMOKE_ROOT/reports"
+
+          for file in \
+            AGENTS.md \
+            ENTERPRISE.md \
+            PERSISTENCE_POLICY.md \
+            AUTHORIZED_TARGET.md \
+            SOLVER_FEEDBACK.md \
+            LEARNING_STATE.md \
+            research_state.md \
+            README.md; do
+            if [ -e "$file" ]; then
+              cp -a "$file" "$EHB_WORKER_DIR/$file"
+            fi
+          done
+
+          if [ -e ".kilo/wakeup-prompt.md" ]; then
+            mkdir -p "$EHB_WORKER_DIR/.kilo"
+            cp -a ".kilo/wakeup-prompt.md" "$EHB_WORKER_DIR/.kilo/wakeup-prompt.md"
+          fi
+
+          cat > "$EHB_WORKER_DIR/state/research/PROGRAM.json" <<'EOF'
+          {
+            "program_version": "1.0.0",
+            "benchmark_id": "dummy-smoke",
+            "evolution_families": [
+              {"family_id": "smoke-family", "status": "ACTIVE", "generation": 1}
+            ],
+            "surfaces": [
+              {"surface_id": "smoke-surface", "status": "ACTIVE"}
+            ]
+          }
+          EOF
+
+          cat > "$EHB_WORKER_DIR/state/research/PORTFOLIO_SUMMARY.json" <<'EOF'
+          {
+            "candidate_requests": 10,
+            "behavioral_differences": 4,
+            "repeat_reproductions": 2,
+            "executed_generations": 10,
+            "families_represented": ["smoke-family"],
+            "surfaces_represented": ["smoke-surface"]
+          }
+          EOF
+
+          cp -a "$EHB_WORKER_DIR/state/research/." "$SNAP/"
+          printf 'smoke\n' > "$SMOKE_ROOT/state/research/README.txt"
+
+          {
+            echo "EHB_WORKER_DIR=$EHB_WORKER_DIR"
+            echo "SMOKE_ROOT=$SMOKE_ROOT"
+          } >> "$GITHUB_ENV"
+
+      - name: Run production controller with dummy executor
+        run: |
+          set -euo pipefail
+          export EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+          export CAMPAIGN_DUMMY=true
+          export BENCHMARK_ID=dummy-smoke
+          export SECURITY_RESEARCH_TARGET=authorized-smoke-fixture
+          export GITHUB_WORKSPACE="$GITHUB_WORKSPACE"
+          bash .github/scripts/run_security_campaign.sh
+
+          test -s "$EHB_WORKER_DIR/state/campaign/campaign_status.json"
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path(os.environ["EHB_WORKER_DIR"])
+          status = json.loads((root / "state/campaign/campaign_status.json").read_text())
+          assert status["status"] == "COMPLETE", status
+          assert status["agent_count"] == 10, status
+          assert status["success_count"] == 10, status
+          assert status["failure_count"] == 0, status
+
+          results = sorted((root / "state/campaign").glob("agent_*_RESULT.md"))
+          controllers = sorted((root / "state/campaign").glob("agent_*_CONTROLLER.md"))
+          assert len(results) == 10, len(results)
+          assert len(controllers) == 10, len(controllers)
+          for path in results:
+              text = path.read_text(encoding="utf-8")
+              for field in (
+                  "OUTCOME_CLASS:",
+                  "HYPOTHESIS:",
+                  "OBSERVATION:",
+                  "FALSIFICATION:",
+                  "DECISION:",
+                  "NEXT:",
+              ):
+                  assert field in text, (path, field)
+
+          assert (root / "PROGRAM_PROPOSAL.json").is_file()
+          assert (root / "reports/benchmark_findings.json").is_file()
+          assert (root / "reports/benchmark_research.md").is_file()
+          print("Dummy campaign orchestration contract passed.")
+          PY
+
+      - name: Evaluate fast process-health path
+        run: |
+          set -euo pipefail
+          SMOKE_ROOT="$RUNNER_TEMP/ehb-smoke-root"
+          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
+
+          mkdir -p "$SMOKE_ROOT/context" "$SMOKE_ROOT/state/campaign"
+          cp -a "$EHB_WORKER_DIR/state/research/PROGRAM.json" "$SMOKE_ROOT/state/research/PROGRAM.json"
+          cp -a "$EHB_WORKER_DIR/state/research/PORTFOLIO_SUMMARY.json" "$SMOKE_ROOT/state/research/PORTFOLIO_SUMMARY.json"
+          cp -a "$EHB_WORKER_DIR/reports/benchmark_findings.json" "$SMOKE_ROOT/reports/benchmark_findings.json"
+          cp -a "$EHB_WORKER_DIR/PROGRAM_PROPOSAL.json" "$SMOKE_ROOT/PROGRAM_PROPOSAL.json"
+          cp -a "$RUNNER_TEMP/ehb-campaign-context/." "$SMOKE_ROOT/context/"
+
+          cat > "$SMOKE_ROOT/reports/benchmark_dummy-smoke.json" <<'EOF'
+          {
+            "overall_score": 0.05,
+            "discovery_rate": 0.0,
+            "reproduction_rate": 0.0,
+            "precision_component": 0.0,
+            "evidence_quality": 1.0,
+            "finding_count_submitted": 0,
+            "reproduced_claim_count": 0,
+            "unmatched_claim_count": 0,
+            "unique_challenges_validated": 0
+          }
+          EOF
+
+          cd "$SMOKE_ROOT"
+          python3 "$GITHUB_WORKSPACE/.github/scripts/build_campaign_health.py" \
+            --output state/campaign/HEALTH.json \
+            --campaign-status COMPLETE \
+            --evaluate success \
+            --preflight success \
+            --smoke success \
+            --persist success \
+            --context-dir "$SMOKE_ROOT/context" \
+            --result "$SMOKE_ROOT/reports/benchmark_dummy-smoke.json" \
+            --findings "$SMOKE_ROOT/reports/benchmark_findings.json" \
+            --proposal "$SMOKE_ROOT/PROGRAM_PROPOSAL.json" \
+            --process-history "$SMOKE_ROOT/state/research/PROCESS_HISTORY.jsonl"
+
+          python3 "$GITHUB_WORKSPACE/lab/generate_solver_feedback.py" \
+            --result "$SMOKE_ROOT/reports/benchmark_dummy-smoke.json" \
+            --history "$GITHUB_WORKSPACE/lab/benchmark_history.jsonl" \
+            --process-history "$SMOKE_ROOT/state/research/PROCESS_HISTORY.jsonl" \
+            --output "$SMOKE_ROOT/SOLVER_FEEDBACK.md"
+
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path(os.environ["SMOKE_ROOT"])
+          health = json.loads((root / "state/campaign/HEALTH.json").read_text())
+          assert health["agent_result_count"] == 10, health
+          assert 0.0 < health["process_score"] <= 1.0, health
+          assert set(health["process_metrics"]) == {
+              "execution_reliability",
+              "agent_completion",
+              "memo_integrity",
+              "hypothesis_diversity",
+              "learning_yield",
+              "falsification_coverage",
+              "research_breadth",
+              "reproduction_density",
+              "handoff_completeness",
+          }, health["process_metrics"].keys()
+          assert health["benchmark"]["overall_score"] == 0.05
+          assert health["research_health"] == "PROGRESS"
+          assert (root / "SOLVER_FEEDBACK.md").is_file()
+          text = (root / "SOLVER_FEEDBACK.md").read_text(encoding="utf-8")
+          assert "Process score" in text
+          assert "Process submetrics" in text
+          print(f"FAST_SMOKE_PROCESS_SCORE={health['process_score']}")
+          print("Fast process-health evaluation passed.")
+          PY
+
+      - name: Publish smoke diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: campaign-smoke-${{ github.run_id }}
+          retention-days: 3
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/ehb-smoke-root/state/campaign/HEALTH.json
+            ${{ runner.temp }}/ehb-smoke-root/SOLVER_FEEDBACK.md
+            ${{ runner.temp }}/ehb-smoke-root/context/agent_*_RESULT.md
+            ${{ runner.temp }}/ehb-worker/state/campaign/campaign_status.json
