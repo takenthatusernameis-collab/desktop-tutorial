@@ -1,5 +1,5 @@
 {
-  "activation_id": "37434379316",
+  "activation_id": "37449379339",
   "benchmark": {
     "discovery_rate": 0.0,
     "evidence_quality": 0.0,
@@ -18,33 +18,33 @@
     "research_report": true
   },
   "delta": {
-    "behavioral_differences": 0.0,
-    "candidate_requests": 6.0,
+    "behavioral_differences": 5.0,
+    "candidate_requests": 0.0,
     "executed_generations": 0.0,
     "exhausted_surfaces": 0.0,
     "families_represented": 0.0,
     "negated_surfaces": 0.0,
-    "repeat_reproductions": 0.0,
+    "repeat_reproductions": 5.0,
     "surfaces_represented": 0.0
   },
   "execution": {
-    "evaluate": "success",
+    "evaluate": "skipped",
     "healthy": true,
     "persist": "pending",
     "portfolio": "success",
     "preflight": "success",
     "smoke": "success",
-    "worker": "success"
+    "worker": "failure"
   },
   "interpretation": {
     "benchmark_score_is_outcome_only": true,
     "progress_is_tracked_by_process_and_state_changes": true,
     "stagnation": false
   },
-  "observed_at_utc": "2026-10-06T08:39:44Z",
+  "observed_at_utc": "2026-10-06T10:44:02Z",
   "portfolio": {
-    "behavioral_differences": 69,
-    "candidate_requests": 180,
+    "behavioral_differences": 74,
+    "candidate_requests": 174,
     "compiled_generations": 24,
     "executed_generations": 24,
     "families_represented": 22,
@@ -57,7 +57,7 @@
       "EXHAUSTED_FOR_NOW": 2,
       "NEGATED": 5
     },
-    "repeat_reproductions": 66,
+    "repeat_reproductions": 71,
     "surface_count": 16,
     "surface_statuses": {
       "DEPRIORITIZED": 2,
@@ -68,16 +68,16 @@
     "surfaces_represented": 16
   },
   "process_metrics": {
-    "activation_information_gain": 0.0,
+    "activation_information_gain": 0.6425,
     "active_surface_coverage": 1.0,
-    "behavioral_difference_rate": 0.3833,
+    "behavioral_difference_rate": 0.4253,
     "delivery_integrity": 0.0,
     "execution_reliability": 1.0,
     "falsification_signal": 0.0,
-    "reproduction_density": 0.3667,
+    "reproduction_density": 0.408,
     "surface_coverage": 1.0
   },
-  "process_score": 0.4688,
-  "progress_state": "INCREMENTAL",
+  "process_score": 0.5595,
+  "progress_state": "ADVANCE",
   "schema_version": 3
 }
