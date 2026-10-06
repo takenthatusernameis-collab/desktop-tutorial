@@ -224,10 +224,10 @@ EOF
   fi
 
   if [ -f "$agent_dir/state/campaign/RESULT.md" ]; then
-    cp "$agent_dir/state/campaign/RESULT.md" "$CAMPAIGN_CONTEXT/agent_$agent_id_RESULT.md"
-    cp "$agent_dir/state/campaign/RESULT.md" "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_RESULT.md"
+    cp "$agent_dir/state/campaign/RESULT.md" "$CAMPAIGN_CONTEXT/agent_${agent_id}_RESULT.md"
+    cp "$agent_dir/state/campaign/RESULT.md" "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_RESULT.md"
   else
-    cat > "$CAMPAIGN_CONTEXT/agent_$agent_id_RESULT.md" <<EOF
+    cat > "$CAMPAIGN_CONTEXT/agent_${agent_id}_RESULT.md" <<EOF
 OUTCOME_CLASS: INFRASTRUCTURE_FAILURE
 HYPOTHESIS:
 Agent $agent_id ($role) exited without a required RESULT.md; exit_code=$status.
@@ -240,10 +240,10 @@ Do not treat this agent as evidence.
 NEXT:
 Retry the role through a future activation if it remains decision-relevant.
 EOF
-    cp "$CAMPAIGN_CONTEXT/agent_$agent_id_RESULT.md" "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_RESULT.md"
+    cp "$CAMPAIGN_CONTEXT/agent_${agent_id}_RESULT.md" "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_RESULT.md"
   fi
 
-  cat > "$EHB_WORKER_DIR/state/campaign/agent_$agent_id_CONTROLLER.md" <<EOF
+  cat > "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_CONTROLLER.md" <<EOF
 ROLE: $role
 STATUS: $agent_status
 EXIT_CODE: $status
