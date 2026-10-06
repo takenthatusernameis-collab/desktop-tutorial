@@ -5,6 +5,8 @@ on:
     - cron: "*/5 * * * *"
   workflow_dispatch:
   push:
+    branches:
+      - main
     paths:
       - ".github/workflows/kilo-wakeup.yml"
       - "lab/kilo_gateway_proxy.py"
@@ -12,6 +14,8 @@ on:
       - "lab/research_program.py"
       - "lab/test_research_program.py"
       - ".github/scripts/research_portfolio_runner.py"
+      - ".github/scripts/campaign_controller.py"
+      - ".github/scripts/finalize_campaign.py"
       - ".github/scripts/report_worker_outcome.py"
       - ".github/scripts/deep_workflow_audit.py"
       - ".github/scripts/build_progress_snapshot.py"
@@ -496,7 +500,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 lab/test_research_program.py --post-kilo-regression
-      - name: Run isolated Kilo worker
+      - name: Run controlled 10-session Kilo campaign
         if: steps.preflight.outcome == 'success' && steps.kilo_smoke.outcome == 'success'
         id: kilo
         continue-on-error: true
@@ -505,59 +509,17 @@ jobs:
           KILO_DISABLE_EXTERNAL_SKILLS: "true"
         run: |
           set -euo pipefail
-          docker run --rm \
-            --name ehb-kilo \
-            --user "$(id -u):$(id -g)" \
-            --network ehb-worker-net \
-            --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
-            --mount type=bind,source="$EHB_WORKER_DIR",target=/workspace \
-            --mount type=bind,source="$RUNNER_TEMP/ehb-research-snapshot",target=/workspace/state/research,readonly \
-            --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
-            -e HOME=/tmp/kilo-home \
-            -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
-            -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
-            -e KILO_DISABLE_EXTERNAL_SKILLS=true \
-            -e BENCHMARK_ID="$BENCHMARK_ID" \
-            -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
-            "$EHB_KILO_IMAGE" \
-            bash -lc '
-              set -uo pipefail
-              cd /workspace
-              mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
-              cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
-              chmod 600 "$HOME/.config/kilo/kilo.json"
+          bash .github/scripts/run_security_campaign.sh
 
-              set +e
-              kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)" 2>&1 | tee /tmp/kilo-primary.log
-              rc=${PIPESTATUS[0]}
-
-              if [ "$rc" -ne 0 ] && grep -Eq "invalid request error trace_id:" /tmp/kilo-primary.log; then
-                echo "Detected transient Kilo gateway invalid-request response; retrying the same worker workspace once."
-                kilo run --model openai-compatible/free-kilo --auto "$(cat .kilo/wakeup-prompt.md)" 2>&1 | tee /tmp/kilo-retry.log
-                retry_rc=${PIPESTATUS[0]}
-                if [ "$retry_rc" -eq 0 ]; then
-                  rc=0
-                else
-                  echo "Kilo retry also failed with exit code $retry_rc."
-                  rc="$retry_rc"
-                fi
-              fi
-
-              if [ "$rc" -ne 0 ]; then
-                echo "Kilo worker failed with exit code $rc."
-              fi
-              exit "$rc"
-            '
-
-      - name: Deep audit — after Run isolated Kilo worker
-        id: deep_audit_2_run_isolated_kilo_worker
+      - name: Deep audit — after Run controlled 10-session Kilo campaign
+        id: deep_audit_2_run_controlled_10_session_kilo_campaign
         if: always()
         continue-on-error: true
         env:
           AUDIT_PREV_OUTCOME: ${{ steps.kilo.outcome }}
         run: |
           set +e
-          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Run isolated Kilo worker"
+          python3 .github/scripts/deep_workflow_audit.py --profile desktop --step "Run controlled 10-session Kilo campaign"
           rc=$?
           echo "DEEP_AUDIT_RC=$rc"
           exit 0
@@ -593,12 +555,17 @@ jobs:
             exit 0
           fi
 
-          # A failed worker may legitimately have no PROGRAM_PROPOSAL.json.
-          # The worker outcome is classified separately by the deterministic
-          # reporter; do not turn worker failure into a synthetic handoff failure.
+          # Agent 10 can leave the research-program proposal unverified. Do not
+          # convert that into a synthetic failure of the whole campaign.
           if [ "${KILO_OUTCOME:-failure}" != "success" ]; then
-            echo "Kilo worker did not complete successfully; durable research-program handoff validation is not required for this activation."
+            echo "Kilo campaign did not complete its final numbered session; handoff remains unavailable."
             echo "RESEARCH_HANDOFF=NOT_APPLICABLE"
+            exit 0
+          fi
+
+          if [ ! -s "PROGRAM_PROPOSAL.json" ]; then
+            echo "No controller-approved program proposal was produced; benchmark research handoff is not ready."
+            echo "RESEARCH_HANDOFF=NOT_READY"
             exit 0
           fi
 
@@ -652,6 +619,18 @@ jobs:
               --public /run/lab/public.json \
               --workspace /workspace
 
+      - name: Finalize controller campaign evaluation
+        id: campaign_finalize_evaluation
+        if: always() && steps.kilo.outcome == 'success' && steps.benchmark.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/finalize_campaign.py post-evaluate \
+            --root "$GITHUB_WORKSPACE" \
+            --result "reports/benchmark_${BENCHMARK_ID}.json"
+          test -s state/campaign/FINAL_SYNTHESIS.json
+          test -s state/campaign/FINAL_SYNTHESIS.md
+
       - name: Preserve manual-dispatch forensic benchmark
         id: audit_source_22_preserve_manual_dispatch_forensic_benchmark
         if: always() && github.event_name == 'workflow_dispatch'
@@ -669,6 +648,10 @@ jobs:
         continue-on-error: true
         run: |
           set -euo pipefail
+          if [ ! -s "PROGRAM_PROPOSAL.json" ]; then
+            echo "No controller-approved PROGRAM_PROPOSAL.json; skipping program post-kilo handoff."
+            exit 0
+          fi
           python3 lab/research_program.py post-kilo \
             --mode "$BENCHMARK_CAMPAIGN_MODE" \
             --benchmark-id "$BENCHMARK_ID" \
