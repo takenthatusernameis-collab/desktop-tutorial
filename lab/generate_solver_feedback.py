@@ -140,6 +140,7 @@ def main() -> int:
     scores = [clamp(row["overall_score"]) for row in history]
     process_scores = [clamp(row["process_score"]) for row in process_history]
     process_current = process_scores[-1] if process_scores else None
+    process_metrics = process_history[-1].get("metrics", {}) if process_history else {}
     process_previous = process_scores[-2] if len(process_scores) >= 2 else None
     process_delta = None if process_previous is None else round(process_current - process_previous, 4)
     current = clamp(score["overall_score"])
@@ -180,6 +181,15 @@ def main() -> int:
         "- Process score is a separate metric from hidden benchmark score; a low benchmark score does not imply poor process.",
         f"- Process score: {'N/A' if process_current is None else f'{process_current:.4f}'}",
         f"- Process-score delta vs previous activation: {'N/A' if process_delta is None else f'{process_delta:+.4f}'}",
+        f"- Execution reliability: {float(process_metrics.get('execution_reliability', 0.0)):.4f}",
+        f"- Agent completion: {float(process_metrics.get('agent_completion', 0.0)):.4f}",
+        f"- Memo integrity: {float(process_metrics.get('memo_integrity', 0.0)):.4f}",
+        f"- Hypothesis diversity: {float(process_metrics.get('hypothesis_diversity', 0.0)):.4f}",
+        f"- Learning yield: {float(process_metrics.get('learning_yield', 0.0)):.4f}",
+        f"- Falsification coverage: {float(process_metrics.get('falsification_coverage', 0.0)):.4f}",
+        f"- Research breadth: {float(process_metrics.get('research_breadth', 0.0)):.4f}",
+        f"- Reproduction density: {float(process_metrics.get('reproduction_density', 0.0)):.4f}",
+        f"- Handoff completeness: {float(process_metrics.get('handoff_completeness', 0.0)):.4f}",
         "",
         "## Process feedback",
         "",
