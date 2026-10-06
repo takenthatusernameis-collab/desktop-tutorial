@@ -198,6 +198,7 @@ def main() -> int:
         f"- Observed effect rate: {float(process_metrics.get('observed_effect_rate', 0.0)):.4f}",
         f"- Uncertainty reduction rate: {float(process_metrics.get('uncertainty_reduction_rate', 0.0)):.4f}",
         f"- Research breadth: {float(process_metrics.get('research_breadth', 0.0)):.4f}",
+        f"- Handoff completeness: {float(process_metrics.get('handoff_completeness', 0.0)):.4f}",
         f"- Surface coverage: {float(process_metrics.get('surface_coverage', 0.0)):.4f}",
         f"- Active-surface coverage: {float(process_metrics.get('active_surface_coverage', 0.0)):.4f}",
         f"- Behavioral-difference rate: {float(process_metrics.get('behavioral_difference_rate', 0.0)):.4f}",
