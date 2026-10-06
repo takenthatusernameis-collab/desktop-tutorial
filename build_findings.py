@@ -1,0 +1,78 @@
+import json
+
+BASE = "http://lab-mutator:3000"
+NOW = "2026-10-06T02:07Z"  # observed in-session capture window
+
+FINDINGS = [
+    {
+        "title": "Cleartext CAPTCHA answer returned by unauthenticated /rest/captcha endpoint",
+        "analysis": "Unauthenticated GET /rest/captcha returns HTTP 200 application/json containing the server-computed CAPTCHA challenge and its plaintext answer: {\"captchaId\":N,\"captcha\":\"3-3+7\",\"answer\":\"7\"} (captchaId increments on each request, proving fresh per-call computation; the arithmetic of 'captcha' independently evaluates to the value in 'answer', e.g. 3-3+7 == 7). The answer field exposes the computational result the client is supposed to prove knowledge of, so the CAPTCHA is trivially bypassable without solving it. Verified on fresh in-session calls: captchaId incremented across successive requests (6..12) and each returned answer matched the evaluated arithmetic expression. The downstream captcha-protected flow (POST /api/Feedbacks/ requiring a valid captchaId) cannot be leveraged in this mutation (it returns 401 'Wrong answer to CAPTCHA.' even with a correct answer), but the cleartext-answer-leak vector is fully independent of that flow. Challenge mapping: id=14 CAPTCHA Bypass.",
+        "false_positive_check": "Not a stale/cached value: captchaId increments on every request and the arithmetic of the live 'captcha' expression independently evaluates to the returned 'answer' on each verified call (evaluated fresh in-session: 3-3+7 -> 7 == answer; previously 8*7-10 -> 46, 9-2-9 -> -2, 1+7-10 -> -2, 5-1+10 -> 14, 3*8*9 -> 216, all matching). No Authorization header is required. The claim is scoped precisely to the cleartext-answer exposure on GET /rest/captcha, not to the POST bypass path which behaves differently in this mutation (401). Response body size (48 B) and structure are stable; the claim anchors on structure (answer field present and arithmetically correct), which is drift-resilient.",
+        "request": {
+            "method": "GET",
+            "url": BASE + "/rest/captcha",
+            "headers": {},
+            "body": {}
+        }
+    },
+    {
+        "title": "Unauthenticated over-exposure of other users' profiles including password hashes and emails on /rest/memories",
+        "analysis": "Unauthenticated GET /rest/memories returns HTTP 200 application/json exposing the full user objects attached to all uploaded 'memories' records, with no authorization requirement and no per-user scoping. Every record's 'User' object contains email, password (32-hex hash), deluxeToken, role, lastLoginIp, and other PII. Fresh in-session capture: 10 memory records exposing 5 distinct user identities, e.g. bjoern@owasp.org (password hash 9283f1b2e9669749081963be0462e466, role deluxe, deluxeToken efe2f1599e2d...), ethereum@juice-sh.op (deluxe), john@juice-sh.op and emma@juice-sh.op (customer), bjoern.kimminich@gmail.com (admin with password hash 6edd9d726cbdc873...). An invalid Bearer token is accepted and returns byte-identical data (verified: 200/6183 B with Authorization: Bearer invalidtoken, same as no-auth). Challenge mappings: id=1 Password Hash Leak and id=24 Email Leak.",
+        "false_positive_check": "The exposure is structural and unauthenticated: identical 200 responses with and without a bogus Authorization header (verified in-session); each record carries ONE OTHER user's full credentials (not merely the caller's own record); neighboring auth-gated /rest/* routes (e.g. /rest/user/change-password 401, /api/BasketItems 401, /api/SecurityAnswers 401) reject unauthenticated calls, proving this is endpoint-specific over-exposure rather than universal authentication breakage. The claim anchors on the presence of 'password' (hash), 'email', 'role', 'deluxeToken' fields and the 200 status without auth, which are drift-resilient; response sizes drift due to content and counter values, so exact bytes are not claimed.",
+        "request": {
+            "method": "GET",
+            "url": BASE + "/rest/memories",
+            "headers": {},
+            "body": {}
+        }
+    },
+    {
+        "title": "Unauthenticated security-question disclosure with structured account-enumeration differential on /rest/user/security-question",
+        "analysis": "GET /rest/user/security-question?email=<addr> returns the target account's security question in plaintext whenever the account exists, without any authorization header. Fresh in-session captures: ?email=bjoern@owasp.org -> 200/139 B {\"question\":{\"id\":7,\"question\":\"Name of your favorite pet?\",\"createdAt\":...}}; ?email=john@juice-sh.op -> 200/154 B {\"question\":{\"id\":14,\"question\":\"What's your favorite place to go hiking?\"}}. A nonexistent account returns a controlled 200/2 B {} (empty object). The dual signal (non-empty question JSON for existing accounts vs empty {} for nonexistent accounts) enables account-existence enumeration, and the question text for known accounts (e.g. 'Name of your favorite pet?' for bjoern) directly supports account takeover via security-question password-reset flows. Challenge mapping: id=7 Bjoern's Favorite Pet. A separate raw-error signal (GET with no 'email' param -> 500 with a raw Sequelize WHERE error and full stack) belongs to the id=27 error-handling finding.",
+        "false_positive_check": "The differential is deterministic and reproducible in-session: the same existing email always yields the same structured question object (e.g. bjoern@owasp.org -> question id=7), while unknown emails consistently yield the empty object. The empty {} (200/2 B) is a controlled null case for unknown accounts, structurally distinct from the raw-error 500 class returned when no 'email' parameter is supplied (which is captured by the id=27 finding). The claim anchors on the JSON body structure (question object vs empty object) and HTTP 200, which are drift-resilient. The route is mutation-fragile (returned raw 500 errors on earlier campaign boots), so the claim is scoped to variants where the route returns structured JSON for the email parameter.",
+        "request": {
+            "method": "GET",
+            "url": BASE + "/rest/user/security-question",
+            "headers": {},
+            "body": {}
+        }
+    },
+    {
+        "title": "Raw, inconsistent unauthenticated error responses (error handling)",
+        "analysis": "Unauthenticated GET /rest/user/security-question (no query param) returns HTTP 500 with a raw Sequelize WHERE error ('WHERE parameter \"email\" has invalid \"undefined\" value') and a full Node/Express stack trace containing internal source locations (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13 -> SecurityAnswer.findAll at /juice-shop/node_modules/sequelize/lib/model.js:1140:47), served as application/json (drifts between boots between text/html and application/json encodings at identical sizes). The identical request with Accept: application/json returns a DIFFERENT raw error body (500/1804 B application/json vs 500/2946 B text/html across boots): a single-header change produces a different raw error encoding, both non-graceful. A second, independent trigger, GET /redirect?continue=http://example.com, returns HTTP 500 with a raw TypeError ('Cannot read properties of undefined (reading \'includes\')') and stack trace. All three are inconsistent with the application's normal graceful 500 'Unexpected path' wrapper (verified: GET /api/Nonexistent/1 -> 500 'Unexpected path', routing-level stack only, no raw SQL/model leakage). Challenge id=27 Error Handling. Claim is scoped to the raw-error class and pattern (raw stack/DB error vs graceful wrapper), not literal text, because body text/size drift across boots.",
+        "false_positive_check": "Baseline control: ordinary unknown routes on the same application return a graceful HTML 500 'Unexpected path' page without stack traces; the two triggers consistently return raw stack/DB errors on repeated fresh in-session calls, and the inconsistency is produced by a single-header change (Accept), so it is not a transient fault. The responses leak internal module paths and SQL parameter errors rather than sanitized user-facing pages, and two distinct raw error classes appear on one application (raw DB error + raw TypeError) instead of the graceful wrapper, so this is an error-handling class difference, not a benign framework default. The claim does not rely on exact byte content, which drifts, but on the durable pattern: unauthenticated raw-stack/DB-error responses alongside the application's graceful wrapper.",
+        "request": {
+            "method": "GET",
+            "url": BASE + "/rest/user/security-question",
+            "headers": {},
+            "body": {}
+        }
+    },
+    {
+        "title": "Unauthenticated Prometheus-format observability endpoint exposing internal telemetry",
+        "analysis": "Unauthenticated GET /metrics returns HTTP 200 text/plain (version=0.0.4; charset=utf-8) with no authorization required, serving Prometheus-format telemetry including http_requests_count (2XX/3XX/5XX buckets), process_* and nodejs_version_info, juiceshop_version_info (20.2.0), and juiceshop_llm_input_tokens_total / juiceshop_llm_output_tokens_total / juiceshop_llm_tool_calls_total gauges (AI/LLM usage counters), plus juiceshop_challenges_solved. Fresh in-session capture: 200/26198 B text/plain; invalid Bearer token -> 200 (no auth gate) with identical telemetry structure. Counter values increment across calls so the raw body size drifts; the claim rests on the consistent PRESENCE of the juiceshop_llm_* gauges and the Prometheus structure. Secrets scan of the response: only generic HELP-text matches on the word 'token'; no passwords/tokens/keys. Challenge id=97 Exposed Metrics.",
+        "false_positive_check": "A properly secured observability endpoint would reject unauthenticated access (401/403) or restrict internal metrics to authenticated consumers; here any caller with no credentials receives full internal telemetry, including AI token-usage counters. The exposure is structural: two independent fresh calls returned the same telemetry set (gauge presence verified), while the only change between calls was incrementing counter VALUES (proof the drift is value-level, not presence-level). The claim is scoped to the durable presence of internal gauges and Prometheus structure, not to exact body bytes. This is an internal-observability-surface exposure, not a benign public-facing page.",
+        "request": {
+            "method": "GET",
+            "url": BASE + "/metrics",
+            "headers": {},
+            "body": {}
+        }
+    },
+]
+
+out = {"findings": FINDINGS}
+with open("/workspace/reports/benchmark_findings.json", "w", encoding="utf-8") as f:
+    json.dump(out, f, indent=1, ensure_ascii=False)
+
+# Validate contract shape (HARDCORE_BENCHMARK.md).
+d = json.load(open("/workspace/reports/benchmark_findings.json"))
+for i, f in enumerate(d["findings"]):
+    for k in ("title", "analysis", "false_positive_check", "request"):
+        assert k in f, f"missing {k}"
+    for rk in ("method", "url", "headers", "body"):
+        assert rk in f["request"], f"missing {rk}"
+    assert str(f["request"]["method"]).upper() in ("GET", "HEAD", "OPTIONS")
+    assert f["request"]["url"].startswith("http://lab-mutator:3000/")
+    print(f"[{i+1}] {f['title'][:70]}")
+print("VALIDATED:", len(d["findings"]), "findings; contract shape OK")

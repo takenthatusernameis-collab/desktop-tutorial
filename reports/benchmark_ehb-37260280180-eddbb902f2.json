@@ -7,6 +7,27 @@
       "analysis_quality": 1.0,
       "false_positive_check_present": true,
       "matched_count": 0,
+      "title": "Cleartext CAPTCHA answer returned by unauthenticated /rest/captcha endpoint",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Unauthenticated over-exposure of other users' profiles including password hashes and emails on /rest/memories",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
+      "title": "Unauthenticated security-question disclosure with structured account-enumeration differential on /rest/user/security-question",
+      "valid_reproduction": false
+    },
+    {
+      "analysis_quality": 1.0,
+      "false_positive_check_present": true,
+      "matched_count": 0,
       "title": "Raw, inconsistent unauthenticated error responses (error handling)",
       "valid_reproduction": false
     },
@@ -23,7 +44,7 @@
   "difficulty": 4,
   "discovery_rate": 0.0,
   "evidence_quality": 1.0,
-  "finding_count_submitted": 2,
+  "finding_count_submitted": 5,
   "ground_truth_exposed": false,
   "limitations": [
     "Replay validation tests submitted evidence against the hidden evaluator.",
@@ -33,8 +54,10 @@
   ],
   "overall_score": 0.05,
   "precision_component": 0.0,
+  "reproduced_claim_count": 0,
   "reproduction_rate": 0.0,
   "schema_version": 1,
   "shape_signature": "8bd92467e9f200bfa28a19e5",
-  "unique_challenges_validated": 0
+  "unique_challenges_validated": 0,
+  "unmatched_claim_count": 5
 }

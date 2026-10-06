@@ -12,12 +12,31 @@ It is intended to help the next solver activation adapt its research process.
 - Evidence quality: 1.0000
 - Recently observed aggregate trend: roughly stable
 - Recent mean overall score (up to 8 activations): 0.0500
+- Submitted claims this activation: 5
+- Hidden-replay reproduced claims: 0
+- Hidden-replay unmatched claims: 5
+
+## Research-process evaluation
+
+- Process score is a separate metric from hidden benchmark score; a low benchmark score does not imply poor process.
+- Process score: N/A
+- Process-score delta vs previous activation: N/A
+- Execution reliability: 0.0000
+- Agent completion: 0.0000
+- Memo integrity: 0.0000
+- Hypothesis diversity: 0.0000
+- Learning yield: 0.0000
+- Falsification coverage: 0.0000
+- Research breadth: 0.0000
+- Reproduction density: 0.0000
+- Handoff completeness: 0.0000
 
 ## Process feedback
 
 - Primary gap: hidden-behavior discovery. Prefer broader hypothesis generation, behavioral differential testing, and testing of minimally changed request representations before repeatedly deepening one finding.
 - Strengthen independent reproduction of promising anomalies before treating them as reliable research findings.
 - Increase null-case testing and falsification so submitted findings remain selective.
+- Evaluator diagnosis: none of the submitted requests matched hidden replay in this activation. Do not treat worker-visible challenge state or prior findings as ground truth; prioritize competing hypotheses about claim characterization, replay/variant drift, and evaluator mismatch.
 - Evidence discipline is currently strong; preserve exact reproducible requests and false-positive checks while improving discovery.
 
 ## Hard boundaries
