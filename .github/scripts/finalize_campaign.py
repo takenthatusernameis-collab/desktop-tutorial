@@ -121,7 +121,7 @@ def prepare(args: argparse.Namespace) -> int:
         )
         findings_source = "EMPTY_CONTROLLER_APPROVED_SET"
         if finding_errors:
-            (campaign / "AGENT_10_FINDINGS_REJECTION.md").write_text(
+            (campaign / f"AGENT_{end_agent}_FINDINGS_REJECTION.md").write_text(
                 "\n".join(finding_errors) + "\n", encoding="utf-8"
             )
 
