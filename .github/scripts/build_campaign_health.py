@@ -69,6 +69,8 @@ def read_agent_memos(context_dir: Path) -> list[dict[str, Any]]:
     for path in sorted(context_dir.glob("agent_*_RESULT.md")):
         text = path.read_text(encoding="utf-8", errors="replace")
         lines = text.splitlines()
+        match = re.search(r"agent_(\d+)_RESULT\.md$", path.name)
+        agent_number = int(match.group(1)) if match else 0
         fields: dict[str, str] = {}
         for index, line in enumerate(lines):
             for field in REQUIRED_FIELDS:
@@ -95,7 +97,8 @@ def read_agent_memos(context_dir: Path) -> list[dict[str, Any]]:
                 "complete": complete,
                 "hypothesis": fields.get("PRIMARY_QUESTION:", ""),
                 "task_id": fields.get("TASK_ID:", ""),
-                "role": fields.get("ROLE:", ""),
+                "role": "LEARNING_PROCESS" if agent_number % 2 == 1 else "HIGHER_ORDER_RESEARCH",
+                "agent_number": agent_number,
                 "decision": fields.get("DECISION:", ""),
                 "next": fields.get("NEXT:", ""),
                 "observed_effect": fields.get("OBSERVED_EFFECT:", ""),
