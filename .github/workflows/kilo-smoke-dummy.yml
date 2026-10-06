@@ -176,6 +176,7 @@ jobs:
 
           cat > "$SMOKE_ROOT/reports/benchmark_dummy-smoke.json" <<'EOF'
           {
+            "ground_truth_exposed": false,
             "overall_score": 0.05,
             "discovery_rate": 0.0,
             "reproduction_rate": 0.0,
