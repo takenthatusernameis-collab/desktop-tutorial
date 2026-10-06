@@ -58,10 +58,35 @@ PY
 echo "CAMPAIGN_AGENT_START=$campaign_start_agent" >> "$GITHUB_ENV"
 echo "CAMPAIGN_AGENT_END=$campaign_end_agent" >> "$GITHUB_ENV"
 
-cat > "$CAMPAIGN_CONTEXT/CAMPAIGN_CONTEXT.md" <<'EOF'
+cat > "$CAMPAIGN_CONTEXT/CAMPAIGN_CONTEXT.md" <<EOF
 # Controller Campaign Context
 
 This file is controller-generated campaign coordination, not benchmark ground truth.
+
+## Execution environment awareness
+Each numbered session is a fresh Kilo process/container launched by this GitHub Actions activation.
+
+Current activation:
+- workflow: $GITHUB_WORKFLOW
+- run_id: $GITHUB_RUN_ID
+- run_attempt: $GITHUB_RUN_ATTEMPT
+- event_sha: $GITHUB_SHA
+- ref: $GITHUB_REF_NAME
+- campaign_id: @@@CAMPAIGN_ID@@@
+- campaign_global_range: @@@CAMPAIGN_START@@@-@@@CAMPAIGN_END@@@
+- ephemeral worker workspace: @@@BASE_WORKSPACE@@@
+- shared durable campaign state: @@@BASE_WORKSPACE@@@/state/campaign
+- controller research snapshot: @@@BASE_WORKSPACE@@@/state/research
+- Kilo gateway relay: infrastructure only
+
+Layer-separation rules:
+- GitHub Actions status/logs, runner/container behavior, Kilo gateway/model behavior, tool permissions, filesystem mounts, Git operations, and controller messages are infrastructure signals first.
+- A successful tool call proves execution, not research validity.
+- A failed command does not falsify the target hypothesis unless the target-side experiment actually executed sufficiently to test it.
+- Do not confuse relay/controller/worker-generated errors with target responses.
+- Do not infer target behavior, security impact, benchmark truth, or external-system behavior from infrastructure interactions.
+- When the environment blocks work, preserve the exact blocker and classify it as environment/tooling limitation.
+- Never expand authorization because another resource happens to be reachable from the worker environment.
 
 ## Communication boundary
 - Each numbered session is a fresh Kilo process/container.
