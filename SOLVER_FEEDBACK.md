@@ -5,39 +5,50 @@ It is intended to help the next solver activation adapt its research process.
 
 ## Current public performance
 
-- Overall score: 0.0500
+- Overall score: 0.0000
 - Discovery rate: 0.0000
 - Reproduction rate: 0.0000
 - Precision component: 0.0000
-- Evidence quality: 1.0000
+- Evidence quality: 0.0000
 - Recently observed aggregate trend: roughly stable
 - Recent mean overall score (up to 8 activations): 0.0500
-- Submitted claims this activation: 5
+- Submitted claims this activation: 0
 - Hidden-replay reproduced claims: 0
-- Hidden-replay unmatched claims: 5
+- Hidden-replay unmatched claims: 0
 
 ## Research-process evaluation
 
-- Process score is a separate metric from hidden benchmark score; a low benchmark score does not imply poor process.
-- Process score: N/A
+- Process score is a separate metric from hidden benchmark outcome; the benchmark outcome score is not a process grade.
+- A flat 0.0500 benchmark outcome can coexist with meaningful progress when the research state changes.
+- Process score: 0.4674
 - Process-score delta vs previous activation: N/A
-- Execution reliability: 0.0000
+- Progress state: STALLED
+- Benchmark signal: BASELINE
+- Activation information gain: 0.0000
+- Execution reliability: 1.0000
 - Agent completion: 0.0000
 - Memo integrity: 0.0000
+- Task contract integrity: 0.0000
+- Alternating role integrity: 0.0000
 - Hypothesis diversity: 0.0000
 - Learning yield: 0.0000
 - Falsification coverage: 0.0000
+- Observed effect rate: 0.0000
+- Uncertainty reduction rate: 0.0000
 - Research breadth: 0.0000
-- Reproduction density: 0.0000
 - Handoff completeness: 0.0000
+- Surface coverage: 1.0000
+- Active-surface coverage: 1.0000
+- Behavioral-difference rate: 0.3778
+- Reproduction density: 0.3611
+- Falsification signal: 0.0000
+- Delivery integrity: 0.0000
 
 ## Process feedback
 
 - Primary gap: hidden-behavior discovery. Prefer broader hypothesis generation, behavioral differential testing, and testing of minimally changed request representations before repeatedly deepening one finding.
 - Strengthen independent reproduction of promising anomalies before treating them as reliable research findings.
 - Increase null-case testing and falsification so submitted findings remain selective.
-- Evaluator diagnosis: none of the submitted requests matched hidden replay in this activation. Do not treat worker-visible challenge state or prior findings as ground truth; prioritize competing hypotheses about claim characterization, replay/variant drift, and evaluator mismatch.
-- Evidence discipline is currently strong; preserve exact reproducible requests and false-positive checks while improving discovery.
 
 ## Hard boundaries
 

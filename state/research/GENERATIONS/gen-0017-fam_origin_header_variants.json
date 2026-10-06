@@ -1,0 +1,205 @@
+{
+  "actual_execution": true,
+  "candidate_count": 4,
+  "family_id": "fam_origin_header_variants",
+  "generation": 17,
+  "generation_id": "gen-0017-fam_origin_header_variants",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 2946,
+        "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 7.91,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-bf7de74e6a154f12401e",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 2946,
+        "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 5.48,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/user/security-question",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2946,
+        "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 7.91,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-d8e6bc55330db69c84a2",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "null"
+      },
+      "observation": {
+        "body_length": 2946,
+        "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 5.57,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "null"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2946,
+        "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 7.91,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-19441686aac74d340de1",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "https://example.invalid"
+      },
+      "observation": {
+        "body_length": 2946,
+        "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 5.82,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "https://example.invalid"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 2946,
+        "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 7.91,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-278b32e70e64ee64c6bb",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "http://localhost"
+      },
+      "observation": {
+        "body_length": 2946,
+        "body_sha256": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+        "content_type": "text/html; charset=utf-8",
+        "elapsed_ms": 5.84,
+        "error": null,
+        "location": "",
+        "status": 500
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "http://localhost"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-06T05:44:10Z",
+  "operators": [
+    "BASELINE",
+    "HEADER_ORIGIN_VARIANTS"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-bf7de74e6a154f12401e",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e"
+    },
+    {
+      "candidate_id": "cand-d8e6bc55330db69c84a2",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "null"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e"
+    },
+    {
+      "candidate_id": "cand-19441686aac74d340de1",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "https://example.invalid"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e"
+    },
+    {
+      "candidate_id": "cand-278b32e70e64ee64c6bb",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "http://localhost"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e"
+    }
+  ],
+  "promising_candidates": [],
+  "results": {
+    "behavioral_differences": 0,
+    "error_observations": 0,
+    "information_gain": 0.125,
+    "repeat_reproductions": 0,
+    "unique_response_signatures": 1
+  },
+  "stopping_reason": "operator candidate set exhausted",
+  "surface_id": "surf_origin_header_variants"
+}

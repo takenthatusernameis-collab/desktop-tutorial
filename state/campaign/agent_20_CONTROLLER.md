@@ -1,0 +1,7 @@
+AGENT_NUMBER: 20
+TASK_ID: task-20-test-prior-process-intervention-4bf7efe1ea
+SESSION_ID: 
+STATUS: SUCCESS
+EXIT_CODE: 0
+RESULT_VALID: true
+OBSERVED_UTC: 2026-10-06T06:05:50Z

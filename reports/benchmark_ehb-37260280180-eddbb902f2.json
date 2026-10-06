@@ -2,49 +2,13 @@
   "benchmark_id": "ehb-37260280180-eddbb902f2",
   "challenge_count": 3,
   "challenge_solved": false,
-  "claims": [
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Cleartext CAPTCHA answer returned by unauthenticated /rest/captcha endpoint",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Unauthenticated over-exposure of other users' profiles including password hashes and emails on /rest/memories",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Unauthenticated security-question disclosure with structured account-enumeration differential on /rest/user/security-question",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Raw, inconsistent unauthenticated error responses (error handling)",
-      "valid_reproduction": false
-    },
-    {
-      "analysis_quality": 1.0,
-      "false_positive_check_present": true,
-      "matched_count": 0,
-      "title": "Unauthenticated Prometheus-format observability endpoint exposing internal telemetry",
-      "valid_reproduction": false
-    }
-  ],
+  "claims": [],
   "commitment": "9dc47761d402bf746d502e4056a7b7bc67bb8968b97f6105b63b06eca432cd9a",
   "commitment_verified": true,
   "difficulty": 4,
   "discovery_rate": 0.0,
-  "evidence_quality": 1.0,
-  "finding_count_submitted": 5,
+  "evidence_quality": 0.0,
+  "finding_count_submitted": 0,
   "ground_truth_exposed": false,
   "limitations": [
     "Replay validation tests submitted evidence against the hidden evaluator.",
@@ -52,12 +16,12 @@
     "The evaluator recomputed the cryptographic commitment from the hidden specification before scoring.",
     "False negatives remain possible when the worker fails to submit reproducible evidence."
   ],
-  "overall_score": 0.05,
+  "overall_score": 0.0,
   "precision_component": 0.0,
   "reproduced_claim_count": 0,
   "reproduction_rate": 0.0,
   "schema_version": 1,
   "shape_signature": "8bd92467e9f200bfa28a19e5",
   "unique_challenges_validated": 0,
-  "unmatched_claim_count": 5
+  "unmatched_claim_count": 0
 }

@@ -1,0 +1,1141 @@
+=== AUTH-DEPENDENT SURFACE PASS — agent-16 (current boot, login=401) ===
+Timestamp: 2026-10-06T05:55:29Z
+Target: http://lab-mutator:3000
+
+--- whoami (context) ---
+GET /rest/user/whoami {"user":{}}
+status=200 size=11 sha256=e436ef2b7de06788f8fc4b305c0a08d3ab7ee580ec3c1057cc9f3fdeac867081 time=
+{"user":{}}
+
+--- basket read ---
+GET /api/BasketItems <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+status=401 size=972 sha256=5ea1e9f7a814a29e936a48c27c1f931114becadab5c1038e7e32b1b7bcf6d75d time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+
+--- basket read item ---
+GET /api/BasketItems/1 <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+status=401 size=972 sha256=5ea1e9f7a814a29e936a48c27c1f931114becadab5c1038e7e32b1b7bcf6d75d time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+
+--- basket create empty ---
+POST /api/BasketItems <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+status=401 size=972 sha256=5ea1e9f7a814a29e936a48c27c1f931114becadab5c1038e7e32b1b7bcf6d75d time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+
+--- coupons read ---
+GET /api/Coupons <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Coupons</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /api/Coupons</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+status=500 size=2424 sha256=012ff82babbfb0f32f9abfff74880763a8c4f4f533e0fa7a99a80656e7c8009d time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Coupons</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /api/Coupons</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+--- coupons read item ---
+GET /api/Coupons/1 <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Coupons/1</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /api/Coupons/1</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+status=500 size=2428 sha256=df5f5bf35a9318fcc794b473c152b886bea3b2b728b74dcad65a725e35e33382 time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Coupons/1</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /api/Coupons/1</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+--- coupons create empty ---
+POST /api/Coupons <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Coupons</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /api/Coupons</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+status=500 size=2424 sha256=012ff82babbfb0f32f9abfff74880763a8c4f4f533e0fa7a99a80656e7c8009d time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Coupons</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /api/Coupons</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+--- change-password GET ---
+GET /rest/user/change-password Password cannot be empty.
+status=401 size=25 sha256=91284789a49a0c0e4c15d5451fc1bfa8a4c7aa36fa79f008c00500bf96d13d05 time=
+Password cannot be empty.
+
+--- forgot-password GET ---
+GET /rest/user/forgot-password <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/user/forgot-password</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /rest/user/forgot-password</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+status=500 size=2452 sha256=4908a5d76607d1fa3eb68b78bb1d2ad30afc329d3f1fc7ddcc8b58afc70e1b44 time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/user/forgot-password</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /rest/user/forgot-password</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+--- forgot-password POST ---
+POST /rest/user/forgot-password <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/user/forgot-password</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /rest/user/forgot-password</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+status=500 size=2452 sha256=4908a5d76607d1fa3eb68b78bb1d2ad30afc329d3f1fc7ddcc8b58afc70e1b44 time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/user/forgot-password</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /rest/user/forgot-password</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+--- reset-password GET ---
+GET /rest/user/reset-password <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/user/reset-password</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /rest/user/reset-password</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+status=500 size=2450 sha256=952149d5392ae27d0e805b1e5095e009bd4cde66b0ecfb655b2ac5a2504cb94c time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/user/reset-password</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Unexpected path: /rest/user/reset-password</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/angular.js:18:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li></ul>
+    </div>
+  </body>
+</html>
+
+--- reset-password POST ---
+POST /rest/user/reset-password <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Blocked illegal activity by ::ffff:172.18.0.3</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Blocked illegal activity by ::ffff:172.18.0.3</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/resetPassword.js:57:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/route.js:149:13)</li><li> &nbsp; &nbsp;at Route.dispatch (/juice-shop/node_modules/express/lib/router/route.js:119:3)</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:284:15</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li></ul>
+    </div>
+  </body>
+</html>
+status=500 size=2458 sha256=90ab136dc54dcaef4e47de45ca07d5772be15030fbfe22edb51ac71f3dd7e443 time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Blocked illegal activity by ::ffff:172.18.0.3</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: Blocked illegal activity by ::ffff:172.18.0.3</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at /juice-shop/build/routes/resetPassword.js:57:18</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/utils.js:235:26</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/route.js:149:13)</li><li> &nbsp; &nbsp;at Route.dispatch (/juice-shop/node_modules/express/lib/router/route.js:119:3)</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:284:15</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/routes/verify.js:235:5</li><li> &nbsp; &nbsp;at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)</li><li> &nbsp; &nbsp;at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)</li><li> &nbsp; &nbsp;at /juice-shop/node_modules/express/lib/router/index.js:286:9</li><li> &nbsp; &nbsp;at router.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)</li><li> &nbsp; &nbsp;at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)</li><li> &nbsp; &nbsp;at /juice-shop/build/lib/insecurity.js:218:5</li></ul>
+    </div>
+  </body>
+</html>
+
+--- security-answer read ---
+GET /api/SecurityAnswers/ <html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+status=401 size=972 sha256=5ea1e9f7a814a29e936a48c27c1f931114becadab5c1038e7e32b1b7bcf6d75d time=
+<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>UnauthorizedError: No Authorization header was found</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  margin-top: 10px;
+}
+ul li {
+  list-style: none;
+}
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>401</em> UnauthorizedError: No Authorization header was found</h2>
+      <ul id="stacktrace"></ul>
+    </div>
+  </body>
+</html>
+
+--- security-answer write empty ---
+POST /api/SecurityAnswers/ {"status":"success","data":{"id":23,"updatedAt":"2026-10-06T05:55:29.848Z","createdAt":"2026-10-06T05:55:29.848Z","UserId":null,"SecurityQuestionId":null,"answer":null}}
+status=201 size=169 sha256=483c481e2f9356d8524230d186b3b7d454db4e0b29d27b1d22e3bba9c51e4eeb time=
+{"status":"success","data":{"id":23,"updatedAt":"2026-10-06T05:55:29.848Z","createdAt":"2026-10-06T05:55:29.848Z","UserId":null,"SecurityQuestionId":null,"answer":null}}
+
+--- security-answer write with email ---
+POST /api/SecurityAnswers/ {"status":"success","data":{"id":24,"updatedAt":"2026-10-06T05:55:30.065Z","createdAt":"2026-10-06T05:55:30.065Z","UserId":null,"SecurityQuestionId":null,"answer":null}}
+status=201 size=169 sha256=6fd214a314a7ad88ac852c5cc5c6e2c630ebe1ea1124a5cbb107a261410fbbac time=
+{"status":"success","data":{"id":24,"updatedAt":"2026-10-06T05:55:30.065Z","createdAt":"2026-10-06T05:55:30.065Z","UserId":null,"SecurityQuestionId":null,"answer":null}}
+
+--- security-question write ---
+POST /api/SecurityAnswers/ {"status":"success","data":{"id":25,"updatedAt":"2026-10-06T05:55:30.256Z","createdAt":"2026-10-06T05:55:30.256Z","UserId":null,"SecurityQuestionId":null,"answer":null}}
+status=201 size=169 sha256=a8fa7ee2c79051f9d65bf9965c2f6f555c924bdee897c6e70e833ab285c36d7e time=
+{"status":"success","data":{"id":25,"updatedAt":"2026-10-06T05:55:30.256Z","createdAt":"2026-10-06T05:55:30.256Z","UserId":null,"SecurityQuestionId":null,"answer":null}}
+
+=== END ===

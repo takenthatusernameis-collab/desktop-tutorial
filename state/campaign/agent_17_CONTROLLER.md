@@ -1,0 +1,7 @@
+AGENT_NUMBER: 17
+TASK_ID: task-17-evaluate-prior-research-effect-efcbd55fd8
+SESSION_ID: 
+STATUS: FAILED
+EXIT_CODE: 0
+RESULT_VALID: false
+OBSERVED_UTC: 2026-10-06T06:00:23Z

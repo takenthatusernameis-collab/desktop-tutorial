@@ -70,6 +70,7 @@ Add only lessons that generalize beyond one transient activation.
 | Controller-owned `state/research/` must remain read-only during worker sessions | VERIFIED | Blind workspace and program-handoff contract | Propose changes through the authorized handoff artifact; do not mutate controller state directly. |
 | Differential/null controls improve evidence efficiency | VERIFIED | Repeated reproduced findings with control comparisons | Add a nearby control before spending effort on deeper reproduction. |
 | Environment-layer observations are separate from target evidence | VERIFIED | Environment-awareness repair on 2026-10-06 | Classify runner, gateway, permission, and evaluator behavior as infrastructure evidence unless independently connected to the research question. |
+| Dedupe bounded passes against the durable boot-capture record before probing a catalogued differential | VERIFIED | agent-17 audit of agent-16's auth pass (2026-10-06): the POST /api/SecurityAnswers/ 201-vs-GET 401 write gap was already documented in reports/benchmark_research.md (A22-era) and submitted as F2 in A11/A39 with 0 matches; reproducing it added boot-gating confirmation only | Before running a bounded pass that targets a known differential, search the durable boot-capture record (benchmark_research.md / agent_*.RESULT.md); reproductions of submitted-matched-0 differentials are confirmatory (boot-gating), not discovery, and should pivot to exploiting the now-differentiable frontier instead. |
 
 ## Environment and tool constraints
 

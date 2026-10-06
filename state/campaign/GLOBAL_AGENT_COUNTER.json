@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "next_agent_number": 11,
-  "last_reserved_campaign_id": null,
-  "last_reserved_ending_agent_number": 10
+  "last_reserved_campaign_id": "37417109532:attempt:1",
+  "last_reserved_ending_agent_number": 20,
+  "next_agent_number": 21,
+  "schema_version": 1
 }
