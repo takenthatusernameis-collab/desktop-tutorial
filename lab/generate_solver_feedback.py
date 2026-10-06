@@ -75,6 +75,21 @@ def guidance(score: dict[str, Any]) -> list[str]:
         out.append(
             "Increase null-case testing and falsification so submitted findings remain selective."
         )
+
+    submitted = int(score.get("finding_count_submitted", 0) or 0)
+    reproduced_claims = int(score.get("reproduced_claim_count", 0) or 0)
+    unmatched_claims = int(score.get("unmatched_claim_count", 0) or 0)
+    if submitted > 0 and reproduced_claims == 0:
+        out.append(
+            "Evaluator diagnosis: none of the submitted requests matched hidden replay in this activation. "
+            "Do not treat worker-visible challenge state or prior findings as ground truth; prioritize "
+            "competing hypotheses about claim characterization, replay/variant drift, and evaluator mismatch."
+        )
+    elif unmatched_claims > 0:
+        out.append(
+            "Evaluator diagnosis: some submitted claims failed hidden replay. Separate genuinely reproduced "
+            "claims from unmatched claims before broadening the search."
+        )
     if evidence >= 0.8:
         out.append(
             "Evidence discipline is currently strong; preserve exact reproducible requests and "
@@ -100,6 +115,8 @@ def main() -> int:
         raise SystemExit("Refusing to generate solver feedback: result is not explicitly aggregate-only.")
 
     score = {key: result.get(key, 0.0) for key in ALLOWED_METRICS}
+    for key in ("finding_count_submitted", "reproduced_claim_count", "unmatched_claim_count"):
+        score[key] = result.get(key, 0)
     history = load_history(Path(args.history))
 
     scores = [clamp(row["overall_score"]) for row in history]
@@ -132,6 +149,9 @@ def main() -> int:
         f"- Evidence quality: {clamp(score['evidence_quality']):.4f}",
         f"- Recently observed aggregate trend: {trend}",
         f"- Recent mean overall score (up to 8 activations): {recent_mean:.4f}",
+        f"- Submitted claims this activation: {int(score.get('finding_count_submitted', 0))}",
+        f"- Hidden-replay reproduced claims: {int(score.get('reproduced_claim_count', 0))}",
+        f"- Hidden-replay unmatched claims: {int(score.get('unmatched_claim_count', 0))}",
         "",
         "## Process feedback",
         "",
