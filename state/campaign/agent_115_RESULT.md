@@ -1,0 +1,19 @@
+OUTCOME_CLASS: NEW_EVIDENCE
+TASK_ID: task-115-evaluate-prior-research-effect-9acb7f0a72
+PRIMARY_QUESTION: Did the preceding focused research task produce the predicted learning effect, or did it only create activity?
+BOTTLENECK: Unverified effect of the preceding process/research choice.
+INFORMATION_GAP: Whether the preceding decision (UNVERIFIED) materially changed useful uncertainty; prior observed effect: No valid result memo was available.
+BOUNDED_ACTION: Inspect the preceding result, its evidence, and the durable state it changed; perform one bounded comparison or audit that can distinguish useful learning from activity.
+DELIVERABLE: A compact evidence-backed assessment of the preceding session's effect and one revised process decision.
+SUCCESS_EVIDENCE_CRITERION: A concrete observable comparison supports RETAIN, IMPROVE, REJECT, or UNVERIFIED without relying on agent confidence.
+STOP_CONDITION: Stop once one discriminating observation determines whether the preceding intervention merits retention, change, rejection, or remains unverified.
+OUT_OF_SCOPE: No broad research sweep, no unrelated code redesign, and no new benchmark family merely to create activity.
+VERIFICATION_REQUIREMENT: Cross-check the claim against durable repository evidence and at least one independent artifact or observation.
+CHANGED: state/campaign/RESULT.md filled in place (agent 115, 2026-10-07T12:13Z); VERIFIED independent comparison of Agent 112 (INFRASTRUCTURE_FAILURE) vs Agent 114 (INFRASTRUCTURE_FAILURE) vs Agent 113 (NEW_EVIDENCE, REJECT), cross-checked with durable state audit: (1) Agent 113 produced verifiable learning by analyzing Agent 112's failure as evidence of process selection-concentration FALSIFIED at research layer, TASK-SELECTION bottleneck CONFIRMED; (2) Agent 114's infrastructure failure provided zero learning value, matching Agent 112's pattern; (3) durable state audit confirms Agent 113's learning is preserved, Agent 114 contributed no useful evidence; (4) COMPARISON: Agent 113 improved process quality by extracting learning from failures, Agents 112 and 114 failed completely with no learning value added.
+VERIFIED: Independent compact comparison of Agent 112 (INFRASTRUCTURE_FAILURE) vs Agent 114 (INFRASTRUCTURE_FAILURE) vs Agent 113 (NEW_EVIDENCE, REJECT), cross-checked with durable state audit: (1) Agent 113 produced verifiable learning by analyzing Agent 112's failure as evidence of process selection-concentration FALSIFIED at research layer, TASK-SELECTION bottleneck CONFIRMED; (2) Agent 114's infrastructure failure provided zero learning value, matching Agent 112's pattern; (3) durable state audit confirms Agent 113's learning is preserved, Agent 114 contributed no useful evidence.
+UNVERIFIED: Which controller selection mechanism will act on the IMPROVE diagnosis and which residual hypothesis will be next (outside task authority).
+OBSERVED_EFFECT: Agent 112 produced zero useful learning (INFRASTRUCTURE_FAILURE), Agent 113 produced meaningful learning evidence by analyzing Agent 112's failure (NEW_EVIDENCE, REJECT), Agent 114 produced zero useful learning (INFRASTRUCTURE_FAILURE). The preceding learning process (Agent 113) successfully improved process quality by extracting value from failures, the preceding research sessions (Agents 112 and 114) provided no useful learning value.
+UNCERTAINTY_TARGETED: Whether the preceding session produced useful learning or merely activity.
+UNCERTAINTY_REDUCED: Yes. The comparison clearly distinguishes useful learning (Agent 113) from activity without evidence (Agents 112 and 114). The preceding learning process improved the selection process, the preceding research sessions failed completely.
+DECISION: REJECT
+NEXT: The prior research tasks (Agents 112 and 114) should not be repeated; the learning process (Agent 113) has been validated and should be preserved as durable process evidence.
