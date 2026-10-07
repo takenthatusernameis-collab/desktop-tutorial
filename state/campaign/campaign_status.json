@@ -1,13 +1,13 @@
 {
   "schema_version": 2,
   "status": "FAILED",
-  "campaign_id": "37616965859:attempt:1",
+  "campaign_id": "37665194577:attempt:1",
   "agent_count": 10,
-  "starting_agent_number": 111,
-  "ending_agent_number": 120,
+  "starting_agent_number": 121,
+  "ending_agent_number": 130,
   "success_count": 6,
   "failure_count": 4,
   "final_agent_status": "FAILED",
   "finalization_status": 0,
-  "finished_utc": "2026-10-07T12:44:30Z"
+  "finished_utc": "2026-10-07T18:47:28Z"
 }
