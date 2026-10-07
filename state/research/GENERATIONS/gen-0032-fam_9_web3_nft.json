@@ -1,0 +1,69 @@
+{
+  "actual_execution": true,
+  "candidate_count": 1,
+  "family_id": "fam_9_web3_nft",
+  "generation": 32,
+  "generation_id": "gen-0032-fam_9_web3_nft",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 2.73,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-0049447ddc3bdd737e07",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 3.58,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-07T05:18:59Z",
+  "operators": [
+    "BASELINE"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-0049447ddc3bdd737e07",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07"
+    }
+  ],
+  "promising_candidates": [],
+  "results": {
+    "behavioral_differences": 0,
+    "error_observations": 0,
+    "information_gain": 0.5,
+    "repeat_reproductions": 0,
+    "unique_response_signatures": 1
+  },
+  "stopping_reason": "operator candidate set exhausted",
+  "surface_id": "surf_9_web3"
+}
