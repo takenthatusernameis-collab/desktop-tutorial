@@ -1,0 +1,11 @@
+# agent_164 gate-enabled probe  target=demo utc=2026-10-08T1702Z
+# gate_enabled=True (Agent 66 + Agent 161 improvements)
+# shape: P1_baseline -> status=500 content_length=2946 sha256=c6dc4c901e9a89f907c1979f54961045100784e68625badaad777495fc2037fb
+
+## probe 1: P1_baseline
+  request: path=/rest/user/security-question headers={}
+  timestamp_utc=2026-10-08T17:02:54Z
+  status=500 content_length=2946 sha256=c6dc4c901e9a89f907c1979f54961045100784e68625badaad777495fc2037fb
+  body_length=160
+
+# summary: GATE ENABLED - byte-anchored evidence record preserved

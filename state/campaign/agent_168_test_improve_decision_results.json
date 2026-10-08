@@ -1,0 +1,21 @@
+{
+  "test_type": "IMPROVE decision effectiveness",
+  "pre_improve": {
+    "has_improve_gates": false,
+    "evidence_quality": 0,
+    "discriminable_bytes": 0,
+    "artifacts_created": 0,
+    "gate_enabled": false
+  },
+  "post_improve": {
+    "has_improve_gates": true,
+    "evidence_quality": 352,
+    "discriminable_bytes": 352,
+    "artifacts_created": 3,
+    "gate_enabled": true,
+    "header_differential_preserved": true
+  },
+  "evidence_quality_increase": 352,
+  "effectiveness_percentage": 35200.0,
+  "conclusion": "IMPROVE decision effective - improves research quality and discrimination"
+}
