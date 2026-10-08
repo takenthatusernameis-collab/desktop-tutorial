@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 0,
+  "candidate_count": 1,
+  "family_id": "fam_29_extra_language",
+  "generation": 37,
+  "generation_id": "gen-0037-fam_29_extra_language",
+  "information_gain": 0.5,
+  "observed_at": "2026-10-08T09:31:33Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_29_extra_language"
+}

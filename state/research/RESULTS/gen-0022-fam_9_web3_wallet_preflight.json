@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 0,
+  "candidate_count": 12,
+  "family_id": "fam_9_web3_wallet_preflight",
+  "generation": 22,
+  "generation_id": "gen-0022-fam_9_web3_wallet_preflight",
+  "information_gain": 0.125,
+  "observed_at": "2026-10-08T09:31:35Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_9_web3"
+}

@@ -1,0 +1,4 @@
+# agent_158 Agent 64 gate utc=2026-10-08T0958Z
+# gate_enabled=True
+# shape: status, content_length, sha256(body)
+
