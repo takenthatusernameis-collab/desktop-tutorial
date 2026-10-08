@@ -1,0 +1,563 @@
+{
+  "actual_execution": true,
+  "candidate_count": 12,
+  "family_id": "fam_9_web3_wallet_preflight",
+  "generation": 24,
+  "generation_id": "gen-0024-fam_9_web3_wallet_preflight",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 1.09,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-5dbfa88ceb463957bd52",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.84,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-5dbfa88ceb463957bd52",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 1.09,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-12b86844946d8910b99d",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "null"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.75,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-5dbfa88ceb463957bd52",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "null"
+        },
+        "method": "HEAD",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 1.09,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-f3847318848b247fc1d3",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "https://example.invalid"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.73,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-5dbfa88ceb463957bd52",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "https://example.invalid"
+        },
+        "method": "HEAD",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 1.09,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-4537ec25af50f0a8b4a3",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "http://localhost"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "text/html;charset=utf-8",
+        "elapsed_ms": 0.78,
+        "error": null,
+        "location": "",
+        "status": 501
+      },
+      "parent_candidate_id": "cand-5dbfa88ceb463957bd52",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "http://localhost"
+        },
+        "method": "HEAD",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.57,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-3888fc6a392902c8f1e2",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.42,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-3888fc6a392902c8f1e2",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.57,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-73a1a34ee431efb8fb0a",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "null"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.49,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-3888fc6a392902c8f1e2",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "null"
+        },
+        "method": "OPTIONS",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.57,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-fa73ff517d906bedec4b",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "https://example.invalid"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.33,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-3888fc6a392902c8f1e2",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "https://example.invalid"
+        },
+        "method": "OPTIONS",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.57,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-b1fedc61b560916ae3e2",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "http://localhost"
+      },
+      "observation": {
+        "body_length": 0,
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content_type": "",
+        "elapsed_ms": 1.28,
+        "error": null,
+        "location": "",
+        "status": 204
+      },
+      "parent_candidate_id": "cand-3888fc6a392902c8f1e2",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "http://localhost"
+        },
+        "method": "OPTIONS",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 2.25,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-0049447ddc3bdd737e07",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 3.66,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 2.25,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-7c3ee6f6e8cfe5ee7853",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "null"
+      },
+      "observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 3.15,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "null"
+        },
+        "method": "GET",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 2.25,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-67e4e8f9df658f2046d1",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "https://example.invalid"
+      },
+      "observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 3.25,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "https://example.invalid"
+        },
+        "method": "GET",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    },
+    {
+      "baseline_observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 2.25,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": false,
+      "candidate_id": "cand-c6a062de98c69ab9761b",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "http://localhost"
+      },
+      "observation": {
+        "body_length": 16,
+        "body_sha256": "c462d460eab61de19f36cc384c99666e5bf65eaeba0c12b8f594c5410c01f220",
+        "content_type": "application/json; charset=utf-8",
+        "elapsed_ms": 3.86,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07",
+      "repeat_observation": null,
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {
+          "Origin": "http://localhost"
+        },
+        "method": "GET",
+        "path": "/rest/web3/nftUnlocked",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-08T21:46:58Z",
+  "operators": [
+    "BASELINE",
+    "METHOD_VARIANTS",
+    "HEADER_ORIGIN_VARIANTS",
+    "QUERY_EDGE_VALUES"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-5dbfa88ceb463957bd52",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-5dbfa88ceb463957bd52"
+    },
+    {
+      "candidate_id": "cand-12b86844946d8910b99d",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "null"
+      },
+      "parent_candidate_id": "cand-5dbfa88ceb463957bd52"
+    },
+    {
+      "candidate_id": "cand-f3847318848b247fc1d3",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "https://example.invalid"
+      },
+      "parent_candidate_id": "cand-5dbfa88ceb463957bd52"
+    },
+    {
+      "candidate_id": "cand-4537ec25af50f0a8b4a3",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "http://localhost"
+      },
+      "parent_candidate_id": "cand-5dbfa88ceb463957bd52"
+    },
+    {
+      "candidate_id": "cand-3888fc6a392902c8f1e2",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-3888fc6a392902c8f1e2"
+    },
+    {
+      "candidate_id": "cand-73a1a34ee431efb8fb0a",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "null"
+      },
+      "parent_candidate_id": "cand-3888fc6a392902c8f1e2"
+    },
+    {
+      "candidate_id": "cand-fa73ff517d906bedec4b",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "https://example.invalid"
+      },
+      "parent_candidate_id": "cand-3888fc6a392902c8f1e2"
+    },
+    {
+      "candidate_id": "cand-b1fedc61b560916ae3e2",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "http://localhost"
+      },
+      "parent_candidate_id": "cand-3888fc6a392902c8f1e2"
+    },
+    {
+      "candidate_id": "cand-0049447ddc3bdd737e07",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07"
+    },
+    {
+      "candidate_id": "cand-7c3ee6f6e8cfe5ee7853",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "null"
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07"
+    },
+    {
+      "candidate_id": "cand-67e4e8f9df658f2046d1",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "https://example.invalid"
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07"
+    },
+    {
+      "candidate_id": "cand-c6a062de98c69ab9761b",
+      "mutation": {
+        "operator": "HEADER_ORIGIN_VARIANTS",
+        "origin": "http://localhost"
+      },
+      "parent_candidate_id": "cand-0049447ddc3bdd737e07"
+    }
+  ],
+  "promising_candidates": [],
+  "results": {
+    "behavioral_differences": 0,
+    "error_observations": 0,
+    "information_gain": 0.125,
+    "repeat_reproductions": 0,
+    "unique_response_signatures": 3
+  },
+  "stopping_reason": "candidate budget reached",
+  "surface_id": "surf_9_web3"
+}

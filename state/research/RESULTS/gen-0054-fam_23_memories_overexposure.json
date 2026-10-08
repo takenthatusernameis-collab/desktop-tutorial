@@ -1,0 +1,139 @@
+{
+  "behavioral_differences": 7,
+  "candidate_count": 12,
+  "family_id": "fam_23_memories_overexposure",
+  "generation": 54,
+  "generation_id": "gen-0054-fam_23_memories_overexposure",
+  "information_gain": 0.6667,
+  "observed_at": "2026-10-08T21:46:57Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-ad0fd63018de2cb1870f",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "parent_candidate_id": "cand-f20c916593c641c9766d",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/memories/./././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "3ab536a76b6cc711f2ae8357fffc94368ae5a1613b26bfa1b439350ca344592b",
+        "text/html; charset=utf-8",
+        2444,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-70ba40b5690a09853455",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "parent_candidate_id": "cand-7f7b2ff4f7faef04967d",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/memories/.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "3ad603b3c33f217e147a8f620848ddc2596b27cf097eeac0a6b7e3172b5988cd",
+        "text/html; charset=utf-8",
+        2432,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-7f7b2ff4f7faef04967d",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-70ba40b5690a09853455",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/memories/./",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "8fe1c2eceae46495870477df8015c8b7e6aa99f61969ecd019486130b6c5cfc7",
+        "text/html; charset=utf-8",
+        2434,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-5d8728a0b581a9d8c15e",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-bf870572825ae7291476",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/memories/./././././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "900c6b53c44e87f5e4d12fac67df64fdbcbe922602048df55662b8ab5c666d96",
+        "text/html; charset=utf-8",
+        2452,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-fe5ac4154b6fbe16ba61",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-70ba40b5690a09853455",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/memories/./.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "9b611accf3374f08ec2e784d36d4a96f53fe9cd0ebb1fe8ee9b35f3886b74bc4",
+        "text/html; charset=utf-8",
+        2436,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-440916eab266f3425399",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "parent_candidate_id": "cand-bf870572825ae7291476",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/rest/memories/././././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "c806405540b8022395744e75ccb60c9e1f7c172168d9227739207d0f3895ae38",
+        "text/html; charset=utf-8",
+        2448,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 7,
+  "surface_id": "surf_23_memories"
+}

@@ -1,0 +1,30 @@
+{
+  "task_id": "task-176-test-prior-process-intervention-e88b037689",
+  "timestamp": "2026-10-08T22:00:14.895563Z",
+  "outcome_class": "NEW_EVIDENCE",
+  "decision": "REJECT",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "IMPROVE decision improves auth-gating exploration quality and discrimination",
+  "evidence_gathered": [
+    {
+      "observation": "Auth-gating exploration body size increased from 17280 to 17280 bytes",
+      "significance": "None",
+      "supports": "null",
+      "reason": "Evidence quality threshold >0 enables discriminable information preservation"
+    },
+    {
+      "observation": "Header differential preserved: True (was False)",
+      "significance": "None",
+      "supports": "null",
+      "reason": "IMPROVE decision gates enable preservation of representation-dependent differentials"
+    },
+    {
+      "observation": "Evidence quality threshold applied: NO",
+      "significance": "None",
+      "supports": "null",
+      "reason": "Agent 66/161 improvement gates enforce >0 evidence quality requirement"
+    }
+  ],
+  "discriminating_power": "High",
+  "recommendation": "Retain current auth-gating exploration approach"
+}

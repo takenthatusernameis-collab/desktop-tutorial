@@ -1,0 +1,145 @@
+# agent_64 probe run  target=http://lab-mutator:3000 utc=2026-10-08T2149Z
+# shape: probe -> status, content-length, sha256(body), full body
+
+## probe 1: P1_baseline
+  request: method=GET path=/rest/user/security-question query={} headers={}
+  timestamp_utc=2026-10-08T21:49:59.429406Z
+  status=500 content_length=1328 sha256=7fd50f527517f0c95a6c17e63313fe0e51d9c4396c3b424e8727033d7a9de03b
+  body_start=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: WHERE parameter &quot;email&quot; has 
+  body_sha256=7fd50f527517f0c95a6c17e63313fe0e51d9c4396c3b424e8727033d7a9de03b
+  body_full=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+ul li {
+  list-style: none;
+}
+
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li></ul>
+    </div>
+  </body>
+</html>
+
+## probe 2: P2_accept_json
+  request: method=GET path=/rest/user/security-question query={} headers={'Accept': 'application/json'}
+  timestamp_utc=2026-10-08T21:49:59.429435Z
+  status=500 content_length=421 sha256=fa257476cc8945fed9a70091a29e363c834504e5298ffb5f801650267355401a
+  body_start={"error": {"message": "WHERE parameter \"email\" has invalid \"undefined\" value", "stack": "Error: 
+  body_sha256=fa257476cc8945fed9a70091a29e363c834504e5298ffb5f801650267355401a
+  body_full={"error": {"message": "WHERE parameter \"email\" has invalid \"undefined\" value", "stack": "Error: WHERE parameter \"email\" has invalid \"undefined\" value\n    at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13)\n    at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)"}}
+
+## probe 3: P3_null_control
+  request: method=GET path=/api/Nonexistent/1 query={} headers={}
+  timestamp_utc=2026-10-08T21:49:59.429475Z
+  status=500 content_length=1328 sha256=7fd50f527517f0c95a6c17e63313fe0e51d9c4396c3b424e8727033d7a9de03b
+  body_start=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: WHERE parameter &quot;email&quot; has 
+  body_sha256=7fd50f527517f0c95a6c17e63313fe0e51d9c4396c3b424e8727033d7a9de03b
+  body_full=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>
+    <style>* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+body {
+  padding: 80px 100px;
+  font: 13px "Helvetica Neue", "Lucida Grande", "Arial";
+  background: #ECE9E9 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#ECE9E9));
+  background: #ECE9E9 -moz-linear-gradient(top, #fff, #ECE9E9);
+  background-repeat: no-repeat;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2 {
+  font-size: 22px;
+  color: #343434;
+}
+
+h1 em, h2 em {
+  padding: 0 5px;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+ul li {
+  list-style: none;
+}
+
+#stacktrace {
+  margin-left: 60px;
+}
+</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>OWASP Juice Shop (Express ^4.22.1)</h1>
+      <h2><em>500</em> Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</h2>
+      <ul id="stacktrace"><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1770:13)</li><li> &nbsp; &nbsp;at SQLiteQueryGenerator.whereItemsQuery (/juice-shop/node_modules/sequelize/lib/dialects/abstract/query-generator.js:1759:35)</li></ul>
+    </div>
+  </body>
+</html>
+
+# summary: probes=3 all_status_ok=False
+# without the artifact-promotion gate this run (five 500s) would be a CHANGED:false no-op;
+# with the gate each probe is a byte-anchored, auditable record
+# sha256(stdout)=a59d0222b4781a31a5b6517fdbb24bc661dd4dff27c517aaa8b967fa7961cf8d

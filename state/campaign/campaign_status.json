@@ -1,13 +1,13 @@
 {
   "schema_version": 2,
   "status": "PARTIAL",
-  "campaign_id": "37812203383:attempt:1",
+  "campaign_id": "37849052973:attempt:1",
   "agent_count": 10,
-  "starting_agent_number": 161,
-  "ending_agent_number": 170,
-  "success_count": 8,
-  "failure_count": 2,
+  "starting_agent_number": 171,
+  "ending_agent_number": 180,
+  "success_count": 7,
+  "failure_count": 3,
   "final_agent_status": "SUCCESS",
   "finalization_status": 0,
-  "finished_utc": "2026-10-08T17:21:09Z"
+  "finished_utc": "2026-10-08T22:06:07Z"
 }

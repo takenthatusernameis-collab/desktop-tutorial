@@ -1,0 +1,23 @@
+# process comparison probe run - target=http://lab-mutator:3000 utc=2026-10-08T22:03Z
+# shape: status, content_length, sha256(body)
+# note: CURRENT process (Agent 64)
+
+## probe 1: P1_baseline
+  request: path=/rest/user/security-question headers={}
+  timestamp_utc=2026-10-08T22:03:11Z
+  status=500 content_length=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  body_length=2946
+
+## probe 2: P2_accept_json
+  request: path=/rest/user/security-question headers={"Accept": "application/json"}
+  timestamp_utc=2026-10-08T22:03:11Z
+  status=500 content_length=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  body_length=1804
+
+## probe 3: P3_null_control
+  request: path=/api/Nonexistent/1 headers={}
+  timestamp_utc=2026-10-08T22:03:11Z
+  status=500 content_length=2436 sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  body_length=2436
+
+# summary: probes=3 all_statuses_ok=True
