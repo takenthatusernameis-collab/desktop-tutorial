@@ -1,0 +1,63 @@
+{
+  "behavioral_differences": 2,
+  "candidate_count": 6,
+  "family_id": "fam_redirect_ssrf_monitor",
+  "generation": 36,
+  "generation_id": "gen-0036-fam_redirect_ssrf_monitor",
+  "information_gain": 0.4167,
+  "observed_at": "2026-10-08T02:42:59Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-e9a04a52f96d41173ff7",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/redirect",
+        "query": {
+          "continue": [
+            "http://example.com"
+          ]
+        }
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-6eeb6387282211701c96",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-13e2d676d9c2186b63da",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/redirect",
+        "query": {
+          "continue": [
+            "http://example.com"
+          ]
+        }
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 2,
+  "surface_id": "surf_redirect"
+}

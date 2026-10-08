@@ -1,10 +1,10 @@
-# agent_66 probe run  target=http://lab-mutator:3000 utc=2026-10-07T23:25Z
+# agent_66 probe run  target=http://lab-mutator:3000 utc=2026-10-08T02:56Z
 # shape: probe -> status, content-length, sha256(body), full body
 # gate test: artifact-promotion + disk-existence verification gate (Agent 66 IMPROVE)
 
 ## probe 1: P1_baseline
   request: method=GET path=/rest/user/security-question query={} headers={}
-  timestamp_utc=2026-10-07T23:25:53Z
+  timestamp_utc=2026-10-08T02:56:28Z
   status=500 content_length=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
   body_start="<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value</title>\n    <style>* {\n "
   body_sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
@@ -61,7 +61,7 @@ ul li {
 
 ## probe 2: P2_accept_json
   request: method=GET path=/rest/user/security-question query={} headers={"Accept": "application/json"}
-  timestamp_utc=2026-10-07T23:25:53Z
+  timestamp_utc=2026-10-08T02:56:28Z
   status=500 content_length=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
   body_start='{\n  "error": {\n    "message": "WHERE parameter \\"email\\" has invalid \\"undefined\\" value",\n    "stack": "Error: WHERE parameter \\"email\\" has invalid \\"undefine'
   body_sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
@@ -74,7 +74,7 @@ ul li {
 
 ## probe 3: P3_null_control
   request: method=GET path=/api/Nonexistent/1 query={} headers={}
-  timestamp_utc=2026-10-07T23:25:53Z
+  timestamp_utc=2026-10-08T02:56:28Z
   status=500 content_length=2436 sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
   body_start="<html>\n  <head>\n    <meta charset='utf-8'> \n    <title>Error: Unexpected path: /api/Nonexistent/1</title>\n    <style>* {\n  margin: 0;\n  padding: 0;\n  outline: 0"
   body_sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
@@ -131,4 +131,4 @@ ul li {
 
 # summary: probes=3 all_statuses_ok=True
 # with the Agent 66 gate (artifact-promotion + disk-existence): each probe is a byte-anchored, auditable record
-# sha256(stdout)=c76b223f2f1d460091d9deeec3aabae509e72a7602d06d409f75ce3fb0fbbdc3
+# sha256(stdout)=00f4014e600b0fcb38346ab9ab4caba5ef93285c00eeac6cd8bd4d73e94fd09a
