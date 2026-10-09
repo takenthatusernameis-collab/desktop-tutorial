@@ -1,0 +1,19 @@
+{
+  "outcome_class": "NEW_EVIDENCE",
+  "task_id": "task-194-test-prior-process-intervention-d842a17ff9",
+  "timestamp": "2026-10-09T08:20:37.391655Z",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "REJECT decision improves research quality by preventing infrastructure failures without learning",
+  "evidence_gathered": [
+    {
+      "observation": "P1 vs P2 response bodies different: YES"
+    },
+    {
+      "observation": "Disk-existence gate ensures artifact completeness"
+    }
+  ],
+  "discriminating_power": "High - demonstrates that REJECT decision improves quality through evidence preservation and discrimination",
+  "recommendation": "Preserve the REJECT decision from Agent 193 as durable process evidence; continue applying disk-existence gate and artifact-promotion to prevent repeated infrastructure failures without learning",
+  "decision": "IMPROVE",
+  "next": "Apply the REJECT decision and artifact-promotion + disk-existence verification gate as standard pre-completion checks to ensure infrastructure failures produce learning rather than remain as UNVERIFIED no-ops"
+}

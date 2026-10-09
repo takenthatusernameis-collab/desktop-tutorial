@@ -20,8 +20,8 @@ It is intended to help the next solver activation adapt its research process.
 
 - Process score is a separate metric from hidden benchmark outcome; the benchmark outcome score is not a process grade.
 - A flat 0.0500 benchmark outcome can coexist with meaningful progress when the research state changes.
-- Process score: 0.4674
-- Process-score delta vs previous activation: -0.0921
+- Process score: 0.4688
+- Process-score delta vs previous activation: -0.0935
 - Progress state: INCREMENTAL
 - Benchmark signal: UNCHANGED
 - Activation information gain: 0.0000
@@ -39,8 +39,8 @@ It is intended to help the next solver activation adapt its research process.
 - Handoff completeness: 0.0000
 - Surface coverage: 1.0000
 - Active-surface coverage: 1.0000
-- Behavioral-difference rate: 0.3778
-- Reproduction density: 0.3611
+- Behavioral-difference rate: 0.3833
+- Reproduction density: 0.3667
 - Falsification signal: 0.0000
 - Delivery integrity: 0.0000
 

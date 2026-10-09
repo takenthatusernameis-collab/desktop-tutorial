@@ -1,0 +1,139 @@
+{
+  "behavioral_differences": 7,
+  "candidate_count": 12,
+  "family_id": "fam_6_put_tamper",
+  "generation": 56,
+  "generation_id": "gen-0056-fam_6_put_tamper",
+  "information_gain": 0.5833,
+  "observed_at": "2026-10-09T07:58:52Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-1275f6483d8c59cdb24a",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/api/Products/1/.",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-dc800e81490f7d63f21a",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/api/Products/1/./",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "2ace4c4a734cb2d9b588c875382a75e879204bf815e9119b7b1f57ce9ac4f2b9",
+        "text/html; charset=utf-8",
+        2436,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-f528212906452a7cde40",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-d7adfd5fc0f3d4dc9317",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/api/Products/1/././",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "2f15f6dd3807b65994ced3f58f9515820134a07e26441ec5cc8349b007f733a0",
+        "text/html; charset=utf-8",
+        2440,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-d7adfd5fc0f3d4dc9317",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/api/Products/1/./.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "39223cfdbd09601da7cef785dd8467d3d26e9df1728b2b6102ff9f4cac523af6",
+        "text/html; charset=utf-8",
+        2438,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-ae49a0942561e1b2096b",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-d7adfd5fc0f3d4dc9317",
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/api/Products/1/././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "4ededa0f97bdfb536ef21461ab355d06ca0fe7ce99f318e15e6abadac2ad0abd",
+        "text/html; charset=utf-8",
+        2442,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-36f9de58f501a1a3b783",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-4c5f7e107ecf5774f3cf",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/api/Products/1/.",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 7,
+  "surface_id": "surf_6_put_tamper"
+}
