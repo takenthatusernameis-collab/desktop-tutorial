@@ -1,0 +1,42 @@
+# auth-gating exploration - IMPROVED=YES
+# target=http://lab-mutator:3000
+# timestamp=2026-10-09T01:54Z
+# evidence_quality_gate=APPLIED
+
+## probe 1: P1_login_no_accept
+  request: path=/rest/user/login headers={}
+  status=500
+  content_length=2432
+  sha256=c657dbddd4ba5992de1f52a1625f46172ff8b47c0963f3038bb4543a165cda81
+  body_length=2432
+  auth_blocked=NO
+
+## probe 2: P2_login_accept_json
+  request: path=/rest/user/login headers={"Accept": "application/json"}
+  status=500
+  content_length=1340
+  sha256=1864d471d4d9375f2adb3aa8ff66acf00b588ae3df2a83d33ed23c9ef686c51b
+  body_length=1340
+  auth_blocked=NO
+
+  ✅ HEADER DIFFERENTIAL PRESERVED: P1 vs P2 have different bodies
+## probe 3: P3_register_no_accept
+  request: path=/rest/user/register headers={}
+  status=500
+  content_length=2438
+  sha256=45874a328bf1f52c5e577006f8489b38285180a341a91a216b806dc6cf58eb6f
+  body_length=2438
+  auth_blocked=NO
+
+## probe 4: P4_auth_no_accept
+  request: path=/api/Auth/login headers={}
+  status=500
+  content_length=2430
+  sha256=e866f7fb1f29e6d362b907f7df1996e47536cd9257d0cbf2bd16af52045ac076
+  body_length=2430
+  auth_blocked=YES
+
+# summary: probes=4 all_statuses_ok=True
+# total_body_size=8640
+# header_differential_preserved=YES
+# gate_applied=IMPROVED

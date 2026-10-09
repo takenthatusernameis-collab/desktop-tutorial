@@ -1,22 +1,22 @@
 [
   {
-    "agent_number": 180,
-    "bottleneck": "Need empirical evidence for the preceding decision (REJECT).",
+    "agent_number": 190,
+    "bottleneck": "Need empirical evidence for the preceding decision (UNVERIFIED).",
     "bounded_action": "Run one controller-approved research comparison or independent reproduction that directly tests the preceding process decision; stop after the result can discriminate between the competing explanations.",
     "campaign_agent_count": 10,
-    "campaign_id": "37849052973:attempt:1",
+    "campaign_id": "37870050083:attempt:1",
     "campaign_slot": 10,
     "candidate_count": 1,
     "deliverable": "One reproducible research result plus an explicit assessment of whether the preceding process intervention helped.",
-    "information_gap": "The disk-existence gate must be removed or implemented executably (e.g., check for pre-existing artifacts, use temporary files, or apply gate after process completion). A viable process improvement must avoid chicken-and-egg dependencies that prevent evidence preservation.",
+    "information_gap": "Reassess the highest-value unresolved task from durable evidence.",
     "objective": "Use the current learning process to test the highest-value unresolved research implication of the preceding intervention.",
     "out_of_scope": "No general scanning, no challenge-ID targeting, no hidden-evaluator inference, and no unrelated infrastructure edits.",
     "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
     "role": "HIGHER_ORDER_RESEARCH",
     "selection_basis": {
       "durable_evidence_excerpt": "## Active strategy delta | - Gap: campaign unsolved after 25+ activations; public metrics 0.0500 / discovery 0.0000 / repro 0.0000 / precision 0.0000 / evidence 1.0000 (roughly stable); aggregate feedback names hidden-behavior discovery as the primary gap and recommends broader hypothesis generation, behavioral differential testing, and testing of minimally changed request representations before repeatedly deepening one finding; the /api/Challenges/ solved flags proved to be dynamic app auto-solve (not evaluator ground truth): on the A26 boot solved:true = [27, 76, 97] but on the current boot (A27 re-probe 10:46Z) solved:true = [27, 97] and id=76 never flips to solved even after route visits (retracted) - used only as a route-viability hint; CORRECTION (A40): the A39 breadth expansion (2026-10-06T02:07Z) submitted 5 findings spanning 5 distinct security classes (id=14 CAPTCHA, id=1+id=24 memories, id=7 security-question enumeration, id=27 raw errors, id=97 /metrics) and the regenerated SOLVER_FEEDBACK confirms 5 submitted / 0 matched - discovery remains 0.0000 despite verified, drift-resilient, mechanism-diverse submissions. The hidden set therefore excludes every verified behavior observed on this variant, including the cleartext CAPTCHA answer leak, unauthenticated user-object exposure (/rest/memories), null-binding security-answer writes, security-question enumeration differentials, raw error handling, and unauthenticated telemetry \u2014 all submitted across the campaign and all matched 0. including the cleartext CAPTCHA answer leak, unauthenticated user-object exposure, null-binding security-answer writes, account-enumeration differentials, raw error handling, and telemetry exposure; 114/116 challenge routes are mutated away and the mutator's oracle flags only the two d",
-      "previous_decision": "REJECT",
-      "previous_task_id": "task-179-evaluate-prior-research-effect-e4ba5fa10f",
+      "previous_decision": "UNVERIFIED",
+      "previous_task_id": "task-189-evaluate-prior-research-effect-85b47d123a",
       "signals": [
         "selection-concentration",
         "evidence-mismatch",
@@ -26,7 +26,7 @@
     },
     "stop_condition": "Stop immediately after the bounded comparison answers the primary question or becomes clearly non-discriminating.",
     "success_evidence_criterion": "The comparison produces new evidence, falsification, or strong negative evidence that could change the next task decision.",
-    "task_id": "task-180-test-prior-process-intervention-11406c1580",
+    "task_id": "task-190-test-prior-process-intervention-5683738c8e",
     "verification_requirement": "Use a fresh request, control, or independent reproduction when the target supports it; preserve negative evidence."
   }
 ]

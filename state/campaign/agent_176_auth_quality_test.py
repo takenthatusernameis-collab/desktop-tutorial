@@ -121,24 +121,57 @@ def run_auth_gating_reproduction(is_improved=False):
 def analyze_auth_gating_improvement(pre_output_path, improved_output_path):
     """Analyze both outputs for discriminability improvement"""
     
-    print("\n=== AUTH-GATING ANALYSIS ===")
+    print("\\n=== AUTH-GATING ANALYSIS ===")
     
-def parse_output(path):
-        lines = {}
+    def parse_output(path):
+        import ast
+        probe_data = {}
         current_probe = None
+        
         with open(path, "r") as f:
             for line in f:
                 line = line.rstrip()
                 if line.startswith("## probe"):
-                    current_probe = line.split(": ")[1].strip()
-                elif current_probe and (("content_length=" in line and "sha256=" in line) or ("body_length=" in line and "sha256=" in line)):
-                    lines[current_probe] = line
-        return lines
+                    probe_name = line.split(": ")[1].strip()
+                    probe_data[probe_name] = {
+                        'path': None,
+                        'headers': None,
+                        'status': None,
+                        'content_length': None,
+                        'body_length': None,
+                        'sha256': None,
+                        'auth_blocked': None,
+                        'header_differential': False
+                    }
+                    current_probe = probe_name
+                elif current_probe and "request:" in line:
+                    probe_data[current_probe]['path'] = line.split("path=")[1].split(" ")[0]
+                    if "headers=" in line:
+                        headers_str = line.split("headers=")[1].split(" ")[0]
+                        try:
+                            probe_data[current_probe]['headers'] = ast.literal_eval(headers_str)
+                        except:
+                            probe_data[current_probe]['headers'] = headers_str
+                elif current_probe and "status=" in line:
+                    probe_data[current_probe]['status'] = int(line.split("status=")[1].split(" ")[0])
+                elif current_probe and "content_length=" in line:
+                    probe_data[current_probe]['content_length'] = int(line.split("content_length=")[1].split(" ")[0])
+                elif current_probe and "body_length=" in line:
+                    probe_data[current_probe]['body_length'] = int(line.split("body_length=")[1].split(" ")[0])
+                elif current_probe and "sha256=" in line:
+                    probe_data[current_probe]['sha256'] = line.split("sha256=")[1].split(" ")[0]
+                elif current_probe and "auth_blocked=" in line:
+                    blocked_str = line.split("auth_blocked=")[1].split(" ")[0]
+                    probe_data[current_probe]['auth_blocked'] = blocked_str == "YES"
+                elif current_probe and "HEADER DIFFERENTIAL PRESERVED" in line:
+                    probe_data[current_probe]['header_differential'] = True
+        
+        return probe_data
 
-    pre_lines = parse_output(pre_output_path)
-    improved_lines = parse_output(improved_output_path)
+    pre_probes = parse_output(pre_output_path)
+    improved_probes = parse_output(improved_output_path)
     
-    def extract_stats(lines_dict):
+    def extract_stats(probe_dict):
         stats = {
             'total_body_size': 0,
             'unique_body_hashes': set(),
@@ -147,22 +180,20 @@ def parse_output(path):
             'artifacts_created': 0
         }
         
-        for probe_name, line in lines_dict.items():
-            if "body_length=" in line:
-                size = int(line.split("body_length=")[1].split(" ")[0])
-                stats['total_body_size'] += size
-            if "sha256=" in line:
-                h = line.split("sha256=")[1].split(" ")[0]
-                stats['unique_body_hashes'].add(h)
-            if "HEADER DIFFERENTIAL PRESERVED" in line:
+        for probe_name, data in probe_dict.items():
+            if data['body_length'] is not None:
+                stats['total_body_size'] += data['body_length']
+            if data['sha256'] is not None:
+                stats['unique_body_hashes'].add(data['sha256'])
+            if data['header_differential']:
                 stats['header_differential'] = True
                 
         stats['unique_body_count'] = len(stats['unique_body_hashes'])
         stats['evidence_quality_met'] = stats['total_body_size'] > 0
         return stats
     
-    pre_stats = extract_stats(pre_lines)
-    improved_stats = extract_stats(improved_lines)
+    pre_stats = extract_stats(pre_probes)
+    improved_stats = extract_stats(improved_probes)
     
     print(f"PRE-IMPROVE analysis:")
     print(f"  Total body size: {pre_stats['total_body_size']} bytes")

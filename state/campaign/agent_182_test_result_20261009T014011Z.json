@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-10-09T01:40:11.737611Z",
+  "task_id": "task-182-test-prior-process-intervention-5f69763c7f",
+  "improvement_hypothesis_tested": "IMPROVE decision improves auth-gating exploration quality and discrimination",
+  "evidence_quality_threshold_applied": true,
+  "discriminable_evidence_found": true,
+  "comparisons": [
+    {
+      "test_name": "GET /rest/user/security-question (no Accept header)",
+      "method": "GET",
+      "path": "/rest/user/security-question",
+      "status": 500,
+      "headers": {
+        "Server": "EHBMutationGateway/1.0 Python/3.12.15",
+        "Date": "Fri, 09 Oct 2026 01:40:11 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Feature-Policy": "payment 'self'",
+        "X-Recruiting": "/#/jobs",
+        "Content-Type": "text/html; charset=utf-8",
+        "Vary": "Accept-Encoding",
+        "Content-Length": "2946"
+      },
+      "body_size": 2946,
+      "response_hash": "0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b",
+      "content_type": "text/html; charset=utf-8",
+      "content_length": "2946"
+    },
+    {
+      "test_name": "GET /rest/user/security-question (Accept: application/json)",
+      "method": "GET",
+      "path": "/rest/user/security-question",
+      "status": 500,
+      "headers": {
+        "Server": "EHBMutationGateway/1.0 Python/3.12.15",
+        "Date": "Fri, 09 Oct 2026 01:40:11 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Feature-Policy": "payment 'self'",
+        "X-Recruiting": "/#/jobs",
+        "Content-Type": "application/json; charset=utf-8",
+        "Vary": "Accept-Encoding",
+        "Content-Length": "1804"
+      },
+      "body_size": 1804,
+      "response_hash": "20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e",
+      "content_type": "application/json; charset=utf-8",
+      "content_length": "1804"
+    },
+    {
+      "test_name": "POST /api/SecurityAnswers/ (write-open)",
+      "method": "POST",
+      "path": "/api/SecurityAnswers/",
+      "status": 500,
+      "headers": {
+        "Server": "EHBMutationGateway/1.0 Python/3.12.15",
+        "Date": "Fri, 09 Oct 2026 01:40:11 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Feature-Policy": "payment 'self'",
+        "X-Recruiting": "/#/jobs",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "151",
+        "ETag": "W/\"97-EFGbI75XbR19VdIbaDWqMSZ/OUk\"",
+        "Vary": "Accept-Encoding"
+      },
+      "body_size": 151,
+      "response_hash": "ddd45dbae613c1d5ff4a4e5538fd4aadc96ce3754010a87be95227be39d6ead6",
+      "content_type": "application/json; charset=utf-8",
+      "content_length": "151"
+    },
+    {
+      "test_name": "GET /api/BasketItems (auth-gated)",
+      "method": "GET",
+      "path": "/api/BasketItems",
+      "status": 401,
+      "headers": {
+        "Server": "EHBMutationGateway/1.0 Python/3.12.15",
+        "Date": "Fri, 09 Oct 2026 01:40:11 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Feature-Policy": "payment 'self'",
+        "X-Recruiting": "/#/jobs",
+        "Content-Type": "text/html; charset=utf-8",
+        "Vary": "Accept-Encoding",
+        "Content-Length": "972"
+      },
+      "body_size": 972,
+      "response_hash": "75f50e026506606485b7eb4c8748663214e66b13b036c8112300c5c83a0d40ac",
+      "content_type": "text/html; charset=utf-8",
+      "content_length": "972"
+    }
+  ],
+  "discriminating_power": "Medium",
+  "recommendation": "IMPROVE decision validated - maintain auth-gating exploration with evidence quality threshold"
+}
