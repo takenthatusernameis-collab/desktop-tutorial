@@ -1,0 +1,27 @@
+{
+  "test_type": "Preceding INFRASTRUCTURE_FAILURE decision effectiveness",
+  "pre_failure": {
+    "has_failure_impact": false,
+    "has_enhanced_gates": false,
+    "evidence_quality": 0,
+    "discriminable_bytes": 0,
+    "artifacts_created": 0,
+    "gate_enabled": false,
+    "failure_prompted_improvement": false
+  },
+  "post_failure": {
+    "has_failure_impact": true,
+    "has_enhanced_gates": true,
+    "evidence_quality": 0,
+    "discriminable_bytes": 0,
+    "artifacts_created": 1,
+    "gate_enabled": true,
+    "failure_prompted_improvement": false,
+    "evidence_improvement": 1,
+    "quality_increase": 0
+  },
+  "evidence_quality_increase": 0,
+  "effectiveness_percentage": 0,
+  "failure_prompted_improvement": false,
+  "conclusion": "INFRASTRUCTURE_FAILURE decision not effective - does not improve research quality and discrimination"
+}
