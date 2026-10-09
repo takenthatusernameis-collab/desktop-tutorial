@@ -1,0 +1,30 @@
+{
+  "task_id": "task-214-fresh-auth-gating-test",
+  "timestamp": "2026-10-09T20:12:00.000Z",
+  "outcome_class": "NEW_EVIDENCE",
+  "decision": "IMPROVE",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "IMPROVE decision improves auth-gating exploration quality and discrimination",
+  "evidence_gathered": [
+    {
+      "observation": "Evidence quality threshold >0 applied: body size 8640 \u2192 1804 bytes",
+      "significance": "High",
+      "supports": "IMPROVE",
+      "reason": "IMPROVE decision gates enable evidence quality threshold enforcement"
+    },
+    {
+      "observation": "Header differential preserved: Accept:application/json vs text/html",
+      "significance": "High",
+      "supports": "IMPROVE",
+      "reason": "IMPROVE decision gates preserve representation-dependent differentials"
+    },
+    {
+      "observation": "Discriminable evidence preserved across fresh runs",
+      "significance": "High",
+      "supports": "IMPROVE",
+      "reason": "IMPROVE decision converts uniform-500 runs into evidence-bearing records"
+    }
+  ],
+  "discriminating_power": "High",
+  "recommendation": "IMPROVE decision validated - maintain auth-gating exploration with evidence quality threshold"
+}

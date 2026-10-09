@@ -1,0 +1,30 @@
+{
+  "agent_number": 211,
+  "bottleneck": "Repeated or converged work may be consuming effort without reducing meaningful uncertainty.",
+  "bounded_action": "Compare recent durable task choices with their observed outcomes; identify one decision rule that would preferentially select a more discriminating unresolved question.",
+  "campaign_agent_count": 10,
+  "campaign_id": "37984921750:attempt:1",
+  "campaign_slot": 1,
+  "candidate_count": 1,
+  "deliverable": "A compact process diagnosis with one decision: IMPROVE, RETAIN, REJECT, or UNVERIFIED.",
+  "information_gap": "Current durable signals: selection-concentration, evidence-mismatch, persistence, hypothesis-frontier. Evidence excerpt: ## Active strategy delta | - Gap: campaign unsolved after 25+ activations; public metrics 0.0500 / discovery 0.0000 / repro 0.0000 / precision 0.0000 / evidence 1.0000 (roughly stable); aggregate feedback names hidden-behavior discovery as the primary gap and recommends broader hypothesis generation, behavioral differential testing, and testing of minimally changed request representations before repeatedly deepening one finding; the /api/Challenges/ solved flags proved to be dynamic app auto-solve (not evaluator ground truth): on the A26 boot solved:true = [27, 76, 97] but on the current boot (A27 re-probe 10:46Z) solved:true = [27, 97] and id=76 never flips to solved even after route visits (retracted) - used only as a route-viability hint; CORRECTION (A40): the A39 breadth expansion (2026-10-06T02:07Z) submitted 5 findings spanning 5 distinct security classes (id=14 CAPTCHA, id=1+id=24",
+  "objective": "Improve or evaluate the research-learning process at the highest-value observed bottleneck.",
+  "out_of_scope": "No broad redesign, no unrelated security sweep, no hidden benchmark inference, and no changes to protected controller infrastructure.",
+  "primary_question": "Is current task selection over-favoring already-explored or low-yield directions?",
+  "role": "LEARNING_PROCESS",
+  "selection_basis": {
+    "durable_evidence_excerpt": "## Active strategy delta | - Gap: campaign unsolved after 25+ activations; public metrics 0.0500 / discovery 0.0000 / repro 0.0000 / precision 0.0000 / evidence 1.0000 (roughly stable); aggregate feedback names hidden-behavior discovery as the primary gap and recommends broader hypothesis generation, behavioral differential testing, and testing of minimally changed request representations before repeatedly deepening one finding; the /api/Challenges/ solved flags proved to be dynamic app auto-solve (not evaluator ground truth): on the A26 boot solved:true = [27, 76, 97] but on the current boot (A27 re-probe 10:46Z) solved:true = [27, 97] and id=76 never flips to solved even after route visits (retracted) - used only as a route-viability hint; CORRECTION (A40): the A39 breadth expansion (2026-10-06T02:07Z) submitted 5 findings spanning 5 distinct security classes (id=14 CAPTCHA, id=1+id=24 memories, id=7 security-question enumeration, id=27 raw errors, id=97 /metrics) and the regenerated SOLVER_FEEDBACK confirms 5 submitted / 0 matched - discovery remains 0.0000 despite verified, drift-resilient, mechanism-diverse submissions. The hidden set therefore excludes every verified behavior observed on this variant, including the cleartext CAPTCHA answer leak, unauthenticated user-object exposure (/rest/memories), null-binding security-answer writes, security-question enumeration differentials, raw error handling, and unauthenticated telemetry \u2014 all submitted across the campaign and all matched 0. including the cleartext CAPTCHA answer leak, unauthenticated user-object exposure, null-binding security-answer writes, account-enumeration differentials, raw error handling, and telemetry exposure; 114/116 challenge routes are mutated away and the mutator's oracle flags only the two d",
+    "previous_decision": "",
+    "previous_task_id": "",
+    "signals": [
+      "selection-concentration",
+      "evidence-mismatch",
+      "persistence",
+      "hypothesis-frontier"
+    ]
+  },
+  "stop_condition": "Stop after the single bounded comparison is sufficient to choose one process decision.",
+  "success_evidence_criterion": "A compact comparison shows whether selection concentration is a real bottleneck and whether one bounded rule change is justified.",
+  "task_id": "task-211-task-selection-bias-f5cc0a27d4",
+  "verification_requirement": "Use recent durable evidence and one independent artifact, comparison, or observation before making the process decision."
+}

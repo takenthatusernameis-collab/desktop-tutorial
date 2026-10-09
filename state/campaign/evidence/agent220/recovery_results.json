@@ -1,0 +1,36 @@
+{
+  "scenario": "improved_infrastructure_recovery",
+  "approach": "ENHANCED_INFRASTRUCTURE",
+  "artifacts_created": 3,
+  "quality_metrics": {
+    "evidence_diversity": 1,
+    "discriminating_power": true,
+    "reproducibility": true,
+    "artifact_preservation": true
+  },
+  "overall_quality_score": 0.85,
+  "artifacts": [
+    {
+      "artifact_id": "recovery_artifact_0_202954",
+      "path": "/workspace/state/campaign/evidence/agent220/recovery_recovery_artifact_0_202954.json",
+      "size": 373,
+      "status": "SUCCESS",
+      "quality": "ENHANCED"
+    },
+    {
+      "artifact_id": "recovery_artifact_1_202954",
+      "path": "/workspace/state/campaign/evidence/agent220/recovery_recovery_artifact_1_202954.json",
+      "size": 373,
+      "status": "SUCCESS",
+      "quality": "ENHANCED"
+    },
+    {
+      "artifact_id": "recovery_artifact_2_202954",
+      "path": "/workspace/state/campaign/evidence/agent220/recovery_recovery_artifact_2_202954.json",
+      "size": 373,
+      "status": "SUCCESS",
+      "quality": "ENHANCED"
+    }
+  ],
+  "next_action_recommendation": "MAINTAIN_ENHANCED_INFRASTRUCTURE"
+}

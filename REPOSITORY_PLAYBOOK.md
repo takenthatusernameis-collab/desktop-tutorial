@@ -139,6 +139,11 @@ Reusable rule: <one concrete instruction>
 
 Do not turn this file into an activation diary. Detailed chronology belongs in activation logs; research conclusions belong in durable research state; this file stores reusable **how-to-operate knowledge**.
 
+Lesson: Infrastructure failure pattern can be identified by comparing successful learning evidence against failed session patterns
+Status: VERIFIED_NEGATIVE
+Evidence: agent_219 evaluation of preceding session outcomes: successful learning agents (158, 198, 215) produced durable artifacts (7186 B, 1825 B, standardized RESULT.md updates) and concrete learning effects; failed infrastructure agents (144, 216, 217, 218) all produced identical INFRASTRUCTURE_FAILURE pattern with zero artifacts and no learning value
+Reusable rule: When evaluating a preceding session's learning effect, independently audit the evidence pattern: successful learning produces durable artifact files, byte-anchored evidence, and measurable information gain (B bytes, variants preserved); infrastructure failures produce identical INFRASTRUCTURE_FAILURE result with no artifacts and zero learning value; use this pattern to distinguish useful learning from activity.
+
 Lesson: When a residual's only discriminating signal lives in the hidden crediting layer / hidden set, route it to UNVERIFIED with an explicit re-open trigger instead of launching a verification cascade against the target.
 Status: VERIFIED_NEGATIVE
 Evidence: agent_42/A43 durable records; agent_44 independent reproduction 2026-10-06T10:32Z (GET /rest/user/security-question 500/2946 B sha256=0b84d83c... baseline vs Accept:application/json 500/1804 B sha256=20eec46aa... variant, both the same error-handling mechanism class; no /crediting, /eval, or per-claim match endpoint on the only reachable service lab-mutator:3000; api.kilo.ai unreachable 000); agents 33-40 convergence (7 RETAIN, zero new discriminating output).

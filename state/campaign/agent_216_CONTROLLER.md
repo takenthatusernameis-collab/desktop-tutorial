@@ -1,0 +1,7 @@
+AGENT_NUMBER: 216
+TASK_ID: task-216-test-prior-process-intervention-aad37cb2ab
+SESSION_ID: 
+STATUS: FAILED
+EXIT_CODE: 0
+RESULT_VALID: false
+OBSERVED_UTC: 2026-10-09T20:21:26Z

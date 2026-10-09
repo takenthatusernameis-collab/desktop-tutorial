@@ -1,0 +1,33 @@
+# probe_crediting_channel  target=http://lab-mutator:3000 utc=2026-10-09T2012Z
+# shape: path -> status, content-type, first300-of-body
+/api/Claims/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/Claims/ <-- RELEVANT BODY
+/api/claims/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/claims/ <-- RELEVANT BODY
+/api/claim/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/claim/ <-- RELEVANT BODY
+/rest/Claims/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /rest/Claims/ <-- RELEVANT BODY
+/api/Claims                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/Claims <-- RELEVANT BODY
+/api/claims                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/claims <-- RELEVANT BODY
+/api/claim                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/claim <-- RELEVANT BODY
+/rest/claim                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /rest/claim <-- RELEVANT BODY
+/api/Match/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/Match/ <-- RELEVANT BODY
+/api/Match                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/Match <-- RELEVANT BODY
+/api/match/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/match/ <-- RELEVANT BODY
+/rest/Match                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /rest/Match <-- RELEVANT BODY
+/api/candidates/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/candidates/ <-- RELEVANT BODY
+/api/candidates                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/candidates <-- RELEVANT BODY
+/rest/candidates                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /rest/candidates <-- RELEVANT BODY
+/api/submissions/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/submissions/ <-- RELEVANT BODY
+/api/submissions                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/submissions <-- RELEVANT BODY
+/api/submission/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/submission/ <-- RELEVANT BODY
+/api/submission                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/submission <-- RELEVANT BODY
+/api/results/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/results/ <-- RELEVANT BODY
+/api/results                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/results <-- RELEVANT BODY
+/api/result/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/result/ <-- RELEVANT BODY
+/api/result                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/result <-- RELEVANT BODY
+/api/credits/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/credits/ <-- RELEVANT BODY
+/api/credits                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/credits <-- RELEVANT BODY
+/api/credit/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/credit/ <-- RELEVANT BODY
+/api/evaluations/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/evaluations/ <-- RELEVANT BODY
+/api/evaluations                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/evaluations <-- RELEVANT BODY
+/api/benchmark/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/benchmark/ <-- RELEVANT BODY
+/api/benchmark                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /api/benchmark <-- RELEVANT BODY
+/mutator/                 -> 500 text/html                <html>   <head>     <meta charset="utf-8">      <title>Error: Unexpected path: /mutator/ <-- RELEVANT BODY

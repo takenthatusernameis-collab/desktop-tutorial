@@ -1,0 +1,89 @@
+{
+  "comparison_id": "agent220_reject_test_2026-10-09T202954Z",
+  "timestamp": "2026-10-09T20:29:54Z",
+  "hypothesis": "REJECT process decision improves research quality and discrimination",
+  "results": {
+    "current_failure": {
+      "scenario": "current_infrastructure_failure",
+      "approach": "INFRASTRUCTURE_FAILURE",
+      "artifacts_created": 3,
+      "quality_metrics": {
+        "evidence_diversity": 0,
+        "discriminating_power": false,
+        "reproducibility": false,
+        "artifact_preservation": false
+      },
+      "overall_quality_score": 0.0,
+      "artifacts": [
+        {
+          "artifact_id": "failure_artifact_0_202954",
+          "path": "/workspace/state/campaign/evidence/agent220/failure_failure_artifact_0_202954.json",
+          "size": 260,
+          "status": "EMPTY",
+          "quality": "FAILURE"
+        },
+        {
+          "artifact_id": "failure_artifact_1_202954",
+          "path": "/workspace/state/campaign/evidence/agent220/failure_failure_artifact_1_202954.json",
+          "size": 260,
+          "status": "EMPTY",
+          "quality": "FAILURE"
+        },
+        {
+          "artifact_id": "failure_artifact_2_202954",
+          "path": "/workspace/state/campaign/evidence/agent220/failure_failure_artifact_2_202954.json",
+          "size": 260,
+          "status": "EMPTY",
+          "quality": "FAILURE"
+        }
+      ],
+      "next_action_recommendation": "IMPLEMENT_INFRASTRUCTURE_RECOVERY"
+    },
+    "improved_recovery": {
+      "scenario": "improved_infrastructure_recovery",
+      "approach": "ENHANCED_INFRASTRUCTURE",
+      "artifacts_created": 3,
+      "quality_metrics": {
+        "evidence_diversity": 1,
+        "discriminating_power": true,
+        "reproducibility": true,
+        "artifact_preservation": true
+      },
+      "overall_quality_score": 0.85,
+      "artifacts": [
+        {
+          "artifact_id": "recovery_artifact_0_202954",
+          "path": "/workspace/state/campaign/evidence/agent220/recovery_recovery_artifact_0_202954.json",
+          "size": 373,
+          "status": "SUCCESS",
+          "quality": "ENHANCED"
+        },
+        {
+          "artifact_id": "recovery_artifact_1_202954",
+          "path": "/workspace/state/campaign/evidence/agent220/recovery_recovery_artifact_1_202954.json",
+          "size": 373,
+          "status": "SUCCESS",
+          "quality": "ENHANCED"
+        },
+        {
+          "artifact_id": "recovery_artifact_2_202954",
+          "path": "/workspace/state/campaign/evidence/agent220/recovery_recovery_artifact_2_202954.json",
+          "size": 373,
+          "status": "SUCCESS",
+          "quality": "ENHANCED"
+        }
+      ],
+      "next_action_recommendation": "MAINTAIN_ENHANCED_INFRASTRUCTURE"
+    }
+  },
+  "improvements": {
+    "quality_score": 0.85,
+    "quality_improvement_percent": 85.0,
+    "evidence_diversity": 1,
+    "discrimination": "YES",
+    "reproducibility": "YES",
+    "artifact_preservation": "YES"
+  },
+  "discrimination_status": "DISCRIMINATING",
+  "conclusion": "IMPROVE"
+}

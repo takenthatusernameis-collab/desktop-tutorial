@@ -1,0 +1,9 @@
+{
+  "artifact_id": "failure_artifact_2_202954",
+  "type": "infrastructure_failure",
+  "status": "FAILED",
+  "content_length": 0,
+  "message": "Infrastructure failure - no artifact created",
+  "test_session": "Agent 218",
+  "timestamp": "2026-10-09T20:29:54Z"
+}

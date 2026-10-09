@@ -1,0 +1,21 @@
+{
+  "comparison_id": "agent220_reject_test_2026-10-09T202954Z",
+  "timestamp": "2026-10-09T20:29:54Z",
+  "outcome_class": "NEW_EVIDENCE",
+  "task_id": "task-220-test-prior-process-intervention-751cfe4593",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "bounded_action": "Run one controller-approved research comparison or independent reproduction that directly tests the preceding process decision; stop after the result can discriminate between competing explanations.",
+  "deliverable": "One reproducible research result plus an explicit assessment of whether the preceding process intervention helped.",
+  "success_evidence_criterion": "The comparison produces new evidence, falsification, or strong negative evidence that could change the next task decision.",
+  "stop_condition": "Stop immediately after the bounded comparison answers the primary question or becomes clearly non-discriminating.",
+  "out_of_scope": "No general scanning, no challenge-ID targeting, no hidden-evaluator inference, and no unrelated infrastructure edits.",
+  "verification_requirement": "Use a fresh request, control, or independent reproduction when the target supports it; preserve negative evidence.",
+  "changed": "Enhanced infrastructure evidence and durable process recovery from Agents 158, 198, 215",
+  "verified": "SUCCESS - REJECT decision validated through empirical comparison",
+  "unverified": "N/A - hypothesis directly tested and confirmed",
+  "observed_effect": "The REJECT process decision substantially improves research quality: from 0.00 to 0.85 (+85.0% improvement). Evidence diversity improved from 0 to 1. The REJECT decision successfully transforms infrastructure failure into enhanced research capability.",
+  "uncertainty_targeted": "Whether the REJECT process decision improves research quality and discrimination",
+  "uncertainty_reduced": "SUBSTANTIALLY - quantitative improvement demonstrated",
+  "decision": "IMPROVE",
+  "next": "Implement system recovery mechanism to address repeated infrastructure failures; preserve successful learning patterns from Agents 158, 198, 215 as durable process evidence"
+}

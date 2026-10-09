@@ -1,0 +1,36 @@
+{
+  "scenario": "current_infrastructure_failure",
+  "approach": "INFRASTRUCTURE_FAILURE",
+  "artifacts_created": 3,
+  "quality_metrics": {
+    "evidence_diversity": 0,
+    "discriminating_power": false,
+    "reproducibility": false,
+    "artifact_preservation": false
+  },
+  "overall_quality_score": 0.0,
+  "artifacts": [
+    {
+      "artifact_id": "failure_artifact_0_202954",
+      "path": "/workspace/state/campaign/evidence/agent220/failure_failure_artifact_0_202954.json",
+      "size": 260,
+      "status": "EMPTY",
+      "quality": "FAILURE"
+    },
+    {
+      "artifact_id": "failure_artifact_1_202954",
+      "path": "/workspace/state/campaign/evidence/agent220/failure_failure_artifact_1_202954.json",
+      "size": 260,
+      "status": "EMPTY",
+      "quality": "FAILURE"
+    },
+    {
+      "artifact_id": "failure_artifact_2_202954",
+      "path": "/workspace/state/campaign/evidence/agent220/failure_failure_artifact_2_202954.json",
+      "size": 260,
+      "status": "EMPTY",
+      "quality": "FAILURE"
+    }
+  ],
+  "next_action_recommendation": "IMPLEMENT_INFRASTRUCTURE_RECOVERY"
+}
