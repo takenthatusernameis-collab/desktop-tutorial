@@ -1,0 +1,28 @@
+{
+  "outcome_class": "NEW_EVIDENCE",
+  "task_id": "task-244-test-prior-process-intervention-55c6ca587e",
+  "timestamp": "2026-10-10T11:33:46Z",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "REJECT decision (Agent 242) improves research quality over UNVERIFIED baseline (Agent 241)",
+  "evidence_gathered": [
+    {
+      "observation": "Independent reproduction of uniform-500 probes: P1 GET /rest/user/security-question -> 500/2946 B sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b; P2 identical request with Accept:application/json -> 500/1804 B sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e; P3 GET /api/Nonexistent/1 -> 500/2436 B sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718"
+    },
+    {
+      "observation": "Discriminating power: single Accept-header change preserves body anchor differential (2946 B vs 1804 B) that UNVERIFIED baseline discards"
+    },
+    {
+      "observation": "Information gain: 1142 bytes preserved vs UNVERIFIED baseline 0 bytes"
+    },
+    {
+      "observation": "Variants preserved: 3 preserved vs UNVERIFIED baseline 0"
+    },
+    {
+      "observation": "Disk-existence gate: artifact agent_244_probe_gate_out_2026-10-10T11:33Z.txt exists (1301 B) ensuring evidence preservation"
+    }
+  ],
+  "discriminating_power": "High - demonstrates that REJECT decision improves over UNVERIFIED baseline through preserved discriminating evidence, information gain, and variants",
+  "recommendation": "Apply the REJECT decision (Agent 242) as the standard pre-completion check; the REJECT approach that improves over UNVERIFIED baseline should be the default for uniform-500 runs",
+  "decision": "IMPROVE",
+  "next": "Apply the REJECT decision (Agent 242) as standard pre-completion check; the REJECT approach that improves over UNVERIFIED baseline should be the default for uniform-500 runs"
+}

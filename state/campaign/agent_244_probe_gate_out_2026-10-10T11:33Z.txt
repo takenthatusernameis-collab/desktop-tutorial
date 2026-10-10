@@ -1,0 +1,23 @@
+# agent_244 REJECT decision test - target=http://lab-mutator:3000 utc=2026-10-10T11:33Z
+# Tests whether REJECT decision from Agent 242 improves quality/discrimination
+# Building on Agent 242's analysis: REJECT vs UNVERIFIED (Agent 241 baseline)
+
+## probe 1: P1_baseline
+  request: method=GET path=/rest/user/security-question query={} headers={}
+  timestamp_utc=2026-10-10T11:33:46Z
+  status=500 content_length=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+
+## probe 2: P2_accept_json
+  request: method=GET path=/rest/user/security-question query={} headers={'Accept': 'application/json'}
+  timestamp_utc=2026-10-10T11:33:46Z
+  status=500 content_length=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+
+## probe 3: P3_null_control
+  request: method=GET path=/api/Nonexistent/1 query={} headers={}
+  timestamp_utc=2026-10-10T11:33:46Z
+  status=500 content_length=2436 sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+
+# summary: probes=3 all_statuses_ok=True
+# test purpose: demonstrate whether REJECT decision (Agent 242) improves quality/discrimination
+# baseline comparison: UNVERIFIED (Agent 241) had 0 bytes info gain, 0 variants, status-only read
+# target improvement: REJECT should improve quality over baseline
