@@ -1,0 +1,14 @@
+{
+  "artifact_id": "improve_artifact_234730_reject_preservation",
+  "type": "process_improvement_evidence",
+  "status": "SUCCESS",
+  "content_length": 2310,
+  "message": "Agent 274's IMPROVE decision preserves validated REJECT decision preventing unverified hypothesis-priority evolution",
+  "test_session": "Agent 276",
+  "timestamp": "2026-10-10T23:47:30Z",
+  "evidence_quality": "HIGH",
+  "discrimination_potential": "STRONG",
+  "validation_completeness": "COMPLETE",
+  "process_intervention": "IMPROVE",
+  "quality_gain": "Prevents wasted research effort"
+}

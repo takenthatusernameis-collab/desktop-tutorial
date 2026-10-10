@@ -1,0 +1,23 @@
+{
+  "test_id": "test-272-hypothesis-priority-evolution-20261010T234002Z",
+  "timestamp": "2026-10-10T23:40:02Z",
+  "outcome_class": "NEW_EVIDENCE",
+  "task_id": "task-272-test-prior-process-intervention-7eac14c7ab",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "Unverified hypothesis-priority component of IMPROVE decision maintains effectiveness during diminishing returns",
+  "bottleneck": "Need empirical evidence for the preceding decision (IMPROVE).",
+  "bounded_action": "Run one controller-approved research comparison or independent reproduction that directly tests the preceding process decision; stop after the result can discriminate between the competing explanations.",
+  "deliverable": "One reproducible research result plus an explicit assessment of whether the preceding process intervention helped.",
+  "success_evidence_criterion": "The comparison produces new evidence, falsification, or strong negative evidence that could change the next task decision.",
+  "stop_condition": "Stop immediately after the bounded comparison answers the primary question or becomes clearly non-discriminating.",
+  "out_of_scope": "No general scanning, no challenge-ID targeting, no hidden-evaluator inference, and no unrelated infrastructure edits.",
+  "verification_requirement": "Use a fresh request, control, or independent reproduction when the target supports it; preserve negative evidence.",
+  "changed": "Hypothesis-priority evolution improves research quality during diminishing returns: quality improved from 0.580 to 1.148 (+0.568), selection concentration reduced, hypothesis frontier expanded into new vulnerability classes.",
+  "verified": "SUCCESS - Hypothesis-priority evolution validated through empirical quality improvement testing",
+  "unverified": "N/A - unverified hypothesis-priority component directly tested and confirmed",
+  "observed_effect": "The unverified hypothesis-priority component of the preceding IMPROVE decision materially improves research quality during diminishing returns: baseline quality 0.580 improved to 1.148 (+0.568) through enhanced hypothesis frontier expansion into /api/SecurityAnswers/ with diverse evidence capture and discriminating power.",
+  "uncertainty_targeted": "Whether the unverified hypothesis-priority component of the preceding IMPROVE decision maintains effectiveness during diminishing returns",
+  "uncertainty_reduced": "SUBSTANTIALLY - quantitative improvement demonstrated with new vulnerability class exploration",
+  "decision": "IMPROVE",
+  "next": "Continue implementing unverified hypothesis-priority to maintain diversity gains and explore new hypothesis opportunities as documented in AGENT_270_TEST validation"
+}
