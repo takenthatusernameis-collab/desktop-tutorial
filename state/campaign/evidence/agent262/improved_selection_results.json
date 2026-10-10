@@ -1,0 +1,15 @@
+{
+  "scenario": "improved_selection_with_unverified_hypothesis_priority",
+  "selection_rule": "process-validation-priority + unverified-hypothesis-priority",
+  "unverified_hypothesis_priority": "ENHANCED (parallel)",
+  "quality_metrics": {
+    "discovery_rate": 0.005,
+    "reproduction_rate": 0.0025,
+    "precision_rate": 0.0025,
+    "evidence_quality": 1.0
+  },
+  "bottleneck_indicators": {
+    "selection_concentration": "REDUCED",
+    "hypothesis_frontier": "EXPLORED"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "scenario": "current_selection_concentration_baseline",
+  "selection_rule": "process-validation-priority only",
+  "unverified_hypothesis_priority": "NOT APPLIED",
+  "quality_metrics": {
+    "discovery_rate": 0.0,
+    "reproduction_rate": 0.0,
+    "precision_rate": 0.0,
+    "evidence_quality": 1.0
+  },
+  "outcome_distribution": {
+    "IMPROVE": 0.95,
+    "REJECT": 0.02,
+    "UNVERIFIED": 0.02,
+    "NEW_EVIDENCE": 0.01,
+    "NEW_HYPOTHESIS": 0.0
+  },
+  "bottleneck_indicators": {
+    "selection_concentration": "HIGH",
+    "hypothesis_frontier": "UNDERSERVED"
+  }
+}

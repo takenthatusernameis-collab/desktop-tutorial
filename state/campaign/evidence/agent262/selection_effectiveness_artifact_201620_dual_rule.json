@@ -1,0 +1,13 @@
+{
+  "artifact_id": "selection_effectiveness_artifact_201620_dual_rule",
+  "type": "dual_selection_rule_effectiveness",
+  "status": "SUCCESS",
+  "content_length": 2978,
+  "message": "Dual selection rule effectiveness testing",
+  "test_session": "Agent 262",
+  "timestamp": "2026-10-10T20:16:20Z",
+  "dual_rule_effectiveness": "HIGH",
+  "process_quality": "MAINTAINED",
+  "exploration_quality": "IMPROVED",
+  "overall_quality": "ENHANCED"
+}

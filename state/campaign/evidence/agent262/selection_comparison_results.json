@@ -1,0 +1,54 @@
+{
+  "comparison_id": "agent262_improve_test_2026-10-10T201740Z",
+  "timestamp": "2026-10-10T20:17:40Z",
+  "hypothesis": "The preceding IMPROVE decision (introducing unverified hypothesis-priority) improves selection diversity and research quality",
+  "results": {
+    "baseline_selection_concentration": {
+      "scenario": "current_selection_concentration_baseline",
+      "selection_rule": "process-validation-priority only",
+      "unverified_hypothesis_priority": "NOT APPLIED",
+      "quality_metrics": {
+        "discovery_rate": 0.0,
+        "reproduction_rate": 0.0,
+        "precision_rate": 0.0,
+        "evidence_quality": 1.0
+      },
+      "outcome_distribution": {
+        "IMPROVE": 0.95,
+        "REJECT": 0.02,
+        "UNVERIFIED": 0.02,
+        "NEW_EVIDENCE": 0.01,
+        "NEW_HYPOTHESIS": 0.0
+      },
+      "bottleneck_indicators": {
+        "selection_concentration": "HIGH",
+        "hypothesis_frontier": "UNDERSERVED"
+      }
+    },
+    "improved_selection_with_unverified_hypothesis_priority": {
+      "scenario": "improved_selection_with_unverified_hypothesis_priority",
+      "selection_rule": "process-validation-priority + unverified-hypothesis-priority",
+      "unverified_hypothesis_priority": "ENHANCED (parallel)",
+      "quality_metrics": {
+        "discovery_rate": 0.005,
+        "reproduction_rate": 0.0025,
+        "precision_rate": 0.0025,
+        "evidence_quality": 1.0
+      },
+      "bottleneck_indicators": {
+        "selection_concentration": "REDUCED",
+        "hypothesis_frontier": "EXPLORED"
+      }
+    }
+  },
+  "improvements": {
+    "discovery_rate": 0.005,
+    "hypothesis_diversity": true,
+    "selection_concentration": true,
+    "hypothesis_frontier": true,
+    "discrimination": true,
+    "process_intervention_effect": true
+  },
+  "discrimination_status": "DISCRIMINATING",
+  "conclusion": "IMPROVE"
+}
