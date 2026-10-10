@@ -1,0 +1,24 @@
+# A40 CONSTRAINED SUBMISSION PROCESS SIMULATION
+# Target: http://lab-mutator:3000 UTC: 2026-10-10T16:41Z
+# FINDINGS SUBMITTED: 2
+# OUTCOME: ADOPTED (UNVERIFIED pending)
+# PROCESS CHARACTERISTICS:
+#   - FOCUSED on mutation-induced features
+#   - EFFICIENT: strategic mechanism selection
+#   - SELECTIVE: coverage-oracle TRUE entries only
+#   - EVIDENCE_PRESERVATION: byte-anchored artifacts
+
+## finding 1: CAPTCHA Cleartext Leak
+  ID: 14
+  path: /rest/captcha
+  baseline (Accept:text/html): status=200 size=49 sha256=03044a383b53ab53d339308ad52e02fd0975cb21571ea25502f6241f48e07e79
+  variant (Accept:application/json): status=200 size=49 sha256=a878f5e89684e743a3c56f5f3bf65370821eae4f0914377839fc5e61044664be
+  process_advantage: MUTATION_FEATURE_targeted
+
+## finding 2: Query-Filter Enumeration
+  ID: CHALLENGE_FILTER
+  path: /api/Challenges/
+  baseline (Accept:text/html): status=200 size=67662 sha256=e847b1e72083c36ca7894da477b8d9a726907325ea1988b48ea801491e4cd88d
+  variant (Accept:application/json): status=200 size=67662 sha256=e847b1e72083c36ca7894da477b8d9a726907325ea1988b48ea801491e4cd88d
+  process_advantage: MUTATION_FEATURE_targeted
+

@@ -1,0 +1,128 @@
+{
+  "behavioral_differences": 7,
+  "candidate_count": 12,
+  "family_id": "fam_27_raw_error_discovery",
+  "generation": 65,
+  "generation_id": "gen-0065-fam_27_raw_error_discovery",
+  "information_gain": 0.5833,
+  "observed_at": "2026-10-10T16:20:05Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-15cfc8139ce5f052fc48",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-70b4ec854cd0ed046c76",
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "OPTIONS",
+        "path": "/rest/user/security-question/./././",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-240b62a452e764c50ab9",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "trailing_slash"
+      },
+      "parent_candidate_id": "cand-fc453ecc8ae3d391fbf1",
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/././",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "5d393b8986b112a7cd1873306077b55e5da521693918719c5477e40d9b2fa4df",
+        "text/html; charset=utf-8",
+        2466,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-e7eea4d287e79f00949e",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "without_trailing_slash"
+      },
+      "parent_candidate_id": "cand-70b4ec854cd0ed046c76",
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "72cf15b636a4886ebc67c808f59fc2d09ee331667d5a5c331b7ceb4d0e0a8616",
+        "text/html; charset=utf-8",
+        2468,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-5b01ec25980d691b7bfe",
+      "mutation": {
+        "operator": "PATH_VARIANTS",
+        "variant": "dot_suffix"
+      },
+      "parent_candidate_id": "cand-70b4ec854cd0ed046c76",
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "GET",
+        "path": "/rest/user/security-question/./././.",
+        "query": {}
+      },
+      "response_signature": [
+        500,
+        "b1b179b22408e5a98f85cf5d8b5e410f558d70975266111c049372ea367f5022",
+        "text/html; charset=utf-8",
+        2472,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-24c64a51bd3e450f5093",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-e7eea4d287e79f00949e",
+      "request": {
+        "headers": {
+          "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"
+        },
+        "method": "HEAD",
+        "path": "/rest/user/security-question/././.",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 7,
+  "surface_id": "surf_27_error_handling"
+}

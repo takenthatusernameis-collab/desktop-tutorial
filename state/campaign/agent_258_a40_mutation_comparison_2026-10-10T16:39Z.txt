@@ -1,0 +1,16 @@
+# A40 mutation-feature submission probe run - target=http://lab-mutator:3000 utc=2026-10-10T16:39Z
+# Mechanisms: 2 (targeted mutation features)
+# Note: A40 mutation-feature + request-representation-matrix delta (ADOPTED)
+
+## probe 1: A40_id14_captcha
+  description: GET /rest/captcha returns server-computed answer in cleartext
+  baseline (Accept:text/html): status=200 size=46 sha256=3b216c484d8d91448f631be0153b4e1f14be563b24f391b4398c7014399b3da1
+  variant (Accept:application/json): status=200 size=47 sha256=f11f7c3148cd4426a338a29a708260c593b880c3cae74a2c63ca5e3650894013
+  differential: YES
+
+## probe 2: A40_id_challenge_filter
+  description: GET /api/Challenges/ with query filters exposes challenge metadata
+  baseline (Accept:text/html): status=200 size=67662 sha256=e847b1e72083c36ca7894da477b8d9a726907325ea1988b48ea801491e4cd88d
+  variant (Accept:application/json): status=200 size=67662 sha256=e847b1e72083c36ca7894da477b8d9a726907325ea1988b48ea801491e4cd88d
+  differential: NO
+

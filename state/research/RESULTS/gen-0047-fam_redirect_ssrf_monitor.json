@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 0,
+  "candidate_count": 12,
+  "family_id": "fam_redirect_ssrf_monitor",
+  "generation": 47,
+  "generation_id": "gen-0047-fam_redirect_ssrf_monitor",
+  "information_gain": 0.125,
+  "observed_at": "2026-10-10T16:20:07Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_redirect"
+}

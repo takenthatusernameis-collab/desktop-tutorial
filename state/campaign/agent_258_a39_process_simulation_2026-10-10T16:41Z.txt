@@ -1,0 +1,45 @@
+# A39 BROAD SUBMISSION PROCESS SIMULATION
+# Target: http://lab-mutator:3000 UTC: 2026-10-10T16:41Z
+# FINDINGS SUBMITTED: 5
+# OUTCOME: REJECTED (0.0000 discovery)
+# PROCESS CHARACTERISTICS:
+#   - REDUNDANT coverage across 5 security classes
+#   - WIDE_SCOPE approach without strategic focus
+#   - LOW EFFICIENCY: 5 mechanisms for 5 findings
+#   - NO DISCRIMINATION_FOCUS: spread thin across vulnerability types
+
+## finding 1: CAPTCHA Cleartext Leak
+  ID: 14
+  path: /rest/captcha
+  baseline (Accept:text/html): status=200 size=50 sha256=9086bcd3534a37276cd52a6c70227dd101673953f074a76f946ddbe19f746b02
+  variant (Accept:application/json): status=200 size=48 sha256=b46aa2559366f771dc509dad560ad54d21a237b0e83d58814402f3953df7cf01
+  process_observation: BROAD_coverage_attempt
+
+## finding 2: Password Hash Exposure
+  ID: 1
+  path: /rest/memories
+  baseline (Accept:text/html): status=200 size=6183 sha256=8fc2ccd7cd517cc3900a3ed850cb7555c740bc403d062df0b27dacdb13d09705
+  variant (Accept:application/json): status=200 size=6183 sha256=8fc2ccd7cd517cc3900a3ed850cb7555c740bc403d062df0b27dacdb13d09705
+  process_observation: BROAD_coverage_attempt
+
+## finding 3: Security Question Disclosure
+  ID: 7
+  path: /rest/user/security-question
+  baseline (Accept:text/html): status=500 size=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  variant (Accept:application/json): status=500 size=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  process_observation: BROAD_coverage_attempt
+
+## finding 4: Error Handling Inconsistency
+  ID: 27
+  path: /rest/user/security-question
+  baseline (Accept:text/html): status=500 size=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  variant (Accept:application/json): status=500 size=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  process_observation: BROAD_coverage_attempt
+
+## finding 5: Metrics Exposure
+  ID: 97
+  path: /metrics
+  baseline (Accept:text/html): status=200 size=26180 sha256=6f9076141eb33904b48ed3aaad7a56823a5973ac82737c58a2890554f98f45ed
+  variant (Accept:application/json): status=200 size=26138 sha256=afe36eeea35f27d2f50d7d05a05e8ded850cbc99d585632b20d3724ec65ee0a7
+  process_observation: BROAD_coverage_attempt
+

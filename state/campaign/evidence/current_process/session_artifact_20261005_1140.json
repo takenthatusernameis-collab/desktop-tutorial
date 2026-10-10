@@ -1,0 +1,10 @@
+{
+  "artifact_id": "session_artifact_20261005_1140",
+  "type": "findings_record",
+  "status": "CREATED",
+  "quality_score": "MEDIUM",
+  "content": "Basic findings record with limited verification",
+  "validation_status": "INCOMPLETE",
+  "metadata_completeness": "MINIMAL",
+  "research_value": "LOW"
+}

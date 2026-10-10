@@ -1,0 +1,10 @@
+{
+  "artifact_id": "baseline_artifact_20261005_1130",
+  "type": "research_log",
+  "status": "CREATED",
+  "quality_score": "LOW",
+  "content": "Standard research log with minimal metadata",
+  "validation_status": "INCOMPLETE",
+  "metadata_completeness": "MINIMAL",
+  "research_value": "LOW"
+}

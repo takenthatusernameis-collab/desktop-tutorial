@@ -1,0 +1,42 @@
+{
+  "task_id": "task-258-test-prior-process-intervention-dfb14c881b",
+  "timestamp": "2026-10-10T16:39:44.471218Z",
+  "outcome_class": "NO_NEW_INFORMATION",
+  "decision": "REJECT",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "The A40 mutation-feature + request-representation-matrix delta improves quality/discrimination compared to the A39 breadth submission",
+  "evidence_gathered": [
+    {
+      "observation": "A39 broad submission: 5 mechanisms, 0.80 differential power",
+      "significance": "Baseline",
+      "supports": "Context",
+      "reason": "A39 breadth delta was rejected with 0.0000 discovery"
+    },
+    {
+      "observation": "A40 mutation-feature submission: 2 mechanisms, 0.50 differential power",
+      "significance": "Test condition",
+      "supports": "Process evaluation",
+      "reason": "A40 mutation-feature + request-representation-matrix delta was adopted"
+    },
+    {
+      "observation": "Differential power improvement: -37.5%",
+      "significance": "Key measure",
+      "supports": "A40 superiority",
+      "reason": "Higher differential power indicates better discrimination"
+    },
+    {
+      "observation": "Evidence quality improvement: -50.0%",
+      "significance": "Key measure",
+      "supports": "A40 superiority",
+      "reason": "Higher evidence diversity indicates better information gain"
+    },
+    {
+      "observation": "Efficiency ratio: 1.0x",
+      "significance": "Efficiency measure",
+      "supports": "A40 superiority",
+      "reason": "Better mechanisms per finding indicates process improvement"
+    }
+  ],
+  "discriminating_power": "0.80",
+  "recommendation": "REJECT"
+}

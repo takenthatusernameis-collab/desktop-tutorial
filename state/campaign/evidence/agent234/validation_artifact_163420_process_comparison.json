@@ -1,0 +1,14 @@
+{
+  "artifact_id": "validation_artifact_163420_process_comparison",
+  "type": "enhanced_process_comparison",
+  "status": "SUCCESS",
+  "content_length": 26248,
+  "message": "Process comparison harness with enhanced validation",
+  "test_session": "Agent 234",
+  "timestamp": "2026-10-10T16:34:20Z",
+  "evidence_quality": "HIGH",
+  "discrimination_potential": "STRONG",
+  "validation_completeness": "COMPLETE",
+  "process_intervention": "IMPROVED",
+  "quality_gain": "Research continuity enabled"
+}

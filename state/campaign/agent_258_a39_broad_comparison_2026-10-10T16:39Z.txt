@@ -1,0 +1,34 @@
+# A39 broad submission probe run - target=http://lab-mutator:3000 utc=2026-10-10T16:39Z
+# Mechanisms: 5 (5 security classes)
+# Note: A39 breadth delta (REJECTED with 0.0000 discovery)
+
+## probe 1: A39_id14_captcha
+  description: GET /rest/captcha returns server-computed answer in cleartext
+  baseline (Accept:text/html): status=200 size=48 sha256=b1d66195cd2b040a9d5eeb7f2f03a666396d78fe70d779b18e6d980ea65aeef0
+  variant (Accept:application/json): status=200 size=46 sha256=a512e0bb2dcefdf543ee57c2132ed6584e36e106f69d08f14aca5ffc1e91ff37
+  differential: YES
+
+## probe 2: A39_id1_memories
+  description: GET /rest/memories exposes other users' password hashes + emails
+  baseline (Accept:text/html): status=200 size=6183 sha256=8fc2ccd7cd517cc3900a3ed850cb7555c740bc403d062df0b27dacdb13d09705
+  variant (Accept:application/json): status=200 size=6183 sha256=8fc2ccd7cd517cc3900a3ed850cb7555c740bc403d062df0b27dacdb13d09705
+  differential: NO
+
+## probe 3: A39_id7_security_question
+  description: GET /rest/user/security-question returns question JSON for existing accounts
+  baseline (Accept:text/html): status=500 size=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  variant (Accept:application/json): status=500 size=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  differential: YES
+
+## probe 4: A39_id27_error_handling
+  description: Raw SQL error responses, inconsistent error handling
+  baseline (Accept:text/html): status=500 size=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  variant (Accept:application/json): status=500 size=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  differential: YES
+
+## probe 5: A39_id97_metrics
+  description: GET /metrics exposes LLM telemetry and server info
+  baseline (Accept:text/html): status=200 size=26181 sha256=152f696cd7ae2a966a898792b16653417964bc320a7799e60c305cc58ddb643c
+  variant (Accept:application/json): status=200 size=26138 sha256=2b0488acfedecc68316b90bea3c779865f7d937ce4121ad9a168ef9ba93189d1
+  differential: YES
+

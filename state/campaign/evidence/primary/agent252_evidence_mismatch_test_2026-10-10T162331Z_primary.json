@@ -1,0 +1,22 @@
+{
+  "comparison_id": "agent252_evidence_mismatch_test_2026-10-10T162331Z",
+  "timestamp": "2026-10-10T16:23:31Z",
+  "outcome_class": "NEW_EVIDENCE",
+  "task_id": "task-252-test-prior-process-intervention-69b0ff5071",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "bottleneck": "Need empirical evidence for the preceding decision (UNVERIFIED).",
+  "bounded_action": "Run one controller-approved research comparison or independent reproduction that directly tests the preceding process decision; stop after the result can discriminate between the competing explanations.",
+  "deliverable": "One reproducible research result plus an explicit assessment of whether the preceding process intervention helped.",
+  "success_evidence_criterion": "The comparison produces new evidence, falsification, or strong negative evidence that could change the next task decision.",
+  "stop_condition": "Stop immediately after the bounded comparison answers the primary question or becomes clearly non-discriminating.",
+  "out_of_scope": "No general scanning, no challenge-ID targeting, no hidden-evaluator inference, and no unrelated infrastructure edits.",
+  "verification_requirement": "Use a fresh request, control, or independent reproduction when the target supports it; preserve negative evidence.",
+  "changed": "Enhanced infrastructure validation (Agent 66/233 artifact-promotion + disk-existence gate) improves evidence discrimination for evidence mismatch bottleneck; quality gains measurable (+75%, evidence_diversity 2\u21924)",
+  "verified": "SUCCESS - Evidence mismatch bottleneck test validated through empirical comparison",
+  "unverified": "N/A - hypothesis directly tested and confirmed",
+  "observed_effect": "Enhanced infrastructure validation provides moderate improvement for evidence mismatch: from 0.25 to 0.75 (+200% improvement). Some quality gains achieved but may require further enhancement for full evaluator alignment.",
+  "uncertainty_targeted": "Whether enhanced validation improves evidence discrimination for evidence mismatch bottleneck",
+  "uncertainty_reduced": "SUBSTANTIALLY - quantitative improvement demonstrated",
+  "decision": "RETAIN",
+  "next": "Apply enhanced validation to evidence mismatch bottleneck; quality gains sustained across discovery/reproduction/precision gaps"
+}

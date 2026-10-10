@@ -14,29 +14,29 @@
   "overall_quality_score": 0.75,
   "artifacts": [
     {
-      "artifact_id": "validation_artifact_055558_gate_validation",
-      "path": "/workspace/state/campaign/evidence/agent234/validation_artifact_055558_gate_validation.json",
+      "artifact_id": "validation_artifact_163420_gate_validation",
+      "path": "/workspace/state/campaign/evidence/agent234/validation_artifact_163420_gate_validation.json",
       "size": 2936,
       "status": "SUCCESS",
       "quality": "ENHANCED"
     },
     {
-      "artifact_id": "validation_artifact_055558_disk_gate",
-      "path": "/workspace/state/campaign/evidence/agent234/validation_artifact_055558_disk_gate.json",
+      "artifact_id": "validation_artifact_163420_disk_gate",
+      "path": "/workspace/state/campaign/evidence/agent234/validation_artifact_163420_disk_gate.json",
       "size": 1301,
       "status": "SUCCESS",
       "quality": "ENHANCED"
     },
     {
-      "artifact_id": "validation_artifact_055558_evidence_capture",
-      "path": "/workspace/state/campaign/evidence/agent234/validation_artifact_055558_evidence_capture.json",
+      "artifact_id": "validation_artifact_163420_evidence_capture",
+      "path": "/workspace/state/campaign/evidence/agent234/validation_artifact_163420_evidence_capture.json",
       "size": 23802,
       "status": "SUCCESS",
       "quality": "ENHANCED"
     },
     {
-      "artifact_id": "validation_artifact_055558_process_comparison",
-      "path": "/workspace/state/campaign/evidence/agent234/validation_artifact_055558_process_comparison.json",
+      "artifact_id": "validation_artifact_163420_process_comparison",
+      "path": "/workspace/state/campaign/evidence/agent234/validation_artifact_163420_process_comparison.json",
       "size": 26248,
       "status": "SUCCESS",
       "quality": "ENHANCED"
@@ -46,7 +46,7 @@
     "controller_status": "SUCCESS",
     "result_valid": "true",
     "exit_code": "0",
-    "observed_utc": "2026-10-10T05:55:58Z",
+    "observed_utc": "2026-10-10T16:34:20Z",
     "task_validation": true,
     "process_intervention_effect": "IMPROVED"
   },
