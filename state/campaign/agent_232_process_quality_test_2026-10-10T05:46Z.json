@@ -1,0 +1,30 @@
+{
+  "task_id": "task-232-test-prior-process-intervention-3ed8e7dd98",
+  "timestamp": "2026-10-10T05:46:14.340413Z",
+  "outcome_class": "NEW_EVIDENCE",
+  "decision": "REJECT",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "Process decisions that preserve existing diagnostics without fabricating do NOT improve research quality compared to active evidence enhancement",
+  "evidence_gathered": [
+    {
+      "observation": "Agent 231 preserved 2 unique body anchors using minimal effort approach",
+      "significance": "Medium",
+      "supports": "REJECT decision",
+      "reason": "Minimal preservation without active enhancement fails to match active improvement"
+    },
+    {
+      "observation": "Improved process captured 3 unique bodies vs 2 in Agent 231's approach",
+      "significance": "High",
+      "supports": "REJECT decision",
+      "reason": "Active evidence enhancement clearly outperforms passive preservation"
+    },
+    {
+      "observation": "Agent 231 artifact: 703 bytes, Improved: 988 bytes",
+      "significance": "Medium",
+      "supports": "REJECT decision",
+      "reason": "Minimal preservation produces less evidence than targeted improvement"
+    }
+  ],
+  "discriminating_power": "Medium - Agent 231's minimal preservation strategy provides some discriminating power but lacks the diversity and completeness of active improvement",
+  "recommendation": "REJECT the UNVERIFIED preservation-only approach in favor of active evidence enhancement (artifact-promotion + disk-existence gate)"
+}
