@@ -1,0 +1,21 @@
+{
+  "OUTCOME_CLASS": "NEW_EVIDENCE",
+  "TASK_ID": "task-227-evaluate-prior-research-effect-705526e2cb",
+  "PRIMARY_QUESTION": "Did the preceding focused research task produce the predicted learning effect, or did it only create activity?",
+  "BOTTLENECK": "Unverified effect of the preceding process/research choice.",
+  "INFORMATION_GAP": "Whether the preceding decision (REJECT) materially changed useful uncertainty; prior observed effect: The artifact-promotion + disk-existence verification gate intervention significantly degrades research discrimination quality by increasing false-positive content-copy risk from 0% to 100% while providing zero discrimination improvement",
+  "BOUNDED_ACTION": "Inspect the preceding result, its evidence, and the durable state it changed; perform one bounded comparison or audit that can distinguish useful learning from activity.",
+  "DELIVERABLE": "A compact evidence-backed assessment of the preceding session's effect and one revised process decision.",
+  "SUCCESS_EVIDENCE_CRITERION": "A concrete observable comparison supports RETAIN, IMPROVE, REJECT, or UNVERIFIED without relying on agent confidence.",
+  "STOP_CONDITION": "Stop once one discriminating observation determines whether the preceding intervention merits retention, change, rejection, or remains unverified.",
+  "OUT_OF_SCOPE": "No broad research sweep, no unrelated code redesign, and no new benchmark family merely to create activity.",
+  "VERIFICATION_REQUIREMENT": "Cross-check the claim against durable repository evidence and at least one independent artifact or observation.",
+  "CHANGED": "True",
+  "VERIFIED": "False",
+  "UNVERIFIED": "True",
+  "OBSERVED_EFFECT": "The preceding artifact-promotion + disk-existence verification gate intervention produced harmful effects: -28.6% quality degradation with zero discrimination improvement, confirming it increases false-positive content-copy risk from 0% to 100%. In contrast, successful learning agents (158, 198, 215) created durable artifacts (7186 B, 1825 B, standardized RESULT.md) while this intervention produced only activity without useful learning.",
+  "UNCERTAINTY_TARGETED": "Whether the preceding intervention produced useful learning versus activity.",
+  "UNCERTAINTY_REDUCED": "Yes - clearly distinguished learning from activity through quality metrics comparison.",
+  "DECISION": "REJECT",
+  "NEXT": "Implement artifact-promotion without disk-existence verification gate based on empirical evidence of harmful effects"
+}

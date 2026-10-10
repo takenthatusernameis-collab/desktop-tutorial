@@ -1,0 +1,55 @@
+{
+  "behavioral_differences": 2,
+  "candidate_count": 12,
+  "family_id": "fam_origin_cors_preflight",
+  "generation": 29,
+  "generation_id": "gen-0029-fam_origin_cors_preflight",
+  "information_gain": 0.2083,
+  "observed_at": "2026-10-10T00:03:00Z",
+  "promising_candidates": [
+    {
+      "candidate_id": "cand-681c0e38fc4588a686c0",
+      "mutation": {
+        "method": "OPTIONS",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "request": {
+        "headers": {},
+        "method": "OPTIONS",
+        "path": "/rest/user/security-question",
+        "query": {}
+      },
+      "response_signature": [
+        204,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "",
+        0,
+        ""
+      ]
+    },
+    {
+      "candidate_id": "cand-51602cc3d9c474c42399",
+      "mutation": {
+        "method": "HEAD",
+        "operator": "METHOD_VARIANTS"
+      },
+      "parent_candidate_id": "cand-bf7de74e6a154f12401e",
+      "request": {
+        "headers": {},
+        "method": "HEAD",
+        "path": "/rest/user/security-question",
+        "query": {}
+      },
+      "response_signature": [
+        501,
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text/html;charset=utf-8",
+        0,
+        ""
+      ]
+    }
+  ],
+  "repeat_reproductions": 2,
+  "surface_id": "surf_origin_header_variants"
+}

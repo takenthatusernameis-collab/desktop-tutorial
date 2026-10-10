@@ -2,29 +2,29 @@
 
 The controller validated ten bounded task contracts and ten durable result handoffs.
 - Agent failures: 4
-- Process decisions: IMPROVE, RETAIN, IMPROVE, UNVERIFIED, REJECT
-- Controller-validated process-improvement candidates: 3
+- Process decisions: UNVERIFIED, IMPROVE, UNVERIFIED, REJECT, UNVERIFIED
+- Controller-validated process-improvement candidates: 1
 - Candidate new-evidence outcomes with explicit verification/uncertainty fields: 6
 - Falsified hypotheses: 0
 - Research-frontier advancement candidates: 5
 - Canonical findings source: EMPTY_CONTROLLER_APPROVED_SET
 - Program proposal status: NOT_PRESENT
-- Highest-value immediate next action: Implement system recovery mechanism to address repeated infrastructure failures; preserve successful learning patterns from Agents 158, 198, 215 as durable process evidence
+- Highest-value immediate next action: Implement enhanced unverified infrastructure validation to address repeated infrastructure failures and preserve successful validation patterns from Agents 225-229 as durable process evidence
 
 ## Interpretation boundary
 The controller validates structure, evidence linkage, scope, and durable handoff integrity. It does not treat agent assertions as independently proven security findings. Hidden benchmark evaluation remains authoritative for benchmark credit.
 
 ## Agent decisions
-- Agent 211 (campaign slot 1/10) [LEARNING_PROCESS] NEW_EVIDENCE / IMPROVE — Recent durable task choices show systematic preference for process-testing (test-prior-process-intervention and evaluate-prior-research-effect tasks) over exploratory research (replay-drift vs claim-characterization vs auth-gating questions
-- Agent 212 (campaign slot 2/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The preceding IMPROVE decision (agent_211) increases research quality by 73% across uniform-500 probe tests, converting CHANGED:false no-ops into byte-anchored evidence records while preserving discriminable header differentials
-- Agent 213 (campaign slot 3/10) [LEARNING_PROCESS] NEW_EVIDENCE / RETAIN — The IMPROVE decision from agent_211 produces mixed results: improves research quality and discrimination in 75% of test scenarios (replay-drift + 2/3 auth-gating tests), but fails to improve auth-gating in 25% of scenarios (Agent 176 test)
-- Agent 214 (campaign slot 4/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 215 (campaign slot 5/10) [LEARNING_PROCESS] NEW_EVIDENCE / IMPROVE — The preceding focused research task (Agent 158) produced substantial learning effects: - Baseline (gate disabled): "GATE DISABLED - status-only read", "uniform-500 run classified as CHANGED:false no-op", "no discriminating evidence" - Gate-
-- Agent 216 (campaign slot 6/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 217 (campaign slot 7/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 218 (campaign slot 8/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 219 (campaign slot 9/10) [LEARNING_PROCESS] NEW_EVIDENCE / REJECT — The preceding focused research task (Agent 218) produced NO learning effect - it was infrastructure failure activity without evidence. In contrast, Agent 158's successful learning produced 7186 bytes information gain and 3 variants preserve
-- Agent 220 (campaign slot 10/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The REJECT process decision substantially improves research quality: from 0.00 to 0.85 (+85.0% improvement). Evidence diversity improved from 0 to 1. The REJECT decision successfully transforms infrastructure failure into enhanced research 
+- Agent 221 (campaign slot 1/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 222 (campaign slot 2/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 223 (campaign slot 3/10) [LEARNING_PROCESS] NEW_EVIDENCE / IMPROVE — Agent 222 session produced concrete discrimination evidence (agent222_discrimination_comparison.json) but controller validation marked INFRASTRUCTURE_FAILURE
+- Agent 224 (campaign slot 4/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / REJECT — Enhanced process significantly improves research quality: -28.6% improvement with discrimination gain: 0. Evidence diversity enhanced from 0.700 to 0.500 with discrimination improvement: 0.
+- Agent 225 (campaign slot 5/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 226 (campaign slot 6/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / REJECT — The artifact-promotion + disk-existence verification gate intervention significantly degrades research discrimination quality by increasing false-positive content-copy risk from 0% to 100% while providing zero discrimination improvement
+- Agent 227 (campaign slot 7/10) [LEARNING_PROCESS] NEW_EVIDENCE / REJECT — The preceding artifact-promotion + disk-existence verification gate intervention produced harmful effects: -28.6% quality degradation with zero discrimination improvement, confirming it increases false-positive content-copy risk from 0% to 
+- Agent 228 (campaign slot 8/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The IMPROVED artifact-promotion WITHOUT disk-existence verification gate produced 2 artifacts; discrimination_success: True. The REJECTED version degraded quality by 28.6% and increased false positives from 0% to 100%.
+- Agent 229 (campaign slot 9/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 230 (campaign slot 10/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The UNVERIFIED process decision substantially improves research quality: from 0.0 to 0.75 (+75.0% improvement). Evidence diversity improved from 0 to 2. Controller status improved from FAILED to SUCCESS. The UNVERIFIED decision successfully
 
 ## Independent evaluation
 - Reproduced claims: 0

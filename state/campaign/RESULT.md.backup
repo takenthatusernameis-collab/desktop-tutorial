@@ -1,8 +1,8 @@
 OUTCOME_CLASS:
-TASK_ID: task-176-test-prior-process-intervention-e88b037689
+TASK_ID: task-228-test-prior-process-intervention-f6ca5f6b1d
 PRIMARY_QUESTION: Does the preceding process decision improve the quality or discrimination of the next bounded research action?
-BOTTLENECK: Need empirical evidence for the preceding decision (UNVERIFIED).
-INFORMATION_GAP: Reassess the highest-value unresolved task from durable evidence.
+BOTTLENECK: Need empirical evidence for the preceding decision (REJECT).
+INFORMATION_GAP: Implement artifact-promotion without disk-existence verification gate based on empirical evidence of harmful effects
 BOUNDED_ACTION: Run one controller-approved research comparison or independent reproduction that directly tests the preceding process decision; stop after the result can discriminate between the competing explanations.
 DELIVERABLE: One reproducible research result plus an explicit assessment of whether the preceding process intervention helped.
 SUCCESS_EVIDENCE_CRITERION: The comparison produces new evidence, falsification, or strong negative evidence that could change the next task decision.
