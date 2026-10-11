@@ -1,0 +1,35 @@
+# Enhanced Process Test - Target: http://lab-mutator:3000
+# UTC: 2026-10-11T08:58Z
+# Process: Agent 144 (Enhanced Process - Evidence Capture + Persistence)
+# Artifact Path: /workspace/state/campaign/agent_144_process_comparison_2026-10-11T08:58Z_improved_process_probe_out_2026-10-11T08:58Z.txt
+# Evidence Standards: Enhanced Capture Protocol
+
+## Probe 1: security-question
+  Request: /rest/user/security-question headers={}
+  Timestamp: 2026-10-11T08:58:17.749233Z
+  Status: 500 Content Length: 2946 SHA256: 0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  Evidence Quality: High
+  Discrimination Potential: Medium (2 factors)
+  Evidence Value: Standard
+
+## Probe 2: security-question
+  Request: /rest/user/security-question headers={'Accept': 'application/json'}
+  Timestamp: 2026-10-11T08:58:17.754599Z
+  Status: 500 Content Length: 1804 SHA256: 20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  Evidence Quality: High
+  Discrimination Potential: High (3 factors)
+  Evidence Value: Standard
+
+## Probe 3: 1
+  Request: /api/Nonexistent/1 headers={}
+  Timestamp: 2026-10-11T08:58:17.757129Z
+  Status: 500 Content Length: 2436 SHA256: 5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  Evidence Quality: High
+  Discrimination Potential: Medium (2 factors)
+  Evidence Value: Standard
+
+# Process Quality Summary:
+  Evidence Diversity: 3
+  Discriminating Power: YES
+  Reproducibility: 3/3
+

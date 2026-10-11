@@ -1,0 +1,30 @@
+{
+  "task_id": "task-298-test-prior-process-intervention-f1b7dc6102",
+  "timestamp": "2026-10-11T09:03:03.322154Z",
+  "outcome_class": "NEW_EVIDENCE",
+  "decision": "REJECT",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "UNVERIFIED process decision (Agent 297 infrastructure failure) improves research quality",
+  "evidence_gathered": [
+    {
+      "observation": "UNVERIFIED process captures 3 body anchors including header differentiation",
+      "significance": "High",
+      "supports": "REJECT of UNVERIFIED decision",
+      "reason": "Agent 297's infrastructure failure produces artifact but lacks disk-existence gate"
+    },
+    {
+      "observation": "P1 vs P2 response bodies different: YES",
+      "significance": "High",
+      "supports": "REJECT of UNVERIFIED decision",
+      "reason": "Header changes that produce different bodies may be captured but not guaranteed"
+    },
+    {
+      "observation": "UNVERIFIED process has NO disk-existence gate: False",
+      "significance": "Critical",
+      "supports": "REJECT of UNVERIFIED decision",
+      "reason": "UNVERIFIED infrastructure failure lacks evidence preservation safeguards"
+    }
+  ],
+  "discriminating_power": "Low - demonstrates that UNVERIFIED process decision does NOT provide systematic evidence preservation and quality improvement",
+  "recommendation": "REJECT the UNVERIFIED process decision from Agent 297; continue using the combined artifact-promotion + disk-existence verification gate as the standard process to improve research quality and discrimination"
+}
