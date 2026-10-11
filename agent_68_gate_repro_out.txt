@@ -1,24 +1,24 @@
 # Agent 68 independent reproduction of the uniform-500 gate test
-# target=http://lab-mutator:3000 utc=2026-10-06T11:35Z
+# target=http://lab-mutator:3000 utc=2026-10-11T15:24Z
 # gate test: every probe record is promoted even when status is uniform 500
 
 ## probe 1: P1_baseline
   request: method=GET path=/rest/user/security-question query={} headers={}
-  timestamp_utc=2026-10-06T11:35:43Z
+  timestamp_utc=2026-10-11T15:24:46Z
   status=500 content_length=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
   body_sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
   durable_anchor_match=True
 
 ## probe 2: P2_accept_json
   request: method=GET path=/rest/user/security-question query={} headers={"Accept": "application/json"}
-  timestamp_utc=2026-10-06T11:35:43Z
+  timestamp_utc=2026-10-11T15:24:46Z
   status=500 content_length=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
   body_sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
   durable_anchor_match=True
 
 ## probe 3: P3_null_control
   request: method=GET path=/api/Nonexistent/1 query={} headers={}
-  timestamp_utc=2026-10-06T11:35:43Z
+  timestamp_utc=2026-10-11T15:24:46Z
   status=500 content_length=2436 sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
   body_sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
   durable_anchor_match=True
@@ -29,4 +29,4 @@
 # gate_classification: False -> with gate: promoted byte-anchored record with one-variable differential
 # disk_gate_present: True
 # disk_gate_absent: True
-# sha256(stdout)=6412dd2d8e229b27374fb6856dfdc013f0a219da9514fa33d8166c8ed4fd6c55
+# sha256(stdout)=6e121085346529bddee2a2a6ca652e4f79526a52f3c6f1d817dd8edb9f2fc877

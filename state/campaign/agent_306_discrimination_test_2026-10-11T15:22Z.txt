@@ -1,0 +1,26 @@
+# Agent 306 Discrimination Test
+# Timestamp: 2026-10-11T15:22Z
+# Test: Does Agent 66's IMPROVE decision improve research quality?
+# Gate: artifact-promotion + disk-existence verification
+# Target: http://lab-mutator:3000
+
+# Discrimination Evidence (key test):
+## P1_baseline: 500/2946 B sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  Discriminates: NO (Accept-header changes body size)
+
+## P2_accept_json: 500/1804 B sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  Discriminates: YES (Accept-header changes body size)
+
+## P3_null_control: 500/2436 B sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  Discriminates: NO (Accept-header changes body size)
+
+# Quality Assessment:
+# WITHOUT Agent 66's gate: uniform-500 runs are CHANGED:false no-ops (evidence discarded)
+# WITH Agent 66's gate: uniform-500 runs are byte-anchored evidence records (discrimination preserved)
+#
+# With gate, the Accept-header differential (P1 vs P2 body sizes) is preserved as evidence.
+# Without gate, this discrimination would be classified as no-op (CHANGED:false, variants=0).
+#
+# Discriminating observation: The Accept-header change flips response body size from 2946 to 1804 bytes.
+# This difference is preserved only with the gate improvement.
+

@@ -1,0 +1,7 @@
+AGENT_NUMBER: 308
+TASK_ID: task-308-test-prior-process-intervention-dd4dbf361b
+SESSION_ID: 
+STATUS: FAILED
+EXIT_CODE: 0
+RESULT_VALID: false
+OBSERVED_UTC: 2026-10-11T15:25:50Z
