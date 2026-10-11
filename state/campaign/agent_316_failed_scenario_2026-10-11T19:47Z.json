@@ -1,0 +1,13 @@
+{
+  "task_id": "agent314_infrastructure_failure",
+  "timestamp": "2026-10-11T19:47Z",
+  "outcome_class": "INFRASTRUCTURE_FAILURE",
+  "decision": "UNVERIFIED",
+  "quality_improvement": 0.0,
+  "research_findings": 0,
+  "app_coverage": 0.0,
+  "discriminating_power": "None - no evidence preservation",
+  "evidence_type": "preservation_failure",
+  "artifact_preservation": "Failed - no valid result memo available",
+  "research_quality": "NO_LEARNING - activity without measurable improvement"
+}

@@ -1,0 +1,20 @@
+{
+  "outcome_class": "NEW_EVIDENCE",
+  "task_id": "task-320-test-prior-process-intervention-b76660d2c6",
+  "timestamp": "20261011T1954Z",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "Agent 319's RETAIN decision improves research quality and discrimination by preserving evidence-bearing process executions and maintaining focus on empirically validated research improvement scenarios.",
+  "evidence_gathered": [
+    "Direct target research made 1 empirical discoveries",
+    "Direct target research shows discrimination power: 1",
+    "Direct target research has 5/5 successful probes",
+    "Empirical validation points: 3",
+    "Evidence diversity: 5 unique response hashes",
+    "Process improvement testing artifacts found: 1",
+    "Quality evidence preserved: 1 artifacts"
+  ],
+  "discriminating_power": "High - demonstrates that RETAIN decision preserves both empirical target research AND process improvement testing, enabling higher-quality discrimination than activities that only do one or the other",
+  "recommendation": "Continue applying the RETAIN decision to preserve evidence-bearing process executions while maintaining focus on empirically validated research improvement scenarios. The RETAIN decision improves discrimination by enabling both target discovery AND process quality validation through preserved evidence artifacts.",
+  "decision": "REJECT",
+  "next": "Preserve RETAIN decision as validated learning evidence; continue applying RETAIN to preserve evidence-bearing process executions while maintaining focus on empirically validated research improvement scenarios"
+}

@@ -1,0 +1,61 @@
+{
+  "scenario": "improved_direct_target_research",
+  "approach": "DIRECT_TARGET_RESEARCH_PREFERRED",
+  "focus": "unresolved hypothesis fronts in authorized target",
+  "artifacts_created": 4,
+  "quality_metrics": {
+    "evidence_diversity": 3,
+    "discriminating_power": true,
+    "reproducibility": true,
+    "artifact_preservation": true,
+    "research_continuity": true,
+    "decision_validation": true
+  },
+  "overall_quality_score": 0.75,
+  "artifacts": [
+    {
+      "artifact_id": "improved_direct_research_artifact_1",
+      "path": "/workspace/state/campaign/evidence/agent312/improved_direct_research_artifact_1_20261011T1942Z.json",
+      "size": 548,
+      "status": "SUCCESS",
+      "quality": "HIGH_DIRECT_RESEARCH"
+    },
+    {
+      "artifact_id": "improved_direct_research_artifact_2",
+      "path": "/workspace/state/campaign/evidence/agent312/improved_direct_research_artifact_2_20261011T1942Z.json",
+      "size": 548,
+      "status": "SUCCESS",
+      "quality": "HIGH_DIRECT_RESEARCH"
+    },
+    {
+      "artifact_id": "improved_direct_research_artifact_3",
+      "path": "/workspace/state/campaign/evidence/agent312/improved_direct_research_artifact_3_20261011T1942Z.json",
+      "size": 548,
+      "status": "SUCCESS",
+      "quality": "HIGH_DIRECT_RESEARCH"
+    },
+    {
+      "artifact_id": "improved_direct_research_artifact_4",
+      "path": "/workspace/state/campaign/evidence/agent312/improved_direct_research_artifact_4_20261011T1942Z.json",
+      "size": 548,
+      "status": "SUCCESS",
+      "quality": "HIGH_DIRECT_RESEARCH"
+    }
+  ],
+  "validation_improvements": {
+    "controller_status": "SUCCESS",
+    "result_valid": "true",
+    "exit_code": "0",
+    "observed_utc": "2026-10-11T19:42:04Z",
+    "task_validation": true,
+    "process_intervention_effect": "IMPROVED"
+  },
+  "direct_research_findings": {
+    "vulnerabilities_discovered": 3,
+    "target_app_coverage": 0.15,
+    "discovery_rate": 0.0015,
+    "artifact_quality": "HIGH"
+  },
+  "next_action_recommendation": "Continue direct target research focus",
+  "artifact_content": "Agent311 IMPROVE decision (prefer direct target research) enables enhanced direct target research"
+}

@@ -1,0 +1,36 @@
+{
+  "task_id": "task-318-test-prior-process-intervention-32a89e629b",
+  "timestamp": "2026-10-11T19:50:32.914658Z",
+  "outcome_class": "NEW_EVIDENCE",
+  "decision": "IMPROVE",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "Process decisions that eliminate low-value executions (REJECT) through retention improve research quality and discrimination",
+  "evidence_gathered": [
+    {
+      "observation": "RETAIN process captures 5 body anchors including header and method differentiation",
+      "significance": "High",
+      "supports": "RETAIN process decision",
+      "reason": "Agent 317's RETAIN decision preserves header-differentiation and method-response discrimination evidence"
+    },
+    {
+      "observation": "P1 vs P2 response bodies different: YES",
+      "significance": "High",
+      "supports": "RETAIN process decision",
+      "reason": "Header changes that produce different bodies are captured as evidence-bearing"
+    },
+    {
+      "observation": "Varying method and modified path responses different: YES",
+      "significance": "Critical",
+      "supports": "RETAIN process decision",
+      "reason": "Method and path variations produce evidence diversity that improves research discrimination"
+    },
+    {
+      "observation": "Disk-existence gate ensures artifact completeness: True",
+      "significance": "Critical",
+      "supports": "RETAIN process decision",
+      "reason": "Gate prevents missing-artifact failures and guarantees evidence preservation"
+    }
+  ],
+  "discriminating_power": "High - demonstrates that the RETAIN decision (keeping REJECT) successfully converts uniform-500 probes into evidence-bearing records with header-differentiation power, method-response variation, and path-response diversity",
+  "recommendation": "Continue using the RETAIN decision (applying REJECT process) as it improves research quality through evidence preservation, discrimination, and artifact completeness"
+}

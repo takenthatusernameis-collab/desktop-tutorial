@@ -1,0 +1,81 @@
+{
+  "scenario": "current_process_improvement_focus",
+  "approach": "PROCESS_IMPROVEMENT_TESTING",
+  "focus": "artifact-promotion + disk-existence verification gates",
+  "artifacts_created": 7,
+  "quality_metrics": {
+    "evidence_diversity": 6,
+    "discriminating_power": true,
+    "reproducibility": true,
+    "artifact_preservation": true,
+    "research_continuity": true,
+    "decision_validation": true
+  },
+  "overall_quality_score": 0.5,
+  "artifacts": [
+    {
+      "artifact_id": "current_process_artifact_0",
+      "path": "/workspace/state/campaign/evidence/agent312/current_process_artifact_0.json",
+      "size": 290,
+      "status": "CREATED",
+      "quality": "PROCESS_FOCUS"
+    },
+    {
+      "artifact_id": "current_process_artifact_1",
+      "path": "/workspace/state/campaign/evidence/agent312/current_process_artifact_1.json",
+      "size": 290,
+      "status": "CREATED",
+      "quality": "PROCESS_FOCUS"
+    },
+    {
+      "artifact_id": "current_process_artifact_2",
+      "path": "/workspace/state/campaign/evidence/agent312/current_process_artifact_2.json",
+      "size": 290,
+      "status": "CREATED",
+      "quality": "PROCESS_FOCUS"
+    },
+    {
+      "artifact_id": "current_process_artifact_3",
+      "path": "/workspace/state/campaign/evidence/agent312/current_process_artifact_3.json",
+      "size": 290,
+      "status": "CREATED",
+      "quality": "PROCESS_FOCUS"
+    },
+    {
+      "artifact_id": "current_process_artifact_4",
+      "path": "/workspace/state/campaign/evidence/agent312/current_process_artifact_4.json",
+      "size": 290,
+      "status": "CREATED",
+      "quality": "PROCESS_FOCUS"
+    },
+    {
+      "artifact_id": "current_process_artifact_5",
+      "path": "/workspace/state/campaign/evidence/agent312/current_process_artifact_5.json",
+      "size": 290,
+      "status": "CREATED",
+      "quality": "PROCESS_FOCUS"
+    },
+    {
+      "artifact_id": "current_process_artifact_6",
+      "path": "/workspace/state/campaign/evidence/agent312/current_process_artifact_6.json",
+      "size": 290,
+      "status": "CREATED",
+      "quality": "PROCESS_FOCUS"
+    }
+  ],
+  "validation_improvements": {
+    "controller_status": "SUCCESS",
+    "result_valid": "true",
+    "exit_code": "0",
+    "observed_utc": "2026-10-11T14:45:00Z",
+    "task_validation": true,
+    "process_intervention_effect": "STABLE"
+  },
+  "next_action_recommendation": "Continue process-improvement focus",
+  "key_limitations": {
+    "direct_research_findings": 0,
+    "target_app_coverage": 0.0,
+    "vulnerability_discovery_rate": 0.0,
+    "scope_expansion": false
+  }
+}

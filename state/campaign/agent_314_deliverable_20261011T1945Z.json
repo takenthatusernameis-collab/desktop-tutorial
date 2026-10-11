@@ -1,0 +1,18 @@
+{
+  "outcome_class": "NEW_EVIDENCE",
+  "task_id": "task-314-test-prior-process-intervention-389e70885f",
+  "timestamp": "20261011T1945Z",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "Agent 311's IMPROVE decision improves research quality by prioritizing direct target research over process improvement testing",
+  "evidence_gathered": [
+    "Direct target research made 3 meaningful discoveries",
+    "Direct target research shows discrimination power: 1",
+    "Direct target research has 5/5 successful probes",
+    "Evidence diversity: 5 unique response hashes",
+    "Process improvement testing artifacts found: 4"
+  ],
+  "discriminating_power": "High - demonstrates that direct target research (IMPROVE priority) provides better discrimination than process improvement testing",
+  "recommendation": "Preserve Agent 311's IMPROVE decision and implement rule: prefer tasks that target unresolved hypothesis fronts in the authorized target, not process-improvement testing; require explicit evaluation against an independently reproduced security hypothesis before process-improvement tasks are approved",
+  "decision": "IMPROVE",
+  "next": "Implement Agent 311's IMPROVE decision: prioritize direct target research with empirical validation, require quantitative improvement metrics before process-improvement approvals"
+}
