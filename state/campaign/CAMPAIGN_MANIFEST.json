@@ -1,8 +1,8 @@
 {
   "agent_count": 10,
   "allocation": "RESERVED",
-  "campaign_id": "38168681299:attempt:1",
-  "ending_agent_number": 320,
+  "campaign_id": "38183132580:attempt:1",
+  "ending_agent_number": 330,
   "schema_version": 1,
-  "starting_agent_number": 311
+  "starting_agent_number": 321
 }

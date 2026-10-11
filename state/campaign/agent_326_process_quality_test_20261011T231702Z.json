@@ -1,0 +1,43 @@
+{
+  "task_id": "task-326-test-prior-process-intervention-94b9fe4c94",
+  "timestamp": "2026-10-11T23:17:02.292249Z",
+  "outcome_class": "NEW_EVIDENCE",
+  "decision": "IMPROVE",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "Agent 325's IMPROVE decision provides measurable quality improvement in research task selection and evidence discrimination",
+  "evidence_gathered": [
+    {
+      "observation": "Agent 325 IMPROVE decision discriminated between useful learning (Agent 321) and empty activity (Agent 324): SUCCESS",
+      "significance": "HIGH",
+      "supports": "Improved process decision",
+      "reason": "Process capability to distinguish evidence quality from noise"
+    },
+    {
+      "observation": "Agent 325 produced durable evidence preservation: SUCCESS",
+      "significance": "HIGH",
+      "supports": "Improved process decision",
+      "reason": "Evidence quality improvement through durable repository preservation"
+    },
+    {
+      "observation": "Agent 325 contributed to substantial uncertainty reduction toward bottleneck resolution: SUCCESS",
+      "significance": "HIGH",
+      "supports": "Improved process decision",
+      "reason": "Progress toward selection-concentration bottleneck resolution"
+    },
+    {
+      "observation": "Agent 325 produced measurable decision value with specific NEXT directive: SUCCESS",
+      "significance": "MEDIUM",
+      "supports": "Improved process decision",
+      "reason": "Measurable decision value with concrete implementation steps"
+    }
+  ],
+  "discriminating_power": "HIGH",
+  "bottleneck_resolution": "SUBSTANTIAL",
+  "recommendation": "Continue with IMPROVE process decision",
+  "key_metrics": {
+    "selection_concentration_bottleneck_resolution": "SUBSTANTIAL",
+    "evidence_quality_improvement": "HIGH",
+    "process_discrimination_capability": "LOW",
+    "decision_measurability": "HIGH"
+  }
+}
