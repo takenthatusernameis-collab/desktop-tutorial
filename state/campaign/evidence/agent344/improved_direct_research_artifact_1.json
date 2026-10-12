@@ -1,0 +1,23 @@
+{
+  "artifact_id": "improved_direct_research_artifact_1",
+  "timestamp": "2026-10-12T03:46:14Z",
+  "status": "SUCCESS",
+  "quality": "HIGH_DIRECT_RESEARCH",
+  "finding": {
+    "finding_id": "captcha_cleartext_leak",
+    "challenge_class": "id=14 (CAPTCHA bypass)",
+    "endpoint": "GET /rest/captcha",
+    "status_code": 200,
+    "evidence": "{\"captchaId\":24,\"captcha\":\"4*10-5\",\"answer\":\"35\"}",
+    "arithmetic_validation": true,
+    "in_scope": true
+  },
+  "validation": {
+    "controller_status": "SUCCESS",
+    "result_valid": "true",
+    "exit_code": "0",
+    "observed_utc": "2026-10-12T03:46:14Z",
+    "task_validation": true,
+    "process_intervention_effect": "IMPROVED"
+  }
+}

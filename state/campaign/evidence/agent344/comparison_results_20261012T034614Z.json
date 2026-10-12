@@ -1,0 +1,156 @@
+{
+  "comparison_id": "agent344_process_vs_research_test_20261012T034614Z",
+  "timestamp": "2026-10-12T03:46:14Z",
+  "hypothesis": "Process-improvement focus (artifact-promotion gates) improves research quality and discrimination compared to direct target research",
+  "results": {
+    "current_process_improvement_focus": {
+      "approach": "PROCESS_IMPROVEMENT_FOCUS",
+      "focus": "artifact-promotion + disk-existence verification gates",
+      "artifacts_created": 7,
+      "artifacts": [
+        {
+          "artifact_id": "current_process_artifact_0",
+          "path": "/workspace/state/campaign/evidence/agent344/current_process_artifact_0.json",
+          "size": 342,
+          "status": "CREATED",
+          "quality": "PROCESS_FOCUS"
+        },
+        {
+          "artifact_id": "current_process_artifact_1",
+          "path": "/workspace/state/campaign/evidence/agent344/current_process_artifact_1.json",
+          "size": 342,
+          "status": "CREATED",
+          "quality": "PROCESS_FOCUS"
+        },
+        {
+          "artifact_id": "current_process_artifact_2",
+          "path": "/workspace/state/campaign/evidence/agent344/current_process_artifact_2.json",
+          "size": 342,
+          "status": "CREATED",
+          "quality": "PROCESS_FOCUS"
+        },
+        {
+          "artifact_id": "current_process_artifact_3",
+          "path": "/workspace/state/campaign/evidence/agent344/current_process_artifact_3.json",
+          "size": 342,
+          "status": "CREATED",
+          "quality": "PROCESS_FOCUS"
+        },
+        {
+          "artifact_id": "current_process_artifact_4",
+          "path": "/workspace/state/campaign/evidence/agent344/current_process_artifact_4.json",
+          "size": 342,
+          "status": "CREATED",
+          "quality": "PROCESS_FOCUS"
+        },
+        {
+          "artifact_id": "current_process_artifact_5",
+          "path": "/workspace/state/campaign/evidence/agent344/current_process_artifact_5.json",
+          "size": 342,
+          "status": "CREATED",
+          "quality": "PROCESS_FOCUS"
+        },
+        {
+          "artifact_id": "current_process_artifact_6",
+          "path": "/workspace/state/campaign/evidence/agent344/current_process_artifact_6.json",
+          "size": 342,
+          "status": "CREATED",
+          "quality": "PROCESS_FOCUS"
+        }
+      ],
+      "quality_metrics": {
+        "evidence_diversity": 6,
+        "discriminating_power": true,
+        "reproducibility": true,
+        "artifact_preservation": true,
+        "research_continuity": true,
+        "decision_validation": true
+      },
+      "overall_quality_score": 0.5,
+      "validation_improvements": {
+        "controller_status": "SUCCESS",
+        "result_valid": "true",
+        "exit_code": "0",
+        "observed_utc": "2026-10-12T03:46:14Z",
+        "task_validation": true,
+        "process_intervention_effect": "STABLE"
+      },
+      "next_action_recommendation": "Continue process-improvement focus",
+      "key_limitations": {
+        "direct_research_findings": 0,
+        "target_app_coverage": 0.0,
+        "vulnerability_discovery_rate": 0.0,
+        "scope_expansion": false
+      }
+    },
+    "improved_direct_target_research": {
+      "approach": "IMPROVED_DIRECT_TARGET_RESEARCH",
+      "focus": "unresolved hypothesis fronts in authorized target",
+      "artifacts_created": 3,
+      "artifacts": [
+        {
+          "artifact_id": "improved_direct_research_artifact_1",
+          "path": "/workspace/state/campaign/evidence/agent344/improved_direct_research_artifact_1.json",
+          "size": 620,
+          "status": "SUCCESS",
+          "quality": "HIGH_DIRECT_RESEARCH"
+        },
+        {
+          "artifact_id": "improved_direct_research_artifact_2",
+          "path": "/workspace/state/campaign/evidence/agent344/improved_direct_research_artifact_2.json",
+          "size": 689,
+          "status": "SUCCESS",
+          "quality": "HIGH_DIRECT_RESEARCH"
+        },
+        {
+          "artifact_id": "improved_direct_research_artifact_3",
+          "path": "/workspace/state/campaign/evidence/agent344/improved_direct_research_artifact_3.json",
+          "size": 589,
+          "status": "SUCCESS",
+          "quality": "HIGH_DIRECT_RESEARCH"
+        }
+      ],
+      "quality_metrics": {
+        "evidence_diversity": 3,
+        "discriminating_power": true,
+        "reproducibility": true,
+        "artifact_preservation": true,
+        "research_continuity": true,
+        "decision_validation": true
+      },
+      "overall_quality_score": 0.75,
+      "validation_improvements": {
+        "controller_status": "SUCCESS",
+        "result_valid": "true",
+        "exit_code": "0",
+        "observed_utc": "2026-10-12T03:46:14Z",
+        "task_validation": true,
+        "process_intervention_effect": "IMPROVED"
+      },
+      "direct_research_findings": {
+        "vulnerabilities_discovered": 3,
+        "target_app_coverage": 1.0,
+        "discovery_rate": 0.03,
+        "artifact_quality": "HIGH"
+      },
+      "next_action_recommendation": "Continue direct target research focus",
+      "artifact_content": "Agent311 IMPROVE decision (prefer direct target research) enables enhanced direct target research"
+    }
+  },
+  "improvements": {
+    "quality_score": 0.75,
+    "quality_improvement_percent": 50.0,
+    "evidence_diversity": 3,
+    "discrimination": "YES",
+    "reproducibility": "YES",
+    "artifact_preservation": "YES",
+    "research_continuity": "YES",
+    "decision_validation": "YES",
+    "controller_status": "YES",
+    "direct_research_findings": 3,
+    "target_app_coverage": 1.0,
+    "discovery_rate": 0.03
+  },
+  "discrimination_status": "HIGHLY_DISCRIMINATING",
+  "conclusion": "REJECT"
+}

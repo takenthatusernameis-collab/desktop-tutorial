@@ -1,13 +1,13 @@
 {
   "schema_version": 2,
-  "status": "PARTIAL",
-  "campaign_id": "38195576881:attempt:1",
+  "status": "FAILED",
+  "campaign_id": "38200348983:attempt:1",
   "agent_count": 10,
-  "starting_agent_number": 331,
-  "ending_agent_number": 340,
-  "success_count": 9,
-  "failure_count": 1,
-  "final_agent_status": "SUCCESS",
+  "starting_agent_number": 341,
+  "ending_agent_number": 350,
+  "success_count": 2,
+  "failure_count": 8,
+  "final_agent_status": "FAILED",
   "finalization_status": 0,
-  "finished_utc": "2026-10-12T02:49:19Z"
+  "finished_utc": "2026-10-12T04:00:31Z"
 }

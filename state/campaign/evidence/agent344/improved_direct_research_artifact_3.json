@@ -1,0 +1,24 @@
+{
+  "artifact_id": "improved_direct_research_artifact_3",
+  "timestamp": "2026-10-12T03:46:14Z",
+  "status": "SUCCESS",
+  "quality": "HIGH_DIRECT_RESEARCH",
+  "finding": {
+    "finding_id": "metrics_exposure",
+    "challenge_class": "id=97 (Exposed metrics)",
+    "endpoint": "GET /metrics",
+    "status_code": 200,
+    "evidence_length": 26198,
+    "contains_llm_gauges": true,
+    "contains_http_counts": true,
+    "in_scope": true
+  },
+  "validation": {
+    "controller_status": "SUCCESS",
+    "result_valid": "true",
+    "exit_code": "0",
+    "observed_utc": "2026-10-12T03:46:14Z",
+    "task_validation": true,
+    "process_intervention_effect": "IMPROVED"
+  }
+}
