@@ -221,7 +221,7 @@ for index in $(seq 1 10); do
           if [ "$status" -eq 0 ]; then
             break
           fi
-          if ! grep -Eiq 'Upstream idle timeout exceeded|upstream.{0,40}idle.{0,40}timeout|invalid request error trace_id:|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|EHOSTUNREACH|socket hang up|fetch failed|temporary failure in name resolution|gateway timeout|bad gateway|service unavailable|too many requests|rate[ _-]?limit|resource[_ -]?exhausted|temporarily unavailable|HTTP.{0,12}(429|500|502|503|504)|status.{0,12}(429|500|502|503|504)' "$attempt_log"; then
+          if ! grep -Eiq "Upstream idle timeout exceeded|upstream.{0,40}idle.{0,40}timeout|invalid request error trace_id:|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|EHOSTUNREACH|socket hang up|fetch failed|temporary failure in name resolution|gateway timeout|bad gateway|service unavailable|too many requests|rate[ _-]?limit|resource[_ -]?exhausted|temporarily unavailable|HTTP.{0,12}(429|500|502|503|504)|status.{0,12}(429|500|502|503|504)" "$attempt_log"; then
             break
           fi
           remaining=$((retry_deadline - SECONDS))
