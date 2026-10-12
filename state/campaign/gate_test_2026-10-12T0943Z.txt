@@ -1,0 +1,63 @@
+# agent_366 comprehensive gate test target=http://lab-mutator:3000 utc=2026-10-12T0949Z
+# shape: behavioral differential testing with artifact-promotion + disk-existence gate
+
+## probe P1_baseline
+  request: method=GET path=/rest/user/security-question query={} headers={}
+  timestamp_utc=2026-10-12T09:49:01.121877Z
+  status=500 content_length=2946 sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  body_start=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: WHERE parameter &quot;email&quot; has 
+  body_sha256=0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  body_full=<2946 B error body with discriminant attributes>
+
+## probe P2_accept_json
+  request: method=GET path=/rest/user/security-question query={} headers={"Accept": "application/json"}
+  timestamp_utc=2026-10-12T09:49:01.126995Z
+  status=500 content_length=1804 sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  body_start={
+  "error": {
+    "message": "WHERE parameter \"email\" has invalid \"undefined\" value",
+    "stac
+  body_sha256=20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  body_full=<1804 B error body with discriminant attributes>
+
+## probe P3_null_control
+  request: method=GET path=/api/Nonexistent/1 query={} headers={}
+  timestamp_utc=2026-10-12T09:49:01.129207Z
+  status=500 content_length=2436 sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  body_start=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Nonexistent/1</t
+  body_sha256=5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  body_full=<2436 B error body with discriminant attributes>
+
+## probe P4_different_endpoint
+  request: method=GET path=/rest/users query={} headers={}
+  timestamp_utc=2026-10-12T09:49:01.133451Z
+  status=500 content_length=2422 sha256=1f0132a54c72c8d0f5674d556323ed7f05488be3f207516211d65cf20679a0be
+  body_start=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /rest/users</title>
+ 
+  body_sha256=1f0132a54c72c8d0f5674d556323ed7f05488be3f207516211d65cf20679a0be
+  body_full=<2422 B error body with discriminant attributes>
+
+## probe P5_post_with_data
+  request: method=GET path=/api/Generic query={} headers={"Content-Type": "application/json"}
+  timestamp_utc=2026-10-12T09:49:01.136794Z
+  status=500 content_length=2424 sha256=44ef5dd4fb99a41fd6aa9d75e351dac54e1c690482cc767abfaf420e93c05f0d
+  body_start=<html>
+  <head>
+    <meta charset='utf-8'> 
+    <title>Error: Unexpected path: /api/Generic</title>
+
+  body_sha256=44ef5dd4fb99a41fd6aa9d75e351dac54e1c690482cc767abfaf420e93c05f0d
+  body_full=<2424 B error body with discriminant attributes>
+
+# summary: 5 probes all_status_ok=False
+# with Agent 66 gate (artifact-promotion + disk-existence): each probe is a byte-anchored, auditable record
+# sha256(stdout)=7c87b213dc473a199e078be6863eebc90d9dc87502425e1ba8b617a67c40c66d

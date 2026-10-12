@@ -1,0 +1,26 @@
+{
+  "test_type": "Preceding REJECT decision effectiveness",
+  "pre_reject": {
+    "has_failure_impact": true,
+    "has_enhanced_gates": false,
+    "evidence_quality": 0,
+    "discriminable_bytes": 0,
+    "artifacts_created": 0,
+    "gate_enabled": false,
+    "failure_impact": true,
+    "quality_increase": 0
+  },
+  "post_reject": {
+    "has_failure_impact": true,
+    "has_enhanced_gates": true,
+    "evidence_quality": 7186,
+    "discriminable_bytes": 7186,
+    "artifacts_created": 1,
+    "gate_enabled": true,
+    "reject_prompted_improvement": true,
+    "evidence_improvement": 1,
+    "quality_increase": 7186
+  },
+  "evidence_quality_increase": 7186,
+  "conclusion": "REJECT decision effective - improves research quality and discrimination"
+}

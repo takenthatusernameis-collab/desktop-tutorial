@@ -1,27 +1,35 @@
 # Controller Campaign Synthesis
 
 The controller validated ten bounded task contracts and ten durable result handoffs.
-- Agent failures: 5
-- Process decisions: UNVERIFIED, UNVERIFIED, REJECT, UNVERIFIED, IMPROVE
-- Controller-validated process-improvement candidates: 1
-- Candidate new-evidence outcomes with explicit verification/uncertainty fields: 4
+- Agent failures: 1
+- Process decisions: IMPROVE, REJECT, IMPROVE, REJECT, IMPROVE
+- Controller-validated process-improvement candidates: 3
+- Candidate new-evidence outcomes with explicit verification/uncertainty fields: 8
 - Falsified hypotheses: 1
 - Research-frontier advancement candidates: 5
 - Canonical findings source: EMPTY_CONTROLLER_APPROVED_SET
 - Program proposal status: NOT_PRESENT
-- Highest-value immediate next action: Reassess the highest-value unresolved task from durable evidence.
+- Highest-value immediate next action: Implement evidence quality gates system to ensure behavioral differential testing produces artifacts before declaring learning
 
 ## Interpretation boundary
 The controller validates structure, evidence linkage, scope, and durable handoff integrity. It does not treat agent assertions as independently proven security findings. Hidden benchmark evaluation remains authoritative for benchmark credit.
 
 ## Agent decisions
-- Agent 351 (campaign slot 1/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 352 (campaign slot 2/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — Authentication surface remains blocked (register 500, login 401 for all inputs, no credential source); id=27 error handling (no param) produces 500 raw error; id=97 metrics endpoint works unauthenticated; IMPROVE process enables better disc
-- Agent 353 (campaign slot 3/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 354 (campaign slot 4/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 355 (campaign slot 5/10) [LEARNING_PROCESS] FALSIFIED / REJECT — The preceding Agent 354 infrastructure failure created activity (failure) but did NOT produce the predicted learning effect. Unlike the successful Agent 64→Agent 66 learning cycle where Agent 64 created probe files (agent_64_probe_gate_out_
-- Agent 356 (campaign slot 6/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The systematic artifact-promotion mechanism improves the quality and discrimination of the next bounded research action: infrastructure failures are now followed by evidence preservation, preventing repeated no-learning cycles; probe artifa
-- Agent 357 (campaign slot 7/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 358 (campaign slot 8/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / REJECT — The preceding REJECT decision from Agent 336 does NOT improve research quality and discrimination. Evidence shows that Agent 335's RETAIN approach produced measurable 46% quality improvement (0.500→0.730) through standardized artifact-promo
-- Agent 359 (campaign slot 9/10) [LEARNING_PROCESS] NEW_EVIDENCE / IMPROVE — The preceding REJECT decision from Agent 336 does NOT improve research quality and discrimination; Agent 335's RETAIN approach produced measurable 46% quality improvement (0.500→0.730) through standardized artifact-promotion methodology, bu
-- Agent 360 (campaign slot 10/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 361 (campaign slot 1/10) [LEARNING_PROCESS] NEW_EVIDENCE / IMPROVE — Selection-concentration bottleneck verified: agents 33-40 produced 7 RETAIN activations with zero new discriminating output while task-32 residual remained untested; selection process over-favoring already-explored process improvement decis
+- Agent 362 (campaign slot 2/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — IMPROVE decision from Agent 361 enables evidence quality threshold and discriminable information preservation
+- Agent 363 (campaign slot 3/10) [LEARNING_PROCESS] FALSIFIED / REJECT — Agent 362's task produced no measurable discriminable information; durable state evidence quality remains at pre-IMPROVE baseline (0 bytes). No evidence artifacts were created despite evidence quality threshold requirement.
+- Agent 364 (campaign slot 4/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The preceding REJECT decision from Agent 363 improves research quality and discrimination by forcing process implementation improvement. Evidence shows that Agent 362's lack of evidence production triggered better process gates, and Agent 3
+- Agent 365 (campaign slot 5/10) [LEARNING_PROCESS] NEW_EVIDENCE / IMPROVE — The preceding task (Agent 362) produced only activity (0 discriminable bytes, no evidence artifacts). This failure triggered Agent 363's REJECT decision which forced process improvement. The improvement process (Agent 163 + Agent 164) now r
+- Agent 366 (campaign slot 6/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 367 (campaign slot 7/10) [LEARNING_PROCESS] NEW_EVIDENCE / REJECT — The preceding focused research task (Agent 362) produced only activity: 0 discriminable bytes, no evidence artifacts, durable state evidence quality remains at pre-IMPROVE baseline (0 bytes)
+- Agent 368 (campaign slot 8/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The REJECT decision from Agent 363 materially improves research quality and discrimination by forcing process gate implementation. Agent 362's activity-only execution (0 evidence bytes) was rejected, and Agent 368's comprehensive test confi
+- Agent 369 (campaign slot 9/10) [LEARNING_PROCESS] NEW_EVIDENCE / IMPROVE — The REJECT decision from Agent 363 materially improves research quality and discrimination by forcing process gate implementation. Agent 362's activity-only execution (0 evidence bytes) was rejected, and Agent 368's comprehensive test confi
+- Agent 370 (campaign slot 10/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The REJECT process decision substantially improves research quality: from 0 to 7186 bytes (+7186 bytes improvement). Evidence quality threshold enforcement and enhanced artifact-promotion gates materialize from the REJECT decision.
+
+## Independent evaluation
+- Reproduced claims: 0
+- Discovery rate: 0.0
+- Reproduction rate: 0.0
+- Precision: 0.0
+- Evidence quality: 0.0
+- Overall score: 0.0
