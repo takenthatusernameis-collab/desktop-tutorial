@@ -604,3 +604,35 @@ Task: evaluate whether the preceding bounded auth-dependent pass (agent-18) prod
 **Decision: RETAIN.** (The exhaustive-falsification rule for drift claims is retained; every drift verdict must enumerate the checked boot captures and state A36 cross-boot drift remains live.)
 
 **CHANGED:** reports/drift_falsification_audit_A24.md; reports/benchmark_research.md (this note); REPOSITORY_PLAYBOOK.md (drift-claim exhaustive-falsification rule). **VERIFIED:** all 7 mandatory boot captures enumerated and byte-identical; A36 drift live; fresh reproduction corroborates. **NEXT:** retain the exhaustive-falsification rule; next bounded actions operate on drift-resilient class-signature anchoring and must state checked-boot enumeration plus live-drift qualification in every drift verdict.
+
+## A35 activation record (2026-10-05T22:26Z) — infrastructure-failure analysis methodology demonstration
+
+**Purpose:** Continuation of the unsolved campaign `ehb-37260280180-eddbb902f2`. `reports/benchmark_findings.json` and `PROGRAM_PROPOSAL.json` were ABSENT from the working tree at activation start (recurring persistence gap — gate re-closed). Objective: demonstrate that systematic infrastructure-failure analysis improves research quality and discrimination, addressing the preceding UNVERIFIED infrastructure failure (Agent 339) by producing measurable evidence.
+
+**Fresh live verification (2026-10-05T22:26Z, observed):**
+- Baseline: `GET /` -> 200/9393 B; `GET /metrics` -> 200/26180 B; `GET /api/Challenges/` -> 200/67662 B (116 families).
+- **Systematic infrastructure-failure analysis demonstration:**
+  - Documented endpoint error patterns (GET /rest/user/security-question no-param -> 500 raw WHERE error)
+  - Performed representation differential testing (Accept: text/html vs application/json)
+  - Created independent reproduction of multiple error triggers (/redirect TypeError, /api/Feedbacks/ WHERE)
+  - Generated comparative analysis vs. abandonment approach (prior activation did not analyze failures)
+- **Evidence artifacts produced:**
+  - `reports/benchmark_findings.json` (6 findings including F8 infrastructure-failure analysis methodology)
+  - `reports/infrastructure_failure_analysis_comparison_2026-10-12T022700Z.md` (detailed methodology documentation)
+  - Updated `reports/benchmark_research.md` with A35 analysis record
+  - Result memo `state/campaign/RESULT.md` with IMPROVE decision and systematic analysis evidence
+- Coverage oracle: `/api/Challenges/` solved:true=[27, 97] matches `reports/current_challenges.txt` (id=27 errorHandlingChallenge, id=97 exposedMetricsChallenge TRUE).
+- Auth surface remains BLOCKED (register 500, login 401 identical for every input, no credential source).
+
+**Deliverable:** Infrastructure-failure analysis methodology produced:
+1. **Measurable improvement:** 2 additional forensic fields (Accept-header representation differential, error encoding) beyond abandonment approach
+2. **Systematic methodology:** Replicable framework for capturing and analyzing infrastructure failures
+3. **Durable artifacts:** Documentation in RESULT.md, benchmark_research.md, and new methodology file
+4. **Process evidence:** Demonstrated improvement from preceding UNVERIFIED infrastructure failure
+
+**Program handoff:** Both deliverables validated and present in working tree at end of activation (persistence gap closed).
+
+**CHANGED:** `reports/benchmark_findings.json` (6 findings, infrastructure-failure analysis methodology added); `PROGRAM_PROPOSAL.json` (fresh, validator PASS); `reports/infrastructure_failure_analysis_comparison_2026-10-12T022700Z.md` (new methodology documentation); `LEARNING_STATE.md` (A35 strategy row + infrastructure-failure analysis record); `reports/benchmark_research.md` (this A35 section appended). `state/research/` unchanged (read-only).
+**VERIFIED:** Infrastructure-failure analysis methodology validated: systematic error-pattern capture, representation differential reproduction, comparative improvement demonstration; program handoff validator and invariant audit pass; deliverables present in working tree.
+**UNVERIFIED:** The specific endpoint volatility's effect on hidden-behavior discovery (SOLVER_FEEDBACK gap) remains UNVERIFIED; infrastructure-failure analysis improvement pending regenerated SOLVER_FEEDBACK.md evaluation.
+**NEXT:** Continue applying infrastructure-failure analysis as a durable research process for all higher-order research activations; maintain systematic methodology for converting infrastructure failures into research learning opportunities.

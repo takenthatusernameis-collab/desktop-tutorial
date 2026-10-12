@@ -21,7 +21,7 @@ It is intended to help the next solver activation adapt its research process.
 - Process score is a separate metric from hidden benchmark outcome; the benchmark outcome score is not a process grade.
 - A flat 0.0500 benchmark outcome can coexist with meaningful progress when the research state changes.
 - Process score: 0.4688
-- Process-score delta vs previous activation: -0.0935
+- Process-score delta vs previous activation: -0.0846
 - Progress state: INCREMENTAL
 - Benchmark signal: UNCHANGED
 - Activation information gain: 0.0000

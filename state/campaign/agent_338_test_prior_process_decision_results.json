@@ -1,0 +1,33 @@
+{
+  "test_type": "Testing preceding Agent 337 validated learning (continue with REJECT)",
+  "pre_failure": {
+    "has_failure_impact": false,
+    "has_enhanced_gates": false,
+    "evidence_quality": 0,
+    "discriminable_bytes": 0,
+    "artifacts_created": 0,
+    "gate_enabled": false,
+    "failure_prompted_improvement": false,
+    "forensic_fields": 2,
+    "discrimination_score": 0
+  },
+  "post_failure": {
+    "has_failure_impact": true,
+    "has_enhanced_gates": true,
+    "evidence_quality": 0,
+    "discriminable_bytes": 0,
+    "artifacts_created": 1,
+    "gate_enabled": true,
+    "failure_prompted_improvement": false,
+    "evidence_improvement": 1,
+    "quality_increase": 0,
+    "forensic_fields": 5,
+    "discrimination_score": 0
+  },
+  "evidence_quality_increase": 0,
+  "forensic_fields_increase": 3,
+  "discrimination_increase": 0,
+  "effectiveness_percentage": 0,
+  "failure_prompted_improvement": false,
+  "conclusion": "Validated learning approach (continue with REJECT) not effective - does not improve research quality and discrimination"
+}

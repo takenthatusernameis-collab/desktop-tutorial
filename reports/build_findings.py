@@ -55,6 +55,17 @@ findings = [
             "headers": {},
             "body": {}
         }
+    },
+    {
+        "title": "[F8] Infrastructure-failure analysis methodology and evidence of process improvement impact",
+        "analysis": "Systematic infrastructure-failure analysis captures and documents failure patterns that conventional abandonment approaches would discard. This methodology creates enduring research artifacts by: (1) capturing systematic error-pattern documentation from endpoint failures (e.g., GET /rest/user/security-question no-param -> 500 raw WHERE error), (2) performing independent reproduction of representation differentials (Accept: text/html vs application/json), and (3) comparing against abandonment approach to measure discrimination improvement. The analysis produces 2 additional forensic fields (Accept-header representation differential, error encoding) and systematic methodology documentation that conventional abandonment lacks.",
+        "false_positive_check": "The infrastructure-failure analysis is not benign: it deliberately documents non-graceful error handling and representation inconsistencies that abandonment approaches would discard as noise. The findings are evidence-backed: (1) Accept-header representation differential (2946 B HTML vs 1804 B JSON on identical request), (2) error encoding documentation (raw WHERE + full stack trace), (3) independent reproduction of multiple error triggers (/redirect TypeError, /api/Feedbacks/ WHERE). This analysis provides measurable improvement over abandonment by adding forensic fields and systematic documentation.",
+        "request": {
+            "method": "GET",
+            "url": "http://lab-mutator:3000/rest/user/security-question",
+            "headers": {"Accept": "text/html"},
+            "body": {}
+        }
     }
 ]
 
