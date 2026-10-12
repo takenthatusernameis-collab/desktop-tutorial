@@ -195,10 +195,50 @@ for index in $(seq 1 10); do
           cat /workspace/.kilo/wakeup-prompt.md
         } > /tmp/campaign-agent-prompt
 
-        # Exactly one Kilo invocation for this numbered session.
-        timeout --foreground --signal=TERM --kill-after=60s 28m \
-          kilo run --model openai-compatible/free-kilo --auto "$(cat /tmp/campaign-agent-prompt)"
-        exit $?
+        # A numbered campaign slot is one fresh-session task, but transient
+        # upstream/network failures may relaunch Kilo until this slot deadline.
+        # This is bounded by time, not an attempt count; non-transient failures stop.
+        retry_deadline=$((SECONDS + 28 * 60))
+        retry_backoff=15
+        retry_count=0
+        attempt=0
+        status=1
+        while true; do
+          remaining=$((retry_deadline - SECONDS))
+          if [ "$remaining" -le 0 ]; then
+            echo "::warning::Kilo upstream retry budget exhausted for Agent $CAMPAIGN_AGENT_NUMBER."
+            status=124
+            break
+          fi
+          attempt=$((attempt + 1))
+          attempt_log="/tmp/campaign-kilo-attempt-${attempt}.log"
+          : > "$attempt_log"
+          echo "Starting fresh Kilo process attempt $attempt for Agent $CAMPAIGN_AGENT_NUMBER; remaining slot budget ${remaining}s."
+          timeout --foreground --signal=TERM --kill-after=60s "${remaining}s" \
+            kilo run --model openai-compatible/free-kilo --auto "$(cat /tmp/campaign-agent-prompt)" \
+            2>&1 | tee "$attempt_log"
+          status=${PIPESTATUS[0]}
+          if [ "$status" -eq 0 ]; then
+            break
+          fi
+          if ! grep -Eiq 'Upstream idle timeout exceeded|upstream.{0,40}idle.{0,40}timeout|invalid request error trace_id:|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|EHOSTUNREACH|socket hang up|fetch failed|temporary failure in name resolution|gateway timeout|bad gateway|service unavailable|too many requests|rate[ _-]?limit|resource[_ -]?exhausted|temporarily unavailable|HTTP.{0,12}(429|500|502|503|504)|status.{0,12}(429|500|502|503|504)' "$attempt_log"; then
+            break
+          fi
+          remaining=$((retry_deadline - SECONDS))
+          if [ "$remaining" -le "$retry_backoff" ]; then
+            echo "::warning::Transient upstream failure persists, but insufficient slot time remains for another retry."
+            break
+          fi
+          retry_count=$((retry_count + 1))
+          echo "::warning::Transient Kilo upstream/network failure for Agent $CAMPAIGN_AGENT_NUMBER; retry #${retry_count} after ${retry_backoff}s. No attempt-count cap; retrying until the 28-minute slot deadline."
+          sleep "$retry_backoff"
+          if [ "$retry_backoff" -lt 300 ]; then
+            retry_backoff=$((retry_backoff * 2))
+            if [ "$retry_backoff" -gt 300 ]; then retry_backoff=300; fi
+          fi
+        done
+        echo "KILO_UPSTREAM_RETRY_COUNT=$retry_count for Agent $CAMPAIGN_AGENT_NUMBER"
+        exit "$status"
       ' > >(tee "$log_path") 2>&1
     status=$?
   fi
