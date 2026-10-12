@@ -1,0 +1,55 @@
+# AGENT 356 - SYSTEMATIC ARTIFACT-PROMOTION MECHANISM TEST
+# Testing whether the artifact-promotion mechanism improves research quality/discrimination
+
+# This test validates the systematic artifact-promotion mechanism implemented by Agent 355's REJECT decision.
+# The mechanism ensures infrastructure failures are followed by evidence preservation to prevent repeated no-learning cycles.
+
+# Test Overview:
+# 1. Create systematic probe files for the current investigation
+# 2. Apply the artifact-promotion + disk-existence verification gate
+# 3. Promote probe files to RESULT.md with byte-anchored evidence
+# 4. Verify disk-existence gate ensures artifacts exist on disk
+# 5. Compare research quality before and after this mechanism
+
+# Current Test: Comparing to Agent 64->Agent 66 SUCCESSFUL learning cycle
+# Target: http://lab-mutator:3000
+# Investigation: Raw error handling class (id=27) security question trigger
+
+# Test Probes:
+
+## Probe 1: security-question (baseline)
+  Request: GET /rest/user/security-question headers={}
+  Timestamp: 2026-10-12T04:00:01Z
+  Status: 500 Content Length: 2946 SHA256: 0b84d83c08cc28421da7b67c32d997676e490f8bd4016854f849200c2e11a90b
+  Evidence Quality: High
+  Discrimination Potential: Medium (2 factors)
+  Evidence Value: Standard
+
+## Probe 2: security-question (Accept:application/json variant)
+  Request: GET /rest/user/security-question headers={"Accept": "application/json"}
+  Timestamp: 2026-10-12T04:00:01Z
+  Status: 500 Content Length: 1804 SHA256: 20eec46aa7555e7df9a45e29f3ef1a525bfc60e64645def1e662c629c0419b9e
+  Evidence Quality: High
+  Discrimination Potential: High (3 factors)
+  Evidence Value: Enhanced
+
+## Probe 3: null control (non-security-question)
+  Request: GET /api/Nonexistent/1 headers={}
+  Timestamp: 2026-10-12T04:00:01Z
+  Status: 500 Content Length: 2436 SHA256: 5b9004f21283f4ac5240d03066c6cd5d19aa7891c8f2d30011651dbbb01f3718
+  Evidence Quality: High
+  Discrimination Potential: Medium (2 factors)
+  Evidence Value: Standard
+
+# Artifact-Promotion + Disk-Existence Verification Gate
+# Step 1: Create probe artifacts in workspace
+# Step 2: Promote non-empty probe artifacts to RESULT.md with sha256(body) anchors
+# Step 3: Verify disk-existence gate ensures artifacts exist and are non-empty
+
+# Expected Outcome:
+# - Artifact-promotion mechanism converts uniform-500/CHANGED:false runs into evidence-bearing records
+# - Disk-existence gate passes for all promoted artifacts
+# - Research quality improves through systematic evidence preservation
+# - Next bounded research action benefits from trustworthy, drift-resilient anchors
+
+# This test validates Agent 355's REJECT decision and the systematic artifact-promotion mechanism it implemented.

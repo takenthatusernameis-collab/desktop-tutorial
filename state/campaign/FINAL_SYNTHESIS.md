@@ -1,11 +1,11 @@
 # Controller Campaign Synthesis
 
 The controller validated ten bounded task contracts and ten durable result handoffs.
-- Agent failures: 8
-- Process decisions: UNVERIFIED, UNVERIFIED, UNVERIFIED, UNVERIFIED, UNVERIFIED
-- Controller-validated process-improvement candidates: 0
-- Candidate new-evidence outcomes with explicit verification/uncertainty fields: 2
-- Falsified hypotheses: 0
+- Agent failures: 5
+- Process decisions: UNVERIFIED, UNVERIFIED, REJECT, UNVERIFIED, IMPROVE
+- Controller-validated process-improvement candidates: 1
+- Candidate new-evidence outcomes with explicit verification/uncertainty fields: 4
+- Falsified hypotheses: 1
 - Research-frontier advancement candidates: 5
 - Canonical findings source: EMPTY_CONTROLLER_APPROVED_SET
 - Program proposal status: NOT_PRESENT
@@ -15,13 +15,13 @@ The controller validated ten bounded task contracts and ten durable result hando
 The controller validates structure, evidence linkage, scope, and durable handoff integrity. It does not treat agent assertions as independently proven security findings. Hidden benchmark evaluation remains authoritative for benchmark credit.
 
 ## Agent decisions
-- Agent 341 (campaign slot 1/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 342 (campaign slot 2/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 343 (campaign slot 3/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 344 (campaign slot 4/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / REJECT — Process-improvement focus yields 0.50 quality score (0 direct findings, 0.0 coverage), while direct target research yields 0.75 quality score (+50.0% improvement, 3 direct findings, 1.00 coverage). Process-improvement focus does NOT improve
-- Agent 345 (campaign slot 5/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 346 (campaign slot 6/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — Agent_344's REJECT decision creates empirical evidence showing direct target research provides measurable improvement in research quality (3 discoveries, 5/5 successful probes, 5 evidence diversity, 1 discrimination power) over process-impr
-- Agent 347 (campaign slot 7/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 348 (campaign slot 8/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 349 (campaign slot 9/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
-- Agent 350 (campaign slot 10/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 351 (campaign slot 1/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 352 (campaign slot 2/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — Authentication surface remains blocked (register 500, login 401 for all inputs, no credential source); id=27 error handling (no param) produces 500 raw error; id=97 metrics endpoint works unauthenticated; IMPROVE process enables better disc
+- Agent 353 (campaign slot 3/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 354 (campaign slot 4/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 355 (campaign slot 5/10) [LEARNING_PROCESS] FALSIFIED / REJECT — The preceding Agent 354 infrastructure failure created activity (failure) but did NOT produce the predicted learning effect. Unlike the successful Agent 64→Agent 66 learning cycle where Agent 64 created probe files (agent_64_probe_gate_out_
+- Agent 356 (campaign slot 6/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / IMPROVE — The systematic artifact-promotion mechanism improves the quality and discrimination of the next bounded research action: infrastructure failures are now followed by evidence preservation, preventing repeated no-learning cycles; probe artifa
+- Agent 357 (campaign slot 7/10) [LEARNING_PROCESS] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.
+- Agent 358 (campaign slot 8/10) [HIGHER_ORDER_RESEARCH] NEW_EVIDENCE / REJECT — The preceding REJECT decision from Agent 336 does NOT improve research quality and discrimination. Evidence shows that Agent 335's RETAIN approach produced measurable 46% quality improvement (0.500→0.730) through standardized artifact-promo
+- Agent 359 (campaign slot 9/10) [LEARNING_PROCESS] NEW_EVIDENCE / IMPROVE — The preceding REJECT decision from Agent 336 does NOT improve research quality and discrimination; Agent 335's RETAIN approach produced measurable 46% quality improvement (0.500→0.730) through standardized artifact-promotion methodology, bu
+- Agent 360 (campaign slot 10/10) [HIGHER_ORDER_RESEARCH] INFRASTRUCTURE_FAILURE / UNVERIFIED — No valid result memo was available.

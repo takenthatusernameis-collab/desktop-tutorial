@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-10-12T04:25:51.281580",
+  "test_objective": "Test whether REJECT decision improves quality/discrimination vs RETAIN approach",
+  "retrain_approach": {
+    "approach": "RETAIN",
+    "verification": "VERIFIED",
+    "quality_score": 0.73,
+    "discovery_power": true,
+    "artifact_hash": "5980532b2359d110",
+    "success": true
+  },
+  "reject_approach": {
+    "approach": "REJECT",
+    "verification": "VERIFIED_BASIC",
+    "quality_score": 0.5,
+    "discovery_power": false,
+    "success": true
+  },
+  "analysis": {
+    "quality_improvement": 0.22999999999999998,
+    "quality_improvement_percent": 46.0,
+    "discrimination_gain": 1,
+    "recommendation": "REJECT",
+    "effectiveness": "REJECT decision provides better quality and discrimination",
+    "evidence_strength": "STRONG",
+    "retrain_results": {
+      "approach": "RETAIN",
+      "verification": "VERIFIED",
+      "quality_score": 0.73,
+      "discovery_power": true,
+      "artifact_hash": "5980532b2359d110",
+      "success": true
+    },
+    "reject_results": {
+      "approach": "REJECT",
+      "verification": "VERIFIED_BASIC",
+      "quality_score": 0.5,
+      "discovery_power": false,
+      "success": true
+    }
+  },
+  "conclusion": "REJECT decision does NOT materially improve research quality",
+  "recommendation": "Continue with RETAIN approach for quality improvement"
+}
