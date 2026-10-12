@@ -505,7 +505,6 @@ jobs:
         if: steps.preflight.outcome == 'success' && steps.kilo_smoke.outcome == 'success'
         id: kilo
         continue-on-error: true
-        timeout-minutes: 315
         env:
           KILO_DISABLE_EXTERNAL_SKILLS: "true"
         run: |
