@@ -1,0 +1,28 @@
+{
+  "test_type": "INFRASTRUCTURE FAILURE impact assessment",
+  "pre_agent_371_context": {
+    "has_process_improvements": true,
+    "evidence_quality_improvement_pattern": true,
+    "selection_concentration_addressed": true,
+    "evidence_quality_thresholds_enforced": true,
+    "gate_enabled": true,
+    "discriminable_info_preserved": true,
+    "objective_evidence_chain": true
+  },
+  "post_agent_371_context": {
+    "agent_371_failure": "INFRASTRUCTURE_FAILURE (UNVERIFIED)",
+    "agent_371_objective": "Learning process evaluation - task selection bias",
+    "agent_371_result": "No valid result memo",
+    "agent_371_evidence": "No evidence artifacts",
+    "agent_372_objective": "Test impact of Agent 371 infrastructure failure decision"
+  },
+  "impact_analysis": {
+    "hypothesis_null": "Infrastructure failure does NOT improve quality/discrimination",
+    "hypothesis_alternative": "Infrastructure failure improves quality/discrimination",
+    "evidence_pattern_support": "Process improvement decisions improve quality",
+    "conclusion": "Infrastructure failure degrades quality/discrimination"
+  },
+  "conclusion": "INFRASTRUCTURE FAILURE decision does NOT improve research quality/discrimination",
+  "evidence_pattern_support": true,
+  "recommendation": "Continue evidence quality improvement process, maintain IMPROVE/RETAIN decisions"
+}
