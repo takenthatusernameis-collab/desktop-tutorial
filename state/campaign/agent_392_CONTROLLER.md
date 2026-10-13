@@ -1,0 +1,7 @@
+AGENT_NUMBER: 392
+TASK_ID: task-392-test-prior-process-intervention-ae6d7bffd4
+SESSION_ID: 
+STATUS: FAILED
+EXIT_CODE: 0
+RESULT_VALID: false
+OBSERVED_UTC: 2026-10-13T08:28:51Z

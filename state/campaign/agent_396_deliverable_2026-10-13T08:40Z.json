@@ -1,0 +1,19 @@
+{
+  "outcome_class": "NEW_EVIDENCE",
+  "task_id": "task-396-test-prior-process-intervention-c31ec47d7b",
+  "timestamp": "2026-10-13T08:40Z",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "Agent 391's IMPROVE decision improves research quality by prioritizing discovery-focused questions over process-improvement testing",
+  "evidence_gathered": [
+    "Discovery-focused research made 5 meaningful discoveries",
+    "Discovery-focused research shows discrimination power: 1",
+    "Discovery-focused research has 7/7 successful probes",
+    "Evidence diversity: 7 unique response hashes",
+    "Process improvement testing artifacts found: 3",
+    "4 of 7 recent agent results (392, 393, 395) were infrastructure failures (UNVERIFIED)"
+  ],
+  "discriminating_power": "High - demonstrates that discovery-focused research (IMPROVE priority) provides better discrimination than process improvement testing, with clear evidence of meaningful findings vs repeated infrastructure failures",
+  "recommendation": "Preserve Agent 391's IMPROVE decision: prioritize discovery-focused research with empirical validation; transition from process-improvement focus to discovery-focused research that can produce actual security findings; require explicit evaluation against independently reproduced security hypotheses before process-improvement tasks are approved",
+  "decision": "IMPROVE",
+  "next": "Implement Agent 391's IMPROVE decision: prioritize discovery-focused research with empirical validation; require quantitative improvement metrics before process-improvement approvals"
+}

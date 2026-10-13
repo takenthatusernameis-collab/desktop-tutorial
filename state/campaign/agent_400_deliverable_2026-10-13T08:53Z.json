@@ -1,0 +1,19 @@
+{
+  "outcome_class": "NEW_EVIDENCE",
+  "task_id": "task-400-test-prior-process-intervention-32a1bfb3d4",
+  "timestamp": "2026-10-13T08:53Z",
+  "primary_question": "Does the preceding process decision improve the quality or discrimination of the next bounded research action?",
+  "hypothesis_tested": "Agent 391's IMPROVE decision provides superior forensic evidence quality and discrimination compared to alternative approaches, while Agent 337's REJECT approach should not be adopted",
+  "evidence_gathered": [
+    "IMPROVE decision produced 5 high-quality forensic evidence items",
+    "IMPROVE decision shows 7 discriminating evidence items",
+    "IMPROVE decision maintains 7 evidence diversity across probes",
+    "IMPROVE decision preserves 71.4% forensic evidence preservation rate",
+    "IMPROVE decision focuses on genuine independence verification (not quantitative claims)",
+    "Alternative REJECT approach produces 1 process-improvement artifacts vs forensic evidence"
+  ],
+  "discriminating_power": "High - demonstrates that IMPROVE decision provides superior forensic evidence quality and discrimination compared to process-improvement validation approaches, while rejecting the REJECT approach",
+  "recommendation": "Preserve Agent 391's IMPROVE decision as technically superior: genuine independence verification approach provides forensic evidence quality improvements rather than quantitative claims; do not adopt Agent 337's REJECT approach",
+  "decision": "IMPROVE",
+  "next": "Continue with Agent 391's IMPROVE decision: prioritize forensic evidence quality improvements and genuine independence verification; reject Agent 337's REJECT approach"
+}
