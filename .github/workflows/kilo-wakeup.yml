@@ -1081,3 +1081,24 @@ jobs:
           rc=$?
           echo "DEEP_AUDIT_FINAL_RC=$rc"
           exit 0
+
+      - name: Enforce durable campaign outcome
+        id: enforce_campaign_outcome
+        if: always()
+        env:
+          CAMPAIGN_STEP_OUTCOME: ${{ steps.kilo.outcome }}
+        run: |
+          set -euo pipefail
+          campaign_status="${CAMPAIGN_STATUS:-FAILED}"
+          printf 'Campaign status: %s\n' "$campaign_status"
+          printf 'Campaign step outcome: %s\n' "${CAMPAIGN_STEP_OUTCOME:-unknown}"
+          printf 'Result-contract correction attempts: %s\n' "${CAMPAIGN_RESULT_CORRECTION_ATTEMPTS:-unknown}"
+          if [ "$campaign_status" != "COMPLETE" ]; then
+            echo "::error::Campaign is not COMPLETE (status=$campaign_status). Partial or failed internal campaigns must not be reported as a healthy workflow run."
+            exit 1
+          fi
+          if [ "${CAMPAIGN_STEP_OUTCOME:-failure}" != "success" ]; then
+            echo "::error::The campaign runner step did not succeed."
+            exit 1
+          fi
+          echo "Verified: all ten campaign slots produced valid results and finalization succeeded."
