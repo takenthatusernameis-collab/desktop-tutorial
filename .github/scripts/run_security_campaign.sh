@@ -250,6 +250,13 @@ for index in $(seq 1 10); do
   # memo does not hide a failed Kilo invocation.
   if [ "$validation_status" -ne 0 ] && [ "$CAMPAIGN_DUMMY" != "true" ] && [ "$prep_status" -eq 0 ] && [ -s "$task_path" ]; then
     campaign_corrections=$((campaign_corrections + 1))
+    correction_snapshot="$RUNNER_TEMP/ehb-campaign-agent-${agent_id}-pre-correction"
+    rm -rf "$correction_snapshot"
+    mkdir -p "$correction_snapshot"
+    if ! rsync -a --delete --exclude="state/campaign/RESULT.md" "$agent_dir/" "$correction_snapshot/"; then
+      echo "::error::Could not snapshot Agent $agent_id workspace before result correction; refusing the correction."
+      exit 1
+    fi
     echo "::warning::Result contract failed for Agent $agent_id; starting one bounded fresh-session correction."
     docker run --rm \
       --name "ehb-kilo-agent-$agent_id-correction" \
@@ -306,6 +313,14 @@ for index in $(seq 1 10); do
       ' > >(tee -a "$log_path") 2>&1
     correction_status=$?
     echo "RESULT_CORRECTION_EXIT_CODE=$correction_status for Agent $agent_id"
+    # Enforce the recovery session's narrow write boundary deterministically:
+    # preserve the corrected RESULT.md but restore every other path to its
+    # exact pre-correction state, including removal of files created by it.
+    if ! rsync -a --delete --exclude="state/campaign/RESULT.md" "$correction_snapshot/" "$agent_dir/"; then
+      echo "::error::Could not restore Agent $agent_id workspace after result correction; aborting to prevent cross-session contamination."
+      exit 1
+    fi
+    rm -rf "$correction_snapshot"
     if [ -f "$result_path" ] && [ -f "$task_path" ]; then
       python3 "$CONTROLLER" validate-result --task "$task_path" --result "$result_path" >"$validation_log_path" 2>&1
       validation_status=$?
