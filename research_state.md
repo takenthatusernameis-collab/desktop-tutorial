@@ -36,3 +36,80 @@ candidate_tasks:
 (A124: 2026-10-07T18:21:37Z) Agent 124 conducting process improvement test to verify Agent 121's IMPROVE decision quality impact. Candidate task intake file created for triage evaluation.
 
 (A124: 2026-10-07T18:21:37Z) This research_state.md contains test candidate for Agent 124 to verify whether Agent 121's IMPROVE decision improves research task selection quality through executable triage capability discrimination.
+
+# Repetition Test Candidates
+
+(Added by Agent 402 to test whether triage_tasks.py blocks repeated selection of identical diagnostics)
+
+---
+task_id: "test-identical-diagnostic-002"
+version: "1.0.0"
+intake_status: "awaiting_triage"
+authorized_target: "Bug Bounty Research Enterprise controlled workspace"
+auth_verified_by: "test-authorizer"
+source_reference: "test-repetition-analysis"
+source_system: "repetition-test"
+intake_timestamp: "2026-10-13T10:47:48.700567Z"
+hypothesis: "Testing whether triage logic blocks repeated selection of identical diagnostics despite documented IMPROVE/REJECT/RETAIN decisions - variation 1"
+why_this_target: "To test the durable triage capability for preventing diagnostic repetition"
+success_criteria: "The triage system should detect and block repeated selection of identical diagnostics after the first evaluation"
+rejected_false_positives: "The triage system may lack repetition detection capability, which would be a limitation of the current implementation"
+safe_interaction: "Research process improvement analysis only; no external target interaction"
+reproduction_conditions: "Verify whether triage_tasks.py prevents selection of identical candidate tasks"
+evidence_quality: "high"
+accept_null_result: "If evidence shows no repetition detection, record as implementation limitation"
+triage_decision: ""
+scope_size: "small"
+hypothesis_specificity: "specific"
+novelty: "potentially novel"
+evidence_available: "substantial"
+---
+
+---
+task_id: "test-identical-diagnostic-003"
+version: "1.0.0"
+intake_status: "awaiting_triage"
+authorized_target: "Bug Bounty Research Enterprise controlled workspace"
+auth_verified_by: "test-authorizer"
+source_reference: "test-repetition-analysis"
+source_system: "repetition-test"
+intake_timestamp: "2026-10-13T10:47:48.700587Z"
+hypothesis: "Testing whether triage logic blocks repeated selection of identical diagnostics despite documented IMPROVE/REJECT/RETAIN decisions - variation 2"
+why_this_target: "To test the durable triage capability for preventing diagnostic repetition"
+success_criteria: "The triage system should detect and block repeated selection of identical diagnostics after the first evaluation"
+rejected_false_positives: "The triage system may lack repetition detection capability, which would be a limitation of the current implementation"
+safe_interaction: "Research process improvement analysis only; no external target interaction"
+reproduction_conditions: "Verify whether triage_tasks.py prevents selection of identical candidate tasks"
+evidence_quality: "high"
+accept_null_result: "If evidence shows no repetition detection, record as implementation limitation"
+triage_decision: ""
+scope_size: "small"
+hypothesis_specificity: "specific"
+novelty: "potentially novel"
+evidence_available: "substantial"
+---
+
+---
+task_id: "test-identical-diagnostic-004"
+version: "1.0.0"
+intake_status: "awaiting_triage"
+authorized_target: "Bug Bounty Research Enterprise controlled workspace"
+auth_verified_by: "test-authorizer"
+source_reference: "test-repetition-analysis"
+source_system: "repetition-test"
+intake_timestamp: "2026-10-13T10:47:48.700590Z"
+hypothesis: "Testing whether triage logic blocks repeated selection of identical diagnostics despite documented IMPROVE/REJECT/RETAIN decisions - variation 3"
+why_this_target: "To test the durable triage capability for preventing diagnostic repetition"
+success_criteria: "The triage system should detect and block repeated selection of identical diagnostics after the first evaluation"
+rejected_false_positives: "The triage system may lack repetition detection capability, which would be a limitation of the current implementation"
+safe_interaction: "Research process improvement analysis only; no external target interaction"
+reproduction_conditions: "Verify whether triage_tasks.py prevents selection of identical candidate tasks"
+evidence_quality: "high"
+accept_null_result: "If evidence shows no repetition detection, record as implementation limitation"
+triage_decision: ""
+scope_size: "small"
+hypothesis_specificity: "specific"
+novelty: "potentially novel"
+evidence_available: "substantial"
+---
+

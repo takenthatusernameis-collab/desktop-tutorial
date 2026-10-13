@@ -1,0 +1,47 @@
+{
+  "test_type": "Agent 31 IMPROVE decision effectiveness",
+  "pre_failure": {
+    "has_selection_concentration": true,
+    "has_evidence_improvement": true,
+    "process_testing_concentration": true,
+    "residual_ignoring": true,
+    "evidence_quality": 7186,
+    "forensic_fields": 5,
+    "discriminable_bytes": 7186,
+    "process_testing_probes": 13,
+    "residual_execution": 1,
+    "selection_concentration_detected": true,
+    "improvement_ignored": true
+  },
+  "agent31_improve": {
+    "has_selection_concentration": true,
+    "has_evidence_improvement": true,
+    "process_testing_concentration": true,
+    "residual_ignoring": true,
+    "evidence_quality": 7186,
+    "forensic_fields": 5,
+    "discriminable_bytes": 7186,
+    "process_testing_probes": 13,
+    "residual_execution": 1,
+    "agent31_next_ignored": true,
+    "selection_concentration_continued": true
+  },
+  "post_failure": {
+    "has_selection_concentration": true,
+    "has_evidence_improvement": true,
+    "process_testing_concentration": true,
+    "residual_ignoring": true,
+    "evidence_quality": 7186,
+    "forensic_fields": 5,
+    "discriminable_bytes": 7186,
+    "process_testing_probes": 13,
+    "residual_execution": 1,
+    "agent31_next_implementation": "IGNORED",
+    "selection_concentration_persisted": true
+  },
+  "evidence_quality_increase": 0,
+  "selection_concentration_persisted": true,
+  "residual_question_ignored": true,
+  "process_testing_continued": true,
+  "conclusion": "Agent 31 IMPROVE decision NOT effective - selection-concentration bottleneck persists and highest-value residual question remains untested"
+}
