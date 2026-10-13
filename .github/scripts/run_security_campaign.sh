@@ -111,6 +111,7 @@ EOF
 
 campaign_successes=0
 campaign_failures=0
+campaign_corrections=0
 final_agent_status=FAILED
 finalization_status=FAILED
 
@@ -231,11 +232,89 @@ for index in $(seq 1 10); do
   task_path="$agent_dir/state/campaign/TASK.json"
   result_path="$agent_dir/state/campaign/RESULT.md"
 
+  validation_log_path="$RUNNER_TEMP/ehb-campaign-validation-${agent_id}.log"
+  : > "$validation_log_path"
   if [ -f "$result_path" ] && [ -f "$task_path" ]; then
-    python3 "$CONTROLLER" validate-result --task "$task_path" --result "$result_path"
+    python3 "$CONTROLLER" validate-result --task "$task_path" --result "$result_path" >"$validation_log_path" 2>&1
     validation_status=$?
+    cat "$validation_log_path"
   else
+    echo "Result memo or selected task missing before validation." >"$validation_log_path"
+    cat "$validation_log_path"
     validation_status=1
+  fi
+
+  # One bounded, contract-only correction pass repairs formatting or missing
+  # handoff fields without weakening validation or inventing research evidence.
+  # The original session exit status remains authoritative: a valid corrected
+  # memo does not hide a failed Kilo invocation.
+  if [ "$validation_status" -ne 0 ] && [ "$CAMPAIGN_DUMMY" != "true" ] && [ "$prep_status" -eq 0 ] && [ -s "$task_path" ]; then
+    campaign_corrections=$((campaign_corrections + 1))
+    echo "::warning::Result contract failed for Agent $agent_id; starting one bounded fresh-session correction."
+    docker run --rm \
+      --name "ehb-kilo-agent-$agent_id-correction" \
+      --user "$(id -u):$(id -g)" \
+      --network ehb-worker-net \
+      --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
+      --mount type=bind,source="$agent_dir",target=/workspace \
+      --mount type=bind,source="${RUNNER_TEMP}/ehb-research-snapshot",target=/workspace/state/research,readonly \
+      --mount type=bind,source="$CAMPAIGN_CONTEXT",target=/workspace/state/campaign/context,readonly \
+      --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
+      --mount type=bind,source="$validation_log_path",target=/tmp/result-validation-errors,readonly \
+      -e HOME=/tmp/kilo-home \
+      -e XDG_CONFIG_HOME=/tmp/kilo-home/.config \
+      -e XDG_CACHE_HOME=/tmp/kilo-home/.cache \
+      -e KILO_DISABLE_EXTERNAL_SKILLS=true \
+      -e BENCHMARK_ID="$BENCHMARK_ID" \
+      -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
+      -e CAMPAIGN_AGENT_NUMBER="$agent_id" \
+      -e CAMPAIGN_SLOT="$index" \
+      "$EHB_KILO_IMAGE" \
+      bash -lc '
+        set -uo pipefail
+        cd /workspace
+        mkdir -p "$HOME/.config/kilo" "$HOME/.cache"
+        cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
+        chmod 600 "$HOME/.config/kilo/kilo.json"
+        {
+          echo "# Bounded result-contract correction"
+          echo "This is one correction pass for the existing session, not a new research task."
+          echo "Read the selected task and the existing result memo, if present."
+          echo "Edit ONLY state/campaign/RESULT.md. Do not edit code, tests, configuration, controller files, other artifacts, or task selection."
+          echo "Preserve only claims supported by the actual work and existing evidence. Correct missing/invalid fields. Do not invent results; label unsupported claims UNVERIFIED."
+          echo "Every required field must appear as a separate plain-text line with the exact label from the task contract."
+          echo "NEXT must be exactly one bounded action on one line, at most 360 characters."
+          echo
+          cat "/workspace/state/campaign/context/agent_${CAMPAIGN_AGENT_NUMBER}_TASK.md"
+          echo
+          echo "=== EXISTING RESULT MEMO ==="
+          if [ -s /workspace/state/campaign/RESULT.md ]; then
+            cat /workspace/state/campaign/RESULT.md
+          else
+            echo "No result memo was present. Create a conservative handoff with unsupported claims marked UNVERIFIED."
+          fi
+          echo
+          echo "=== CONTROLLER VALIDATION ERRORS ==="
+          cat /tmp/result-validation-errors
+          echo
+          echo "=== TRUSTED RESEARCH/SAFETY INSTRUCTIONS ==="
+          cat /workspace/.kilo/wakeup-prompt.md
+        } > /tmp/result-correction-prompt
+        kilo run --model openai-compatible/free-kilo --auto "$(cat /tmp/result-correction-prompt)" 2>&1 | tee /tmp/result-correction.log
+        correction_rc=${PIPESTATUS[0]}
+        exit "$correction_rc"
+      ' > >(tee -a "$log_path") 2>&1
+    correction_status=$?
+    echo "RESULT_CORRECTION_EXIT_CODE=$correction_status for Agent $agent_id"
+    if [ -f "$result_path" ] && [ -f "$task_path" ]; then
+      python3 "$CONTROLLER" validate-result --task "$task_path" --result "$result_path" >"$validation_log_path" 2>&1
+      validation_status=$?
+      cat "$validation_log_path"
+    else
+      echo "Correction did not produce a result memo or selected task." >"$validation_log_path"
+      cat "$validation_log_path"
+      validation_status=1
+    fi
   fi
 
   if [ "$validation_status" -eq 0 ]; then
@@ -348,6 +427,7 @@ fi
 
 echo "CAMPAIGN_SUCCESS_COUNT=$campaign_successes" >> "$GITHUB_ENV"
 echo "CAMPAIGN_FAILURE_COUNT=$campaign_failures" >> "$GITHUB_ENV"
+echo "CAMPAIGN_RESULT_CORRECTION_ATTEMPTS=$campaign_corrections" >> "$GITHUB_ENV"
 echo "CAMPAIGN_STATUS=$campaign_status" >> "$GITHUB_ENV"
 echo "CAMPAIGN_FINISHED_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
 
@@ -367,10 +447,16 @@ cat > "$EHB_WORKER_DIR/state/campaign/campaign_status.json" <<EOF
 }
 EOF
 
-if [ "$campaign_status" = "COMPLETE" ] || [ "$campaign_status" = "PARTIAL" ]; then
+if [ "$campaign_status" = "COMPLETE" ]; then
   echo "KILO_LIVENESS_STATUS=COMPLETED_WITH_10_SESSION_CAMPAIGN" >> "$GITHUB_ENV"
-  echo "KILO_LIVENESS_REASON=controller executed exactly ten campaign slots using globally sequenced fresh sessions; failures were preserved as evidence" >> "$GITHUB_ENV"
+  echo "KILO_LIVENESS_REASON=all ten sequential sessions produced valid results and controller finalization succeeded" >> "$GITHUB_ENV"
   exit 0
+fi
+
+if [ "$campaign_status" = "PARTIAL" ]; then
+  echo "KILO_LIVENESS_STATUS=10_SESSION_CAMPAIGN_PARTIAL" >> "$GITHUB_ENV"
+  echo "KILO_LIVENESS_REASON=ten session slots completed but one or more agent results failed validation or execution; inspect preserved diagnostics" >> "$GITHUB_ENV"
+  exit 1
 fi
 
 echo "KILO_LIVENESS_STATUS=10_SESSION_CAMPAIGN_INCOMPLETE" >> "$GITHUB_ENV"
