@@ -1,0 +1,7 @@
+Agent 376 REJECT Decision Results:
+  Findings: 3 (100.0% discovery rate)
+  Coverage: 0.15 (15.0% app coverage)
+  Discrimination: High
+  Information Gain: 7186 bytes
+  Bottleneck Resolution: RESOLVED
+  Status: Successfully addressed selection-concentration bottleneck

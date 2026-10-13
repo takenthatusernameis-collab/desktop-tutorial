@@ -34,3 +34,4 @@
 {"agent_count": 10, "allocation": "RESERVED", "campaign_id": "38200348983:attempt:1", "ending_agent_number": 350, "schema_version": 1, "starting_agent_number": 341}
 {"agent_count": 10, "allocation": "RESERVED", "campaign_id": "38200544918:attempt:1", "ending_agent_number": 360, "schema_version": 1, "starting_agent_number": 351}
 {"agent_count": 10, "allocation": "RESERVED", "campaign_id": "38230665784:attempt:1", "ending_agent_number": 370, "schema_version": 1, "starting_agent_number": 361}
+{"agent_count": 10, "allocation": "RESERVED", "campaign_id": "38296686356:attempt:1", "ending_agent_number": 380, "schema_version": 1, "starting_agent_number": 371}

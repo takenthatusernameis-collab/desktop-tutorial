@@ -1,0 +1,7 @@
+Agent 375 IMPROVE Decision Results:
+  Findings: 0 (0.0% discovery rate)
+  Coverage: 0.0 (0.0% app coverage)
+  Discrimination: None
+  Information Gain: 0 bytes
+  Bottleneck Resolution: NOT RESOLVED
+  Status: Failed discrimination (could not distinguish useful learning from empty activity)
