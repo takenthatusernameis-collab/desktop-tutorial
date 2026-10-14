@@ -53,6 +53,10 @@ jobs:
           set -euo pipefail
           git fetch --prune origin "$GITHUB_REF_NAME"
           git reset --hard "origin/$GITHUB_REF_NAME"
+          # Reserve time for finalization and persistence before the 355-minute runner limit.
+          now_epoch="$(date +%s)"
+          echo "EHB_AGENT_WORK_CUTOFF_EPOCH=$((now_epoch + 350 * 60))" >> "$GITHUB_ENV"
+          echo "EHB_WORKFLOW_CUTOFF_EPOCH=$((now_epoch + 354 * 60))" >> "$GITHUB_ENV"
           echo "Activation workspace synchronized to origin/$GITHUB_REF_NAME at $(git rev-parse HEAD)."
 
       - name: Self-test benchmark harness
@@ -859,28 +863,58 @@ jobs:
             test -n "$(git ls-tree -r --name-only HEAD -- state/research/PROGRAM.json)"
           fi
 
-          # The branch may have advanced while this long activation was running.
-          # Rebase with autostash and retry the push so concurrent main commits do not
-          # strand the activation commit or leave a dirty worktree after reset.
-          for attempt in 1 2 3; do
-            git fetch origin "$GITHUB_REF_NAME"
-            if git merge-base --is-ancestor "origin/$GITHUB_REF_NAME" HEAD; then
-              if git push origin "HEAD:$GITHUB_REF_NAME"; then
-                break
-              fi
-            else
-              git rebase --autostash "origin/$GITHUB_REF_NAME"
-              if git push origin "HEAD:$GITHUB_REF_NAME"; then
-                break
-              fi
-            fi
-            if [ "$attempt" -eq 3 ]; then
-              echo "Unable to push persistence commit after 3 branch-synchronization attempts."
+          # Reconcile and verify persistence repeatedly until the workflow cutoff.
+          # A successful push is accepted only after exact remote-head verification.
+          cutoff_epoch="$EHB_WORKFLOW_CUTOFF_EPOCH"
+          attempt=0
+          delay=5
+          while true; do
+            remaining=$((cutoff_epoch - $(date +%s)))
+            if [ "$remaining" -le 0 ]; then
+              echo "::error::Workflow cutoff reached before persistence was verified."
               git status --short
               git log --oneline --decorate -8
               exit 1
             fi
-            sleep 2
+            attempt=$((attempt + 1))
+            if git fetch origin "$GITHUB_REF_NAME"; then
+              if git merge-base --is-ancestor "origin/$GITHUB_REF_NAME" HEAD; then
+                push_status=0
+                git push origin "HEAD:$GITHUB_REF_NAME" || push_status=$?
+              elif git rebase --autostash "origin/$GITHUB_REF_NAME"; then
+                push_status=0
+                git push origin "HEAD:$GITHUB_REF_NAME" || push_status=$?
+              else
+                git rebase --abort >/dev/null 2>&1 || true
+                push_status=1
+                echo "::warning::Rebase failed on persistence attempt $attempt."
+              fi
+              if [ "$push_status" -eq 0 ]; then
+                local_sha="$(git rev-parse HEAD)"
+                remote_sha="$(git ls-remote origin "refs/heads/$GITHUB_REF_NAME" 2>/dev/null | awk 'NR==1 {print $1}')"
+                if [ -n "$remote_sha" ] && [ "$remote_sha" = "$local_sha" ]; then
+                  echo "Verified main-branch persistence at $remote_sha after $attempt attempt(s)."
+                  break
+                fi
+                echo "::warning::Push succeeded but exact remote-head verification failed on attempt $attempt."
+              else
+                echo "::warning::Main-branch persistence failed on attempt $attempt."
+              fi
+            else
+              echo "::warning::Branch fetch failed on persistence attempt $attempt."
+            fi
+            remaining=$((cutoff_epoch - $(date +%s)))
+            if [ "$remaining" -le 0 ]; then
+              echo "::error::Workflow cutoff reached before persistence was verified."
+              exit 1
+            fi
+            sleep_for="$delay"
+            if [ "$sleep_for" -gt "$remaining" ]; then sleep_for="$remaining"; fi
+            if [ "$sleep_for" -gt 0 ]; then sleep "$sleep_for"; fi
+            if [ "$delay" -lt 60 ]; then
+              delay=$((delay * 2))
+              if [ "$delay" -gt 60 ]; then delay=60; fi
+            fi
           done
 
           if [ "${BENCHMARK_CAMPAIGN_MODE:-}" = "resumed" ]; then
