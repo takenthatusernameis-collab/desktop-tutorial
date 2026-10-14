@@ -154,6 +154,7 @@ jobs:
         id: audit_source_5_prepare_trusted_kilo_configuration
         run: |
           set -euo pipefail
+          # shellcheck disable=SC2016
           python3 -c '
           import json, os
           from pathlib import Path
@@ -252,7 +253,6 @@ jobs:
         run: |
           set -euo pipefail
           LAB_SECRET_DIR="$RUNNER_TEMP/ehb-secret"
-          EHB_WORKER_DIR="$RUNNER_TEMP/ehb-worker"
           docker network create --internal ehb-target-net
           docker network create --internal ehb-worker-net
           docker network create ehb-egress-net
