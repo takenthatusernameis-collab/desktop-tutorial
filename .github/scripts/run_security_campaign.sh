@@ -19,6 +19,11 @@ echo "CAMPAIGN_AGENT_COUNT=10" >> "$GITHUB_ENV"
 echo "CAMPAIGN_ID=$CAMPAIGN_ID_VALUE" >> "$GITHUB_ENV"
 echo "CAMPAIGN_STARTED_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
 CAMPAIGN_DUMMY="${CAMPAIGN_DUMMY:-false}"
+if [ -n "$EHB_AGENT_WORK_CUTOFF_EPOCH" ]; then
+  campaign_cutoff_epoch="$EHB_AGENT_WORK_CUTOFF_EPOCH"
+else
+  campaign_cutoff_epoch=$(($(date +%s) + 350 * 60))
+fi
 
 rsync -a --delete \
   --exclude="state/research/" \
@@ -116,6 +121,10 @@ final_agent_status=FAILED
 finalization_status=FAILED
 
 for index in $(seq 1 10); do
+  remaining=$((campaign_cutoff_epoch - $(date +%s)))
+  if [ "$remaining" -le 60 ]; then
+    echo "::warning::Remaining task slots will be recorded as cutoff handoffs; no new Kilo work starts."
+  fi
   printf -v slot_id "%02d" "$index"
   agent_number=$((campaign_start_agent + index - 1))
   printf -v agent_id "%02d" "$agent_number"
@@ -177,6 +186,7 @@ for index in $(seq 1 10); do
       -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
       -e CAMPAIGN_AGENT_NUMBER="$agent_id" \
       -e CAMPAIGN_SLOT="$index" \
+      -e EHB_AGENT_WORK_CUTOFF_EPOCH="$campaign_cutoff_epoch" \
       "$EHB_KILO_IMAGE" \
       bash -lc '
         set -uo pipefail
@@ -197,32 +207,46 @@ for index in $(seq 1 10); do
 
         # Numbered agents have no individual execution deadline.
         # The enclosing GitHub Actions workflow cutoff is the only time limit.
-        retry_backoff=15
-        retry_count=0
-        attempt=0
-        status=1
-        while true; do
-          attempt=$((attempt + 1))
-          attempt_log="/tmp/campaign-kilo-attempt-${attempt}.log"
-          : > "$attempt_log"
-          echo "Starting fresh Kilo process attempt $attempt for Agent $CAMPAIGN_AGENT_NUMBER; no per-agent deadline."
-          kilo run --model openai-compatible/free-kilo --auto "$(cat /tmp/campaign-agent-prompt)" \
-            2>&1 | tee "$attempt_log"
-          status=${PIPESTATUS[0]}
-          if [ "$status" -eq 0 ]; then
-            break
-          fi
-          if ! grep -Eiq "Upstream idle timeout exceeded|upstream.{0,40}idle.{0,40}timeout|invalid request error trace_id:|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|EHOSTUNREACH|socket hang up|fetch failed|temporary failure in name resolution|gateway timeout|bad gateway|service unavailable|too many requests|rate[ _-]?limit|resource[_ -]?exhausted|temporarily unavailable|HTTP.{0,12}(429|500|502|503|504)|status.{0,12}(429|500|502|503|504)" "$attempt_log"; then
-            break
-          fi
-          retry_count=$((retry_count + 1))
-          echo "::warning::Transient Kilo upstream/network failure for Agent $CAMPAIGN_AGENT_NUMBER; retry #${retry_count} after ${retry_backoff}s. No attempt-count or per-agent time limit; workflow cutoff is authoritative."
-          sleep "$retry_backoff"
-          if [ "$retry_backoff" -lt 300 ]; then
-            retry_backoff=$((retry_backoff * 2))
-            if [ "$retry_backoff" -gt 300 ]; then retry_backoff=300; fi
-          fi
-        done
+         cutoff_epoch="${EHB_AGENT_WORK_CUTOFF_EPOCH:-$(($(date +%s) + 350 * 60))}"
+         retry_backoff=15
+         retry_count=0
+         attempt=0
+         status=1
+         while true; do
+           remaining_global=$((cutoff_epoch - $(date +%s)))
+           if [ "$remaining_global" -le 10 ]; then
+             echo "::warning::The shared campaign work cutoff was reached for Agent $CAMPAIGN_AGENT_NUMBER." >&2
+             status=124
+             break
+           fi
+           attempt=$((attempt + 1))
+           attempt_log="/tmp/campaign-kilo-attempt-${attempt}.log"
+           : > "$attempt_log"
+           echo "Starting Kilo invocation attempt $attempt for Agent $CAMPAIGN_AGENT_NUMBER; retry count has no ceiling before the shared cutoff."
+           timeout --signal=TERM --kill-after=10s "${remaining_global}s" kilo run --model openai-compatible/free-kilo --auto "$(cat /tmp/campaign-agent-prompt)" \
+             2>&1 | tee "$attempt_log"
+           status=${PIPESTATUS[0]}
+           if [ "$status" -eq 0 ]; then
+             break
+           fi
+           if ! grep -Eiq "Upstream idle timeout exceeded|upstream.{0,40}idle.{0,40}timeout|invalid request error trace_id:|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|EHOSTUNREACH|socket hang up|fetch failed|temporary failure in name resolution|gateway timeout|bad gateway|service unavailable|too many requests|rate[ _-]?limit|resource[_ -]?exhausted|temporarily unavailable|HTTP.{0,12}(429|500|502|503|504)|status.{0,12}(429|500|502|503|504)" "$attempt_log"; then
+             break
+           fi
+           retry_count=$((retry_count + 1))
+           echo "::warning::Recognized transient Kilo upstream/network failure for Agent $CAMPAIGN_AGENT_NUMBER; retry #${retry_count} after ${retry_backoff}s. No attempt-count limit; shared work cutoff remains authoritative."
+           remaining_global=$((cutoff_epoch - $(date +%s)))
+           if [ "$remaining_global" -le 10 ]; then
+             echo "::warning::Insufficient work budget remains for another Kilo retry."
+             break
+           fi
+           sleep_for="$retry_backoff"
+           if [ "$sleep_for" -gt "$remaining_global" ]; then sleep_for="$remaining_global"; fi
+           sleep "$sleep_for"
+           if [ "$retry_backoff" -lt 300 ]; then
+             retry_backoff=$((retry_backoff * 2))
+             if [ "$retry_backoff" -gt 300 ]; then retry_backoff=300; fi
+           fi
+         done
         echo "KILO_UPSTREAM_RETRY_COUNT=$retry_count for Agent $CAMPAIGN_AGENT_NUMBER"
         exit "$status"
       ' > >(tee "$log_path") 2>&1
@@ -244,11 +268,16 @@ for index in $(seq 1 10); do
     validation_status=1
   fi
 
-  # One bounded, contract-only correction pass repairs formatting or missing
-  # handoff fields without weakening validation or inventing research evidence.
-  # The original session exit status remains authoritative: a valid corrected
-  # memo does not hide a failed Kilo invocation.
-  if [ "$validation_status" -ne 0 ] && [ "$CAMPAIGN_DUMMY" != "true" ] && [ "$prep_status" -eq 0 ] && [ -s "$task_path" ]; then
+  # Repeat contract-only RESULT.md corrections while the shared work cutoff remains.
+  # Only RESULT.md can survive the correction; task selection and other files stay protected.
+  correction_attempt=0
+  while [ "$validation_status" -ne 0 ] && [ "$CAMPAIGN_DUMMY" != "true" ] && [ "$prep_status" -eq 0 ] && [ -s "$task_path" ]; do
+    correction_remaining=$((campaign_cutoff_epoch - $(date +%s)))
+    if [ "$correction_remaining" -le 60 ]; then
+      echo "::warning::Work cutoff is near; preserving the latest validation errors and skipping another correction."
+      break
+    fi
+    correction_attempt=$((correction_attempt + 1))
     campaign_corrections=$((campaign_corrections + 1))
     correction_snapshot="$RUNNER_TEMP/ehb-campaign-agent-${agent_id}-pre-correction"
     rm -rf "$correction_snapshot"
@@ -257,14 +286,14 @@ for index in $(seq 1 10); do
       echo "::error::Could not snapshot Agent $agent_id workspace before result correction; refusing the correction."
       exit 1
     fi
-    echo "::warning::Result contract failed for Agent $agent_id; starting one bounded fresh-session correction."
-    docker run --rm \
-      --name "ehb-kilo-agent-$agent_id-correction" \
+    echo "::warning::Result contract failed for Agent $agent_id; starting correction attempt $correction_attempt based on the latest validator output."
+    timeout --signal=TERM --kill-after=10s "${correction_remaining}s" docker run --rm \
+      --name "ehb-kilo-agent-$agent_id-correction-$correction_attempt" \
       --user "$(id -u):$(id -g)" \
       --network ehb-worker-net \
-      --add-host "api.kilo.ai:${KILO_RELAY_IP}" \
+      --add-host "api.kilo.ai:$KILO_RELAY_IP" \
       --mount type=bind,source="$agent_dir",target=/workspace \
-      --mount type=bind,source="${RUNNER_TEMP}/ehb-research-snapshot",target=/workspace/state/research,readonly \
+      --mount type=bind,source="$RUNNER_TEMP/ehb-research-snapshot",target=/workspace/state/research,readonly \
       --mount type=bind,source="$CAMPAIGN_CONTEXT",target=/workspace/state/campaign/context,readonly \
       --mount type=bind,source="$HOME/.config/kilo/kilo.json",target=/tmp/kilo.json,readonly \
       --mount type=bind,source="$validation_log_path",target=/tmp/result-validation-errors,readonly \
@@ -276,6 +305,7 @@ for index in $(seq 1 10); do
       -e SECURITY_RESEARCH_TARGET="$SECURITY_RESEARCH_TARGET" \
       -e CAMPAIGN_AGENT_NUMBER="$agent_id" \
       -e CAMPAIGN_SLOT="$index" \
+      -e CAMPAIGN_CORRECTION_ATTEMPT="$correction_attempt" \
       "$EHB_KILO_IMAGE" \
       bash -lc '
         set -uo pipefail
@@ -284,11 +314,11 @@ for index in $(seq 1 10); do
         cp /tmp/kilo.json "$HOME/.config/kilo/kilo.json"
         chmod 600 "$HOME/.config/kilo/kilo.json"
         {
-          echo "# Bounded result-contract correction"
-          echo "This is one correction pass for the existing session, not a new research task."
-          echo "Read the selected task and the existing result memo, if present."
+          echo "# Contract-only RESULT.md correction attempt $CAMPAIGN_CORRECTION_ATTEMPT"
+          echo "This is a repeatable correction loop for the existing task, not a new research task."
+          echo "Earlier correction attempts did not satisfy the result contract. Use the latest validation errors and choose a materially different repair; do not repeat unchanged edits."
           echo "Edit ONLY state/campaign/RESULT.md. Do not edit code, tests, configuration, controller files, other artifacts, or task selection."
-          echo "Preserve only claims supported by the actual work and existing evidence. Correct missing/invalid fields. Do not invent results; label unsupported claims UNVERIFIED."
+          echo "Preserve only claims supported by actual work and evidence. Correct missing/invalid fields. Do not invent results; label unsupported claims UNVERIFIED."
           echo "Every required field must appear as a separate plain-text line with the exact label from the task contract."
           echo "NEXT must be exactly one bounded action on one line, at most 360 characters."
           echo
@@ -312,10 +342,7 @@ for index in $(seq 1 10); do
         exit "$correction_rc"
       ' > >(tee -a "$log_path") 2>&1
     correction_status=$?
-    echo "RESULT_CORRECTION_EXIT_CODE=$correction_status for Agent $agent_id"
-    # Enforce the recovery session's narrow write boundary deterministically:
-    # preserve the corrected RESULT.md but restore every other path to its
-    # exact pre-correction state, including removal of files created by it.
+    echo "RESULT_CORRECTION_EXIT_CODE=$correction_status for Agent $agent_id (attempt $correction_attempt)"
     if ! rsync -a --delete --exclude="state/campaign/RESULT.md" "$correction_snapshot/" "$agent_dir/"; then
       echo "::error::Could not restore Agent $agent_id workspace after result correction; aborting to prevent cross-session contamination."
       exit 1
@@ -330,8 +357,7 @@ for index in $(seq 1 10); do
       cat "$validation_log_path"
       validation_status=1
     fi
-  fi
-
+  done
   if [ "$validation_status" -eq 0 ]; then
     cp "$result_path" "$CAMPAIGN_CONTEXT/agent_${agent_id}_RESULT.md"
     cp "$result_path" "$EHB_WORKER_DIR/state/campaign/agent_${agent_id}_RESULT.md"
