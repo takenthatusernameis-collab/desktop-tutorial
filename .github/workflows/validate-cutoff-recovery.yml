@@ -1,0 +1,70 @@
+name: Kilo cutoff-bounded recovery validation
+
+on:
+  push:
+    branches: [main, "infra/**"]
+    paths:
+      - ".github/workflows/kilo-wakeup.yml"
+      - ".github/workflows/validate-cutoff-recovery.yml"
+      - ".github/scripts/run_security_campaign.sh"
+  pull_request:
+    paths:
+      - ".github/workflows/kilo-wakeup.yml"
+      - ".github/workflows/validate-cutoff-recovery.yml"
+      - ".github/scripts/run_security_campaign.sh"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Validate workflow syntax and embedded shell
+        uses: rhysd/actionlint@v1.7.7
+        with:
+          args: -color .github/workflows/kilo-wakeup.yml .github/workflows/validate-cutoff-recovery.yml
+
+      - name: Independently parse workflow YAML
+        shell: bash
+        run: |
+          ruby -e 'require "yaml"; ARGV.each { |path| YAML.load_file(path); puts "#{path}: YAML OK" }' \
+            .github/workflows/kilo-wakeup.yml \
+            .github/workflows/validate-cutoff-recovery.yml
+
+      - name: Validate campaign controller Bash
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash -n .github/scripts/run_security_campaign.sh
+
+      - name: Guard cutoff-only retries and result-contract recovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow=.github/workflows/kilo-wakeup.yml
+          controller=.github/scripts/run_security_campaign.sh
+          grep -Fq 'EHB_AGENT_WORK_CUTOFF_EPOCH' "$workflow"
+          grep -Fq 'EHB_WORKFLOW_CUTOFF_EPOCH' "$workflow"
+          grep -Fq 'while true; do' "$controller"
+          grep -Fq 'No attempt-count limit; shared work cutoff remains authoritative.' "$controller"
+          grep -Fq 'while true; do' "$controller"
+          grep -Eq 'while .*validation_status.*-ne 0' "$controller"
+          grep -Fq 'Only RESULT.md can survive the correction' "$controller"
+          grep -Fq 'rsync -a --delete --exclude="state/campaign/RESULT.md"' "$controller"
+          grep -Fq 'if [ "$status" -eq 0 ] && [ "$validation_status" -eq 0 ]; then' "$controller"
+          if grep -Eq 'for attempt in 1 2 3|after 3 branch-synchronization attempts' "$workflow"; then
+            echo "::error::A fixed persistence-attempt ceiling remains."
+            exit 1
+          fi
+          if grep -Fq 'One bounded, contract-only correction pass' "$controller"; then
+            echo "::error::The old one-pass result correction remains."
+            exit 1
+          fi
+          grep -Eq 'for index in .*seq 1 10' "$controller"
+          echo "Cutoff-bounded Kilo retries, repeated isolated corrections, and ten campaign slots: OK"
