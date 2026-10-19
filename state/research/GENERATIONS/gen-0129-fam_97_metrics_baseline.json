@@ -1,0 +1,77 @@
+{
+  "actual_execution": true,
+  "candidate_count": 1,
+  "family_id": "fam_97_metrics_baseline",
+  "generation": 129,
+  "generation_id": "gen-0129-fam_97_metrics_baseline",
+  "immutable_baseline": true,
+  "observations": [
+    {
+      "baseline_observation": {
+        "body_length": 26101,
+        "body_sha256": "2762e966986a393c48b1cc0ae8a6cb0be0aa74477df512d2f94af5cea35000e6",
+        "content_type": "text/plain; version=0.0.4; charset=utf-8",
+        "elapsed_ms": 7.0,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "behavioral_difference": true,
+      "candidate_id": "cand-825cd6872fd58736323d",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "observation": {
+        "body_length": 26080,
+        "body_sha256": "d3d5f625dd8cb03d2d8a1f36ac62a5a6643f6cd836cd992418699a729134a686",
+        "content_type": "text/plain; version=0.0.4; charset=utf-8",
+        "elapsed_ms": 3.59,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "parent_candidate_id": "cand-825cd6872fd58736323d",
+      "repeat_observation": {
+        "body_length": 26081,
+        "body_sha256": "b8cacbe5d32ac2920c50ffc3380912485c228d5b4b603199ce81486f2d3de58f",
+        "content_type": "text/plain; version=0.0.4; charset=utf-8",
+        "elapsed_ms": 3.52,
+        "error": null,
+        "location": "",
+        "status": 200
+      },
+      "repeat_reproduction": false,
+      "request": {
+        "headers": {},
+        "method": "GET",
+        "path": "/metrics",
+        "query": {}
+      }
+    }
+  ],
+  "observed_at": "2026-10-19T20:13:41Z",
+  "operators": [
+    "BASELINE"
+  ],
+  "parent_lineage": [
+    {
+      "candidate_id": "cand-825cd6872fd58736323d",
+      "mutation": {
+        "mutation": "identity",
+        "operator": "BASELINE"
+      },
+      "parent_candidate_id": "cand-825cd6872fd58736323d"
+    }
+  ],
+  "promising_candidates": [],
+  "results": {
+    "behavioral_differences": 1,
+    "error_observations": 0,
+    "information_gain": 1.0,
+    "repeat_reproductions": 0,
+    "unique_response_signatures": 1
+  },
+  "stopping_reason": "operator candidate set exhausted",
+  "surface_id": "surf_97_metrics"
+}
