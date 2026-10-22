@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 1,
+  "candidate_count": 1,
+  "family_id": "fam_7_captcha_leak",
+  "generation": 240,
+  "generation_id": "gen-0240-fam_7_captcha_leak",
+  "information_gain": 1.0,
+  "observed_at": "2026-10-22T22:39:50Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_7_captcha_leak"
+}
