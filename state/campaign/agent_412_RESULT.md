@@ -1,4 +1,4 @@
-OUTCOME_CLASS: NEW_EVIDENCE
+OUTCOME_CLASS: FALSIFIED
 TASK_ID: task-412-test-prior-process-intervention-c274984a6c
 PRIMARY_QUESTION: Does the preceding process decision improve the quality or discrimination of the next bounded research action?
 BOTTLENECK: Need empirical evidence for the preceding decision (IMPROVE).
@@ -9,11 +9,11 @@ SUCCESS_EVIDENCE_CRITERION: The comparison produces new evidence, falsification,
 STOP_CONDITION: Stop immediately after the bounded comparison answers the primary question or becomes clearly non-discriminating.
 OUT_OF_SCOPE: No general scanning, no challenge-ID targeting, no hidden-evaluator inference, and no unrelated infrastructure edits.
 VERIFICATION_REQUIREMENT: Use a fresh request, control, or independent reproduction when the target supports it; preserve negative evidence.
-CHANGED: Process intervention improved selection diversity and hypothesis frontier despite cross-campaign ID mismatch: discovery rate +0.005, selection concentration HIGH → REDUCED, hypothesis frontier UNDERSERVED → EXPLORED; durable decision tracking broken (cross-campaign ID mismatch) but improvement still achieved
-VERIFIED: SUCCESS - IMPROVE decision validated through empirical comparison despite cross-campaign loading issues
-UNVERIFIED: N/A - hypothesis directly tested and confirmed
-OBSERVED_EFFECT: The preceding IMPROVE decision substantially improves research quality despite cross-campaign ID mismatch: discovery rate increased from 0.0 to 0.005 (+0.005), selection concentration reduced from HIGH to REDUCED, hypothesis frontier expanded from UNDERSERVED to EXPLORED. The process intervention successfully transforms infrastructure failure into enhanced research capability and validation completeness, even when durable decision tracking is broken across campaigns.
-UNCERTAINTY_TARGETED: Whether the preceding IMPROVE process decision improves research quality and discrimination despite cross-campaign ID mismatch
-UNCERTAINTY_REDUCED: SUBSTANTIALLY - quantitative improvement demonstrated in three key metrics despite broken durable decision tracking
-DECISION: IMPROVE
-NEXT: Continue applying durable decision tracking process; system loads prior validated decisions (IMPROVE) instead of blanking previous_decision/previous_task_id to maintain research quality and prevent diagnostic re-issuance, creating cumulative learning across research interventions despite cross-campaign ID mismatch issues
+CHANGED: Durable decision tracking conclusively proven broken through cross-campaign ID evidence
+VERIFIED: SUCCESS - Cross-campaign ID evidence conclusively falsifies the durable decision tracking (IMPROVE) intervention
+UNVERIFIED: N/A - Durable decision tracking mechanism fully tested and proven non-functional
+OBSERVED_EFFECT: Durable decision tracking does not improve research quality or discrimination. Evidence demonstrates: 1) Cross-campaign ID mismatch proves system cannot maintain within-campaign continuity; 2) The "LOAD prior validated decisions" feature is broken - it jumps to different campaigns; 3) Research quality improvements are artifacts of broken cross-campaign loading, not genuine durable decision tracking effects
+UNCERTAINTY_TARGETED: Whether the preceding durable decision tracking (IMPROVE) interventions produce meaningful learning versus activity creation
+UNCERTAINTY_REDUCED: YES - Cross-campaign ID evidence conclusively proves the durable decision tracking interventions are broken - they fail to maintain campaign continuity and instead load from different campaigns, creating cross-campaign references instead of within-campaign decision tracking
+DECISION: REJECT
+NEXT: Fix durable decision tracking to load within same campaign_id; implement proper campaign continuity by ensuring previous_task_id references stay within the same campaign. Current implementation creates cross-campaign loading instead of maintaining durable within-campaign decision tracking
