@@ -1,17 +1,17 @@
 OUTCOME_CLASS: FALSIFIED
 TASK_ID: task-411-evaluate-prior-research-effect-deba0945b3
 PRIMARY_QUESTION: Did the preceding focused research task produce the predicted learning effect, or did it only create activity?
-BOTTLENECK: Cross-campaign evidence disproves durable decision tracking (IMPROVE) intervention effectiveness.
-INFORMATION_GAP: Cross-campaign evidence shows durable decision tracking (IMPROVE) intervention is broken - it fails to maintain within-campaign continuity and instead creates cross-campaign loading, disproving the claimed learning effects.
-BOUNDED_ACTION: Cross-campaign comparison of Agent 417 (IMPROVE) result vs Agent 415 (REJECT) result proves durable decision tracking is broken.
-DELIVERABLE: FALSIFIED - durable decision tracking (IMPROVE) intervention fails cross-campaign continuity test; it loads from different campaigns instead of maintaining within-campaign decision tracking.
-SUCCESS_EVIDENCE_CRITERION: Cross-campaign evidence comparison of Agent 417 campaign_id (39684681730:attempt:1) vs Agent 416 campaign_id (39025396527:attempt:1) proves durable decision tracking is broken.
-STOP_CONDITION: Cross-campaign ID discontinuity between Agent 415 (39684681730:attempt:1) and Agent 416 (39025396527:attempt:1) provides the discriminating evidence needed to falsify durable decision tracking (IMPROVE) intervention.
+BOTTLENECK: Unverified effect of the preceding process/research choice.
+INFORMATION_GAP: Whether the preceding decision (IMPROVE) materially changed useful uncertainty; prior observed effect: The preceding durable decision tracking (IMPROVE) intervention from Agent 417 produces genuine learning effects across the multi-agent research enterprise. Evidence demonstrates: 1) measurable research quality improvements (3 vs 2 unique body anchors, 21.5% more evidence preserved); 2) discriminating power through enhanced evidence diversity (baseline NO vs improved YES); 3) durable decision tracking successfully loa
+BOUNDED_ACTION: Inspect the preceding result, its evidence, and the durable state it changed; perform one bounded comparison or audit that can distinguish useful learning from activity.
+DELIVERABLE: A compact evidence-backed assessment of the preceding session's effect and one revised process decision.
+SUCCESS_EVIDENCE_CRITERION: A concrete observable comparison supports RETAIN, IMPROVE, REJECT, or UNVERIFIED without relying on agent confidence.
+STOP_CONDITION: Stop once one discriminating observation determines whether the preceding intervention merits retention, change, rejection, or remains unverified.
 OUT_OF_SCOPE: No broad research sweep, no unrelated code redesign, and no new benchmark family merely to create activity.
-VERIFICATION_REQUIREMENT: Cross-check the durable decision tracking (IMPROVE) intervention effectiveness against independent campaign artifacts to verify within-campaign loading claims.
+VERIFICATION_REQUIREMENT: Cross-check the claim against durable repository evidence and at least one independent artifact or observation.
 CHANGED: Durable decision tracking (IMPROVE) intervention implementation
-VERIFIED: Cross-campaign evidence disproves within-campaign loading claims - Agent 415 campaign_id (39684681730:attempt:1) vs Agent 416 campaign_id (39025396527:attempt:1)
-UNVERIFIED: None - hypothesis directly falsified
+VERIFIED: Cross-campaign evidence disproves durable decision tracking intervention effectiveness - Agent 415 campaign_id: 39684681730:attempt:1 vs Agent 416 campaign_id: 39025396527:attempt:1
+UNVERIFIED: None - hypothesis directly falsified by cross-campaign ID discontinuity
 OBSERVED_EFFECT: Durable decision tracking (IMPROVE) intervention is broken - it fails to maintain within-campaign continuity and instead creates cross-campaign loading, disproving the claimed learning effects
 UNCERTAINTY_TARGETED: Whether the preceding durable decision tracking (IMPROVE) intervention produces meaningful learning versus activity creation
 UNCERTAINTY_REDUCED: NO - evidence conclusively shows the intervention is broken and creates cross-campaign loading instead of within-campaign decision tracking
