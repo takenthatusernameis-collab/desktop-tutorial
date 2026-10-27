@@ -34,7 +34,7 @@ def valid_result(benchmark_id: str = "run-123") -> dict:
 class EvaluationFreshnessTests(unittest.TestCase):
     def test_skipped_evaluation_is_not_evaluated_even_if_old_file_exists(self):
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "benchmark-run-123.json"
+            path = Path(tmp) / "benchmark_run-123.json"
             path.write_text(json.dumps(valid_result()), encoding="utf-8")
             state, result, error = MODULE.load_evaluation_result(path, "skipped")
         self.assertEqual(state, "NOT_EVALUATED")
@@ -43,7 +43,7 @@ class EvaluationFreshnessTests(unittest.TestCase):
 
     def test_success_with_missing_file_is_invalid_not_zero(self):
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "benchmark-run-123.json"
+            path = Path(tmp) / "benchmark_run-123.json"
             state, result, error = MODULE.load_evaluation_result(path, "success")
         self.assertEqual(state, "INVALID_RESULT")
         self.assertEqual(result, {})
@@ -51,7 +51,7 @@ class EvaluationFreshnessTests(unittest.TestCase):
 
     def test_mismatched_result_id_is_stale(self):
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "benchmark-run-123.json"
+            path = Path(tmp) / "benchmark_run-123.json"
             path.write_text(json.dumps(valid_result("old-run")), encoding="utf-8")
             state, _, error = MODULE.load_evaluation_result(path, "success")
         self.assertEqual(state, "STALE")
@@ -59,14 +59,14 @@ class EvaluationFreshnessTests(unittest.TestCase):
 
     def test_malformed_json_is_invalid(self):
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "benchmark-run-123.json"
+            path = Path(tmp) / "benchmark_run-123.json"
             path.write_text("{not json", encoding="utf-8")
             state, _, _ = MODULE.load_evaluation_result(path, "success")
         self.assertEqual(state, "INVALID_RESULT")
 
     def test_missing_metric_is_invalid(self):
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "benchmark-run-123.json"
+            path = Path(tmp) / "benchmark_run-123.json"
             result = valid_result()
             result.pop("overall_score")
             path.write_text(json.dumps(result), encoding="utf-8")
@@ -75,7 +75,7 @@ class EvaluationFreshnessTests(unittest.TestCase):
 
     def test_non_finite_metric_is_invalid(self):
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "benchmark-run-123.json"
+            path = Path(tmp) / "benchmark_run-123.json"
             result = valid_result()
             result["overall_score"] = math.inf
             path.write_text(json.dumps(result), encoding="utf-8")
@@ -84,7 +84,7 @@ class EvaluationFreshnessTests(unittest.TestCase):
 
     def test_valid_fresh_result_is_accepted(self):
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "benchmark-run-123.json"
+            path = Path(tmp) / "benchmark_run-123.json"
             path.write_text(json.dumps(valid_result()), encoding="utf-8")
             state, result, error = MODULE.load_evaluation_result(path, "success")
         self.assertEqual(state, "FRESH")
