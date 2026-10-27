@@ -211,7 +211,18 @@ jobs:
           export BENCHMARK_ID=dummy-smoke
           export SECURITY_RESEARCH_TARGET=authorized-smoke-fixture
           export GITHUB_WORKSPACE="$GITHUB_WORKSPACE"
+          set +e
           bash .github/scripts/run_security_campaign.sh
+          CAMPAIGN_EXIT=$?
+          set -e
+          # Slot 3 deliberately simulates an infrastructure failure. The smoke
+          # expects a PARTIAL campaign and must continue to assert persisted state
+          # rather than aborting on that intentional non-zero runner outcome.
+          if [ "$CAMPAIGN_EXIT" -ne 1 ]; then
+            echo "Expected synthetic PARTIAL campaign exit code 1; got $CAMPAIGN_EXIT."
+            exit 1
+          fi
+          echo "Observed expected simulated PARTIAL exit code; validating persisted controller state."
 
           test -s "$RUNNER_TEMP/ehb-campaign-context/CAMPAIGN_CONTEXT.md"
           grep -Fq "## Execution environment awareness" "$RUNNER_TEMP/ehb-campaign-context/CAMPAIGN_CONTEXT.md"
