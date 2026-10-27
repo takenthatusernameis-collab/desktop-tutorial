@@ -1,0 +1,25 @@
+name: Benchmark freshness repair tests
+
+on:
+  push:
+    branches:
+      - fix/benchmark-freshness-stagnation-20261027
+
+permissions:
+  contents: read
+
+jobs:
+  focused-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Compile changed controller scripts
+        run: python -m py_compile .github/scripts/build_progress_snapshot.py .github/scripts/campaign_controller.py
+      - name: Benchmark freshness tests
+        run: python -m unittest test_build_progress_snapshot_freshness -v
+      - name: Campaign stagnation task selection tests
+        run: python -m unittest test_stagnation_response -v
