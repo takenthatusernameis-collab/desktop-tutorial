@@ -40,9 +40,85 @@ def saturate(delta: float, scale: float = 1.0) -> float:
     return clamp(1.0 - math.exp(-delta / max(scale, 1e-9)))
 
 
-def benchmark_result(path: Path) -> dict[str, Any]:
-    value = load_json(path, {})
-    return value if isinstance(value, dict) else {}
+BENCHMARK_METRIC_FIELDS = (
+    "overall_score",
+    "discovery_rate",
+    "reproduction_rate",
+    "precision_component",
+    "evidence_quality",
+    "finding_count_submitted",
+    "reproduced_claim_count",
+    "unmatched_claim_count",
+)
+
+
+def load_evaluation_result(
+    path: Path | None, evaluate_outcome: str
+) -> tuple[str, dict[str, Any], str | None]:
+    """Load only a fresh, integrity-checked result from a successful evaluator step."""
+    if evaluate_outcome != "success":
+        return "NOT_EVALUATED", {}, f"evaluator outcome is {evaluate_outcome or 'unset'}"
+    if path is None or not path.is_file():
+        return "INVALID_RESULT", {}, "evaluator succeeded but its result file is missing"
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return "INVALID_RESULT", {}, f"result cannot be read as JSON ({type(exc).__name__})"
+    if not isinstance(value, dict):
+        return "INVALID_RESULT", {}, "result root is not an object"
+
+    expected_id = path.stem.removeprefix("benchmark_")
+    result_id = value.get("benchmark_id")
+    if not isinstance(result_id, str) or not result_id:
+        return "INVALID_RESULT", {}, "result benchmark_id is missing"
+    if result_id != expected_id:
+        return "STALE", {}, "result benchmark_id does not match the requested result path"
+    if value.get("commitment_verified") is not True:
+        return "INVALID_RESULT", {}, "result commitment was not verified"
+    if value.get("ground_truth_exposed") is not False:
+        return "INVALID_RESULT", {}, "ground-truth exposure state is missing or unsafe"
+
+    for field in BENCHMARK_METRIC_FIELDS:
+        metric = value.get(field)
+        if isinstance(metric, bool) or not isinstance(metric, (int, float)):
+            return "INVALID_RESULT", {}, f"required numeric metric {field} is missing or invalid"
+        if not math.isfinite(float(metric)):
+            return "INVALID_RESULT", {}, f"required numeric metric {field} is non-finite"
+    for field in ("finding_count_submitted", "reproduced_claim_count", "unmatched_claim_count"):
+        metric = value[field]
+        if int(metric) != metric or metric < 0:
+            return "INVALID_RESULT", {}, f"count metric {field} must be a non-negative integer"
+    return "FRESH", value, None
+
+
+def consecutive_non_improvement_count(
+    freshness: str,
+    benchmark: dict[str, Any],
+    previous_valid: dict[str, Any] | None,
+) -> int:
+    """Count only valid completed evaluations; skipped/invalid runs do not advance it."""
+    previous_count = 0
+    if previous_valid:
+        try:
+            previous_count = max(0, int(previous_valid.get("consecutive_non_improving_evaluations", 0)))
+        except (TypeError, ValueError):
+            previous_count = 0
+    if freshness != "FRESH":
+        return previous_count
+    if not previous_valid:
+        return 0
+    previous_benchmark = previous_valid.get("benchmark") or {}
+    previous_score = previous_benchmark.get("overall_score")
+    current_score = benchmark.get("overall_score")
+    if (
+        isinstance(previous_score, bool)
+        or not isinstance(previous_score, (int, float))
+        or not math.isfinite(float(previous_score))
+    ):
+        return 0
+    if float(current_score) - float(previous_score) > 0.01:
+        return 0
+    return previous_count + 1
 
 
 def portfolio_state() -> dict[str, Any]:
@@ -214,21 +290,44 @@ def main() -> int:
     activation_id = os.environ.get("GITHUB_RUN_ID", "unknown")
     observed_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
-    benchmark = benchmark_result(Path(args.result)) if args.result else {}
-    benchmark_public = {
-        "overall_score": float(benchmark.get("overall_score", 0.0) or 0.0),
-        "discovery_rate": float(benchmark.get("discovery_rate", 0.0) or 0.0),
-        "reproduction_rate": float(benchmark.get("reproduction_rate", 0.0) or 0.0),
-        "precision_component": float(benchmark.get("precision_component", 0.0) or 0.0),
-        "evidence_quality": float(benchmark.get("evidence_quality", 0.0) or 0.0),
-        "finding_count_submitted": int(benchmark.get("finding_count_submitted", 0) or 0),
-        "reproduced_claim_count": int(benchmark.get("reproduced_claim_count", 0) or 0),
-        "unmatched_claim_count": int(benchmark.get("unmatched_claim_count", 0) or 0),
-    }
+    result_path = Path(args.result) if args.result else None
+    benchmark_freshness, benchmark, benchmark_validation_error = load_evaluation_result(
+        result_path, args.evaluate
+    )
+    metric_fields = (
+        "overall_score",
+        "discovery_rate",
+        "reproduction_rate",
+        "precision_component",
+        "evidence_quality",
+        "finding_count_submitted",
+        "reproduced_claim_count",
+        "unmatched_claim_count",
+    )
+    if benchmark_freshness == "FRESH":
+        benchmark_public = {
+            field: (int(benchmark[field]) if field in {
+                "finding_count_submitted", "reproduced_claim_count", "unmatched_claim_count"
+            } else float(benchmark[field]))
+            for field in metric_fields
+        }
+    else:
+        # Missing, skipped, stale, and invalid results are unknown—not a zero score.
+        benchmark_public = {field: None for field in metric_fields}
 
     current = portfolio_state()
     previous, rows = previous_record(Path(args.history), activation_id)
-    previous_benchmark = (previous or {}).get("benchmark")
+    historical_rows = [row for row in rows if str(row.get("activation_id")) != activation_id]
+    previous_valid = next(
+        (
+            row for row in reversed(historical_rows)
+            if row.get("benchmark_freshness") == "FRESH"
+            and isinstance(row.get("benchmark"), dict)
+            and isinstance(row["benchmark"].get("overall_score"), (int, float))
+        ),
+        None,
+    )
+    previous_benchmark = (previous_valid or {}).get("benchmark")
     delta = metric_progress_delta(current, previous)
 
     findings_ok = file_integrity("reports/benchmark_findings.json")
@@ -289,18 +388,18 @@ def main() -> int:
     process_score = round(sum(process_metrics.values()) / len(process_metrics), 4)
     progress_state = classify_progress(
         delta,
-        benchmark_public,
-        previous_benchmark,
+        benchmark_public if benchmark_freshness == "FRESH" else {},
+        previous_benchmark if benchmark_freshness == "FRESH" else None,
         execution_healthy,
         delivery_ok,
     )
 
-    if previous_benchmark is None:
+    if benchmark_freshness != "FRESH":
+        benchmark_signal = benchmark_freshness
+    elif previous_benchmark is None:
         benchmark_signal = "BASELINE"
     else:
-        benchmark_delta = benchmark_public["overall_score"] - previous_benchmark.get(
-            "overall_score", 0.0
-        )
+        benchmark_delta = benchmark_public["overall_score"] - previous_benchmark["overall_score"]
         if benchmark_delta > 0.01:
             benchmark_signal = "IMPROVING"
         elif benchmark_delta < -0.01:
@@ -308,12 +407,19 @@ def main() -> int:
         else:
             benchmark_signal = "UNCHANGED"
 
+    non_improvement_streak = consecutive_non_improvement_count(
+        benchmark_freshness, benchmark_public, previous_valid
+    )
+
     record = {
         "schema_version": 3,
         "activation_id": activation_id,
         "observed_at_utc": observed_at,
         "progress_state": progress_state,
         "benchmark_signal": benchmark_signal,
+        "benchmark_freshness": benchmark_freshness,
+        "benchmark_validation_error": benchmark_validation_error,
+        "consecutive_non_improving_evaluations": non_improvement_streak,
         "execution": {
             "preflight": args.preflight,
             "smoke": args.smoke,
@@ -337,7 +443,11 @@ def main() -> int:
         "interpretation": {
             "benchmark_score_is_outcome_only": True,
             "progress_is_tracked_by_process_and_state_changes": True,
-            "stagnation": progress_state in {"STABLE", "STALLED"} and information_gain == 0.0,
+            "stagnation": (
+                benchmark_freshness == "FRESH"
+                and previous_benchmark is not None
+                and benchmark_signal == "UNCHANGED"
+            ),
         },
     }
 
