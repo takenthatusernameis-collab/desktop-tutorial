@@ -225,7 +225,7 @@ def stagnation_response_task(
     """Prioritize a distinct research/process pivot at a new campaign boundary."""
     if agent_number != campaign_start_agent:
         return None
-    progress = load_json(root / "state" / "research" / "PROGRESS.json", {})
+    progress = load_json_file(root / "state" / "research" / "PROGRESS.json", {})
     if not isinstance(progress, dict):
         return None
     raw_streak = progress.get("consecutive_non_improving_evaluations", 0)
