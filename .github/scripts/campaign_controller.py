@@ -216,6 +216,73 @@ def task_id(agent_number: int, slug: str) -> str:
     return f"task-{agent_number:02d}-{slug}-{digest}"
 
 
+def stagnation_response_task(
+    root: Path,
+    agent_number: int,
+    campaign_start_agent: int,
+    role: str,
+) -> dict[str, Any] | None:
+    """Prioritize a distinct research/process pivot at a new campaign boundary."""
+    if agent_number != campaign_start_agent:
+        return None
+    progress = load_json(root / "state" / "research" / "PROGRESS.json", {})
+    if not isinstance(progress, dict):
+        return None
+    raw_streak = progress.get("consecutive_non_improving_evaluations", 0)
+    if isinstance(raw_streak, bool) or not isinstance(raw_streak, int) or raw_streak < 1:
+        return None
+
+    if raw_streak >= 2:
+        slug = "stagnation-policy-pivot"
+        objective = "Pivot the authorized research policy after repeated valid benchmark non-improvement."
+        question = "Which materially different authorized research method or higher-order process intervention should replace the current approach?"
+        bottleneck = "At least two completed valid evaluations have failed to improve the benchmark."
+        action = (
+            "Inspect the persisted no-improvement streak and existing authorized research evidence; select one materially different research method "
+            "or a higher-order process intervention, then define one discriminating comparison without probing hidden benchmark details."
+        )
+        deliverable = "A bounded pivot decision with evidence, a comparison criterion, and an explicit reason for not repeating the current approach."
+        criterion = "The selected intervention is materially distinct from the prior approach and can be evaluated using authorized, reproducible evidence."
+    else:
+        slug = "stagnation-distinct-method"
+        objective = "Respond to the first completed valid benchmark evaluation without measurable improvement."
+        question = "What materially different authorized research method should be tried next, or what evidence shows the benchmark metric is not decision-ready?"
+        bottleneck = "The latest completed valid evaluation was flat despite possible process-level activity."
+        action = (
+            "Inspect the latest fresh benchmark summary and current authorized research frontier; choose one materially different method or document "
+            "a specific metric-readiness limitation before the next evaluation."
+        )
+        deliverable = "A compact, evidence-backed choice of distinct research method or a documented metric-readiness limitation."
+        criterion = "The next action is materially different from the preceding method, or the metric limitation is supported by a specific artifact."
+
+    return {
+        "task_id": task_id(agent_number, slug),
+        "agent_number": agent_number,
+        "role": role,
+        "objective": objective,
+        "primary_question": question,
+        "bottleneck": bottleneck,
+        "information_gap": (
+            f"Persisted consecutive_non_improving_evaluations={raw_streak}; "
+            f"benchmark_freshness={progress.get('benchmark_freshness', 'legacy_or_unknown')}. "
+            "Skipped, stale, or invalid results do not increment the streak."
+        ),
+        "bounded_action": action,
+        "deliverable": deliverable,
+        "success_evidence_criterion": criterion,
+        "stop_condition": "Stop after one distinct-method decision or one evidence-backed metric-readiness finding is sufficient to determine the next bounded action.",
+        "out_of_scope": (
+            "No hidden-benchmark inference, challenge-ID targeting, broader target access, unauthorized probing, live activity, "
+            "or changes to protected evaluator/authorization boundaries."
+        ),
+        "verification_requirement": "Cite the persisted progress record and independently inspect the prior task/result artifacts before selecting the pivot.",
+        "stagnation_gate": {
+            "consecutive_non_improving_evaluations": raw_streak,
+            "required_response": "POLICY_PIVOT" if raw_streak >= 2 else "DISTINCT_METHOD_OR_METRIC_READINESS_REVIEW",
+        },
+    }
+
+
 def build_task(
     agent_number: int,
     root: Path,
@@ -331,6 +398,14 @@ def build_task(
                 "verification_requirement": "Record the exact observation and preserve the control/negative evidence needed for independent review.",
             })
 
+    stagnation_task = stagnation_response_task(
+        root, agent_number, campaign_start_agent, role
+    )
+    if stagnation_task is not None:
+        # Controller-owned response takes precedence at the start of a new
+        # campaign; do not spend the first slot repeating generic process review.
+        candidates.insert(0, stagnation_task)
+
     selected = candidates[0]
     # Enforce the controller-owned identity regardless of which candidate template
     # produced the selected task. This is a firewall invariant, not worker input.
@@ -342,6 +417,7 @@ def build_task(
         "durable_evidence_excerpt": excerpt,
         "previous_task_id": previous.get("TASK_ID", "") if previous else "",
         "previous_decision": previous.get("DECISION", "") if previous else "",
+        "stagnation_gate": selected.get("stagnation_gate"),
     }
     return selected, candidates, excerpt
 
