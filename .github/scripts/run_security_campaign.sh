@@ -197,6 +197,7 @@ for index in $(seq 1 10); do
 
         # Numbered agents have no individual execution deadline.
         # The enclosing GitHub Actions workflow cutoff is the only time limit.
+        max_gateway_retries=3
         retry_backoff=15
         retry_count=0
         attempt=0
@@ -215,8 +216,12 @@ for index in $(seq 1 10); do
           if ! grep -Eiq "Upstream idle timeout exceeded|upstream.{0,40}idle.{0,40}timeout|invalid request error trace_id:|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|EHOSTUNREACH|socket hang up|fetch failed|temporary failure in name resolution|gateway timeout|bad gateway|service unavailable|too many requests|rate[ _-]?limit|resource[_ -]?exhausted|temporarily unavailable|HTTP.{0,12}(429|500|502|503|504)|status.{0,12}(429|500|502|503|504)" "$attempt_log"; then
             break
           fi
+          if [ "$retry_count" -ge "$max_gateway_retries" ]; then
+            echo "::error::Transient Kilo upstream/network failure persisted for Agent $CAMPAIGN_AGENT_NUMBER after $retry_count retries; ending this agent session so the controller can proceed."
+            break
+          fi
           retry_count=$((retry_count + 1))
-          echo "::warning::Transient Kilo upstream/network failure for Agent $CAMPAIGN_AGENT_NUMBER; retry #${retry_count} after ${retry_backoff}s. No attempt-count or per-agent time limit; workflow cutoff is authoritative."
+          echo "::warning::Transient Kilo upstream/network failure for Agent $CAMPAIGN_AGENT_NUMBER; retry #${retry_count}/${max_gateway_retries} after ${retry_backoff}s. No per-agent execution deadline; workflow cutoff remains authoritative."
           sleep "$retry_backoff"
           if [ "$retry_backoff" -lt 300 ]; then
             retry_backoff=$((retry_backoff * 2))
