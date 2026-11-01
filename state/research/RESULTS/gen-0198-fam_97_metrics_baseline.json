@@ -1,0 +1,12 @@
+{
+  "behavioral_differences": 1,
+  "candidate_count": 1,
+  "family_id": "fam_97_metrics_baseline",
+  "generation": 198,
+  "generation_id": "gen-0198-fam_97_metrics_baseline",
+  "information_gain": 1.0,
+  "observed_at": "2026-11-01T09:50:41Z",
+  "promising_candidates": [],
+  "repeat_reproductions": 0,
+  "surface_id": "surf_97_metrics"
+}
