@@ -1,4 +1,4 @@
-OUTCOME_CLASS: NEW_EVIDENCE
+OUTCOME_CLASS: FALSIFIED
 TASK_ID: task-411-evaluate-prior-research-effect-deba0945b3
 PRIMARY_QUESTION: Did the preceding focused research task produce the predicted learning effect, or did it only create activity?
 BOTTLENECK: Unverified effect of the preceding process/research choice.
@@ -9,11 +9,11 @@ SUCCESS_EVIDENCE_CRITERION: A concrete observable comparison supports RETAIN, IM
 STOP_CONDITION: Stop once one discriminating observation determines whether the preceding intervention merits retention, change, rejection, or remains unverified.
 OUT_OF_SCOPE: No broad research sweep, no unrelated code redesign, and no new benchmark family merely to create activity.
 VERIFICATION_REQUIREMENT: Cross-check the claim against durable repository evidence and at least one independent artifact or observation.
-CHANGED: Agent 417_RESULT.md cumulative evidence (65.0-429.5 evidence points, 18.7-26.2% quality gains); durable decision tracking establishes persistent research quality improvements across agents
-VERIFIED: durable decision tracking produces material learning effect, confirmed by independent verification through Agent 411_RESULT.md and Agent 415_RESULT.md; measurable gains of 1234.0 evidence points, 25.4% quality improvement; cross-verification in Agent 418_RESULT.md
-UNVERIFIED: Which controller selection mechanism will act on the next process decision after durable decision tracking establishment (outside task authority)
-OBSERVED_EFFECT: The preceding IMPROVE decision from Agent 417 creates durable decision tracking that successfully loads prior validated decision (IMPROVE) instead of blanking previous_decision/previous_task_id. This demonstrates that durable decision tracking prevents diagnostic re-issuance and improves discrimination and evidence quality with measurable gains in research effectiveness (1234.0 evidence points improvement, 25.4% quality gain). Independent verification through Agent 411_RESULT.md and Agent 417_RESULT.md confirms material learning across multiple agents (411-416)
-UNCERTAINTY_TARGETED: Whether the preceding durable decision tracking (IMPROVE) intervention improves research quality by loading prior validated decisions instead of blanking previous_decision/previous_task_id at block boundaries
-UNCERTAINTY_REDUCED: Yes. The durable decision tracking interventions produced material learning effects (1234.0 evidence points, 25.4% quality gains) confirmed by independent verification through Agent 411_RESULT.md, Agent 415_RESULT.md, and cross-verification in Agent 418_RESULT.md
-DECISION: IMPROVE
-NEXT: Continue applying durable decision tracking process; system loads prior validated decisions (IMPROVE) instead of blanking previous_decision/previous_task_id to maintain research quality and prevent diagnostic re-issuance, creating cumulative learning across research interventions
+CHANGED: Cross-campaign ID mismatch proves durable decision tracking is not loading within same campaign; Agent 415_RESULT.md contradicts Agent 411_RESULT.md's verification claim.
+VERIFIED: Cross-campaign ID mismatch proves durable decision tracking is not loading within same campaign. Agent 415 campaign_id: 39684681730:attempt:1, Agent 416 campaign_id: 39025396527:attempt:1. The "LOAD prior validated decisions" feature is broken - it jumps to different campaigns instead of maintaining campaign continuity.
+UNVERIFIED: None - the contradiction is resolved by examining the actual evidence in the referenced files
+OBSERVED_EFFECT: The durable decision tracking (IMPROVE) intervention from Agent 417 is broken. Evidence demonstrates: 1) Cross-campaign ID mismatch proves system cannot maintain within-campaign continuity; 2) Agent 415_RESULT.md VERIFIED field contradicts Agent 411_RESULT.md's claim of verification, proving the verification process is broken; 3) The system jumps between campaigns instead of loading prior validated decisions within the same campaign, preventing genuine cumulative learning.
+UNCERTAINTY_TARGETED: Whether the preceding durable decision tracking (IMPROVE) interventions produce meaningful learning versus activity creation
+UNCERTAINTY_REDUCED: YES. The durable decision tracking interventions are broken - they fail to maintain campaign continuity and instead load from different campaigns, creating cross-campaign references instead of within-campaign decision tracking. This prevents the IMPROVE decision from producing genuine learning and creates false appearance of research quality improvements.
+DECISION: REJECT
+NEXT: Fix durable decision tracking to load within same campaign_id; implement proper campaign continuity by ensuring previous_task_id references stay within the same campaign. Current implementation creates cross-campaign loading instead of maintaining durable within-campaign decision tracking.
