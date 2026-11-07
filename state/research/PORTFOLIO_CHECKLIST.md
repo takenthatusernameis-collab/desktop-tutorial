@@ -5240,3 +5240,30 @@ Controller-generated and append-oriented. Prior generations are never replaced.
 - surf_5_security_question / fam_5_security_question_enum / G390: 12 candidates; 10 behavioral differences; 10 repeat reproductions; information gain 0.875; stopping=candidate budget reached.
 - surf_7_captcha_leak / fam_7_captcha_leak / G390: 1 candidates; 1 behavioral differences; 0 repeat reproductions; information gain 1.0; stopping=operator candidate set exhausted.
 
+## Portfolio cycle — 2026-11-07T13:59:14Z
+
+- surf_23_memories / fam_23_memories_overexposure / G211: 12 candidates; 8 behavioral differences; 8 repeat reproductions; information gain 0.75; stopping=candidate budget reached.
+- surf_24_securityanswers_write / fam_24_writegap / G211: 11 candidates; 2 behavioral differences; 2 repeat reproductions; information gain 0.2273; stopping=operator candidate set exhausted.
+- surf_27_error_handling / fam_27_raw_error_discovery / G214: 12 candidates; 7 behavioral differences; 7 repeat reproductions; information gain 0.5833; stopping=candidate budget reached.
+- surf_29_extra_language / fam_29_extra_language / G196: 1 candidates; 0 behavioral differences; 0 repeat reproductions; information gain 0.5; stopping=operator candidate set exhausted.
+- surf_41_continue_code / fam_41_continue_code_apply_enum / G181: 12 candidates; 5 behavioral differences; 5 repeat reproductions; information gain 0.4583; stopping=candidate budget reached.
+- surf_5_security_question / fam_5_security_question_enum / G391: 12 candidates; 10 behavioral differences; 10 repeat reproductions; information gain 0.875; stopping=candidate budget reached.
+- surf_6_put_tamper / fam_6_put_tamper / G211: 12 candidates; 7 behavioral differences; 7 repeat reproductions; information gain 0.5833; stopping=candidate budget reached.
+- surf_76_security_policy / fam_76_security_policy / G203: 1 candidates; 0 behavioral differences; 0 repeat reproductions; information gain 0.5; stopping=operator candidate set exhausted.
+- surf_7_captcha_leak / fam_7_captcha_leak / G391: 1 candidates; 1 behavioral differences; 0 repeat reproductions; information gain 1.0; stopping=operator candidate set exhausted.
+- surf_97_metrics / fam_97_metrics_baseline / G222: 1 candidates; 1 behavioral differences; 0 repeat reproductions; information gain 1.0; stopping=operator candidate set exhausted.
+- surf_9_web3 / fam_9_web3_nft / G196: 1 candidates; 0 behavioral differences; 0 repeat reproductions; information gain 0.5; stopping=operator candidate set exhausted.
+- surf_blocked_auth / fam_blocked_auth_sweep / G196: 2 candidates; 2 behavioral differences; 2 repeat reproductions; information gain 1.0; stopping=operator candidate set exhausted.
+- surf_chatbot / fam_chatbot_prompt_injection / G181: 11 candidates; 9 behavioral differences; 9 repeat reproductions; information gain 0.9091; stopping=operator candidate set exhausted.
+- surf_non_viable_500 / fam_non_viable_500_monitor / G196: 12 candidates; 4 behavioral differences; 4 repeat reproductions; information gain 0.5; stopping=candidate budget reached.
+- surf_origin_header_variants / fam_origin_header_variants / G190: 4 candidates; 0 behavioral differences; 0 repeat reproductions; information gain 0.125; stopping=operator candidate set exhausted.
+- surf_redirect / fam_redirect_ssrf_monitor / G196: 6 candidates; 2 behavioral differences; 2 repeat reproductions; information gain 0.4167; stopping=operator candidate set exhausted.
+- surf_chatbot / fam_chatbot_monitor / G196: 1 candidates; 0 behavioral differences; 0 repeat reproductions; information gain 0.5; stopping=operator candidate set exhausted.
+- surf_41_continue_code / fam_41_continue_code / G196: 1 candidates; 0 behavioral differences; 0 repeat reproductions; information gain 0.5; stopping=operator candidate set exhausted.
+- surf_9_web3 / fam_9_web3_wallet_preflight / G181: 12 candidates; 1 behavioral differences; 1 repeat reproductions; information gain 0.1667; stopping=candidate budget reached.
+- surf_76_security_policy / fam_76_security_policy_fragment / G181: 12 candidates; 2 behavioral differences; 2 repeat reproductions; information gain 0.2083; stopping=candidate budget reached.
+- surf_origin_header_variants / fam_origin_cors_preflight / G181: 12 candidates; 2 behavioral differences; 2 repeat reproductions; information gain 0.2083; stopping=candidate budget reached.
+- surf_29_extra_language / fam_29_extra_language_i18n_asset / G181: 12 candidates; 0 behavioral differences; 0 repeat reproductions; information gain 0.0417; stopping=candidate budget reached.
+- surf_5_security_question / fam_5_security_question_enum / G392: 12 candidates; 10 behavioral differences; 10 repeat reproductions; information gain 0.875; stopping=candidate budget reached.
+- surf_7_captcha_leak / fam_7_captcha_leak / G392: 1 candidates; 1 behavioral differences; 0 repeat reproductions; information gain 1.0; stopping=operator candidate set exhausted.
+
